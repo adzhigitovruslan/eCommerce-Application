@@ -1,0 +1,1 @@
+Here, you place view files that contain templates and display data to the user. Views are responsible for data visualization and usually do not contain logic.
