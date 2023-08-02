@@ -1,1 +1,0 @@
-This is where static files, such as CSS, JavaScript, images, and other resources that will be directly served by the web server, are placed.
