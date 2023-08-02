@@ -1,1 +1,0 @@
-In some frameworks, especially web frameworks, controllers and routes can be separated into distinct folders for a clearer separation of route handling logic.

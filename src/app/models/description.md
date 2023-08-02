@@ -1,1 +1,0 @@
-This folder typically contains all data models used in the application. Models represent entities of your application and may contain logic related to the database or other data sources.
