@@ -1,1 +1,0 @@
-In this folder, you'll find controllers that handle user requests and interact with models and views. Controllers process the application's logic and manage data transfer between models and views.
