@@ -5,9 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
+    "test": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "format": "prettier --write \"src/**/*.{js,ts,tsx,vue}\""
+    "format": "prettier --write \"src/**/*.{js,ts,tsx,vue}\"",
+    "prepare": "husky install"
   },
   "dependencies": {
     "core-js": "^3.8.3",
@@ -34,6 +35,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.0.3",
+    "husky": "^8.0.3",
     "jest": "^27.0.5",
     "prettier": "^2.4.1",
     "sass": "^1.32.7",
