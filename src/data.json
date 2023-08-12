@@ -1,397 +1,406 @@
 {
-    "Games":[
-        {
-      "Game Title": "Minecraft",
-      "Price": 22.99,
-      "Discount": 0,
-      "Product Description": "Minecraft is a sandbox video game developed by Mojang Studios.",
-      "Genre": "Sandbox",
-      "Platform": ["PC", "Xbox", "PlayStation", "Nintendo Switch"],
-      "Activation Region": "Global",
-      "System Requirements": {
-        "Operating System": "Windows 10",
-        "Processor": "Intel Core i3",
-        "Memory": "4 GB RAM",
-        "Graphics Card": "Integrated GPU",
-        "Disk Space": "1 GB"
-      },
-      "Image": "minecraft.jpg"
-    },
-    {
-      "Game Title": "Fortnite",
-      "Price": 19.99,
-      "Discount": 0,
-      "Product Description": "Fortnite is a popular battle royale game developed by Epic Games.",
-      "Genre": "Battle Royale",
-      "Platform": ["PC", "Xbox", "PlayStation", "Nintendo Switch"],
-      "Activation Region": "Global",
-      "System Requirements": {
-        "Operating System": "Windows 7",
-        "Processor": "Intel Core i5",
-        "Memory": "8 GB RAM",
-        "Graphics Card": "NVIDIA GTX 660 / AMD Radeon HD 7870",
-        "Disk Space": "20 GB"
-      },
-      "Image": "fortnite.jpg"
-    },
-    {
-        "Game Title": "Among Us",
-        "Price": 6.49,
-        "Discount": 0,
-        "Product Description": "Among Us is an online multiplayer game developed by InnerSloth.",
-        "Genre": "Social Deduction",
-        "Platform": ["PC", "iOS", "Android"],
-        "Activation Region": "Global",
-        "System Requirements": {
-          "Operating System": "Windows 7",
-          "Processor": "1 GHz Pentium 4",
-          "Memory": "1 GB RAM",
-          "Graphics Card": "128MB DirectX 9.0c compatible video card",
-          "Network": "Broadband Internet connection",
-          "Disk Space": "250 MB"
-        },
-        "Image": "among_us.jpg"
-      },
-      {
-        "Game Title": "Roblox",
-        "Price": 10.99,
-        "Discount": 0,
-        "Product Description": "Roblox is an online platform where players can create and play games created by other users.",
-        "Genre": "Game Creation, Social",
-        "Platform": ["PC", "iOS", "Android", "Xbox"],
-        "Activation Region": "Global",
-        "System Requirements": {
-          "Operating System": "Windows 7",
-          "Processor": "1.6 GHz Pentium 4",
-          "Memory": "1 GB RAM",
-          "Graphics Card": "Integrated Graphics",
-          "Network": "Broadband Internet connection",
-          "Disk Space": "20 MB"
-        },
-        "Image": "roblox.jpg"
-      },
-      {
-        "Game Title": "Call of Duty: Warzone",
-        "Price": 2.49,
-        "Discount": 0,
-        "Product Description": "Call of Duty: Warzone is a free-to-play battle royale game set in the Call of Duty universe.",
-        "Genre": "Battle Royale, First-Person Shooter",
-        "Platform": ["PC", "PlayStation", "Xbox"],
-        "Activation Region": "Global",
-        "System Requirements": {
-          "Operating System": "Windows 10",
-          "Processor": "Intel Core i5-2500K",
-          "Memory": "8 GB RAM",
-          "Graphics Card": "NVIDIA GeForce GTX 970 / GTX 1660",
-          "Network": "Broadband Internet connection",
-          "Disk Space": "175 GB"
-        },
-        "Image": "warzone.jpg"
-      },
-      {
-        "Game Title": "Apex Legends",
-        "Price": 19.99,
-        "Discount": 0,
-        "Product Description": "Apex Legends is a free-to-play battle royale game set in the Titanfall universe.",
-        "Genre": "Battle Royale, First-Person Shooter",
-        "Platform": ["PC", "PlayStation", "Xbox"],
-        "Activation Region": "Global",
-        "System Requirements": {
-          "Operating System": "Windows 7",
-          "Processor": "Intel Core i3-6300 3.8GHz",
-          "Memory": "6 GB RAM",
-          "Graphics Card": "NVIDIA GeForce GT 640 / Radeon HD 7730",
-          "Network": "Broadband Internet connection",
-          "Disk Space": "22 GB"
-        },
-        "Image": "apex_legends.jpg"
-      },
-      {
-        "Game Title": "Valorant",
-        "Price": 10.89,
-        "Discount": 0,
-        "Product Description": "Valorant is a free-to-play tactical first-person shooter developed by Riot Games.",
-        "Genre": "Tactical Shooter",
-        "Platform": ["PC"],
-        "Activation Region": "Global",
-        "System Requirements": {
-          "Operating System": "Windows 7",
-          "Processor": "Intel Core 2 Duo E8400",
-          "Memory": "4 GB RAM",
-          "Graphics Card": "Intel HD 3000",
-          "Network": "Broadband Internet connection",
-          "Disk Space": "8 GB"
-        },
-        "Image": "valorant.jpg"
-      },
-        {
-          "Game Title": "League of Legends",
-          "Price": 9.59,
-          "Discount": 0,
-          "Product Description": "League of Legends is a popular multiplayer online battle arena (MOBA) game developed by Riot Games.",
-          "Genre": "MOBA",
-          "Platform": ["PC"],
-          "Activation Region": "Global",
-          "System Requirements": {
-            "Operating System": "Windows 10",
-            "Processor": "3 GHz processor",
-            "Memory": "4 GB RAM",
-            "Graphics Card": "NVIDIA GeForce 8600/9600GT / ATI Radeon HD 2600/3600",
-            "Network": "Broadband Internet connection",
-            "Disk Space": "16 GB"
-          },
-          "Image": "league_of_legends.jpg"
-        },
-        {
-          "Game Title": "Grand Theft Auto V (GTA V)",
-          "Price": 29.99,
-          "Discount": 0,
-          "Product Description": "Grand Theft Auto V is an open-world action-adventure game developed by Rockstar North.",
-          "Genre": "Action-Adventure",
-          "Platform": ["PC", "PlayStation", "Xbox"],
-          "Activation Region": "Global",
-          "System Requirements": {
-            "Operating System": "Windows 10",
-            "Processor": "Intel Core 2 Quad CPU Q6600",
-            "Memory": "4 GB RAM",
-            "Graphics Card": "NVIDIA 9800 GT 1GB / AMD HD 4870 1GB",
-            "Network": "Broadband Internet connection",
-            "Disk Space": "72 GB"
-          },
-          "Image": "gta_v.jpg"
-        },
-        {
-            "Game Title": "Dota 2",
-            "Price": 52.33,
-            "Discount": 0,
-            "Product Description": "Dota 2 is a multiplayer online battle arena (MOBA) game developed by Valve Corporation.",
-            "Genre": "MOBA",
-            "Platform": ["PC"],
-            "Activation Region": "Global",
-            "System Requirements": {
-              "Operating System": "Windows 7",
-              "Processor": "Dual-core from Intel or AMD at 2.8 GHz",
-              "Memory": "4 GB RAM",
-              "Graphics Card": "NVIDIA GeForce 8600/9600GT / ATI Radeon HD 2600/3600",
-              "Network": "Broadband Internet connection",
-              "Disk Space": "15 GB"
-            },
-            "Image": "dota_2.jpg"
-          },
-          {
-            "Game Title": "Counter-Strike: Global Offensive (CS:GO)",
-            "Price": 14.99,
-            "Discount": 0,
-            "Product Description": "Counter-Strike: Global Offensive (CS:GO) is a popular first-person shooter developed by Valve Corporation.",
-            "Genre": "First-Person Shooter",
-            "Platform": ["PC", "PlayStation", "Xbox"],
-            "Activation Region": "Global",
-            "System Requirements": {
-              "Operating System": "Windows 7",
-              "Processor": "Intel Core 2 Duo E6600 / AMD Phenom X3 8750",
-              "Memory": "2 GB RAM",
-              "Graphics Card": "NVIDIA GeForce GT 730 / ATI Radeon R7 240",
-              "Network": "Broadband Internet connection",
-              "Disk Space": "15 GB"
-            },
-            "Image": "csgo.jpg"
-          },
-          {
-            "Game Title": "Animal Crossing: New Horizons",
-            "Price": 59.99,
-            "Discount": 0,
-            "Product Description": "Animal Crossing: New Horizons is a life simulation game developed by Nintendo.",
-            "Genre": "Life Simulation",
-            "Platform": ["Nintendo Switch"],
-            "Activation Region": "Global",
-            "System Requirements": {
-              "Operating System": "Nintendo Switch System Software",
-              "Memory": "2 GB RAM (Internal Storage)",
-              "Graphics": "Integrated Graphics",
-              "Network": "Internet connection for online features",
-              "Disk Space": "6.2 GB"
-            },
-            "Image": "animal_crossing.jpg"
-          },
-          {
-            "Game Title": "The Legend of Zelda: Breath of the Wild",
-            "Price": 59.99,
-            "Discount": 0,
-            "Product Description": "The Legend of Zelda: Breath of the Wild is an action-adventure game developed by Nintendo.",
-            "Genre": "Action-Adventure",
-            "Platform": ["Nintendo Switch"],
-            "Activation Region": "Global",
-            "System Requirements": {
-              "Operating System": "Nintendo Switch System Software",
-              "Memory": "3 GB RAM (Internal Storage)",
-              "Graphics": "Integrated Graphics",
-              "Network": "Internet connection for online features",
-              "Disk Space": "13.4 GB"
-            },
-            "Image": "zelda_breath_of_the_wild.jpg"
-          },
-          {
-            "Game Title": "Overwatch",
-            "Price": 29.99,
-            "Discount": 0,
-            "Product Description": "Overwatch is a team-based first-person shooter developed by Blizzard Entertainment.",
-            "Genre": "First-Person Shooter",
-            "Platform": ["PC", "PlayStation", "Xbox"],
-            "Activation Region": "Global",
-            "System Requirements": {
-              "Operating System": "Windows 7 / Windows 8 / Windows 10 64-bit",
-              "Processor": "Intel Core i3 / AMD Phenom X3 8650",
-              "Memory": "4 GB RAM",
-              "Graphics Card": "NVIDIA GeForce GTX 460 / ATI Radeon HD 4850 / Intel HD Graphics 4400",
-              "Network": "Broadband Internet connection",
-              "Disk Space": "30 GB"
-            },
-            "Image": "overwatch.jpg"
-          },
-          {
-            "Game Title": "PUBG (PlayerUnknown's Battlegrounds)",
-            "Price": 29.99,
-            "Discount": 0,
-            "Product Description": "PUBG is a battle royale game developed by PUBG Corporation.",
-            "Genre": "Battle Royale",
-            "Platform": ["PC", "PlayStation", "Xbox"],
-            "Activation Region": "Global",
-            "System Requirements": {
-              "Operating System": "Windows 7 / Windows 8.1 / Windows 10 64-bit",
-              "Processor": "Intel Core i5-6600K / AMD Ryzen 5 1600",
-              "Memory": "8 GB RAM",
-              "Graphics Card": "NVIDIA GeForce GTX 1060 3GB / AMD Radeon RX 580 4GB",
-              "Network": "Broadband Internet connection",
-              "Disk Space": "30 GB"
-            },
-            "Image": "pubg.jpg"
-          },
-          {
-            "Game Title": "Rocket League",
-            "Price": 19.99,
-            "Discount": 0,
-            "Product Description": "Rocket League is a high-powered hybrid of arcade-style soccer and vehicular mayhem.",
-            "Genre": "Sports, Racing",
-            "Platform": ["PC", "PlayStation", "Xbox", "Nintendo Switch"],
-            "Activation Region": "Global",
-            "System Requirements": {
-              "Operating System": "Windows 7 / Windows 8.1 / Windows 10 64-bit",
-              "Processor": "2.5 GHz Dual-core",
-              "Memory": "4 GB RAM",
-              "Graphics Card": "NVIDIA GeForce GTX 760 / AMD Radeon R7 270X",
-              "Network": "Broadband Internet connection",
-              "Disk Space": "20 GB"
-            },
-            "Image": "rocket_league.jpg"
-          },
-          {
-            "Game Title": "Hearthstone",
-            "Price": 0,
-            "Discount": 0,
-            "Product Description": "Hearthstone is a free-to-play collectible card game developed by Blizzard Entertainment.",
-            "Genre": "Card Game",
-            "Platform": ["PC", "iOS", "Android"],
-            "Activation Region": "Global",
-            "System Requirements": {
-              "Operating System": "Windows 7 / macOS",
-              "Processor": "Intel Pentium D / AMD Athlon 64 X2",
-              "Memory": "3 GB RAM",
-              "Graphics Card": "NVIDIA GeForce 8600 GT / ATI Radeon HD 2600XT / Intel HD Graphics 3000",
-              "Network": "Broadband Internet connection",
-              "Disk Space": "3 GB"
-            },
-            "Image": "hearthstone.jpg"
-          },
-          {
-            "Game Title": "Genshin Impact",
-            "Price": 0,
-            "Discount": 0,
-            "Product Description": "Genshin Impact is an open-world action role-playing game developed by miHoYo.",
-            "Genre": "Action RPG",
-            "Platform": ["PC", "PlayStation", "iOS", "Android"],
-            "Activation Region": "Global",
-            "System Requirements": {
-              "Operating System": "Windows 7 / Windows 8 / Windows 10 64-bit",
-              "Processor": "Intel Core i5 or equivalent",
-              "Memory": "8 GB RAM",
-              "Graphics Card": "NVIDIA GeForce GT 1030 or better",
-              "Network": "Broadband Internet connection",
-              "Disk Space": "30 GB"
-            },
-            "Image": "genshin_impact.jpg"
-          },
-          {
-            "Game Title": "Fall Guys: Ultimate Knockout",
-            "Price": 19.99,
-            "Discount": 0,
-            "Product Description": "Fall Guys: Ultimate Knockout is a multiplayer party game developed by Mediatonic.",
-            "Genre": "Party, Battle Royale",
-            "Platform": ["PC", "PlayStation"],
-            "Activation Region": "Global",
-            "System Requirements": {
-              "Operating System": "Windows 10 64-bit",
-              "Processor": "Intel Core i5",
-              "Memory": "8 GB RAM",
-              "Graphics Card": "NVIDIA GTX 660 / AMD Radeon HD 7950",
-              "Network": "Broadband Internet connection",
-              "Disk Space": "2 GB"
-            },
-            "Image": "fall_guys.jpg"
-          },
-          {
-            "Game Title": "Fortnite: Battle Royale",
-            "Price": 0,
-            "Discount": 0,
-            "Product Description": "Fortnite: Battle Royale is a free-to-play battle royale game developed by Epic Games.",
-            "Genre": "Battle Royale",
-            "Platform": ["PC", "PlayStation", "Xbox", "iOS", "Android"],
-            "Activation Region": "Global",
-            "System Requirements": {
-              "Operating System": "Windows 7 / Windows 8 / Windows 10 64-bit",
-              "Processor": "Intel Core i3-3225 / AMD FX 4350",
-              "Memory": "4 GB RAM",
-              "Graphics Card": "NVIDIA GeForce GTX 660 / AMD Radeon HD 7870",
-              "Network": "Broadband Internet connection",
-              "Disk Space": "20 GB"
-            },
-            "Image": "fortnite.jpg"
-          },
-          {
-            "Game Title": "Destiny 2",
-            "Price": 0,
-            "Discount": 0,
-            "Product Description": "Destiny 2 is a free-to-play online multiplayer first-person shooter game developed by Bungie.",
-            "Genre": "First-Person Shooter",
-            "Platform": ["PC", "PlayStation", "Xbox"],
-            "Activation Region": "Global",
-            "System Requirements": {
-              "Operating System": "Windows 7 / Windows 8 / Windows 10 64-bit",
-              "Processor": "Intel Core i3-3250 / AMD FX-4350",
-              "Memory": "6 GB RAM",
-              "Graphics Card": "NVIDIA GeForce GTX 660 / AMD Radeon HD 7850",
-              "Network": "Broadband Internet connection",
-              "Disk Space": "105 GB"
-            },
-            "Image": "destiny_2.jpg"
-          },
-          {
-            "Game Title": "The Witcher 3: Wild Hunt",
-            "Price": 29.99,
-            "Discount": 50,
-            "Product Description": "The Witcher 3: Wild Hunt is an action role-playing game developed by CD Projekt Red. Immerse yourself in a vast open world, slay monsters, and make choices that shape the story.",
-            "Genre": "Action RPG",
-            "Platform": ["PC", "PlayStation", "Xbox", "Nintendo Switch"],
-            "Activation Region": "Global",
-            "System Requirements": {
-              "Operating System": "Windows 7 / Windows 8 / Windows 10 64-bit",
-              "Processor": "Intel Core i5-2500K / AMD Phenom II X4 940",
-              "Memory": "8 GB RAM",
-              "Graphics Card": "NVIDIA GeForce GTX 770 / AMD Radeon R9 280X",
-              "Network": "Broadband Internet connection",
-              "Disk Space": "35 GB"
-            },
-            "Image": "the_witcher_3.jpg"
+            "Games": [
+              {
+                "key": 101,
+                "name": "Minecraft",
+                "productType": {
+                  "typeId": "product-type",
+                  "key": "games"
+                },
+                "slug": "minecraft",
+                "price": 22.99,
+                "discount": 0,
+                "description": "Minecraft is a sandbox video game developed by Mojang Studios.",
+                "categories": {
+                  "typeId": "category",
+                  "key": "sandbox"
+                },
+                "platform": ["PC", "Xbox", "PlayStation", "Nintendo Switch"],
+                "activation region": "Global",
+                "system requirements": {
+                  "operating system": "Windows 10",
+                  "processor": "Intel Core i3",
+                  "memory": "4 GB RAM",
+                  "graphics card": "Integrated GPU",
+                  "disk space": "1 GB"
+                },
+                "image": "minecraft.jpg"
+              },
+              {
+                "key": 102,
+                "name": "Fortnite",
+                "productType": {
+                  "typeId": "product-type",
+                  "key": "games"
+                },
+                "slug": "fortnite",
+                "price": 19.99,
+                "discount": 0,
+                "description": "Fortnite is a popular battle royale game developed by Epic Games.",
+                "categories": {
+                  "typeId": "category",
+                  "key": "battle royale"
+                },
+                "platform": ["PC", "Xbox", "PlayStation", "Nintendo Switch"],
+                "activation region": "Global",
+                "system requirements": {
+                  "operating system": "Windows 7",
+                  "processor": "Intel Core i5",
+                  "memory": "8 GB RAM",
+                  "graphics card": "NVIDIA GTX 660 / AMD Radeon HD 7870",
+                  "disk space": "20 GB"
+                },
+                "image": "fortnite.jpg"
+              },
+              {
+                "key": 103,
+                "name": "Among Us",
+                "productType": {
+                  "typeId": "product-type",
+                  "key": "games"
+                },
+                "slug": "among-us",
+                "price": 6.49,
+                "discount": 0,
+                "description": "Among Us is an online multiplayer game developed by InnerSloth.",
+                "categories": {
+                  "typeId": "category",
+                  "key": "social deduction"
+                },
+                "platform": ["PC", "iOS", "Android"],
+                "activation region": "Global",
+                "system requirements": {
+                  "operating system": "Windows 7",
+                  "processor": "1 GHz Pentium 4",
+                  "memory": "1 GB RAM",
+                  "graphics card": "128MB DirectX 9.0c compatible video card",
+                  "network": "Broadband Internet connection",
+                  "disk space": "250 MB"
+                },
+                "image": "among_us.jpg"
+              },
+              {
+                "key": 104,
+                "name": "Roblox",
+                "productType": {
+                  "typeId": "product-type",
+                  "key": "games"
+                },
+                "slug": "roblox",
+                "price": 10.99,
+                "discount": 0,
+                "description": "Roblox is an online platform where players can create and play games created by other users.",
+                "categories": {
+                  "typeId": "category",
+                  "key": "game creation, social"
+                },
+                "platform": ["PC", "iOS", "Android", "Xbox"],
+                "activation region": "Global",
+                "system requirements": {
+                  "operating system": "Windows 7",
+                  "processor": "1.6 GHz Pentium 4",
+                  "memory": "1 GB RAM",
+                  "graphics card": "Integrated Graphics",
+                  "network": "Broadband Internet connection",
+                  "disk space": "20 MB"
+                },
+                "image": "roblox.jpg"
+              },
+              {
+                "key": 105,
+                "name": "Call of Duty: Warzone",
+                "productType": {
+                  "typeId": "product-type",
+                  "key": "games"
+                },
+                "slug": "call-of-duty-warzone",
+                "price": 2.49,
+                "discount": 0,
+                "description": "Call of Duty: Warzone is a free-to-play battle royale game set in the Call of Duty universe.",
+                "categories": {
+                  "typeId": "category",
+                  "key": "battle royale, first-person shooter"
+                },
+                "platform": ["PC", "PlayStation", "Xbox"],
+                "activation region": "Global",
+                "system requirements": {
+                  "operating system": "Windows 10",
+                  "processor": "Intel Core i5-2500K",
+                  "memory": "8 GB RAM",
+                  "graphics card": "NVIDIA GeForce GTX 970 / GTX 1660",
+                  "network": "Broadband Internet connection",
+                  "disk space": "175 GB"
+                },
+                "image": "warzone.jpg"
+              },
+              {
+                "key": 106,
+                "name": "Apex Legends",
+                "productType": {
+                  "typeId": "product-type",
+                  "key": "games"
+                },
+                "slug": "apex-legends",
+                "price": 19.99,
+                "discount": 0,
+                "description": "Apex Legends is a free-to-play battle royale game set in the Titanfall universe.",
+                "categories": {
+                  "typeId": "category",
+                  "key": "battle royale, first-person shooter"
+                },
+                "platform": ["PC", "PlayStation", "Xbox"],
+                "activation region": "Global",
+                "system requirements": {
+                  "operating system": "Windows 7",
+                  "processor": "Intel Core i3-6300 3.8GHz",
+                  "memory": "6 GB RAM",
+                  "graphics card": "NVIDIA GeForce GT 640 / Radeon HD 7730",
+                  "network": "Broadband Internet connection",
+                  "disk space": "22 GB"
+                },
+                "image": "apex_legends.jpg"
+              },
+              {
+                "key": 107,
+                "name": "Valorant",
+                "productType": {
+                  "typeId": "product-type",
+                  "key": "games"
+                },
+                "slug": "valorant",
+                "price": 10.89,
+                "discount": 0,
+                "description": "Valorant is a free-to-play tactical first-person shooter developed by Riot Games.",
+                "categories": {
+                  "typeId": "category",
+                  "key": "tactical shooter"
+                },
+                "platform": ["PC"],
+                "activation region": "Global",
+                "system requirements": {
+                  "operating system": "Windows 7",
+                  "processor": "Intel Core 2 Duo E8400",
+                  "memory": "4 GB RAM",
+                  "graphics card": "Intel HD 3000",
+                  "network": "Broadband Internet connection",
+                  "disk space": "8 GB"
+                },
+                "image": "valorant.jpg"
+              },
+              {
+                "key": 108,
+                "name": "League of Legends",
+                "productType": {
+                  "typeId": "product-type",
+                  "key": "games"
+                },
+                "slug": "league-of-legends",
+                "price": 9.59,
+                "discount": 0,
+                "description": "League of Legends is a popular multiplayer online battle arena (MOBA) game developed by Riot Games.",
+                "categories": {
+                  "typeId": "category",
+                  "key": "moba"
+                },
+                "platform": ["PC"],
+                "activation region": "Global",
+                "system requirements": {
+                  "operating system": "Windows 10",
+                  "processor": "3 GHz processor",
+                  "memory": "4 GB RAM",
+                  "graphics card": "NVIDIA GeForce 8600/9600GT / ATI Radeon HD 2600/3600",
+                  "network": "Broadband Internet connection",
+                  "disk space": "16 GB"
+                },
+                "image": "league_of_legends.jpg"
+              },
+              {
+                "key": 109,
+                "name": "Grand Theft Auto V (GTA V)",
+                "productType": {
+                  "typeId": "product-type",
+                  "key": "games"
+                },
+                "slug": "grand-theft-auto-v",
+                "price": 29.99,
+                "discount": 0,
+                "description": "Grand Theft Auto V is an open-world action-adventure game developed by Rockstar North.",
+                "categories": {
+                  "typeId": "category",
+                  "key": "action-adventure"
+                },
+                "platform": ["PC", "PlayStation", "Xbox"],
+                "activation region": "Global",
+                "system requirements": {
+                  "operating system": "Windows 10",
+                  "processor": "Intel Core 2 Quad CPU Q6600",
+                  "memory": "4 GB RAM",
+                  "graphics card": "NVIDIA 9800 GT 1GB / AMD HD 4870 1GB",
+                  "network": "Broadband Internet connection",
+                  "disk space": "72 GB"
+                },
+                "image": "gta_v.jpg"
+              },
+              {
+                "key": 110,
+                "name": "Dota 2",
+                "productType": {
+                  "typeId": "product-type",
+                  "key": "games"
+                },
+                "slug": "dota-2",
+                "price": 52.33,
+                "discount": 0,
+                "description": "Dota 2 is a multiplayer online battle arena (MOBA) game developed by Valve Corporation.",
+                "categories": {
+                  "typeId": "category",
+                  "key": "moba"
+                },
+                "platform": ["PC"],
+                "activation region": "Global",
+                "system requirements": {
+                  "operating system": "Windows 7",
+                  "processor": "Dual-core from Intel or AMD at 2.8 GHz",
+                  "memory": "4 GB RAM",
+                  "graphics card": "NVIDIA GeForce 8600/9600GT / ATI Radeon HD 2600/3600",
+                  "network": "Broadband Internet connection",
+                  "disk space": "15 GB"
+                },
+                "image": "dota_2.jpg"
+              },
+              {
+                "key": 111,
+                "name": "Counter-Strike: Global Offensive (CS:GO)",
+                "productType": {
+                  "typeId": "product-type",
+                  "key": "games"
+                },
+                "slug": "counter-strike-global-offensive",
+                "price": 14.99,
+                "discount": 0,
+                "description": "Counter-Strike: Global Offensive (CS:GO) is a popular first-person shooter developed by Valve Corporation.",
+                "categories": {
+                  "typeId": "category",
+                  "key": "first-person shooter"
+                },
+                "platform": ["PC", "PlayStation", "Xbox"],
+                "activation region": "Global",
+                "system requirements": {
+                  "operating system": "Windows 7",
+                  "processor": "Intel Core 2 Duo E6600 / AMD Phenom X3 8750",
+                  "memory": "2 GB RAM",
+                  "graphics card": "NVIDIA GeForce GT 730 / ATI Radeon R7 240",
+                  "network": "Broadband Internet connection",
+                  "disk space": "15 GB"
+                },
+                "image": "csgo.jpg"
+              },
+              {
+                "key": 112,
+                "name": "Animal Crossing: New Horizons",
+                "productType": {
+                  "typeId": "product-type",
+                  "key": "games"
+                },
+                "slug": "animal-crossing-new-horizons",
+                "price": 59.99,
+                "discount": 0,
+                "description": "Animal Crossing: New Horizons is a life simulation game developed by Nintendo.",
+                "categories": {
+                  "typeId": "category",
+                  "key": "life simulation"
+                },
+                "platform": ["Nintendo Switch"],
+                "activation region": "Global",
+                "system requirements": {
+                  "operating system": "Nintendo Switch System Software",
+                  "memory": "2 GB RAM (Internal Storage)",
+                  "graphics": "Integrated Graphics",
+                  "network": "Internet connection for online features",
+                  "disk space": "6.2 GB"
+                },
+                "image": "animal_crossing.jpg"
+              },
+              {
+                "key": 113,
+                "name": "The Legend of Zelda: Breath of the Wild",
+                "productType": {
+                  "typeId": "product-type",
+                  "key": "games"
+                },
+                "slug": "the-legend-of-zelda-breath-of-the-wild",
+                "price": 59.99,
+                "discount": 0,
+                "description": "The Legend of Zelda: Breath of the Wild is an action-adventure game developed by Nintendo.",
+                "categories": {
+                  "typeId": "category",
+                  "key": "action-adventure"
+                },
+                "platform": ["Nintendo Switch"],
+                "activation region": "Global",
+                "system requirements": {
+                  "operating system": "Nintendo Switch System Software",
+                  "memory": "3 GB RAM (Internal Storage)",
+                  "graphics": "Integrated Graphics",
+                  "network": "Internet connection for online features",
+                  "disk space": "13.4 GB"
+                },
+                "image": "zelda_breath_of_the_wild.jpg"
+              },
+              {
+                "key": 114,
+                "name": "Overwatch",
+                "productType": {
+                  "typeId": "product-type",
+                  "key": "games"
+                },
+                "slug": "overwatch",
+                "price": 29.99,
+                "discount": 0,
+                "description": "Overwatch is a team-based multiplayer first-person shooter developed by Blizzard Entertainment.",
+                "categories": {
+                  "typeId": "category",
+                  "key": "first-person shooter"
+                },
+                "platform": ["PC", "PlayStation", "Xbox"],
+                "activation region": "Global",
+                "system requirements": {
+                  "operating system": "Windows 7 / 8 / 10 64-bit",
+                  "processor": "Intel Core i3 or AMD Phenom X3 8650",
+                  "memory": "4 GB RAM",
+                  "graphics card": "NVIDIA GeForce GTX 460 / ATI Radeon HD 4850 / Intel HD Graphics 4400",
+                  "network": "Broadband Internet connection",
+                  "disk space": "30 GB"
+                },
+                "image": "overwatch.jpg"
+              },
+              {
+                "key": 115,
+                "name": "World of Warcraft",
+                "productType": {
+                  "typeId": "product-type",
+                  "key": "games"
+                },
+                "slug": "world-of-warcraft",
+                "price": 14.99,
+                "discount": 0,
+                "description": "World of Warcraft is a popular MMORPG developed by Blizzard Entertainment.",
+                "categories": {
+                  "typeId": "category",
+                  "key": "mmorpg"
+                },
+                "platform": ["PC"],
+                "activation region": "Global",
+                "system requirements": {
+                  "operating system": "Windows 10 64-bit",
+                  "processor": "Intel Core i5-3450 / AMD FX 8300",
+                  "memory": "4 GB RAM (8 GB if using integrated graphics)",
+                  "graphics card": "NVIDIA GeForce GTX 760 / AMD Radeon RX 560 / Intel UHD 630 (45W)",
+                  "network": "Broadband Internet connection",
+                  "disk space": "100 GB SSD"
+                },
+                "image": "world_of_warcraft.jpg"
+              }
+            ]
           }
-
-]
-}
+          

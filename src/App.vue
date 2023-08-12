@@ -1,9 +1,15 @@
 <template>
   <nav>
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/login">Login</router-link>
+    <router-link to="/profile">Profile</router-link>
+    <router-link to="/catalog">Catalog</router-link>
+    <router-link to="/about">About us</router-link>
   </nav>
-  <router-view></router-view>
+  <div class="container">
+    <router-view></router-view>
+  </div>
+  
 </template>
 
 <script lang="ts">
@@ -32,6 +38,7 @@ nav {
   a {
     font-weight: bold;
     color: #2c3e50;
+    margin: 10px;
 
     &.router-link-exact-active {
       color: #42b983;
