@@ -1,8 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import LoginView from "../views/LoginView.vue";
-import UserProfileView from "../views/UserProfileView.vue";
-import CatalogView from "../views/CatalogView.vue";
+import HomeView from '@/views/HomeView.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -13,25 +10,27 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
   },
   {
-    path: '/',
+    path: '/login',
     name: 'login',
-    component: LoginView,
+    component: () => import(/* webpackChunkName: "login" */'../views/LoginView.vue'),
   },
   {
-    path: '/',
-    name: 'profile',
-    component: UserProfileView,
+    path: '/user-profile',
+    name: 'user-profile',
+    component: () => import(/* webpackChunkName: "profile" */'../views/UserProfileView.vue'),
   },
   {
-    path: '/',
+    path: '/catalog',
     name: 'catalog',
-    component: CatalogView,
+    component: () => import(/* webpackChunkName: "catalog" */'../views/CatalogView.vue'),
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: 'not-found',
+    component: () => import(/* webpackChunkName: "not-found" */'../views/NotFoundView.vue'),
   },
 ];
 

@@ -1,27 +1,29 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/login">Login</router-link>
-    <router-link to="/profile">Profile</router-link>
-    <router-link to="/catalog">Catalog</router-link>
-    <router-link to="/about">About us</router-link>
-  </nav>
+    <TheNavigation/>
   <div class="container">
-    <router-view></router-view>
+    <router-view v-slot="{ Component }">
+      <transition name="slide" mode="out-in">
+        <component :is="Component" :key="routeKey"></component>
+      </transition>
+    </router-view>
   </div>
-  
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import TheNavigation from './components/TheNavigation.vue';
 
-export default defineComponent({
-  name: 'HelloWorld',
-  props: {
-    msg: String,
-  },
-});
+export default {components: {TheNavigation}}
 </script>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { onBeforeRouteUpdate, RouteLocationNormalized } from 'vue-router';
+
+const routeKey = ref('');
+
+onBeforeRouteUpdate((to: RouteLocationNormalized, from: RouteLocationNormalized) => {
+  routeKey.value = to.fullPath;
+});</script>
 
 <style lang="scss">
 #app {
@@ -32,17 +34,17 @@ export default defineComponent({
   color: #2c3e50;
 }
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    margin: 10px;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.slide-enter-active, .slide-leave-active {
+  transition: opacity 1s, transform 1s;
 }
+
+.slide-enter-from, .slide-leave-to /* slide-leave-from в новых версиях */ {
+  opacity: 0;
+  transform: translateX(-30%);
+}
+.slide-enter-to, .slide-leave-from /* slide-leave-to в новых версиях */ {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 </style>
