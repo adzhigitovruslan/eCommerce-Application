@@ -1,5 +1,5 @@
 <template>
-    <div class="basket">
+    <div class="cart">
       <h1>This is a cart page</h1>
     </div>
   </template>
