@@ -1,11 +1,11 @@
 <template>
    
         <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/login">Login</router-link> |
-    <router-link to="/user-profile">Profile</router-link> |
-    <router-link to="/catalog">Catalog</router-link> |
-    <router-link to="/about">About us</router-link>
+    <router-link to="/">HOME</router-link> |
+    <router-link to="/login">LOG IN</router-link> |
+    <router-link to="/catalog">PRODUCTS</router-link> |
+    <router-link to="/cart">CART</router-link> |
+    <router-link to="/about">ABOUT US</router-link>
   </nav>
    
 
