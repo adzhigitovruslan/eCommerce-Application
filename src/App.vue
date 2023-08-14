@@ -1,5 +1,5 @@
 <template>
-    <TheNavigation/>
+  <TheNavigation />
   <div class="container">
     <router-view v-slot="{ Component }">
       <transition name="slide" mode="out-in">
@@ -12,7 +12,7 @@
 <script lang="ts">
 import TheNavigation from './components/TheNavigation.vue';
 
-export default {components: {TheNavigation}}
+export default { components: { TheNavigation } };
 </script>
 
 <script setup lang="ts">
@@ -23,7 +23,8 @@ const routeKey = ref('');
 
 onBeforeRouteUpdate((to: RouteLocationNormalized, from: RouteLocationNormalized) => {
   routeKey.value = to.fullPath;
-});</script>
+});
+</script>
 
 <style lang="scss">
 #app {
@@ -34,7 +35,8 @@ onBeforeRouteUpdate((to: RouteLocationNormalized, from: RouteLocationNormalized)
   color: #2c3e50;
 }
 
-.slide-enter-active, .slide-leave-active {
+.slide-enter-active,
+.slide-leave-active {
   transition: opacity 1s, transform 1s;
 }
 
@@ -46,5 +48,4 @@ onBeforeRouteUpdate((to: RouteLocationNormalized, from: RouteLocationNormalized)
   opacity: 1;
   transform: translateX(0);
 }
-
 </style>

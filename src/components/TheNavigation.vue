@@ -1,43 +1,37 @@
-
-
 <template>
-    <div class="gradient-background">
-        <nav>
-        <router-link to="/" class="logo-link"><img src="../assets/images/main_logo.png" alt="logo"><span class="link-text">Playnchill</span></router-link> |
-    <router-link to="/login">Log in</router-link> |
-    <router-link to="/catalog">Products</router-link> |
-    <router-link to="/cart" class="cart-link"><img :src="cartSvg" alt="Cart" style="fill: #FFFFFF;"></router-link> |
-    <router-link to="/about">About us</router-link>
-  </nav>
-    </div>
-        
-   
-   
-
+  <div class="gradient-background">
+    <nav>
+      <router-link to="/" class="logo-link"
+        ><img src="../assets/images/main_logo.png" alt="logo" /><span class="link-text">Playnchill</span></router-link
+      >
+      | <router-link to="/login">Log in</router-link> | <router-link to="/catalog">Products</router-link> |
+      <router-link to="/cart" class="cart-link"><img :src="cartSvg" alt="Cart" style="fill: #ffffff" /></router-link> |
+      <router-link to="/about">About us</router-link>
+    </nav>
+  </div>
 </template>
 
 <script lang="ts">
-import cartSvg from "../assets/images/cart.svg"; 
+import cartSvg from '../assets/images/cart.svg';
 
 export default {
   data() {
     return {
-      cartSvg: cartSvg
+      cartSvg: cartSvg,
     };
-  }
+  },
 };
 </script>
 
 <style scoped lang="scss">
-
 .gradient-background {
   width: 100%;
   height: 100vh;
-  background-image: linear-gradient(0deg, #06030F, #06030F, #13101B, #13101B);
+  background-image: linear-gradient(0deg, #06030f, #06030f, #13101b, #13101b);
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: center;
-  border: 1px solid #13101B;
+  border: 1px solid #13101b;
 }
 
 nav {
@@ -47,32 +41,31 @@ nav {
     font-weight: bold;
     margin: 10px;
     text-decoration: none;
-    color: #FFFFFF;
+    color: #ffffff;
     font-family: Manrope;
-font-size: 16px;
-font-weight: 600;
-line-height: 21px;
-letter-spacing: 0em;
-text-align: left;
-
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: left;
 
     &.router-link-exact-active {
       color: #42b983;
     }
-    
   }
 }
 
 .cart-link {
   display: inline-block;
-  vertical-align: middle; 
-  margin-right: 10px;}
+  vertical-align: middle;
+  margin-right: 10px;
+}
 
-  .cart-link img {
-    height: 25px;
-  }
+.cart-link img {
+  height: 25px;
+}
 
-  .logo-link {
+.logo-link {
   display: flex;
   align-items: center;
   font-family: Manrope;
@@ -85,13 +78,14 @@ text-align: left;
   color: inherit;
 
   img {
-    margin-right: 10px; 
-    height: 29px; 
+    margin-right: 10px;
+    height: 29px;
     color: white;
   }
 
   .link-text {
-    white-space: nowrap; 
-    color: #FFFFFF;
-  }}
+    white-space: nowrap;
+    color: #ffffff;
+  }
+}
 </style>
