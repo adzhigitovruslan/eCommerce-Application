@@ -35,17 +35,18 @@ onBeforeRouteUpdate((to: RouteLocationNormalized, from: RouteLocationNormalized)
   color: #2c3e50;
 }
 
-.slide-enter-active,
-.slide-leave-active {
+.slide-enter-active, .slide-leave-active {
   transition: opacity 1s, transform 1s;
 }
 
-.slide-enter-from, .slide-leave-to /* slide-leave-from в новых версиях */ {
+.slide-enter-from, .slide-leave-to  {
   opacity: 0;
   transform: translateX(-30%);
 }
-.slide-enter-to, .slide-leave-from /* slide-leave-to в новых версиях */ {
+
+.slide-enter-to, .slide-leave-from  {
   opacity: 1;
   transform: translateX(0);
 }
+
 </style>
