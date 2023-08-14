@@ -2,61 +2,90 @@
   <header class="header">
     <nav class="top-navigation">
       <div>
-        <span @click="changeLanguage" class="language-icon">EN</span>
-        |
-        <span @click="changeCurrency" class="currency-icon">
-          <font-awesome-icon :icon="['fas', 'dollar-sign']" />
-        </span>
+        <form style="visibility: hidden">
+          <label for="languageSelect"></label>
+          <select id="languageSelect" v-model="selectedLanguage">
+            <option class="language-icon" value="EN">EN</option>
+            <option value="RU">RU</option>
+          </select>
+
+          <label for="currencySelect"></label>
+          <select id="currencySelect" v-model="selectedCurrency">
+            <option value="$"><span class="icon">$</span> USD</option>
+            <option value="€"><span class="icon">€</span> EURO</option>
+          </select>
+        </form>
       </div>
       <div>
         <router-link
-        to="/catalog"
-        class="nav-link"
-        :class="{ 'active': activeLink === 'catalog' }"
-        data-type="catalog"
-        @click="setActiveLink('catalog')"
-      >Products</router-link> |
-      <router-link
-        to="/#reviews"
-        class="nav-link reviews"
-        :class="{ 'active': activeLink === 'reviews' }"
-        data-type="reviews"
-        @click="setActiveLink('reviews')"
-      >Reviews</router-link> |
-      <router-link
-        to="/#promotions"
-        class="nav-link promotions"
-        :class="{ 'active': activeLink === 'promotions' }"
-        data-type="promotions"
-        @click="setActiveLink('promotions')"
-      >Promotions</router-link> |
-      <router-link
-        to="/about"
-        class="nav-link about"
-        :class="{ 'active': activeLink === 'about' }"
-        data-type="about"
-        @click="setActiveLink('about')"
-      >About us</router-link>
+          to="/catalog"
+          class="nav-link"
+          :class="{ active: activeLink === 'catalog' }"
+          data-type="catalog"
+          @click="setActiveLink('catalog')"
+          >Products</router-link
+        >
+        |
+        <router-link
+          to="/#reviews"
+          class="nav-link reviews"
+          :class="{ active: activeLink === 'reviews' }"
+          data-type="reviews"
+          @click="setActiveLink('reviews')"
+          >Reviews</router-link
+        >
+        |
+        <router-link
+          to="/#promotions"
+          class="nav-link promotions"
+          :class="{ active: activeLink === 'promotions' }"
+          data-type="promotions"
+          @click="setActiveLink('promotions')"
+          >Promotions</router-link
+        >
+        |
+        <router-link
+          to="/about"
+          class="nav-link about"
+          :class="{ active: activeLink === 'about' }"
+          data-type="about"
+          @click="setActiveLink('about')"
+          >About us</router-link
+        >
       </div>
     </nav>
 
     <nav class="bottom-navigation">
-      <router-link to="/" class="logo-link nav-link" :class="{ 'active': activeLink === 'logo' }"
+      <router-link
+        to="/"
+        class="logo-link nav-link"
+        :class="{ active: activeLink === 'logo' }"
         data-type="logo"
-        @click="setActiveLink('logo')">
+        @click="setActiveLink('logo')"
+      >
         <img src="../assets/images/main_logo.png" alt="logo" />
         <span class="link-text">Playnchill</span>
       </router-link>
       <input v-model="searchTerm" type="text" placeholder="Search products" class="search-input" />
       <font-awesome-icon :icon="['fas', 'search']" class="search-icon" />
       <div>
-        <router-link to="/login" class="nav-link" :class="{ 'active': activeLink === 'login' }"
-        data-type="login"
-        @click="setActiveLink('login')">Log in</router-link> |
-        <router-link to="/cart" class="nav-link cart-link" :class="{ 'active': activeLink === 'cart' }"
-        data-type="cart"
-        @click="setActiveLink('cart')">
-          <font-awesome-icon :icon="['fas', 'cart-shopping']"/>
+        <router-link
+          to="/login"
+          class="nav-link"
+          :class="{ active: activeLink === 'login' }"
+          data-type="login"
+          @click="setActiveLink('login')"
+          >Log in</router-link
+        >
+        |
+        <router-link
+          to="/cart"
+          class="nav-link cart-link"
+          :class="{ active: activeLink === 'cart' }"
+          data-type="cart"
+          @click="setActiveLink('cart')"
+        >
+          <font-awesome-icon :icon="['fas', 'cart-shopping']" />
         </router-link>
       </div>
     </nav>
@@ -76,14 +105,8 @@ export default defineComponent({
     };
   },
   methods: {
-    changeLanguage() {
-      this.selectedLanguage = this.selectedLanguage === 'EN' ? 'RU' : 'EN';
-    },
-    changeCurrency() {
-      this.selectedCurrency = this.selectedCurrency === '$' ? '€' : '$';
-    },
     setActiveLink(linkType: string) {
-      this.activeLink = linkType; 
+      this.activeLink = linkType;
     },
   },
 });
@@ -155,7 +178,6 @@ nav {
     line-height: 21px;
     letter-spacing: 0em;
     text-align: left;
-
   }
 }
 
@@ -172,7 +194,7 @@ nav .nav-link:hover {
   display: inline-block;
   vertical-align: middle;
   margin-right: 10px;
-  color:#ffffff;
+  color: #ffffff;
 
   &:hover {
     color: #808080;
@@ -218,5 +240,26 @@ nav .nav-link:hover {
 
 .currency-icon {
   color: $white-color;
+}
+
+select {
+  background-color: black;
+  color: white;
+  border: none;
+}
+
+option {
+  background-color: black;
+  color: white;
+  padding: 5px;
+}
+
+.icon {
+  margin-right: 5px;
+}
+
+option:checked {
+  background-color: #808080;
+  font-weight: bold;
 }
 </style>
