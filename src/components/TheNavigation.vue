@@ -66,8 +66,10 @@
         <img src="../assets/images/main_logo.png" alt="logo" />
         <span class="link-text">Playnchill</span>
       </router-link>
-      <input v-model="searchTerm" type="text" placeholder="Search products" class="search-input" />
-      <font-awesome-icon :icon="['fas', 'search']" class="search-icon" />
+      <div class="search-input">
+        <input v-model="searchTerm" type="text" placeholder="Search products" class="search-input" />
+        <font-awesome-icon :icon="['fas', 'search']" class="search-icon" />
+      </div>
       <div>
         <router-link
           to="/login"
@@ -121,23 +123,27 @@ $font-family: Manrope, sans-serif;
 }
 
 .search-input {
-  width: 648px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 40vw;
   height: 66px;
   border: none;
-  padding: 15px;
+  padding-left: 15px;
   box-sizing: border-box;
   outline: none;
-  color: $white-color;
+  color: white;
   border-radius: 15px;
   background: rgba(196, 196, 196, 0.05);
 }
 
 .search-icon {
-  position: relative;
+  position: absolute;
   top: 50%;
-  right: 15px;
+  right: 10px;
   transform: translateY(-50%);
-  font-size: 20px;
+  font-size: 16px;
   color: #ffffff33;
   cursor: pointer;
 }
@@ -153,6 +159,12 @@ $font-family: Manrope, sans-serif;
     margin: 0 5px;
   }
 
+  .bottom-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   .nav-link {
     color: $white-color;
   }
@@ -165,7 +177,7 @@ nav {
   align-items: center;
   font-family: $font-family;
   margin: 0 auto;
-  margin-bottom: 35px;
+  margin-bottom: 24px;
 
   a {
     font-weight: bold;
