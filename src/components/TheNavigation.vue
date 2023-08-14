@@ -1,50 +1,78 @@
 <template>
-  <div class="gradient-background">
-    <!-- Верхний отдел навигации -->
+  <header class="header">
     <nav class="top-navigation">
       <div>
         <span @click="changeLanguage" class="language-icon">EN</span>
-      |
-      <span @click="changeCurrency" class="currency-icon">
-        <font-awesome-icon :icon="['fas', 'dollar-sign']" />
-      </span>
+        |
+        <span @click="changeCurrency" class="currency-icon">
+          <font-awesome-icon :icon="['fas', 'dollar-sign']" />
+        </span>
       </div>
-     <div>
-      <router-link to="/catalog">Products</router-link> |
-      <router-link :to="{ path: '/reviews' }" class="nav-link" data-type="reviews" >Reviews</router-link> |
-    <router-link :to="{ path: '/promotions' }" class="nav-link" data-type="promotions">Promotions</router-link> |
-      <router-link to="/about">About us</router-link>
-     </div>
+      <div>
+        <router-link
+        to="/catalog"
+        class="nav-link"
+        :class="{ 'active': activeLink === 'catalog' }"
+        data-type="catalog"
+        @click="setActiveLink('catalog')"
+      >Products</router-link> |
+      <router-link
+        to="/#reviews"
+        class="nav-link reviews"
+        :class="{ 'active': activeLink === 'reviews' }"
+        data-type="reviews"
+        @click="setActiveLink('reviews')"
+      >Reviews</router-link> |
+      <router-link
+        to="/#promotions"
+        class="nav-link promotions"
+        :class="{ 'active': activeLink === 'promotions' }"
+        data-type="promotions"
+        @click="setActiveLink('promotions')"
+      >Promotions</router-link> |
+      <router-link
+        to="/about"
+        class="nav-link about"
+        :class="{ 'active': activeLink === 'about' }"
+        data-type="about"
+        @click="setActiveLink('about')"
+      >About us</router-link>
+      </div>
     </nav>
 
-    <!-- Нижний отдел навигации -->
     <nav class="bottom-navigation">
-      <router-link to="/" class="logo-link">
+      <router-link to="/" class="logo-link nav-link" :class="{ 'active': activeLink === 'logo' }"
+        data-type="logo"
+        @click="setActiveLink('logo')">
         <img src="../assets/images/main_logo.png" alt="logo" />
         <span class="link-text">Playnchill</span>
       </router-link>
-      |
       <input v-model="searchTerm" type="text" placeholder="Search products" class="search-input" />
-      |
-      <router-link to="/login">Log in</router-link> |
-      <router-link to="/cart" class="cart-link">
-        <img :src="cartSvg" alt="Cart" style="fill: #ffffff" />
-      </router-link>
+      <font-awesome-icon :icon="['fas', 'search']" class="search-icon" />
+      <div>
+        <router-link to="/login" class="nav-link" :class="{ 'active': activeLink === 'login' }"
+        data-type="login"
+        @click="setActiveLink('login')">Log in</router-link> |
+        <router-link to="/cart" class="nav-link cart-link" :class="{ 'active': activeLink === 'cart' }"
+        data-type="cart"
+        @click="setActiveLink('cart')">
+          <font-awesome-icon :icon="['fas', 'cart-shopping']"/>
+        </router-link>
+      </div>
     </nav>
-  </div>
+  </header>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import cartSvg from '../assets/images/cart.svg';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   data() {
     return {
-      cartSvg: cartSvg,
       selectedCurrency: '$',
-      selectedLanguage: 'EN', 
+      selectedLanguage: 'EN',
       searchTerm: '',
+      activeLink: '',
     };
   },
   methods: {
@@ -54,6 +82,9 @@ export default defineComponent({
     changeCurrency() {
       this.selectedCurrency = this.selectedCurrency === '$' ? '€' : '$';
     },
+    setActiveLink(linkType: string) {
+      this.activeLink = linkType; 
+    },
   },
 });
 </script>
@@ -61,45 +92,57 @@ export default defineComponent({
 <style scoped lang="scss">
 $white-color: white;
 $font-family: Manrope, sans-serif;
-.gradient-background {
-  width: 100%;
-  height: 100vh;
-  background-image: linear-gradient(0deg, #06030f, #06030f, #13101b, #13101b);
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  border: 1px solid #13101b;
+
+.header {
+  height: 157px;
+}
+
+.search-input {
+  width: 648px;
+  height: 66px;
+  border: none;
+  padding: 15px;
+  box-sizing: border-box;
+  outline: none;
+  color: $white-color;
+  border-radius: 15px;
+  background: rgba(196, 196, 196, 0.05);
+}
+
+.search-icon {
+  position: relative;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #ffffff33;
+  cursor: pointer;
 }
 
 .top-navigation {
   padding-top: 25px;
-height: 34px; 
-color: $white-color;
+  height: 34px;
+  color: $white-color;
 
-.language-icon,
-.currency-icon {
+  .language-icon,
+  .currency-icon {
     cursor: pointer;
     margin: 0 5px;
   }
 
   .nav-link {
-  color: $white-color; 
-
-  &[data-type="reviews"], &[data-type="promotions"] {
-    &.router-link-exact-active {
-      color: #808080; 
-      font-weight: 600; 
-    }
+    color: $white-color;
   }
-}}
+}
 
 nav {
-  width: 60vw;
+  max-width: 80%;
   display: flex;
   justify-content: space-between;
-  align-items: center; 
+  align-items: center;
   font-family: $font-family;
   margin: 0 auto;
+  margin-bottom: 35px;
 
   a {
     font-weight: bold;
@@ -113,23 +156,35 @@ nav {
     letter-spacing: 0em;
     text-align: left;
 
-    &.router-link-exact-active {
-      color: #808080;
-      font-weight: 600;
-    }
   }
+}
+
+.nav-link.active {
+  color: #808080;
+  font-weight: 600;
+}
+
+nav .nav-link:hover {
+  color: #a0a0a0;
 }
 
 .cart-link {
   display: inline-block;
   vertical-align: middle;
   margin-right: 10px;
-}
+  color:#ffffff;
 
+  &:hover {
+    color: #808080;
+  }
+
+  &:active {
+    color: #a0a0a0;
+  }
+}
 .cart-link img {
   height: 25px;
 }
-
 .logo-link {
   display: flex;
   align-items: center;
@@ -141,6 +196,8 @@ nav {
   text-align: left;
   text-decoration: none;
   color: inherit;
+  margin: 0;
+  padding: 0;
 
   img {
     margin-right: 10px;
@@ -160,6 +217,6 @@ nav {
 }
 
 .currency-icon {
-  color: $white-color; 
+  color: $white-color;
 }
 </style>
