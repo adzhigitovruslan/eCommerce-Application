@@ -1,91 +1,89 @@
 <template>
   <base-auth-wrapper>
-    <form action="">
+    <form @submit.prevent="submitHandler">
       <transition mode="out-in" :name="transitionName">
         <div class="form-wrapper" v-if="activePhase === 1">
-          <div class="form-control">
+          <div class="form-control" :class="{ error: v$.firstName.$errors.length }">
             <label for="firstName"><strong>First name</strong> </label>
-            <input
-              id="firstName"
-              type="text"
-              required
-              placeholder="Enter your first name"
-              v-model.trim="formData.firstName"
-            />
+            <input id="firstName" type="text" placeholder="Enter your first name" v-model.trim="formData.firstName" />
+            <div class="input-errors" v-for="error of v$.firstName.$errors" :key="error.$uid">
+              <div class="error-msg">{{ error.$message }}</div>
+            </div>
           </div>
-          <div class="form-control">
+          <div class="form-control" :class="{ error: v$.lastName.$errors.length }">
             <label for="lastName"><strong>Last name</strong></label>
-            <input
-              id="lastName"
-              type="text"
-              required
-              placeholder="Enter your last name"
-              v-model.trim="formData.lastName"
-            />
+            <input id="lastName" type="text" placeholder="Enter your last name" v-model.trim="formData.lastName" />
+            <div class="input-errors" v-for="error of v$.lastName.$errors" :key="error.$uid">
+              <div class="error-msg">{{ error.$message }}</div>
+            </div>
           </div>
-          <div class="form-control">
+          <div class="form-control" :class="{ error: v$.email.$errors.length }">
             <label for="email">Email</label>
-            <input id="email" type="email" required placeholder="Enter your email" v-model.trim="formData.email" />
+            <input id="email" type="email" placeholder="Enter your email" v-model.trim="formData.email" />
+            <div class="input-errors" v-for="error of v$.email.$errors" :key="error.$uid">
+              <div class="error-msg">{{ error.$message }}</div>
+            </div>
           </div>
-          <div class="form-control">
+          <div class="form-control" :class="{ error: v$.password.$errors.length }">
             <label for="password">Password</label>
-            <input
-              id="password"
-              type="password"
-              required
-              placeholder="Enter your password"
-              v-model.trim="formData.password"
-            />
+            <input id="password" type="password" placeholder="Enter your password" v-model.trim="formData.password" />
+            <div class="input-errors" v-for="error of v$.password.$errors" :key="error.$uid">
+              <div class="error-msg">{{ error.$message }}</div>
+            </div>
           </div>
-          <div class="form-control">
+          <div class="form-control" :class="{ error: v$.date.$errors.length }">
             <label for="date">Date of birth</label>
-            <input id="date" type="date" required v-model.trim="formData.date" />
+            <input id="date" type="date" v-model.trim="formData.date" />
+            <div class="input-errors" v-for="error of v$.date.$errors" :key="error.$uid">
+              <div class="error-msg">{{ error.$message }}</div>
+            </div>
           </div>
         </div>
         <div class="form-wrapper" v-else>
-          <div class="form-control">
+          <div class="form-control" :class="{ error: v$.address.phoneNumber.$errors.length }">
             <label for="tel">Phone number</label>
             <input
               id="tel"
               type="tel"
-              required
               placeholder="Enter your phone number"
               v-model.trim="formData.address.phoneNumber"
             />
+            <div class="input-errors" v-for="error of v$.address.phoneNumber.$errors" :key="error.$uid">
+              <div class="error-msg">{{ error.$message }}</div>
+            </div>
           </div>
-          <div class="form-control">
+          <div class="form-control" :class="{ error: v$.address.street.$errors.length }">
             <label for="street">Street</label>
-            <input
-              id="street"
-              type="text"
-              required
-              placeholder="Enter your street"
-              v-model.trim="formData.address.street"
-            />
+            <input id="street" type="text" placeholder="Enter your street" v-model.trim="formData.address.street" />
+            <div class="input-errors" v-for="error of v$.address.street.$errors" :key="error.$uid">
+              <div class="error-msg">{{ error.$message }}</div>
+            </div>
           </div>
-          <div class="form-control">
+          <div class="form-control" :class="{ error: v$.address.city.$errors.length }">
             <label for="street">City</label>
-            <input id="city" type="text" required placeholder="Enter your city" v-model.trim="formData.address.city" />
+            <input id="city" type="text" placeholder="Enter your city" v-model.trim="formData.address.city" />
+            <div class="input-errors" v-for="error of v$.address.city.$errors" :key="error.$uid">
+              <div class="error-msg">{{ error.$message }}</div>
+            </div>
           </div>
-          <div class="form-control">
+          <div class="form-control" :class="{ error: v$.address.postalCode.$errors.length }">
             <label for="postalCode">Postal code</label>
             <input
               id="postalCode"
               type="text"
-              required
               placeholder="Enter your postal code"
               v-model.trim="formData.address.postalCode"
             />
+            <div class="input-errors" v-for="error of v$.address.postalCode.$errors" :key="error.$uid">
+              <div class="error-msg">{{ error.$message }}</div>
+            </div>
           </div>
-          <div class="form-control">
+          <div class="form-control" :class="{ error: v$.address.country.$errors.length }">
             <label for="street">Country</label>
-            <input
-              id="country"
-              type="text"
-              required
-              placeholder="Enter your country"
-              v-model.trim="formData.address.country"
-            />
+            <input id="country" type="text" placeholder="Enter your country" v-model.trim="formData.address.country" />
+            <div class="input-errors" v-for="error of v$.address.country.$errors" :key="error.$uid">
+              <div class="error-msg">{{ error.$message }}</div>
+            </div>
           </div>
         </div>
       </transition>
@@ -101,6 +99,8 @@
 
 <script setup lang="ts">
 import { reactive, ref, Ref, computed, onMounted } from 'vue';
+import { useVuelidate } from '@vuelidate/core';
+import { required, email } from '@vuelidate/validators';
 import { DataForm } from '@/types/FormData';
 
 const activePhase: Ref<number> = ref(1);
@@ -122,6 +122,25 @@ const formData: DataForm = reactive({
   },
 });
 
+const rules = computed(() => {
+  return {
+    firstName: { required },
+    lastName: { required },
+    email: { required, email },
+    password: { required },
+    date: { required },
+    address: {
+      street: { required },
+      city: { required },
+      postalCode: { required },
+      country: { required },
+      phoneNumber: { required },
+    },
+  };
+});
+
+const v$ = useVuelidate(rules, formData);
+
 const isLastPage = computed(() => {
   if (tabs.value) {
     return activePhase.value === 2;
@@ -135,6 +154,16 @@ function goToStep(value: number, transitionValue?: string) {
 
   if (transitionValue) transitionName.value = transitionValue;
 }
+
+const submitHandler = () => {
+  v$.value.$validate();
+
+  if (!v$.value.$error) {
+    alert('success');
+  } else {
+    alert('failed');
+  }
+};
 
 onMounted(() => {
   tabs.value = document.getElementsByClassName('form-wrapper').length;
