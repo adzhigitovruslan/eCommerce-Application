@@ -6,8 +6,8 @@ import BaseAuth from '@/components/ui/auth/BaseAuth.vue';
 import BaseButton from '@/components/ui/auth/BaseButton.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
-library.add(faCircleXmark);
+import { faCircleXmark, faSearch, faDollarSign, faCartShopping } from '@fortawesome/free-solid-svg-icons';
+library.add(faSearch, faDollarSign, faCartShopping, faCircleXmark);
 
 const app = createApp(App);
 
