@@ -1,11 +1,13 @@
 <template>
-  <TheNavigation />
-  <div class="container">
-    <router-view v-slot="{ Component }">
-      <transition name="slide" mode="out-in">
-        <component :is="Component" :key="routeKey"></component>
-      </transition>
-    </router-view>
+  <div>
+    <TheNavigation />
+    <div class="container">
+      <router-view v-slot="{ Component }">
+        <transition name="slide" mode="out-in">
+          <component :is="Component" :key="routeKey"></component>
+        </transition>
+      </router-view>
+    </div>
   </div>
 </template>
 
