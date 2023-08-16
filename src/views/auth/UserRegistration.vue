@@ -1,7 +1,7 @@
 <template>
   <base-auth-wrapper>
     <form action="">
-      <transition mode="out-in" name="auth">
+      <transition mode="out-in" :name="transitionName">
         <div class="form-wrapper" v-if="activePhase === 1">
           <div class="form-control">
             <label for="firstName"><strong>First name</strong> </label>
@@ -89,9 +89,9 @@
           </div>
         </div>
       </transition>
-      <base-auth-button v-if="!isLastPage" @click.prevent="goToStep(2)" mode="true">continue</base-auth-button>
+      <base-auth-button v-if="!isLastPage" @click.prevent="goToStep(2, 'next')" mode="true">continue</base-auth-button>
       <div class="button-wrapper" v-else>
-        <base-auth-button @click="goToStep(1)">back</base-auth-button>
+        <base-auth-button @click="goToStep(1, 'back')">back</base-auth-button>
         <base-auth-button>submit</base-auth-button>
         <span class="underline"></span>
       </div>
@@ -104,6 +104,7 @@ import { reactive, ref, Ref, computed, onMounted } from 'vue';
 import { DataForm } from '@/types/FormData';
 
 const activePhase: Ref<number> = ref(1);
+const transitionName: Ref<string> = ref('');
 let tabs: Ref<number | undefined> = ref();
 
 const formData: DataForm = reactive({
@@ -129,8 +130,10 @@ const isLastPage = computed(() => {
   return false;
 });
 
-function goToStep(value: number) {
+function goToStep(value: number, transitionValue?: string) {
   activePhase.value = value;
+
+  if (transitionValue) transitionName.value = transitionValue;
 }
 
 onMounted(() => {
@@ -170,6 +173,7 @@ form {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  overflow: hidden;
 
   & .form-wrapper {
     display: flex;
@@ -208,29 +212,39 @@ form {
     }
   }
 }
-.auth-enter-from {
+.back-enter-from {
   opacity: 0;
-  // transform: translateX(-10px);
-  width: 0;
+  transform: translateX(50px);
 }
 
-.auth-leave-to {
+.back-leave-to {
   opacity: 0;
-  // transform: translateX(10px);
-  width: 0;
+  transform: translateX(-50px);
 }
 
-.auth-enter-active {
+.next-leave-to {
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.next-enter-from {
+  opacity: 0;
+  transform: translateX(-50px);
+}
+.back-enter-active,
+.next-enter-active {
   transition: all 1s ease-out;
 }
-.auth-leave-active {
+.back-leave-active,
+.next-leave-active {
   transition: all 1s ease-in;
 }
 
-.auth-enter-to,
-.auth-leave-from {
+.back-enter-to,
+.back-leave-from,
+.next-enter-to,
+.next-leave-from {
   opacity: 1;
-  // transform: translateY(0);
-  width: 100%;
+  transform: translateY(0);
 }
 </style>
