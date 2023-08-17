@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import TheNavigation from './components/TheNavigation.vue';
+import TheNavigation from '@/components/layout/TheNavigation.vue';
 </script>
 
 <style lang="scss">

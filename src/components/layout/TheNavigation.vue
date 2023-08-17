@@ -63,7 +63,7 @@
         data-type="logo"
         @click="setActiveLink('logo')"
       >
-        <img src="../assets/images/main_logo.png" alt="logo" />
+        <img src="@/assets/images/main_logo.png" alt="logo" />
         <span class="link-text">Playnchill</span>
       </router-link>
       <div class="search-input">

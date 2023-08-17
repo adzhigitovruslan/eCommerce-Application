@@ -6,6 +6,11 @@ import UserRegistration from '@/views/auth/UserRegistration.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
+    path: '/',
+    name: 'home',
+    component: HomeView,
+  },
+  {
     path: '/signup',
     component: UserRegistration,
   },
