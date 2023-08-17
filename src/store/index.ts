@@ -1,6 +1,6 @@
 import { createStore } from 'vuex';
 import mutations from '@/store/mutations';
-import LoginPayload from '../../types/interfaces/api';
+import { LoginPayload } from '@/types/interfaces/api';
 
 export interface GlobalState {
   isLoggedIn: boolean;

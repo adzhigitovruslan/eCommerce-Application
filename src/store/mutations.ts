@@ -1,7 +1,7 @@
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import { ctpClient } from '../utiles/BuildClient';
+import { ctpClient } from '@/utiles/BuildClient';
 import { GlobalState } from '@/store/index';
-import LoginPayload from '../../types/interfaces/api';
+import { LoginPayload } from '@/types/interfaces/api';
 
 export default {
   login(state: GlobalState, payload: LoginPayload) {
