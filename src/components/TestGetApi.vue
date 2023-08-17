@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form v-if="!isLoggedIn">
+    <div v-if="!isLoggedIn">
       <h3>Login</h3>
       <div>
         <label for="text">Email</label>
@@ -11,8 +11,8 @@
         <input id="password" type="password" v-model.trim="password" />
       </div>
       <button @click.prevent="login">Login</button>
-    </form>
-    <button v-else>Logout</button>
+    </div>
+    <button v-else @click.prevent="logout">Logout</button>
   </div>
 </template>
 
@@ -42,6 +42,9 @@ export default defineComponent({
 
       this.email = '';
       this.password = '';
+    },
+    logout() {
+      this.$store.dispatch('logout');
     },
   },
 });

@@ -31,6 +31,9 @@ export default createStore({
     login(context, payload: LoginPayload) {
       context.commit('login', payload);
     },
+    logout(context) {
+      context.commit('logout');
+    },
   },
   modules: {},
 });
