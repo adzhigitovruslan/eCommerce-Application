@@ -28,14 +28,12 @@ export default defineComponent({
   },
   computed: {
     isLoggedIn() {
-      return this.$store.getters.getIsLoggedIn;
+      return this.$store.getters['customer/getIsLoggedIn'];
     },
   },
   methods: {
     async login() {
-      console.log('login');
-
-      await this.$store.dispatch('login', {
+      await this.$store.dispatch('customer/login', {
         email: this.email,
         password: this.password,
       });
@@ -44,7 +42,7 @@ export default defineComponent({
       this.password = '';
     },
     logout() {
-      this.$store.dispatch('logout');
+      this.$store.dispatch('customer/logout');
     },
   },
 });
