@@ -33,7 +33,7 @@ onBeforeRouteUpdate((to: RouteLocationNormalized, from: RouteLocationNormalized)
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  height: 100vh;
+  height: 100%;
   background-color: #06030f;
   background-size: 100% 100%;
   background-repeat: no-repeat;
