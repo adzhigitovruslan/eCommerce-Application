@@ -1,4 +1,4 @@
-export const calculateAge = (rawDate: string) => {
+export const calculateAge = (rawDate: string, minAge: number) => {
   let cleanedDate = rawDate.toString(); // Преобразуем в строку
 
   cleanedDate = cleanedDate.replace(/\D/g, ''); // Удаляем все нечисловые символы
@@ -20,8 +20,8 @@ export const calculateAge = (rawDate: string) => {
       age--;
     }
 
-    return age;
+    return { isTrue: age > minAge, age };
   }
 
-  return -1; // Возвращаем -1, если данные некорректны
+  return { isTrue: false, age: -1 }; // Возвращаем -1, если данные некорректны
 };

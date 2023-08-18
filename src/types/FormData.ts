@@ -3,7 +3,7 @@ export interface DataFormAddress {
   city: string;
   postalCode: string;
   country: string;
-  phoneNumber: number | null;
+  phoneNumber: string;
 }
 
 export interface DataForm {

@@ -15,6 +15,7 @@ import TheNavigation from '@/components/layout/TheNavigation.vue';
 
 <style lang="scss">
 @import '@/assets/reset.scss';
+@import 'vue-select/dist/vue-select.css';
 
 #app {
   font-family: Manrope, Helvetica, Arial, sans-serif;
