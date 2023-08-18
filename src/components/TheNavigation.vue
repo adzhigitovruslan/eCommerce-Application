@@ -63,7 +63,7 @@
         data-type="logo"
         @click="setActiveLink('logo')"
       >
-        <img src="../assets/images/main_logo.png" alt="logo" />
+        <img src="../../public/icon_logo2.png" alt="logo" />
         <span class="link-text">Playnchill</span>
       </router-link>
       <div class="search-input">
@@ -115,8 +115,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-$white-color: white;
-$font-family: Manrope, sans-serif;
+@import '@/assets/styles/global.scss';
 
 .header {
   height: 157px;
@@ -175,7 +174,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: $font-family;
+  font-family: $manrope-font-family;
   margin: 0 auto;
   margin-bottom: 24px;
 
@@ -184,7 +183,7 @@ nav {
     margin: 10px;
     text-decoration: none;
     color: #ffffff;
-    font-family: $font-family;
+    font-family: $manrope-font-family;
     font-size: 16px;
     font-weight: 600;
     line-height: 21px;
@@ -222,7 +221,7 @@ nav .nav-link:hover {
 .logo-link {
   display: flex;
   align-items: center;
-  font-family: $font-family;
+  font-family: $manrope-font-family;
   font-size: 32px;
   font-weight: 800;
   line-height: 29px;
@@ -247,7 +246,7 @@ nav .nav-link:hover {
 
 .language-icon {
   color: $white-color;
-  font-family: $font-family;
+  font-family: $manrope-font-family;
 }
 
 .currency-icon {

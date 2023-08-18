@@ -17,7 +17,7 @@
       </template>
     </Carousel>
     <div class="game-info__container">
-      <img src="../assets/minecraft/minecraft-logo.png" alt="Game Title" class="game-info__image" />
+      <img src="../assets/images/minecraft/minecraft-logo.png" alt="Game Title" class="game-info__image" />
       <div class="game-info__description">
         <p>
           Embark on an exhilarating journey through the blocky realms of Minecraft! Craft your own epic saga of survival
@@ -43,9 +43,9 @@ import { Carousel, Slide, Navigation, Pagination } from 'vue3-carousel';
 import { ref, onMounted } from 'vue';
 
 const slides = [
-  { id: 1, imageUrl: require('../assets/minecraft/minecraft_6.jpeg') },
-  { id: 2, imageUrl: require('../assets/minecraft/minecraft-4.jpeg') },
-  { id: 3, imageUrl: require('../assets/minecraft/minecraft_7.jpeg') },
+  { id: 1, imageUrl: require('../assets/images/minecraft/minecraft_6.jpeg') },
+  { id: 2, imageUrl: require('../assets/images/minecraft/minecraft-4.jpeg') },
+  { id: 3, imageUrl: require('../assets/images/minecraft/minecraft_7.jpeg') },
 ];
 
 const currentSlide = ref(0);
@@ -56,8 +56,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-$white-color: white;
-$font-family: Manrope, sans-serif;
+@import '@/assets/styles/global.scss';
 
 .carousel {
   margin-top: 35px;
@@ -170,7 +169,7 @@ $font-family: Manrope, sans-serif;
   top: -50px;
 
   p {
-    font-family: $font-family;
+    font-family: $manrope-font-family;
     font-size: 24px;
     font-weight: 400;
     line-height: 38px;
@@ -190,7 +189,7 @@ $font-family: Manrope, sans-serif;
 .game-info__new-price {
   width: 114px;
   height: 42px;
-  font-family: $font-family;
+  font-family: $manrope-font-family;
   color: $white-color;
   font-size: 32px;
   font-weight: 800;
@@ -202,7 +201,7 @@ $font-family: Manrope, sans-serif;
 .game-info__discount {
   width: 51px;
   height: 26px;
-  font-family: $font-family;
+  font-family: $manrope-font-family;
   font-size: 20px;
   font-weight: 800;
   line-height: 26px;
@@ -214,7 +213,7 @@ $font-family: Manrope, sans-serif;
 .game-info__old-price {
   width: 71px;
   height: 26px;
-  font-family: $font-family;
+  font-family: 'Roboto', sans-serif;
   font-size: 20px;
   font-weight: 600;
   line-height: 26px;
@@ -237,7 +236,7 @@ $font-family: Manrope, sans-serif;
   height: 73px;
   padding: 23px 40px 27px 40px;
   border-radius: 15px;
-  font-family: $font-family;
+  font-family: $manrope-font-family;
   font-size: 18px;
   font-weight: 600;
   line-height: 23px;

@@ -3,7 +3,7 @@
     <div class="home">
       <the-carousel>
         <template v-slot:default>
-          <div>CONTENTS FOR TheSlides</div>
+          <div>CONTENTS FOR CAROUSEL</div>
         </template>
       </the-carousel>
       <h2 id="reviews">Reviews</h2>
