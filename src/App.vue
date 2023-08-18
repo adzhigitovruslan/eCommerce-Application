@@ -28,7 +28,7 @@ onBeforeRouteUpdate((to: RouteLocationNormalized, from: RouteLocationNormalized)
 
 <style lang="scss">
 #app {
-  font-family: "Manrope", Helvetica, Arial, sans-serif;
+  font-family: 'Manrope', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
