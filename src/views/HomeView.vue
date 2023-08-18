@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="home">
-      <the-slides>
+      <the-carousel>
         <template v-slot:default>
           <div>CONTENTS FOR TheSlides</div>
         </template>
-      </the-slides>
+      </the-carousel>
       <h2 id="reviews">Reviews</h2>
       <h2 id="promotions">Promotions</h2>
     </div>
@@ -14,11 +14,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import TheSlides from '../components/TheSlides.vue';
+import TheCarousel from '@/components/TheCarousel.vue';
 
 export default defineComponent({
   components: {
-    TheSlides: TheSlides,
+    TheCarousel: TheCarousel,
   },
 });
 </script>
