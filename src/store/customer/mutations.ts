@@ -1,6 +1,6 @@
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import { ctpClient } from '@/utiles/BuildClient';
-import { LoginPayload } from '@/types/interfaces/api';
+import { LoginPayload, SingUpPayload } from '@/types/interfaces/api';
 
 interface GlobalState {
   isLoggedIn: boolean;
@@ -44,5 +44,20 @@ export default {
     state.currentUserId = '';
     state.currentUserFirstName = '';
     state.isLoggedIn = false;
+  },
+  singUp(state: GlobalState, payload: SingUpPayload) {
+    const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
+      projectKey: `${projectKey}`,
+    });
+
+    const doCustomer = () => {
+      return apiRoot.customers().post(payload).execute();
+    };
+
+    doCustomer()
+      .then(({ body }) => {
+        console.log(body);
+      })
+      .catch(console.error);
   },
 };

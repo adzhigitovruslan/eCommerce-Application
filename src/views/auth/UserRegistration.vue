@@ -4,7 +4,8 @@
       <transition mode="out-in" :name="transitionName">
         <div class="form-wrapper" v-if="activePhase === 1">
           <div class="form-control">
-            <label for="firstName"><strong>First name</strong> </label>
+            <!-- THIS IS EXAMPLE - `@click="sendRuslanData` -->
+            <label for="firstName" @click="sendRuslanData"><strong>First name</strong> </label>
             <input
               id="firstName"
               type="text"
@@ -362,6 +363,7 @@ import { useVuelidate } from '@vuelidate/core';
 import vSelect from '@/components/auth/SelectForm.vue';
 import { required, email, minLength } from '@vuelidate/validators';
 import { DataForm } from '@/types/auth/FormData';
+import { useStore } from 'vuex';
 
 const activePhase: Ref<number> = ref(2);
 const transitionName: Ref<string> = ref('');
@@ -376,6 +378,41 @@ const countries = ref([
 ]);
 const selectedCountry: Ref<Country> = ref({ title: '', value: 'Select your country' });
 let tabs: Ref<number | undefined> = ref();
+// THIS IS NEED
+const store = useStore();
+// THIS IS EXAMPLE
+const ruslanData = {
+  body: {
+    email: 'krutoi-front@gmail.com',
+    password: '123a456AB!',
+    firstName: 'Ruslan',
+    lastName: 'KrutoiFrontDev',
+    dateOfBirth: '2008-12-31',
+    addresses: [
+      {
+        country: 'RU',
+        city: 'Astrakhani',
+        streetName: 'Mira',
+        postalCode: '414000',
+        phone: '+7(969)969-69-69',
+      },
+      {
+        country: 'US',
+        city: 'California',
+        streetName: 'Rodeo Drive',
+        postalCode: '89061',
+        phone: '+7(777)777-77-77',
+      },
+    ],
+    shippingAddresses: [0],
+    billingAddresses: [1],
+  },
+};
+
+// THIS IS EXAMPLE
+async function sendRuslanData() {
+  await store.dispatch('customer/singUp', ruslanData);
+}
 
 const formData: DataForm = reactive({
   firstName: '',
