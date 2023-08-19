@@ -235,7 +235,7 @@
 <script setup lang="ts">
 import { reactive, ref, Ref, computed, onMounted, watch } from 'vue';
 import { calculateAge } from '@/utils/auth/calculateAge';
-import { Country } from '@/components/auth/SelectForm.vue';
+import { Country } from '@/types/auth/SelectFormCountry';
 import {
   validateLastName,
   validatePassword,
@@ -248,7 +248,7 @@ import {
 import { useVuelidate } from '@vuelidate/core';
 import vSelect from '@/components/auth/SelectForm.vue';
 import { required, email, minLength } from '@vuelidate/validators';
-import { DataForm } from '@/types/FormData';
+import { DataForm } from '@/types/auth/FormData';
 
 const activePhase: Ref<number> = ref(1);
 const transitionName: Ref<string> = ref('');
@@ -505,3 +505,4 @@ form {
   }
 }
 </style>
+@/types/auth/FormData

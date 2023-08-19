@@ -6,4 +6,4 @@ declare module '*.vue' {
 }
 declare module 'vue-select';
 declare module '@mahdikhashan/vue3-click-outside';
-declare module 'vue-the-mask'
+declare module 'vue-the-mask';

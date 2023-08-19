@@ -6,9 +6,6 @@
     <slot></slot>
   </button>
   <button v-else class="button button__next">
-    <!-- <div class="success-button">
-      <font-awesome-icon icon="fa-solid fa-circle-xmark" />
-    </div> -->
     <slot></slot>
     <span :class="{ underline: mode }"></span>
   </button>

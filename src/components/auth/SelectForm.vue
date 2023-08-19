@@ -18,11 +18,7 @@
 
 <script setup lang="ts">
 import { ref, Ref } from 'vue';
-
-export interface Country {
-  title: string;
-  value: string;
-}
+import { Country } from '@/types/auth/SelectFormCountry';
 
 defineProps<{
   countries: Country[];
