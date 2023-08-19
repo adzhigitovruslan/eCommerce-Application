@@ -507,4 +507,3 @@ form {
   }
 }
 </style>
-@/types/auth/FormData
