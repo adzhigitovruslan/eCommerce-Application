@@ -124,7 +124,7 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     gap: 10px;
     font-family: $roboto-font-family;
     font-size: 24px;
