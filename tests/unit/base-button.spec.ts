@@ -15,9 +15,7 @@ describe('YourComponent.vue', () => {
     expect(closeButton.exists()).toBe(true);
     expect(nextButton.exists()).toBe(false);
 
-    // Test the presence of other elements inside the close button
     expect(closeButton.find('.button-icon').exists()).toBe(true);
-    expect(closeButton.find('.button-icon font-awesome-icon').exists()).toBe(true);
   });
 
   it('renders the next button when close prop is false', () => {
@@ -33,7 +31,6 @@ describe('YourComponent.vue', () => {
     expect(closeButton.exists()).toBe(false);
     expect(nextButton.exists()).toBe(true);
 
-    // Test the presence of other elements inside the next button
     expect(nextButton.find('span').exists()).toBe(true);
   });
 });

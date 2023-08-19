@@ -29,14 +29,17 @@
   &__wrapper {
     display: flex;
     flex-direction: column;
-    gap: 20px;
     max-width: 350px;
     width: 100%;
     padding: 15px 20px;
     background: #1c1c1c;
     border-radius: 10px;
     border: 1px solid #383636;
+    & > *:not(:last-child) {
+      margin-bottom: 20px;
+    }
   }
+
   &__logo-wrapper {
     display: flex;
     justify-content: center;

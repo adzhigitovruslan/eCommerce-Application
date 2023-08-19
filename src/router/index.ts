@@ -12,13 +12,9 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/signup',
+    name: 'signup',
     component: UserRegistration,
   },
-  // {
-  //   path: '/login',
-  //   component: CoachRegistration,
-  //   meta: { requiresAuth: true },
-  // },
   {
     path: '/about',
     name: 'about',

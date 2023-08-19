@@ -229,12 +229,14 @@
         <span class="underline"></span>
       </div>
     </form>
+    <HaveAnAccountForm mode="signup" />
   </base-auth-wrapper>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref, Ref, computed, onMounted, watch } from 'vue';
 import { calculateAge } from '@/utils/auth/calculateAge';
+import HaveAnAccountForm from '@/components/auth/HaveAnAccountForm.vue';
 import { Country } from '@/types/auth/SelectFormCountry';
 import {
   validateLastName,

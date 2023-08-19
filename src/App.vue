@@ -15,7 +15,6 @@ import TheNavigation from '@/components/layout/TheNavigation.vue';
 
 <style lang="scss">
 @import '@/assets/reset.scss';
-@import 'vue-select/dist/vue-select.css';
 
 #app {
   font-family: 'Manrope', Helvetica, Arial, sans-serif;
@@ -23,7 +22,6 @@ import TheNavigation from '@/components/layout/TheNavigation.vue';
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  height: 100%;
   min-height: 100vh;
   background-color: #06030f;
   background-size: 100% 100%;
