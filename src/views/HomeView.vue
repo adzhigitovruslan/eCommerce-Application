@@ -6,8 +6,8 @@
           <div>CONTENTS FOR CAROUSEL</div>
         </template>
       </the-carousel>
-      <h2 id="reviews"><the-reviews /></h2>
       <h2 id="promotions"><the-promotions /></h2>
+      <h2 id="reviews"><the-reviews /></h2>
     </div>
   </div>
 </template>

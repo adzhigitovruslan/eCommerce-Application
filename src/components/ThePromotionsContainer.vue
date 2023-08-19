@@ -2,7 +2,7 @@
   <div class="promotions-container">
     <h2>Promotions<span>%</span></h2>
     <div class="promotions-list">
-      <div v-for="game in discountedGames" :key="game.key" class="promotion-card">
+      <div v-for="(game, index) in discountedGames" :key="index" class="promotion-card">
         <img :src="getImagePath(game.image)" :alt="game.name" class="game-image" />
         <div class="game-info">
           <div class="game-price-container">
@@ -54,9 +54,17 @@ export default {
   },
   computed: {
     discountedGames(): Game[] {
-      console.log(this.games.filter((game: Game) => game.discount > 0));
+      const discountedGames = this.games.filter((game: Game) => game.discount > 0);
 
-      return this.games.filter((game: Game) => game.discount > 0);
+      const shuffledGames = discountedGames.slice();
+
+      for (let i = shuffledGames.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [shuffledGames[i], shuffledGames[j]] = [shuffledGames[j], shuffledGames[i]];
+      }
+
+      return shuffledGames.slice(0, 4);
     },
   },
   methods: {
