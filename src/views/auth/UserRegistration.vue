@@ -204,7 +204,7 @@
               :class="{
                 error:
                   (v$.address.postalCode.$dirty && v$.address.postalCode.required.$invalid) ||
-                  (v$.address.postalCode.$dirty && v$.address.postalCode.isPostalCodeValid),
+                  (v$.address.postalCode.$dirty && v$.address.postalCode.validatePostalCode.$invalid),
                 disabled: selectedCountry.value === 'Select your country',
               }"
               :disabled="selectedCountry.value === 'Select your country'"
@@ -215,7 +215,7 @@
             </div>
             <div
               class="input-errors"
-              v-else-if="v$.address.postalCode.$dirty && v$.address.postalCode.isPostalCodeValid"
+              v-else-if="v$.address.postalCode.$dirty && v$.address.postalCode.validatePostalCode.$invalid"
             >
               <div class="error-msg">Must follow the format for the country</div>
             </div>
@@ -252,11 +252,11 @@ import vSelect from '@/components/auth/SelectForm.vue';
 import { required, email, minLength } from '@vuelidate/validators';
 import { DataForm } from '@/types/auth/FormData';
 
-const activePhase: Ref<number> = ref(1);
+const activePhase: Ref<number> = ref(2);
 const transitionName: Ref<string> = ref('');
 const minAge: Ref<number> = ref(13);
 const isValidAge: Ref<{ isTrue: boolean; age: number | null }> = ref({ isTrue: false, age: null });
-const isPostalCodeValid: Ref<boolean> = ref(true);
+const isPostalCodeValid: Ref<boolean> = ref(false);
 const postalCodePlaceholder: Ref<string> = ref('Select country first');
 const phoneNumberPlaceholder: Ref<string> = ref('Select country first');
 const countries = ref([
@@ -291,7 +291,7 @@ const rules = computed(() => {
     address: {
       street: { required },
       city: { validateCity },
-      postalCode: { required, isPostalCodeValid },
+      postalCode: { required, validatePostalCode },
       country: { required },
       phoneNumber: { required, minLength: minLength(17) },
     },
@@ -322,6 +322,7 @@ watch(
 watch(
   () => formData.address.postalCode,
   (newFormPostaCode) => {
+    console.log(isPostalCodeValid.value);
     isPostalCodeValid.value = validateCountry[selectedCountry.value.title].validator(newFormPostaCode);
   },
 );
@@ -336,6 +337,16 @@ function updateValue(type: string) {
   if (type === 'phoneInput') {
     formData.address.phoneNumber = formatPhoneNumber(formData.address.phoneNumber, selectedCountry.value.title);
   }
+}
+
+function validatePostalCode(postalCode: string) {
+  if (selectedCountry.value.title.toLocaleLowerCase() === 'ru') {
+    return /^[0-9]{6}$/.test(postalCode);
+  } else if (selectedCountry.value.title.toLocaleLowerCase() === 'usa') {
+    return /^[0-9]{5}$/.test(postalCode);
+  }
+
+  return false;
 }
 
 function goToStep(value: number, transitionValue?: string) {
