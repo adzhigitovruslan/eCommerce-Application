@@ -32,9 +32,10 @@ export default {
 
     doCustomer()
       .then(({ body }) => {
-        state.currentUserId = body.customer.id;
+        const firstNameUser = body.customer.firstName || 'Anonym';
 
-        state.currentUserFirstName = body.customer.firstName || 'Anonym';
+        state.currentUserId = body.customer.id;
+        state.currentUserFirstName = firstNameUser;
         state.isLoggedIn = true;
       })
       .catch(console.error);
