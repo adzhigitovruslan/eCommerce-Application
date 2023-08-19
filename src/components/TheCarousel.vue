@@ -4,10 +4,7 @@
       <Slide v-for="(slide, index) in slides" :key="index">
         <div class="carousel__item">
           <img :src="slide.imageUrl" :alt="'Slide ' + (index + 1)" class="custom-image" />
-          <div
-            class="overlay"
-            :style="{ backgroundColor: index === currentSlide ? 'transparent' : 'rgba(6, 5, 12, 0.5)' }"
-          ></div>
+          <div class="overlay" :class="{ 'active-slide': index === currentSlide }"></div>
         </div>
       </Slide>
 
@@ -262,5 +259,9 @@ onMounted(() => {
     color: rgba(0, 0, 0, 0.9);
     border-color: rgba(255, 255, 255, 0.1);
   }
+}
+
+.active-slide {
+  background-color: transparent !important;
 }
 </style>
