@@ -59,7 +59,7 @@
     },
     methods: {
     getImagePath(image: string): string {
-      return require(`@/assets/${image}`);
+      return require(`@/assets/images/${image}`);
     },
   },
   }
