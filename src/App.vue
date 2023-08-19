@@ -7,16 +7,14 @@
           <component :is="Component" :key="routeKey"></component>
         </transition>
       </router-view>
-      <test-get-api></test-get-api>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import TheNavigation from './components/TheNavigation.vue';
-import TestGetApi from './components/TestGetApi.vue';
 
-export default { components: { TheNavigation, TestGetApi } };
+export default { components: { TheNavigation } };
 </script>
 
 <script setup lang="ts">

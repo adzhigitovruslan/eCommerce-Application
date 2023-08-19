@@ -6,7 +6,7 @@ import {
   type HttpMiddlewareOptions, // Required for sending HTTP requests
 } from '@commercetools/sdk-client-v2';
 
-const projectKey = 'ecommerce-application';
+const projectKey = `${process.env.VUE_APP_PRJ_KEY}`;
 const scopes = [`manage_project:${projectKey}`];
 
 // Configure authMiddlewareOptions
@@ -14,8 +14,8 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
   host: 'https://auth.australia-southeast1.gcp.commercetools.com',
   projectKey: projectKey,
   credentials: {
-    clientId: 'HcsiYL08L1-1m5w4KUyDDPbj',
-    clientSecret: 'Myitz3YX4ZZ-3bMi9v4tDO3UoBEftXC7',
+    clientId: `${process.env.VUE_APP_CLI_ID}`,
+    clientSecret: `${process.env.VUE_APP_CLI_SCR}`,
   },
   scopes,
   fetch,

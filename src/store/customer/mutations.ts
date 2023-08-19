@@ -8,11 +8,15 @@ interface GlobalState {
   currentUserId: string;
 }
 
+const projectKey = process.env.VUE_APP_PRJ_KEY;
+
 export default {
   login(state: GlobalState, payload: LoginPayload) {
     if (state.isLoggedIn) return;
 
-    const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({ projectKey: 'ecommerce-application' });
+    const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
+      projectKey: `${projectKey}`,
+    });
     const doCustomer = () => {
       return apiRoot
         .me()
