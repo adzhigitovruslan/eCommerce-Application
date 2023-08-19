@@ -14,7 +14,6 @@ import {
   faCircle,
   faCircleDot,
 } from '@fortawesome/free-solid-svg-icons';
-import VueSelect from 'vue-select';
 library.add(faDollarSign, faSearch, faCartShopping, faCircle, faCircleDot, faCircleXmark);
 import { clickOutSide as vClickOutSide } from '@mahdikhashan/vue3-click-outside';
 
@@ -23,7 +22,6 @@ const app = createApp(App);
 app.component('base-auth-button', BaseButton);
 app.component('base-auth-wrapper', BaseAuth);
 app.component('font-awesome-icon', FontAwesomeIcon);
-app.component('v-select', VueSelect);
 app.use(store);
 app.use(router);
 app.directive('click-out-side', vClickOutSide);
