@@ -28,12 +28,13 @@ onBeforeRouteUpdate((to: RouteLocationNormalized, from: RouteLocationNormalized)
 
 <style lang="scss">
 #app {
-  font-family: Manrope, Helvetica, Arial, sans-serif;
+  font-family: 'Manrope', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   background-color: #06030f;
   background-size: 100% 100%;
   background-repeat: no-repeat;

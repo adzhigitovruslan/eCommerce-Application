@@ -38,12 +38,25 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
   scrollBehavior(to, from, savedPosition) {
-    return (
-      savedPosition ||
-      new Promise((resolve) => {
-        setTimeout(() => resolve({ top: 0, behavior: 'smooth' }), 1000);
-      })
-    );
+    return new Promise((resolve) => {
+      if (to.hash) {
+        setTimeout(() => {
+          const element = document.querySelector(to.hash);
+
+          if (element) {
+            resolve({
+              el: to.hash,
+              behavior: 'smooth',
+            });
+          } else {
+            console.error(`Element with selector ${to.hash} not found.`);
+            resolve(savedPosition || { left: 0, top: 0 });
+          }
+        }, 2000);
+      } else {
+        resolve(savedPosition || { left: 0, top: 0 });
+      }
+    });
   },
 });
 
