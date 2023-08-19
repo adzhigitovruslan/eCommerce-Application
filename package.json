@@ -11,6 +11,8 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@egjs/flicking-plugins": "^4.7.1",
+    "@egjs/vue3-flicking": "^4.11.0",
     "@fortawesome/fontawesome-free": "^6.4.2",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
@@ -23,8 +25,10 @@
     "core-js": "^3.8.3",
     "vue": "^3.2.13",
     "vue-eslint-parser": "^9.3.1",
+    "vue-carousel": "^0.18.0",
     "vue-router": "^4.0.3",
     "vue-select": "^4.0.0-beta.6",
+    "vue3-carousel": "^0.3.1",
     "vue3-carousel": "^0.3.1",
     "vuex": "^4.0.0"
   },
@@ -49,6 +53,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.0.3",
     "husky": "^8.0.3",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^27.0.5",
     "prettier": "^2.4.1",
     "sass": "^1.32.7",

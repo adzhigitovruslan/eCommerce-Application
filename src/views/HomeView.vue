@@ -1,22 +1,34 @@
 <template>
-  <div class="home">
-    <h2 id="reviews">Reviews</h2>
-    <h2 id="promotions">Promotions</h2>
-    <carousel :items-to-show="1.5" :autoplay="1000" :wrapAround="true">
-      <slide v-for="slide in 10" :key="slide">
-        {{ slide }}
-      </slide>
-      <template #addons>
-        <navigation />
-        <pagination />
-      </template>
-    </carousel>
+  <div>
+    <div class="home">
+      <the-carousel>
+        <template v-slot:default>
+          <div>CONTENTS FOR CAROUSEL</div>
+        </template>
+      </the-carousel>
+      <h2 id="reviews">Reviews</h2>
+      <h2 id="promotions">Promotions</h2>
+    </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import 'vue3-carousel/dist/carousel.css';
-import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
+<script lang="ts">
+import { defineComponent } from 'vue';
+import TheCarousel from '@/components/TheCarousel.vue';
+
+export default defineComponent({
+  components: {
+    TheCarousel: TheCarousel,
+  },
+});
 </script>
 
-<style lang="scss"></style>
+<style>
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 35px;
+}
+</style>

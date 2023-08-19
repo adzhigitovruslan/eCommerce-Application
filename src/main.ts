@@ -5,6 +5,7 @@ import store from './store';
 import BaseAuth from '@/components/ui/auth/BaseAuth.vue';
 import BaseButton from '@/components/ui/auth/BaseButton.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
+<<<<<<< HEAD
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faCircleXmark, faSearch, faDollarSign, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import VueSelect from 'vue-select';
