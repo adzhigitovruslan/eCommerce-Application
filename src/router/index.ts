@@ -1,11 +1,19 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
+import UserRegistration from '@/views/auth/UserRegistration.vue';
+
+// const UserSignup = () => '@/views/auth/AuthPage.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
     component: HomeView,
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: UserRegistration,
   },
   {
     path: '/about',
@@ -35,7 +43,7 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
     return new Promise((resolve) => {

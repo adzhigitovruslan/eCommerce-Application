@@ -3,37 +3,25 @@
   <div class="container">
     <router-view v-slot="{ Component }">
       <transition name="slide" mode="out-in">
-        <component :is="Component" :key="routeKey"></component>
+        <component :is="Component"></component>
       </transition>
     </router-view>
   </div>
 </template>
 
-<script lang="ts">
-import TheNavigation from './components/TheNavigation.vue';
-
-export default { components: { TheNavigation } };
-</script>
-
 <script setup lang="ts">
-import { ref } from 'vue';
-import { onBeforeRouteUpdate, RouteLocationNormalized } from 'vue-router';
-
-const routeKey = ref('');
-
-onBeforeRouteUpdate((to: RouteLocationNormalized, from: RouteLocationNormalized) => {
-  routeKey.value = to.fullPath;
-});
+import TheNavigation from '@/components/layout/TheNavigation.vue';
 </script>
 
 <style lang="scss">
+@import '@/assets/reset.scss';
+
 #app {
   font-family: 'Manrope', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  height: 100%;
   min-height: 100vh;
   background-color: #06030f;
   background-size: 100% 100%;
