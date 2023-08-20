@@ -57,6 +57,8 @@ export default {
     doCustomer()
       .then(({ body }) => {
         console.log(body);
+        state.currentUserFirstName = payload.body.firstName;
+        state.isLoggedIn = true;
       })
       .catch(console.error);
   },

@@ -62,7 +62,6 @@ export function validateCity(city: string) {
 type CountryValidators = {
   [key: string]: {
     placeholder: string;
-    validator: (value: string) => boolean;
     phoneMask: string;
   };
 };
@@ -70,12 +69,10 @@ type CountryValidators = {
 export const validateCountry: CountryValidators = {
   USA: {
     placeholder: 'Enter ZIP Code (e.g., 12345)',
-    validator: (value: string) => /^[0-9]{5}$/.test(value),
     phoneMask: '+1 (###) ###-####',
   },
   RU: {
     placeholder: 'Enter Postal Code (e.g., 123456)',
-    validator: (value: string) => /^[0-9]{6}$/.test(value),
     phoneMask: '+7 (###) ###-####',
   },
 };

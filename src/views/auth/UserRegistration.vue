@@ -121,214 +121,223 @@
         </div>
         <div class="form-wrapper-step2" v-else>
           <div class="form-wrapper">
+            <label>Street</label>
             <div class="form-control">
-              <label for="street">Street</label>
-              <input
-                id="street"
-                type="text"
-                placeholder="Enter your street"
-                v-model.trim="formData.address.street"
-                @blur="v$.address.street.$validate"
-                :class="{ error: v$.address.street.$dirty && v$.address.street.required.$invalid }"
-              />
-              <div class="input-errors" v-if="v$.address.street.$dirty && v$.address.street.required.$invalid">
-                <div class="error-msg">Must contain at least one character</div>
+              <div>
+                <input
+                  id="street"
+                  type="text"
+                  placeholder="Enter your street"
+                  v-model.trim="formData.address.street"
+                  @blur="v$.address.street.$validate"
+                  :class="{ error: v$.address.street.$dirty && v$.address.street.required.$invalid }"
+                />
+                <div class="input-errors" v-if="v$.address.street.$dirty && v$.address.street.required.$invalid">
+                  <div class="error-msg">Must contain at least one character</div>
+                </div>
+              </div>
+              <div>
+                <input
+                  id="street"
+                  type="text"
+                  placeholder="Enter your street"
+                  v-model.trim="formData.address.street"
+                  @blur="v$.address.street.$validate"
+                  :class="{ error: v$.address.street.$dirty && v$.address.street.required.$invalid }"
+                />
+                <div class="input-errors" v-if="v$.address.street.$dirty && v$.address.street.required.$invalid">
+                  <div class="error-msg">Must contain at least one character</div>
+                </div>
               </div>
             </div>
+            <label>City</label>
             <div class="form-control">
-              <label for="street">City</label>
-              <input
-                id="city"
-                type="text"
-                placeholder="Enter your city"
-                v-model.trim="formData.address.city"
-                @blur="v$.address.city.$validate"
-                :class="{
-                  error: v$.address.city.$dirty && v$.address.city.validateCity.$invalid,
-                }"
-              />
-              <div class="input-errors" v-if="v$.address.city.$dirty && v$.address.city.validateCity.$invalid">
-                <div class="error-msg">Must contain at least one character and no special characters or numbers</div>
+              <div>
+                <input
+                  id="city"
+                  type="text"
+                  placeholder="Enter your city"
+                  v-model.trim="formData.address.city"
+                  @blur="v$.address.city.$validate"
+                  :class="{
+                    error: v$.address.city.$dirty && v$.address.city.validateCity.$invalid,
+                  }"
+                />
+                <div class="input-errors" v-if="v$.address.city.$dirty && v$.address.city.validateCity.$invalid">
+                  <div class="error-msg">Must contain at least one character and no special characters or numbers</div>
+                </div>
+              </div>
+              <div>
+                <input
+                  id="city"
+                  type="text"
+                  placeholder="Enter your city"
+                  v-model.trim="formData.address.city"
+                  @blur="v$.address.city.$validate"
+                  :class="{
+                    error: v$.address.city.$dirty && v$.address.city.validateCity.$invalid,
+                  }"
+                />
+                <div class="input-errors" v-if="v$.address.city.$dirty && v$.address.city.validateCity.$invalid">
+                  <div class="error-msg">Must contain at least one character and no special characters or numbers</div>
+                </div>
               </div>
             </div>
+            <label>Country</label>
             <div class="form-control">
-              <label for="country">Country</label>
-              <vSelect
-                :countries="countries"
-                :selected="selectedCountry"
-                @select="setSelectedCountry"
-                @blur="v$.address.country.$validate"
-                :class="{
-                  error: v$.address.country.$dirty && v$.address.country.required.$invalid,
-                }"
-              />
-              <div class="input-errors" v-if="v$.address.country.$dirty && v$.address.country.required.$invalid">
-                <div class="error-msg">Must be a valid country from a predefined list</div>
+              <div>
+                <vSelect
+                  :countries="countries"
+                  :selected="selectedCountry"
+                  @select="setSelectedCountry"
+                  @blur="v$.address.country.$validate"
+                  :class="{
+                    error: v$.address.country.$dirty && v$.address.country.required.$invalid,
+                  }"
+                />
+                <div class="input-errors" v-if="v$.address.country.$dirty && v$.address.country.required.$invalid">
+                  <div class="error-msg">Must be a valid country from a predefined list</div>
+                </div>
+              </div>
+              <div>
+                <vSelect
+                  :countries="countries"
+                  :selected="selectedCountry"
+                  @select="setSelectedCountry"
+                  @blur="v$.address.country.$validate"
+                  :class="{
+                    error: v$.address.country.$dirty && v$.address.country.required.$invalid,
+                  }"
+                />
+                <div class="input-errors" v-if="v$.address.country.$dirty && v$.address.country.required.$invalid">
+                  <div class="error-msg">Must be a valid country from a predefined list</div>
+                </div>
               </div>
             </div>
+            <label>Phone number</label>
             <div class="form-control">
-              <label for="tel">Phone number</label>
-              <input
-                id="tel"
-                type="text"
-                inputmode="tel"
-                :maxlength="v$.address.phoneNumber.minLength.$params.min"
-                :placeholder="phoneNumberPlaceholder"
-                v-model="formData.address.phoneNumber"
-                @input="updateValue('phoneInput')"
-                @blur="v$.address.phoneNumber.$validate"
-                :class="{
-                  error:
-                    (v$.address.phoneNumber.$dirty && v$.address.phoneNumber.required.$invalid) ||
-                    (v$.address.phoneNumber.$dirty && v$.address.phoneNumber.minLength.$invalid),
+              <div>
+                <input
+                  id="tel"
+                  type="text"
+                  inputmode="tel"
+                  :maxlength="v$.address.phoneNumber.minLength.$params.min"
+                  :placeholder="phoneNumberPlaceholder"
+                  v-model="formData.address.phoneNumber"
+                  @input="updateValue('phoneInput')"
+                  @blur="v$.address.phoneNumber.$validate"
+                  :class="{
+                    error:
+                      (v$.address.phoneNumber.$dirty && v$.address.phoneNumber.required.$invalid) ||
+                      (v$.address.phoneNumber.$dirty && v$.address.phoneNumber.minLength.$invalid),
 
-                  disabled: selectedCountry.value === 'Select your country',
-                }"
-                :disabled="selectedCountry.value === 'Select your country'"
-              />
-              <div
-                class="input-errors"
-                v-if="v$.address.phoneNumber.$dirty && v$.address.phoneNumber.required.$invalid"
-              >
-                <div class="error-msg">Enter your phone number</div>
+                    disabled: selectedCountry.value === 'Select country',
+                  }"
+                  :disabled="selectedCountry.value === 'Select country'"
+                />
+                <div
+                  class="input-errors"
+                  v-if="v$.address.phoneNumber.$dirty && v$.address.phoneNumber.required.$invalid"
+                >
+                  <div class="error-msg">Enter your phone number</div>
+                </div>
+                <div
+                  class="input-errors"
+                  v-else-if="v$.address.phoneNumber.$dirty && v$.address.phoneNumber.minLength.$invalid"
+                >
+                  <div class="error-msg">Enter a valid phone number</div>
+                </div>
               </div>
-              <div
-                class="input-errors"
-                v-else-if="v$.address.phoneNumber.$dirty && v$.address.phoneNumber.minLength.$invalid"
-              >
-                <div class="error-msg">Enter a valid phone number</div>
-              </div>
-            </div>
-            <div class="form-control">
-              <label for="postalCode">Postal code</label>
-              <input
-                id="postalCode"
-                type="text"
-                v-model.trim="formData.address.postalCode"
-                @blur="v$.address.postalCode.$validate"
-                :class="{
-                  error:
-                    (v$.address.postalCode.$dirty && v$.address.postalCode.required.$invalid) ||
-                    (v$.address.postalCode.$dirty && v$.address.postalCode.validatePostalCode.$invalid),
-                  disabled: selectedCountry.value === 'Select your country',
-                }"
-                :disabled="selectedCountry.value === 'Select your country'"
-                :placeholder="postalCodePlaceholder"
-              />
-              <div class="input-errors" v-if="v$.address.postalCode.$dirty && v$.address.postalCode.required.$invalid">
-                <div class="error-msg">Enter your postal code</div>
-              </div>
-              <div
-                class="input-errors"
-                v-else-if="v$.address.postalCode.$dirty && v$.address.postalCode.validatePostalCode.$invalid"
-              >
-                <div class="error-msg">Must follow the format for the country</div>
-              </div>
-            </div>
-          </div>
-          <div class="form-wrapper">
-            <div class="form-control">
-              <label for="street">Street</label>
-              <input
-                id="street"
-                type="text"
-                placeholder="Enter your street"
-                v-model.trim="formData.address.street"
-                @blur="v$.address.street.$validate"
-                :class="{ error: v$.address.street.$dirty && v$.address.street.required.$invalid }"
-              />
-              <div class="input-errors" v-if="v$.address.street.$dirty && v$.address.street.required.$invalid">
-                <div class="error-msg">Must contain at least one character</div>
-              </div>
-            </div>
-            <div class="form-control">
-              <label for="street">City</label>
-              <input
-                id="city"
-                type="text"
-                placeholder="Enter your city"
-                v-model.trim="formData.address.city"
-                @blur="v$.address.city.$validate"
-                :class="{
-                  error: v$.address.city.$dirty && v$.address.city.validateCity.$invalid,
-                }"
-              />
-              <div class="input-errors" v-if="v$.address.city.$dirty && v$.address.city.validateCity.$invalid">
-                <div class="error-msg">Must contain at least one character and no special characters or numbers</div>
-              </div>
-            </div>
-            <div class="form-control">
-              <label for="country">Country</label>
-              <vSelect
-                :countries="countries"
-                :selected="selectedCountry"
-                @select="setSelectedCountry"
-                @blur="v$.address.country.$validate"
-                :class="{
-                  error: v$.address.country.$dirty && v$.address.country.required.$invalid,
-                }"
-              />
-              <div class="input-errors" v-if="v$.address.country.$dirty && v$.address.country.required.$invalid">
-                <div class="error-msg">Must be a valid country from a predefined list</div>
-              </div>
-            </div>
-            <div class="form-control">
-              <label for="tel">Phone number</label>
-              <input
-                id="tel"
-                type="text"
-                inputmode="tel"
-                :maxlength="v$.address.phoneNumber.minLength.$params.min"
-                :placeholder="phoneNumberPlaceholder"
-                v-model="formData.address.phoneNumber"
-                @input="updateValue('phoneInput')"
-                @blur="v$.address.phoneNumber.$validate"
-                :class="{
-                  error:
-                    (v$.address.phoneNumber.$dirty && v$.address.phoneNumber.required.$invalid) ||
-                    (v$.address.phoneNumber.$dirty && v$.address.phoneNumber.minLength.$invalid),
+              <div>
+                <input
+                  id="tel"
+                  type="text"
+                  inputmode="tel"
+                  :maxlength="v$.address.phoneNumber.minLength.$params.min"
+                  :placeholder="phoneNumberPlaceholder"
+                  v-model="formData.address.phoneNumber"
+                  @input="updateValue('phoneInput')"
+                  @blur="v$.address.phoneNumber.$validate"
+                  :class="{
+                    error:
+                      (v$.address.phoneNumber.$dirty && v$.address.phoneNumber.required.$invalid) ||
+                      (v$.address.phoneNumber.$dirty && v$.address.phoneNumber.minLength.$invalid),
 
-                  disabled: selectedCountry.value === 'Select your country',
-                }"
-                :disabled="selectedCountry.value === 'Select your country'"
-              />
-              <div
-                class="input-errors"
-                v-if="v$.address.phoneNumber.$dirty && v$.address.phoneNumber.required.$invalid"
-              >
-                <div class="error-msg">Enter your phone number</div>
-              </div>
-              <div
-                class="input-errors"
-                v-else-if="v$.address.phoneNumber.$dirty && v$.address.phoneNumber.minLength.$invalid"
-              >
-                <div class="error-msg">Enter a valid phone number</div>
+                    disabled: selectedCountry.value === 'Select country',
+                  }"
+                  :disabled="selectedCountry.value === 'Select country'"
+                />
+                <div
+                  class="input-errors"
+                  v-if="v$.address.phoneNumber.$dirty && v$.address.phoneNumber.required.$invalid"
+                >
+                  <div class="error-msg">Enter your phone number</div>
+                </div>
+                <div
+                  class="input-errors"
+                  v-else-if="v$.address.phoneNumber.$dirty && v$.address.phoneNumber.minLength.$invalid"
+                >
+                  <div class="error-msg">Enter a valid phone number</div>
+                </div>
               </div>
             </div>
+            <label for="postalCode">Postal code</label>
             <div class="form-control">
-              <label for="postalCode">Postal code</label>
-              <input
-                id="postalCode"
-                type="text"
-                v-model.trim="formData.address.postalCode"
-                @blur="v$.address.postalCode.$validate"
-                :class="{
-                  error:
-                    (v$.address.postalCode.$dirty && v$.address.postalCode.required.$invalid) ||
-                    (v$.address.postalCode.$dirty && v$.address.postalCode.validatePostalCode.$invalid),
-                  disabled: selectedCountry.value === 'Select your country',
-                }"
-                :disabled="selectedCountry.value === 'Select your country'"
-                :placeholder="postalCodePlaceholder"
-              />
-              <div class="input-errors" v-if="v$.address.postalCode.$dirty && v$.address.postalCode.required.$invalid">
-                <div class="error-msg">Enter your postal code</div>
+              <div>
+                <input
+                  id="postalCode"
+                  type="text"
+                  v-model.trim="formData.address.postalCode"
+                  @blur="v$.address.postalCode.$validate"
+                  :class="{
+                    error:
+                      (v$.address.postalCode.$dirty && v$.address.postalCode.required.$invalid) ||
+                      (v$.address.postalCode.$dirty && v$.address.postalCode.validatePostalCode.$invalid),
+                    disabled: selectedCountry.value === 'Select country',
+                  }"
+                  :disabled="selectedCountry.value === 'Select country'"
+                  :placeholder="postalCodePlaceholder"
+                />
+                <div
+                  class="input-errors"
+                  v-if="v$.address.postalCode.$dirty && v$.address.postalCode.required.$invalid"
+                >
+                  <div class="error-msg">Enter your postal code</div>
+                </div>
+                <div
+                  class="input-errors"
+                  v-else-if="v$.address.postalCode.$dirty && v$.address.postalCode.validatePostalCode.$invalid"
+                >
+                  <div class="error-msg">Must follow the format for the country</div>
+                </div>
               </div>
-              <div
-                class="input-errors"
-                v-else-if="v$.address.postalCode.$dirty && v$.address.postalCode.validatePostalCode.$invalid"
-              >
-                <div class="error-msg">Must follow the format for the country</div>
+              <div>
+                <input
+                  id="postalCode"
+                  type="text"
+                  v-model.trim="formData.address.postalCode"
+                  @blur="v$.address.postalCode.$validate"
+                  :class="{
+                    error:
+                      (v$.address.postalCode.$dirty && v$.address.postalCode.required.$invalid) ||
+                      (v$.address.postalCode.$dirty && v$.address.postalCode.validatePostalCode.$invalid),
+                    disabled: selectedCountry.value === 'Select country',
+                  }"
+                  :disabled="selectedCountry.value === 'Select country'"
+                  :placeholder="postalCodePlaceholder"
+                />
+                <div
+                  class="input-errors"
+                  v-if="v$.address.postalCode.$dirty && v$.address.postalCode.required.$invalid"
+                >
+                  <div class="error-msg">Enter your postal code</div>
+                </div>
+                <div
+                  class="input-errors"
+                  v-else-if="v$.address.postalCode.$dirty && v$.address.postalCode.validatePostalCode.$invalid"
+                >
+                  <div class="error-msg">Must follow the format for the country</div>
+                </div>
               </div>
             </div>
           </div>
@@ -346,7 +355,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, Ref, computed, onMounted, watch } from 'vue';
+import { reactive, ref, Ref, computed, watch } from 'vue';
 import { calculateAge } from '@/utils/auth/calculateAge';
 import HaveAnAccountForm from '@/components/auth/HaveAnAccountForm.vue';
 import { Country } from '@/types/auth/SelectFormCountry';
@@ -369,15 +378,13 @@ const activePhase: Ref<number> = ref(2);
 const transitionName: Ref<string> = ref('');
 const minAge: Ref<number> = ref(13);
 const isValidAge: Ref<{ isTrue: boolean; age: number | null }> = ref({ isTrue: false, age: null });
-const isPostalCodeValid: Ref<boolean> = ref(false);
-const postalCodePlaceholder: Ref<string> = ref('Select country first');
-const phoneNumberPlaceholder: Ref<string> = ref('Select country first');
+const postalCodePlaceholder: Ref<string> = ref('Select country');
+const phoneNumberPlaceholder: Ref<string> = ref('Select country');
 const countries = ref([
   { title: 'RU', value: 'Russian Federation' },
   { title: 'USA', value: 'The United States' },
 ]);
-const selectedCountry: Ref<Country> = ref({ title: '', value: 'Select your country' });
-let tabs: Ref<number | undefined> = ref();
+const selectedCountry: Ref<Country> = ref({ title: '', value: 'Select country' });
 // THIS IS NEED
 const store = useStore();
 // THIS IS EXAMPLE
@@ -449,11 +456,7 @@ const rules = computed(() => {
 const v$ = useVuelidate(rules, formData);
 
 const isLastPage = computed(() => {
-  if (tabs.value) {
-    return activePhase.value === 2;
-  }
-
-  return false;
+  return activePhase.value === 2;
 });
 
 watch(
@@ -464,14 +467,6 @@ watch(
     if (!v$.value.date.minLength.$invalid) {
       isValidAge.value = calculateAge(formData.date, minAge.value);
     }
-  },
-);
-
-watch(
-  () => formData.address.postalCode,
-  (newFormPostaCode) => {
-    console.log(isPostalCodeValid.value);
-    isPostalCodeValid.value = validateCountry[selectedCountry.value.title].validator(newFormPostaCode);
   },
 );
 
@@ -521,10 +516,6 @@ const submitHandler = () => {
   v$.value.$validate();
   // you can show some extra alert to the user or just leave the each field to show it's `$errors`.
 };
-
-onMounted(() => {
-  tabs.value = document.getElementsByClassName('form-wrapper').length;
-});
 </script>
 
 <style lang="scss" scoped>
@@ -534,7 +525,12 @@ $darkBackgroundColor: #010101;
 .button-wrapper {
   display: flex;
   position: relative;
+  max-width: 100%;
+  width: 100%;
   overflow: hidden;
+  @media (max-width: 1200px) {
+    max-width: calc(85% + 15 * ((100vw - 320px) / (1200 - 320)));
+  }
   & .underline {
     position: absolute;
     display: block;
@@ -551,28 +547,44 @@ $darkBackgroundColor: #010101;
 form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 10px;
   overflow: hidden;
-
+  @media (max-width: 1200px) {
+    gap: calc(5px + 5 * ((100vw - 320px) / (1200 - 320)));
+  }
   & .form-wrapper {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    @media (max-width: 1200px) {
+      gap: calc(10px + 10 * ((100vw - 320px) / (1200 - 320)));
+    }
     & .form-control {
       display: flex;
       flex-direction: column;
       gap: 10px;
+      & div {
+        width: 100%;
+      }
       & .input-errors {
         & .error-msg {
           color: $errorColor;
           text-align: left;
           font-size: 13px;
+          @media (max-width: 1200px) {
+            font-size: calc(10px + 3 * ((100vw - 320px) / (1200 - 320)));
+          }
         }
       }
       & label {
         color: $mainWhiteColor;
         opacity: 0.8;
         white-space: nowrap;
+        font-size: 16px;
+        @media (max-width: 1200px) {
+          font-size: calc(13px + 3 * ((100vw - 320px) / (1200 - 320)));
+        }
       }
       & input:-webkit-autofill,
       & input:-webkit-autofill:focus {
@@ -583,7 +595,6 @@ form {
         -webkit-appearance: none;
         margin: 0;
       }
-
       /* Firefox */
       & input[type='number'] {
         -moz-appearance: textfield;
@@ -598,6 +609,13 @@ form {
         border: 1px solid #383636;
         color: $mainWhiteColor;
         font-size: 15px;
+        @media (max-width: 1200px) {
+          padding-top: calc(5px + 5 * ((100vw - 320px) / (1200 - 320)));
+          padding-bottom: calc(5px + 5 * ((100vw - 320px) / (1200 - 320)));
+          padding-left: calc(5px + 10 * ((100vw - 320px) / (1200 - 320)));
+          padding-right: calc(5px + 10 * ((100vw - 320px) / (1200 - 320)));
+          font-size: calc(13px + 2 * ((100vw - 320px) / (1200 - 320)));
+        }
         &.disabled {
           opacity: 0.3;
           cursor: no-drop;
@@ -614,6 +632,21 @@ form {
           outline: none;
           border-color: $mainWhiteColor;
         }
+      }
+    }
+  }
+  & .form-wrapper-step2 {
+    display: flex;
+    & .form-control {
+      flex-direction: row;
+    }
+    & label {
+      color: $mainWhiteColor;
+      opacity: 0.8;
+      white-space: nowrap;
+      font-size: 16px;
+      @media (max-width: 1200px) {
+        font-size: calc(13px + 3 * ((100vw - 320px) / (1200 - 320)));
       }
     }
   }

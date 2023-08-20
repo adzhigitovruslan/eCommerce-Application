@@ -2,7 +2,7 @@
   <div class="select">
     <p
       class="title"
-      :class="{ active: selected.value !== 'Select your country' }"
+      :class="{ active: selected.value !== 'Select country' }"
       @click="areOptionsVisible = !areOptionsVisible"
       v-click-out-side="hideSelect"
     >
@@ -40,11 +40,13 @@ function hideSelect() {
 
 <style lang="scss">
 .select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
   color: rgb(117, 117, 117, 0.8);
   font-size: 15px;
-  width: 308px;
-
+  width: 100%;
   border-radius: 6px;
   background: #010110;
   &.error {
@@ -55,6 +57,13 @@ function hideSelect() {
     cursor: pointer;
     padding: 10px 15px;
     transition: 0.3s;
+    @media (max-width: 1200px) {
+      padding-top: calc(5px + 5 * ((100vw - 320px) / (1200 - 320)));
+      padding-bottom: calc(5px + 5 * ((100vw - 320px) / (1200 - 320)));
+      padding-left: calc(5px + 10 * ((100vw - 320px) / (1200 - 320)));
+      padding-right: calc(5px + 10 * ((100vw - 320px) / (1200 - 320)));
+      font-size: calc(11px + 4 * ((100vw - 320px) / (1200 - 320)));
+    }
 
     &:not(:last-child) {
       border-bottom: 1px solid #383636;
@@ -82,6 +91,9 @@ function hideSelect() {
     border-radius: 0 0 6px 6px;
     background: #010110;
     z-index: 2;
+    @media (max-width: 1200px) {
+      top: calc(25px + 7 * ((100vw - 320px) / (1200 - 320)));
+    }
   }
 }
 .title {
@@ -89,7 +101,17 @@ function hideSelect() {
   padding: 10px 15px;
   border: 1px solid #383636;
   border-radius: 6px;
+  line-height: normal;
+  font-size: 15px;
+  width: 100%;
   cursor: pointer;
+  @media (max-width: 1200px) {
+    padding-top: calc(5px + 5 * ((100vw - 320px) / (1200 - 320)));
+    padding-bottom: calc(5px + 5 * ((100vw - 320px) / (1200 - 320)));
+    padding-left: calc(5px + 10 * ((100vw - 320px) / (1200 - 320)));
+    padding-right: calc(5px + 10 * ((100vw - 320px) / (1200 - 320)));
+    font-size: calc(13px + 2 * ((100vw - 320px) / (1200 - 320)));
+  }
   &.active {
     color: #fefefe;
   }
