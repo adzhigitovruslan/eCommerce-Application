@@ -52,7 +52,7 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @import '@/assets/styles/global.scss';
 
 .carousel {
@@ -149,21 +149,19 @@ onMounted(() => {
   left: 350px;
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 5%;
-  padding: 10px;
+  padding: 20px;
 }
 
 .game-info__image {
   height: 85px;
-  top: 373px;
-  left: 450px;
+  
 }
 
 .game-info__description {
   color: $white-color;
-  width: 592px;
-  height: 114px;
+  width: 572px;
   position: relative;
-  top: -50px;
+
 
   p {
     font-family: $manrope-font-family;

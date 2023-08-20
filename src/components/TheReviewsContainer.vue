@@ -219,6 +219,7 @@ export default defineComponent({
     max-width: 300px;
     width: 100%;
     height: 150px;
+    color: white;
 
     .review-stars {
       font-size: 15px;

@@ -2,12 +2,13 @@
   <div class="promotions-container">
     <h2>Promotions<span>%</span></h2>
     <div class="promotions-list">
-      <ProductCard v-for="(game, index) in discountedGames" :key="index" :game="game" />
+      <ProductCard v-for="(game, index) in discountedGames" :key="index" :game="game" imageClass="image-mode-promo" />
+      />
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script scoped lang="ts">
 import gamesData from '@/data.json';
 import { defineComponent } from 'vue';
 import { Game } from '@/components/game';
@@ -49,6 +50,8 @@ h2 {
   text-align: left;
   margin-top: 15px;
   margin-bottom: 15px;
+  color: white;
+  margin-bottom: 45px;
 
   span {
     color: #77be1d;
@@ -56,7 +59,7 @@ h2 {
   }
 }
 .promotions-container {
-  max-width: 80%;
+  max-width: 80vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

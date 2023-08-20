@@ -1,9 +1,9 @@
 <template>
-  <div class="products-container">
-    <h2>Our Products</h2>
-    <div v-for="(row, index) in rows" :key="index" class="product-row">
-      <div v-for="game in row" :key="game.key">
-        <ProductCard :game="game" imageClass="image-mode" />
+  <div class="top-games-container">
+    <h2>Top 4 Games</h2>
+    <div class="top-games-row">
+      <div v-for="game in topGames" :key="game.key">
+        <ProductCard :game="game" imageClass="top-four-image" />
       </div>
     </div>
   </div>
@@ -25,21 +25,10 @@ export default defineComponent({
     };
   },
   computed: {
-    rows(): Game[][] {
-      const games = this.shuffleArray(this.games);
-      const rows: Game[][] = [];
+    topGames(): Game[] {
+      const shuffledGames = this.shuffleArray(this.games);
 
-      const itemsPerRow = 4;
-      const numRows = 3;
-
-      for (let i = 0; i < numRows; i++) {
-        const startIndex = i * itemsPerRow;
-        const endIndex = (i + 1) * itemsPerRow;
-
-        rows.push(games.slice(startIndex, endIndex));
-      }
-
-      return rows;
+      return shuffledGames.slice(0, 4);
     },
   },
   methods: {
@@ -59,7 +48,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.products-container {
+.top-games-container {
   max-width: 80vw;
   display: grid;
   margin: auto;
@@ -74,25 +63,18 @@ h2 {
   text-align: left;
   margin-top: 15px;
   margin-bottom: 15px;
+  background-clip: text;
+  -webkit-background-clip: text;
   color: white;
   margin-bottom: 45px;
 }
 
-.product-row {
+.top-games-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   max-width: 80vw;
   margin: auto;
   gap: 15px;
-}
-
-.promotion-card {
-  height: 530px;
-  border-radius: 15px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 </style>

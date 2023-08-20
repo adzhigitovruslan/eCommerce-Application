@@ -1,6 +1,6 @@
 <template>
   <div class="promotion-card" v-if="game">
-    <img :src="getImagePath(game.image)" :alt="game.name" class="game-image" />
+    <img :src="getImagePath(game.image)" :alt="game.name" :class="imageClass" />
     <div class="game-info">
       <div class="game-price-container">
         <div class="game-price">Price: ${{ game.price }}</div>
@@ -18,7 +18,9 @@ import { Game } from '@/components/game';
 export default defineComponent({
   props: {
     game: Object as () => Game,
+    imageClass: String,
   },
+
   computed: {
     getImagePath(): (image: string) => string {
       return (image: string) => require(`@/assets/images/${image}`);
@@ -79,9 +81,31 @@ export default defineComponent({
   text-align: left;
 }
 
-.game-image {
+.image-mode {
+  max-width: 265px;
+  height: 400px;
+  border-radius: 15px;
+  margin-bottom: 10px;
   object-fit: cover;
   cursor: pointer;
-  width: 300px;
+}
+
+.image-mode-promo {
+  object-fit: cover;
+  max-width: 620px;
+  width: 550px;
+  height: 319px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.top-four-image {
+  max-width: 270px;
+  height: 450px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  object-fit: cover;
+  cursor: pointer;
 }
 </style>
