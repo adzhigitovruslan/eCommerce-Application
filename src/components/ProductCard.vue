@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Game from '@/types/interfaces/game';
+import { Game } from '@/components/game';
 
 export default defineComponent({
   props: {
@@ -80,8 +80,8 @@ export default defineComponent({
 }
 
 .game-image {
-    object-fit: cover;
-    cursor: pointer;
-    width: 300px;
-  }
+  object-fit: cover;
+  cursor: pointer;
+  width: 300px;
+}
 </style>

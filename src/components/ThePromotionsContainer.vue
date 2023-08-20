@@ -10,7 +10,7 @@
 <script lang="ts">
 import gamesData from '@/data.json';
 import { defineComponent } from 'vue';
-import Game from '@/types/interfaces/game';
+import { Game } from '@/components/game';
 import ProductCard from '@/components/ProductCard.vue';
 
 export default defineComponent({
@@ -24,8 +24,7 @@ export default defineComponent({
   },
   computed: {
     discountedGames(): Game[] {
-      const games = (this as any).games; // Use 'as any' for type assertion
-      const discountedGames = games.filter((game: Game) => game.discount > 0);
+      const discountedGames = this.games.filter((game: Game) => game.discount > 0);
 
       const shuffledGames = discountedGames.slice();
 
@@ -42,9 +41,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-
 h2 {
- 
   font-size: 32px;
   font-weight: 600;
   line-height: 42px;

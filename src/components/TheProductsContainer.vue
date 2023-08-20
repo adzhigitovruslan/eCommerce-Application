@@ -10,19 +10,35 @@
 
 <script lang="ts">
 import gamesData from '@/data.json';
-import Game from '@/types/interfaces/game';
+import { Game } from '@/components/game';
 import ProductCard from '@/components/ProductCard.vue';
+import { defineComponent } from 'vue';
 
-export default {
+const formattedGames: Game[] = gamesData.Games.map((data: any) => {
+  return {
+    key: data.key,
+    name: data.name,
+    productType: data.productType,
+    slug: data.slug,
+    price: data.price,
+    discount: data.discount,
+    description: data.description,
+    categories: data.categories,
+    platform: data.platform,
+    'activation region': data['activation region'],
+    'system requirements': data['system requirements'],
+    image: data.image,
+  };
+});
+
+export default defineComponent({
   components: {
     ProductCard,
   },
   computed: {
-    rows() {
-      console.log(gamesData, gamesData.Games);
-
-      const games = this.shuffleArray(gamesData.Games); // Используйте gamesData.Games
-      const rows = [];
+    rows(): Game[][] {
+      const games = this.shuffleArray(formattedGames); // Вызываем функцию shuffleArray
+      const rows: Game[][] = [];
 
       for (let i = 0; i < games.length; i += 4) {
         rows.push(games.slice(i, i + 4));
@@ -32,7 +48,8 @@ export default {
     },
   },
   methods: {
-    shuffleArray(array: Game[]) {
+    shuffleArray(array: Game[]): Game[] {
+      // Определяем функцию shuffleArray
       const shuffledArray = array.slice();
 
       for (let i = shuffledArray.length - 1; i > 0; i--) {
@@ -44,7 +61,7 @@ export default {
       return shuffledArray;
     },
   },
-};
+});
 </script>
 
 <style scoped lang="scss">
@@ -65,7 +82,6 @@ export default {
 .promotion-card {
   width: 300px;
   height: 530px;
-  background-color: #fff;
   border-radius: 15px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -75,6 +91,7 @@ export default {
 
   .game-image {
     width: 300px;
+    height: 400px;
     border-radius: 15px;
     margin-bottom: 10px;
     object-fit: cover;
