@@ -54,7 +54,8 @@ export default {
   },
   computed: {
     discountedGames(): Game[] {
-      const discountedGames = this.games.filter((game: Game) => game.discount > 0);
+      const games = (this as any).games; // Use 'as any' for type assertion
+      const discountedGames = games.filter((game: Game) => game.discount > 0);
 
       const shuffledGames = discountedGames.slice();
 
@@ -171,6 +172,32 @@ h2 {
         line-height: 21px;
         letter-spacing: 0em;
         text-align: left;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    padding: 0 15px;
+
+    .promotions-list {
+      justify-content: center;
+
+      .promotion-card {
+        max-width: 100%;
+        height: auto;
+
+        .game-image {
+        }
+
+        .game-info {
+        }
+
+        .game-price-container {
+        }
+
+        .game-name {
+        }
       }
     }
   }

@@ -42,9 +42,9 @@ export default defineComponent({
       showReviewForm: false,
       reviews: [
         { rating: 5, name: 'John Doe', title: 'Great Game!', comment: 'I loved this game!' },
+        { rating: 5, name: 'Emily Brown', title: 'Highly Recommended', comment: "One of the best games I've played." },
         { rating: 4, name: 'Jane Smith', title: 'Enjoyable Experience', comment: 'Had a lot of fun playing.' },
         { rating: 4, name: 'Alex Johnson', title: 'Decent Game', comment: 'It was a great experience.' },
-        { rating: 5, name: 'Emily Brown', title: 'Highly Recommended', comment: "One of the best games I've played." },
         {
           rating: 5,
           name: 'Michael Williams',
@@ -73,18 +73,20 @@ export default defineComponent({
 
 <style lang="scss">
 @import '@/assets/styles/global.scss';
+
 .reviews-container {
+  width: 80vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-width: 80%;
   margin: auto;
-  text-align: center;
   margin-bottom: 50px;
+  align-items: center;
 
   .reviews-heading {
     display: flex;
     flex-direction: row;
+    width: 100%;
     justify-content: space-between;
 
     h2 {
@@ -108,6 +110,13 @@ export default defineComponent({
       padding: 10px 15px;
       cursor: pointer;
       color: #007bff;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba(0, 123, 255, 0.1);
+        border-color: #007bff;
+        color: #0056b3;
+      }
 
       span {
         color: #007bff;
@@ -116,6 +125,29 @@ export default defineComponent({
       .arrow-icon {
         margin-left: 8px;
         color: #007bff;
+      }
+    }
+    @media (max-width: 768px) {
+      width: 90vw;
+      padding: 10px;
+      margin-bottom: 30px;
+
+      .reviews-heading {
+        // ... (adjustments for smaller screens)
+      }
+
+      .average-rating {
+        // ... (adjustments for smaller screens)
+      }
+
+      .reviews-list {
+        flex-direction: column;
+        align-items: center;
+
+        .review-card {
+          max-width: 100%;
+          margin: 10px 0;
+        }
       }
     }
   }
@@ -178,7 +210,9 @@ export default defineComponent({
   .reviews-list {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
+    width: 100%;
+    margin: 0;
     margin-top: 20px;
   }
 
@@ -190,7 +224,8 @@ export default defineComponent({
     padding: 15px;
     border: none;
     border-radius: 5px;
-    width: 290px;
+    max-width: 300px;
+    width: 100%;
     height: 150px;
 
     .review-stars {
@@ -212,7 +247,7 @@ export default defineComponent({
       font-weight: 400;
       line-height: 18px;
       letter-spacing: 0em;
-      text-align: left;
+      text-align: center;
 
       .review-name {
         font-weight: bold;
@@ -227,6 +262,7 @@ export default defineComponent({
 
       .review-comment {
         margin-top: 10px;
+        text-align: center;
       }
     }
   }

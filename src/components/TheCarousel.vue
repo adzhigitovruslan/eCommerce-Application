@@ -65,7 +65,7 @@ onMounted(() => {
     justify-content: center;
     overflow: hidden;
     border-radius: 5%;
-    object-fit: cover !important;
+    object-fit: cover;
     transition: background-color 0.5s ease-in-out;
 
     .overlay {
@@ -86,7 +86,7 @@ onMounted(() => {
 
   .custom-image {
     width: 100%;
-    object-fit: cover !important;
+    object-fit: cover;
     border-radius: 5%;
     background-color: rgba(6, 5, 12, 0.5);
   }
@@ -263,5 +263,48 @@ onMounted(() => {
 
 .active-slide {
   background-color: transparent !important;
+}
+
+@media (max-width: 768px) {
+  .carousel__item {
+    height: 400px;
+  }
+
+  .game-info__container {
+    width: 100%;
+    max-width: none;
+
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    border-radius: 0;
+
+    .game-info__image {
+    }
+
+    .game-info__description {
+    }
+
+    .game-info__price {
+    }
+
+    .game-info__new-price {
+    }
+
+    .game-info__discount {
+    }
+
+    .game-info__old-price {
+    }
+
+    .game-info__buttons {
+    }
+
+    .game-info__button-cart,
+    .game-info__button-favourites {
+    }
+  }
 }
 </style>

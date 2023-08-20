@@ -6,11 +6,13 @@
         <component :is="Component"></component>
       </transition>
     </router-view>
+    <AppFooter />
   </div>
 </template>
 
 <script setup lang="ts">
 import TheNavigation from '@/components/layout/TheNavigation.vue';
+import AppFooter from '@/components/layout/AppFooter.vue';
 </script>
 
 <style lang="scss">

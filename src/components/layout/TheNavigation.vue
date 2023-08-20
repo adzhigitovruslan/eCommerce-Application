@@ -274,4 +274,18 @@ option:checked {
   background-color: #808080;
   font-weight: bold;
 }
+
+@media (max-width: 768px) {
+  .header {
+    height: auto;
+  }
+
+  .search-input {
+    max-width: 100%;
+  }
+
+  nav {
+    max-width: 100%;
+  }
+}
 </style>
