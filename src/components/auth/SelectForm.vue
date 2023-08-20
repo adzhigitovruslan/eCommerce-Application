@@ -49,6 +49,16 @@ function hideSelect() {
   width: 100%;
   border-radius: 6px;
   background: #010110;
+  transition: 0.2s;
+
+  &.disabled {
+    opacity: 0.3;
+    cursor: no-drop;
+    & .title {
+      pointer-events: none;
+    }
+  }
+
   &.error {
     border: 1px solid #ff3333;
     background: #ffe6e6;

@@ -28,6 +28,7 @@ defineProps<Props>();
   border-radius: 10px;
   opacity: 0.8;
   transition: 0.2s;
+
   padding: 5px 10px;
   text-transform: uppercase;
   @media (max-width: 1200px) {
@@ -38,6 +39,10 @@ defineProps<Props>();
     gap: 10px;
     background: #010101;
     border: 1px solid #383636;
+    font-size: 13px;
+    @media (max-width: 1200px) {
+      font-size: calc(10px + (13 - 10) * ((100vw - 320px) / (1200 - 320)));
+    }
     & .button-icon {
       display: flex;
     }

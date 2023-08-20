@@ -120,6 +120,7 @@
           </div>
         </div>
         <div class="form-wrapper-step2" v-else>
+          <VHeader />
           <div class="form-wrapper">
             <label>Street</label>
             <div class="form-control">
@@ -146,11 +147,22 @@
                   placeholder="Enter your street"
                   v-model.trim="formData.shippingAddress.street"
                   @blur="v$.shippingAddress.street.$validate"
-                  :class="{ error: v$.shippingAddress.street.$dirty && v$.shippingAddress.street.required.$invalid }"
+                  :disabled="checkGroup.isCheckboxTrue"
+                  :class="{
+                    error:
+                      v$.shippingAddress.street.$dirty &&
+                      v$.shippingAddress.street.required.$invalid &&
+                      !checkGroup.isCheckboxTrue,
+                    disabled: checkGroup.isCheckboxTrue,
+                  }"
                 />
                 <div
                   class="input-errors"
-                  v-if="v$.shippingAddress.street.$dirty && v$.shippingAddress.street.required.$invalid"
+                  v-if="
+                    v$.shippingAddress.street.$dirty &&
+                    v$.shippingAddress.street.required.$invalid &&
+                    !checkGroup.isCheckboxTrue
+                  "
                 >
                   <div class="error-msg">Must contain at least one character</div>
                 </div>
@@ -183,8 +195,10 @@
                   placeholder="Enter your city"
                   v-model.trim="formData.shippingAddress.city"
                   @blur="v$.shippingAddress.city.$validate"
+                  :disabled="checkGroup.isCheckboxTrue"
                   :class="{
                     error: v$.shippingAddress.city.$dirty && v$.shippingAddress.city.validateCity.$invalid,
+                    disabled: checkGroup.isCheckboxTrue,
                   }"
                 />
                 <div
@@ -222,6 +236,7 @@
                   @blur="v$.shippingAddress.country.$validate"
                   :class="{
                     error: v$.shippingAddress.country.$dirty && v$.shippingAddress.country.required.$invalid,
+                    disabled: checkGroup.isCheckboxTrue,
                   }"
                 />
                 <div
@@ -279,9 +294,9 @@
                       (v$.shippingAddress.phoneNumber.$dirty && v$.shippingAddress.phoneNumber.required.$invalid) ||
                       (v$.shippingAddress.phoneNumber.$dirty && v$.shippingAddress.phoneNumber.minLength.$invalid),
 
-                    disabled: selectedCountry.shippingCountry.value === 'Select country',
+                    disabled: selectedCountry.shippingCountry.value === 'Select country' || checkGroup.isCheckboxTrue,
                   }"
-                  :disabled="selectedCountry.shippingCountry.value === 'Select country'"
+                  :disabled="selectedCountry.shippingCountry.value === 'Select country' || checkGroup.isCheckboxTrue"
                 />
                 <div
                   class="input-errors"
@@ -308,7 +323,8 @@
                   :class="{
                     error:
                       (v$.billingAddress.postalCode.$dirty && v$.billingAddress.postalCode.required.$invalid) ||
-                      (v$.billingAddress.postalCode.$dirty && v$.billingAddress.postalCode.validatePostalCode.$invalid),
+                      (v$.billingAddress.postalCode.$dirty &&
+                        v$.billingAddress.postalCode.validateBillingPostalCode.$invalid),
                     disabled: selectedCountry.billingCountry.value === 'Select country',
                   }"
                   :disabled="selectedCountry.billingCountry.value === 'Select country'"
@@ -323,7 +339,8 @@
                 <div
                   class="input-errors"
                   v-else-if="
-                    v$.billingAddress.postalCode.$dirty && v$.billingAddress.postalCode.validatePostalCode.$invalid
+                    v$.billingAddress.postalCode.$dirty &&
+                    v$.billingAddress.postalCode.validateBillingPostalCode.$invalid
                   "
                 >
                   <div class="error-msg">Must follow the format for the country</div>
@@ -339,10 +356,10 @@
                     error:
                       (v$.shippingAddress.postalCode.$dirty && v$.shippingAddress.postalCode.required.$invalid) ||
                       (v$.shippingAddress.postalCode.$dirty &&
-                        v$.shippingAddress.postalCode.validatePostalCode.$invalid),
-                    disabled: selectedCountry.shippingCountry.value === 'Select country',
+                        v$.shippingAddress.postalCode.validateShippingPostalCode.$invalid),
+                    disabled: selectedCountry.shippingCountry.value === 'Select country' || checkGroup.isCheckboxTrue,
                   }"
-                  :disabled="selectedCountry.shippingCountry.value === 'Select country'"
+                  :disabled="selectedCountry.shippingCountry.value === 'Select country' || checkGroup.isCheckboxTrue"
                   :placeholder="placeholders.postalCodeShippingPlaceholder"
                 />
                 <div
@@ -354,7 +371,8 @@
                 <div
                   class="input-errors"
                   v-else-if="
-                    v$.shippingAddress.postalCode.$dirty && v$.shippingAddress.postalCode.validatePostalCode.$invalid
+                    v$.shippingAddress.postalCode.$dirty &&
+                    v$.shippingAddress.postalCode.validateShippingPostalCode.$invalid
                   "
                 >
                   <div class="error-msg">Must follow the format for the country</div>
@@ -364,6 +382,8 @@
           </div>
         </div>
       </transition>
+      <VCheckbox v-model="checkGroup.isCheckboxTrue" />
+      <VRadioButtons :isBothAddressChecked="checkGroup.isCheckboxTrue" />
       <base-auth-button v-if="!isLastPage" @click.prevent="goToStep(2, 'next')" mode="true">continue</base-auth-button>
       <div class="button-wrapper" v-else>
         <base-auth-button @click="goToStep(1, 'back')">back</base-auth-button>
@@ -379,6 +399,9 @@
 import { reactive, ref, Ref, computed, watch } from 'vue';
 import { calculateAge } from '@/utils/auth/calculateAge';
 import HaveAnAccountForm from '@/components/auth/HaveAnAccountForm.vue';
+import VCheckbox from '@/components/auth/AddressCheckbox.vue';
+import VHeader from '@/components/auth/HeaderSecondStep.vue';
+import VRadioButtons from '@/components/auth/AddressRadioButtons.vue';
 import { Country } from '@/types/auth/SelectFormCountry';
 import {
   validateLastName,
@@ -398,6 +421,9 @@ import { useStore } from 'vuex';
 const activePhase: Ref<number> = ref(2);
 const transitionName: Ref<string> = ref('');
 const minAge: Ref<number> = ref(13);
+const checkGroup = reactive({
+  isCheckboxTrue: true,
+});
 const isValidAge: Ref<{ isTrue: boolean; age: number | null }> = ref({ isTrue: false, age: null });
 const placeholders = reactive({
   postalCodeBillingPlaceholder: 'Select country',
@@ -482,14 +508,14 @@ const rules = computed(() => {
     billingAddress: {
       street: { required },
       city: { validateCity },
-      postalCode: { required, validatePostalCode },
+      postalCode: { required, validateBillingPostalCode },
       country: { required },
       phoneNumber: { required, minLength: minLength(17) },
     },
     shippingAddress: {
       street: { required },
       city: { validateCity },
-      postalCode: { required, validatePostalCode },
+      postalCode: { required, validateShippingPostalCode },
       country: { required },
       phoneNumber: { required, minLength: minLength(17) },
     },
@@ -525,9 +551,11 @@ watch(
 watch(
   () => selectedCountry.shippingCountry,
   (newValue) => {
-    placeholders.postalCodeShippingPlaceholder = validateCountry[newValue.title].placeholder;
-    placeholders.phoneNumberShippingPlaceholder = validateCountry[newValue.title].phoneMask;
-    formData.shippingAddress.country = newValue.value;
+    if (newValue.title !== '') {
+      placeholders.postalCodeShippingPlaceholder = validateCountry[newValue.title].placeholder;
+      placeholders.phoneNumberShippingPlaceholder = validateCountry[newValue.title].phoneMask;
+      formData.shippingAddress.country = newValue.value;
+    }
   },
 );
 watch(
@@ -543,11 +571,31 @@ watch(
     formData.shippingAddress.phoneNumber = formatPhoneNumber(newValue, selectedCountry.shippingCountry.title);
   },
 );
+watch(
+  () => checkGroup.isCheckboxTrue,
+  (newValue) => {
+    if (newValue === true) {
+      formData.shippingAddress.street = '';
+      formData.shippingAddress.city = '';
+      setShippingCountry({ title: '', value: 'Select country' });
+      v$.value.shippingAddress.$reset();
+    }
+  },
+);
 
-function validatePostalCode(postalCode: string) {
+function validateBillingPostalCode(postalCode: string) {
   if (selectedCountry.billingCountry.title.toLocaleLowerCase() === 'ru') {
     return /^[0-9]{6}$/.test(postalCode);
   } else if (selectedCountry.billingCountry.title.toLocaleLowerCase() === 'usa') {
+    return /^[0-9]{5}$/.test(postalCode);
+  }
+
+  return false;
+}
+function validateShippingPostalCode(postalCode: string) {
+  if (selectedCountry.shippingCountry.title.toLocaleLowerCase() === 'ru') {
+    return /^[0-9]{6}$/.test(postalCode);
+  } else if (selectedCountry.shippingCountry.title.toLocaleLowerCase() === 'usa') {
     return /^[0-9]{5}$/.test(postalCode);
   }
 
@@ -621,9 +669,9 @@ form {
   align-items: center;
   gap: 10px;
   overflow: hidden;
-  @media (max-width: 1200px) {
-    gap: calc(5px + 5 * ((100vw - 320px) / (1200 - 320)));
-  }
+  // @media (max-width: 1200px) {
+  //   gap: calc(15px + 10 * ((100vw - 320px) / (1200 - 320)));
+  // }
   & .form-wrapper {
     display: flex;
     flex-direction: column;
@@ -684,6 +732,7 @@ form {
         border: 1px solid #383636;
         color: $mainWhiteColor;
         font-size: 15px;
+        transition: 0.2s;
         @media (max-width: 1200px) {
           padding-top: calc(5px + 5 * ((100vw - 320px) / (1200 - 320)));
           padding-bottom: calc(5px + 5 * ((100vw - 320px) / (1200 - 320)));
@@ -712,6 +761,7 @@ form {
   }
   & .form-wrapper-step2 {
     display: flex;
+    flex-direction: column;
     & .form-control {
       flex-direction: row;
     }
