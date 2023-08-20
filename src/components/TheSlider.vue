@@ -41,10 +41,10 @@
 }
 
 .card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-   gap: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
   width: 550px;
   height: 360px;
   padding: 50px;
@@ -83,27 +83,24 @@
 }
 
 h2 {
-    font-family: $manrope-font-family;
-font-size: 36px;
-font-weight: 800;
-line-height: 43px;
-letter-spacing: 0em;
-text-align: left;
-
+  font-family: $manrope-font-family;
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 43px;
+  letter-spacing: 0em;
+  text-align: left;
 }
 
 .game-info__description {
   color: $white-color;
- 
 
   p {
     font-family: $manrope-font-family;
-font-size: 36px;
-font-weight: 800;
-line-height: 43px;
-letter-spacing: 0em;
-text-align: left;
-
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 43px;
+    letter-spacing: 0em;
+    text-align: left;
   }
 }
 

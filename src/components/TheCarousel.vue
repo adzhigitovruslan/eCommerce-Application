@@ -154,14 +154,12 @@ onMounted(() => {
 
 .game-info__image {
   height: 85px;
-  
 }
 
 .game-info__description {
   color: $white-color;
   width: 572px;
   position: relative;
-
 
   p {
     font-family: $manrope-font-family;
