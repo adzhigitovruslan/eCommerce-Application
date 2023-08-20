@@ -2,51 +2,21 @@
   <div class="promotions-container">
     <h2>Promotions<span>%</span></h2>
     <div class="promotions-list">
-      <div v-for="(game, index) in discountedGames" :key="index" class="promotion-card">
-        <img :src="getImagePath(game.image)" :alt="game.name" class="game-image" />
-        <div class="game-info">
-          <div class="game-price-container">
-            <div class="game-price">Price: ${{ game.price }}</div>
-            <div class="game-discount">{{ game.discount }}% off</div>
-          </div>
-          <div class="game-name">{{ game.name }}</div>
-        </div>
-      </div>
+      <ProductCard v-for="(game, index) in discountedGames" :key="index" :game="game" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import gamesData from '@/data.json';
+import { defineComponent } from 'vue';
+import Game from '@/types/interfaces/game';
+import ProductCard from '@/components/ProductCard.vue';
 
-interface Game {
-  key: number;
-  name: string;
-  productType: {
-    typeId: string;
-    key: string;
-  };
-  slug: string;
-  price: number;
-  discount: number;
-  description: string;
-  categories: {
-    typeId: string;
-    key: string;
-  };
-  platform: string[];
-  'activation region': string;
-  'system requirements': {
-    'operating system': string;
-    processor: string;
-    memory: string;
-    'graphics card': string;
-    'disk space': string;
-  };
-  image: string;
-}
-
-export default {
+export default defineComponent({
+  components: {
+    ProductCard,
+  },
   data() {
     return {
       games: (gamesData as { Games: Game[] }).Games,
@@ -68,19 +38,13 @@ export default {
       return shuffledGames.slice(0, 4);
     },
   },
-  methods: {
-    getImagePath(image: string): string {
-      return require(`@/assets/images/${image}`);
-    },
-  },
-};
+});
 </script>
 
-<style lang="scss">
-@import '@/assets/styles/global.scss';
+<style scoped lang="scss">
+
 h2 {
-  font-family: $manrope-font-family;
-  color: $white-color;
+ 
   font-size: 32px;
   font-weight: 600;
   line-height: 42px;
@@ -123,55 +87,6 @@ h2 {
         border-radius: 15px;
         margin-bottom: 20px;
         cursor: pointer;
-      }
-
-      .game-info {
-        width: 265px;
-        height: 113px;
-        border-radius: 8px;
-
-        .game-price {
-          font-family: $manrope-font-family;
-          color: $white-color;
-          font-size: 24px;
-          font-weight: 500;
-          line-height: 31px;
-          letter-spacing: 0em;
-          text-align: left;
-        }
-
-        .game-discount {
-          width: 62px;
-          border-radius: 8px;
-          padding: 5px;
-          font-family: $manrope-font-family;
-          font-size: 14px;
-          font-weight: 600;
-          line-height: 23px;
-          letter-spacing: 0em;
-          background: rgba(119, 190, 29, 1);
-          color: $white-color;
-          text-align: center;
-          margin: auto;
-        }
-      }
-
-      .game-price-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-      }
-
-      .game-name {
-        font-family: $roboto-font-family;
-        color: $white-color;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 21px;
-        letter-spacing: 0em;
-        text-align: left;
       }
     }
   }

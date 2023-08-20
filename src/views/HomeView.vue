@@ -6,6 +6,7 @@
           <div>CONTENTS FOR CAROUSEL</div>
         </template>
       </the-carousel>
+      <h2><the-products /></h2>
       <h2 id="promotions"><the-promotions /></h2>
       <h2 id="reviews"><the-reviews /></h2>
     </div>
@@ -17,12 +18,14 @@ import { defineComponent } from 'vue';
 import TheCarousel from '@/components/TheCarousel.vue';
 import ThePromotions from '@/components/ThePromotionsContainer.vue';
 import TheReviews from '@/components/TheReviewsContainer.vue';
+import TheProducts from '@/components/TheProductsContainer.vue';
 
 export default defineComponent({
   components: {
     TheCarousel: TheCarousel,
     ThePromotions: ThePromotions,
     TheReviews: TheReviews,
+    TheProducts: TheProducts,
   },
 });
 </script>
