@@ -50,15 +50,15 @@
         and Enaza.
       </p>
       <div class="footer_bottom_line">
-        <div>Legal Information</div>
+        <div class="footer_bottom_legal">Legal Information</div>
         <div>&copy; 2023 Playnchill. All Rights Reserved.</div>
         <div class="footer_bottom_icons">
-        <font-awesome-icon :icon="['fab', 'vk']"  />
-      <font-awesome-icon :icon="['fab', 'discord']" style="color: #77be1d" />
-      <font-awesome-icon :icon="['fab', 'x-twitter']" />
-      <font-awesome-icon :icon="['fab', 'instagram']"  /></div>
+          <font-awesome-icon :icon="['fab', 'vk']" class="footer_icon" />
+          <font-awesome-icon :icon="['fab', 'discord']" class="footer_icon icon_discord" />
+          <font-awesome-icon :icon="['fab', 'x-twitter']" class="footer_icon" />
+          <font-awesome-icon :icon="['fab', 'instagram']" class="footer_icon" />
+        </div>
       </div>
-      
     </div>
   </footer>
 </template>
@@ -92,7 +92,6 @@ export default {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 20px;
-  color: $white-color;
 }
 
 .footer_column {
@@ -111,6 +110,11 @@ export default {
     letter-spacing: 0em;
     text-align: left;
     color: $white-color;
+    cursor: pointer;
+
+    &:hover {
+      color: #808080;
+    }
   }
 
   ul {
@@ -130,6 +134,33 @@ export default {
 
   li {
     margin-bottom: 5px;
+    color: rgba(205, 205, 207, 1);
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: 0em;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover {
+      color: #808080;
+    }
+  }
+}
+
+.footer_column_image {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  flex-wrap: nowrap;
+  margin: auto;
+
+  img {
+    width: 50px;
+    height: auto;
   }
 
   div {
@@ -138,7 +169,8 @@ export default {
     font-weight: 400;
     line-height: 16px;
     letter-spacing: 0em;
-    text-align: left;
+    text-align: center;
+    color: $white-color;
   }
 
   span {
@@ -147,23 +179,73 @@ export default {
     font-weight: 700;
     line-height: 16px;
     letter-spacing: 0em;
-    text-align: left;
+    text-align: center;
   }
 }
 
-.footer_column_image {
+.footer_bottom {
+  width: 80vw;
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
+  justify-content: space-between;
+  padding: 20px 0;
+  color: rgba(99, 104, 109, 1);
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: auto;
+  margin-bottom: 200px;
+
+  p {
+    margin-bottom: 50px;
+  }
+
+  .footer_bottom_line {
+    display: flex;
+    width: 80vw;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 23px;
+    letter-spacing: 0em;
+    text-align: left;
+
+    .footer_bottom_legal {
+      color: rgba(66, 119, 255, 1);
+      cursor: pointer;
+    }
+
+    .footer_bottom_icons {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: 21px;
+      color: rgba(255, 255, 255, 0.15);
+      cursor: pointer;
+
+      .footer_icon:hover {
+        color: #808080;
+      }
+
+      .icon_discord {
+        color: #77be1d;
+      }
+    }
+  }
 }
 
 @media (max-width: 768px) {
   .footer_payments,
   .footer-columns {
-    width: 90vw; 
+    width: 90vw;
     margin: auto;
   }
 
@@ -203,46 +285,4 @@ export default {
     gap: 5px;
   }
 }
-
-.footer_bottom {
-  width: 80vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 0;
-  color: rgba(99, 104, 109, 1);
-  font-family: Inter;
-font-size: 15px;
-font-weight: 400;
-line-height: 24px;
-letter-spacing: 0em;
-text-align: left;
-margin: auto;
-margin-bottom: 200px;
-
-  p {
-    margin-bottom: 50px;
-  }
-
-
-  .footer_bottom_line {
-    display: flex;
-    width: 80vw;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: baseline;
-    
-
-    .footer_bottom_icons {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-    font-size: 21px;
-    color: rgba(255, 255, 255, 0.15);
-  }
-  }
-}
 </style>
-

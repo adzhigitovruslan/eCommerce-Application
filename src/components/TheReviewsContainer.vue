@@ -132,7 +132,6 @@ export default defineComponent({
       padding: 10px;
       margin-bottom: 30px;
 
-
       .reviews-list {
         flex-direction: column;
         align-items: center;

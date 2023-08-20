@@ -186,7 +186,6 @@ h2 {
       .promotion-card {
         max-width: 100%;
         height: auto;
-
       }
     }
   }
