@@ -14,9 +14,20 @@ import {
   faCircle,
   faCircleDot,
 } from '@fortawesome/free-solid-svg-icons';
-library.add(faDollarSign, faSearch, faCartShopping, faCircle, faCircleDot, faCircleXmark, faXTwitter, faInstagram, faDiscord, faVk);
+library.add(
+  faDollarSign,
+  faSearch,
+  faCartShopping,
+  faCircle,
+  faCircleDot,
+  faCircleXmark,
+  faXTwitter,
+  faInstagram,
+  faDiscord,
+  faVk,
+);
 import { clickOutSide as vClickOutSide } from '@mahdikhashan/vue3-click-outside';
-import { faDiscord, faInstagram, faVk, faXTwitter,  } from '@fortawesome/free-brands-svg-icons';
+import { faDiscord, faInstagram, faVk, faXTwitter } from '@fortawesome/free-brands-svg-icons';
 
 const app = createApp(App);
 

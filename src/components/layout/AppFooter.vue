@@ -8,17 +8,17 @@
       <img src="@/assets/images/visa-logo.png" alt="Visa" />
       <img src="@/assets/images/paypal-logo.png" alt="PayPal" />
       <img src="@/assets/images/mastercard-logo.png" alt="MasterCard" />
-      </div>
-      <div class="footer-columns">
-        <div class="footer_column">
-          <h3>About Company</h3>
+    </div>
+    <div class="footer-columns">
+      <div class="footer_column">
+        <h3>About Company</h3>
         <ul>
           <li>About Us</li>
           <li>Legal Information</li>
           <li>Careers</li>
         </ul>
-        </div>
-        
+      </div>
+
       <div class="footer_column">
         <h3>Terms of Service</h3>
         <ul>
@@ -43,16 +43,23 @@
         <img src="@/assets/images/SafeBrowsing_Icon.png" alt="Safe Browsing Google" />
         <div>Safe Browsing <br /><span>Google</span></div>
       </div>
+    </div>
+    <div class="footer_bottom">
+      <p>
+        All sold keys are purchased from official distributors and publishers, including 1C-SoftClub, Buka, New Disc,
+        and Enaza.
+      </p>
+      <div class="footer_bottom_line">
+        <div>Legal Information</div>
+        <div>&copy; 2023 Playnchill. All Rights Reserved.</div>
+        <div class="footer_bottom_icons">
+        <font-awesome-icon :icon="['fab', 'vk']"  />
+      <font-awesome-icon :icon="['fab', 'discord']" style="color: #77be1d" />
+      <font-awesome-icon :icon="['fab', 'x-twitter']" />
+      <font-awesome-icon :icon="['fab', 'instagram']"  /></div>
       </div>
-<div>
-  <p>All sold keys are purchased from official distributors and publishers, including 1C-SoftClub, Buka, New Disc, and Enaza.</p>
-  <p>&copy; 2023 Your Store. All Rights Reserved.</p>
-  <font-awesome-icon :icon="['fab', 'vk']" style="color: #ffffff;" />
-  <font-awesome-icon :icon="['fab', 'discord']" style="color: #ffffff;" />
-  <font-awesome-icon :icon="['fab', 'x-twitter']" style="color: #ffffff;" />
-  <font-awesome-icon :icon="['fab', 'instagram']" style="color: #ffffff;" />
-</div>
-   
+      
+    </div>
   </footer>
 </template>
 
@@ -66,17 +73,17 @@ export default {
 @import '@/assets/styles/global.scss';
 
 .footer_payments {
-    width: 80vw;
-    margin: auto;
+  width: 80vw;
+  margin: auto;
 
-    img {
-      height: 40px;
-      margin-right: 38px;
-      margin-top: 60px;
-      margin-bottom: 60px;
-
-    }
+  img {
+    height: 40px;
+    margin-right: 38px;
+    margin-top: 60px;
+    margin-bottom: 60px;
   }
+}
+
 .footer-columns {
   width: 80vw;
   margin: auto;
@@ -92,7 +99,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
   gap: 25px;
 
   h3 {
@@ -116,10 +122,12 @@ export default {
     list-style: none;
     padding: 0;
   }
+
   img {
     width: 50px;
     margin-top: 10px;
   }
+
   li {
     margin-bottom: 5px;
   }
@@ -153,6 +161,88 @@ export default {
 }
 
 @media (max-width: 768px) {
-  /* Add media query adjustments if needed */
+  .footer_payments,
+  .footer-columns {
+    width: 90vw; 
+    margin: auto;
+  }
+
+  .footer_column {
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+
+    h3 {
+      font-size: 18px;
+      margin-bottom: 5px;
+      line-height: 24px;
+    }
+
+    ul {
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    img {
+      width: 30px;
+      height: auto;
+    }
+
+    div,
+    span {
+      font-size: 12px;
+      line-height: 16px;
+    }
+  }
+
+  .footer_column_image {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+}
+
+.footer_bottom {
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  color: rgba(99, 104, 109, 1);
+  font-family: Inter;
+font-size: 15px;
+font-weight: 400;
+line-height: 24px;
+letter-spacing: 0em;
+text-align: left;
+margin: auto;
+margin-bottom: 200px;
+
+  p {
+    margin-bottom: 50px;
+  }
+
+
+  .footer_bottom_line {
+    display: flex;
+    width: 80vw;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: baseline;
+    
+
+    .footer_bottom_icons {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    font-size: 21px;
+    color: rgba(255, 255, 255, 0.15);
+  }
+  }
 }
 </style>
+

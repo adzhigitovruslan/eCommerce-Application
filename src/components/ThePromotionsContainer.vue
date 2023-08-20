@@ -187,17 +187,6 @@ h2 {
         max-width: 100%;
         height: auto;
 
-        .game-image {
-        }
-
-        .game-info {
-        }
-
-        .game-price-container {
-        }
-
-        .game-name {
-        }
       }
     }
   }

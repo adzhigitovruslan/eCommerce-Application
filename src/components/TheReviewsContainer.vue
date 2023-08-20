@@ -132,13 +132,6 @@ export default defineComponent({
       padding: 10px;
       margin-bottom: 30px;
 
-      .reviews-heading {
-        // ... (adjustments for smaller screens)
-      }
-
-      .average-rating {
-        // ... (adjustments for smaller screens)
-      }
 
       .reviews-list {
         flex-direction: column;
