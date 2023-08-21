@@ -6,10 +6,26 @@ import BaseAuth from '@/components/ui/auth/BaseAuth.vue';
 import BaseButton from '@/components/ui/auth/BaseButton.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faCircleXmark, faDollarSign, faSearch, faCartShopping, faBars   faEye,
+import {
+  faCircleXmark,
+  faDollarSign,
+  faSearch,
+  faCartShopping,
+  faBars,
+  faEye,
   faEyeSlash,
 } from '@fortawesome/free-solid-svg-icons';
-library.add(faDollarSign, faSearch, faCartShopping, faBars, faCircleXmark, faXTwitter, faVk, faInstagram, faDiscord  faEye,
+library.add(
+  faDollarSign,
+  faSearch,
+  faCartShopping,
+  faBars,
+  faCircleXmark,
+  faXTwitter,
+  faVk,
+  faInstagram,
+  faDiscord,
+  faEye,
   faEyeSlash,
 );
 import { clickOutSide as vClickOutSide } from '@mahdikhashan/vue3-click-outside';
