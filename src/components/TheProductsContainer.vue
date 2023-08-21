@@ -55,7 +55,7 @@ export default defineComponent({
       return shuffledArray;
     },
     getItemsPerRow(): number {
-      return window.innerWidth > 380 ? 4 : 1;
+      return window.innerWidth > 780 ? 4 : 1;
     },
   },
 });
@@ -97,5 +97,11 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+@media (max-width: 380px) {
+  h2 {
+    text-align: center;
+  }
 }
 </style>

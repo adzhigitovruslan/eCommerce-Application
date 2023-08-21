@@ -60,7 +60,7 @@ watchEffect(() => {
   console.log('Window Width:', window.innerWidth);
   console.log('carouselItemsToShow:', carouselItemsToShow.value);
 
-  if (window.innerWidth > 380) {
+  if (window.innerWidth > 768) {
     carouselItemsToShow.value = 1.5;
   } else {
     carouselItemsToShow.value = 1;

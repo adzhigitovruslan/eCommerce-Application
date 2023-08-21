@@ -2,7 +2,15 @@
   <div class="promotions-container">
     <h2>Promotions<span>%</span></h2>
     <div class="promotions-list">
-      <ProductCard v-for="(game, index) in discountedGames" :key="index" :game="game" imageClass="image-mode-promo" gameDiscount="game-discount-promo" gamePrice="game-price-promo" gameInfo="game-info-promo"/>
+      <ProductCard
+        v-for="(game, index) in discountedGames"
+        :key="index"
+        :game="game"
+        imageClass="image-mode-promo"
+        gameDiscount="game-discount-promo"
+        gamePrice="game-price-promo"
+        gameInfo="game-info-promo"
+      />
     </div>
   </div>
 </template>
@@ -78,8 +86,6 @@ h2 {
       align-items: left;
       max-width: 620px;
       height: 464px;
-
-  
     }
   }
 
@@ -89,48 +95,42 @@ h2 {
 
     .promotions-list {
       justify-content: center;
-    gap: 0px;
+      gap: 0px;
 
       .promotion-card {
         max-width: 100%;
         height: auto;
-      max-width: 158px;
-      height: 364px;
-
+        max-width: 158px;
+        height: 364px;
       }
     }
   }
 }
 
 @media (max-width: 380px) {
-
   .promotions-container {
-  max-width: 90vw;
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  .promotion-card {
+    max-width: 90vw;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: left;
-    max-width: 158px;
-    height: 364px;
+    flex-direction: column;
+    margin: auto;
+    .promotion-card {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: left;
+      max-width: 158px;
+      height: 364px;
 
-    .game-image {
-      object-fit: cover;
-      max-width: 100px;
-      width: 100px;
-      height: 150px;
-      border-radius: 8px;
-      margin-bottom: 0;
-      cursor: pointer;
+      .game-image {
+        object-fit: cover;
+        max-width: 100px;
+        width: 100px;
+        height: 150px;
+        border-radius: 8px;
+        margin-bottom: 0;
+        cursor: pointer;
+      }
     }
   }
-}
-
-
-
-
 }
 </style>

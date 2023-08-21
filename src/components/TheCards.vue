@@ -176,4 +176,75 @@ h2 {
     border-color: rgba(255, 255, 255, 0.1);
   }
 }
+
+@media (max-width: 780px) {
+
+.green-card-img {
+  width: 128px;
+top: -200px;
+left: 180px;
+
+}
+
+.red-card-img {
+  width: 158px;
+top: -100px;
+left: 160px;
+}
+
+  .game-info__buttons {
+  display: none;
+}
+  .card-container {
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+  justify-content: space-between;
+  gap: 30px;
+  margin: auto;
+  margin-top: 100px;
+
+  .card {
+    width: 320px;
+height: 183px;
+border-radius: 10px;
+padding: 25px;
+  padding-right: 38px;
+  gap: 30px;
+
+h2 {
+font-size: 20px;
+font-weight: 800;
+line-height: 24px;
+
+}
+
+.game-info__price {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+font-size: 18px;
+font-weight: 800;
+line-height: 23px;
+width: 180px;
+
+.game-info__new-price, .game-info__discount, .game-info__old-price {
+font-size: 18px;
+font-weight: 800;
+line-height: 23px;
+}
+.game-info__discount {
+  color:  rgba(255, 232, 23, 1);
+
+}
+
+.game-info__new-price {
+  width: 64px;
+  height: auto;
+}
+}
+
+  }
+}
+}
 </style>

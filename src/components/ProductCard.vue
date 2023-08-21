@@ -35,6 +35,10 @@ export default defineComponent({
 <style lang="scss">
 @import '@/assets/styles/global.scss';
 
+.promotion-card {
+  display: flex;
+}
+
 .game-info {
   width: 265px;
   height: 113px;
@@ -114,58 +118,47 @@ export default defineComponent({
 
 @media (max-width: 768px) {
   .image-mode-promo {
-  object-fit: cover;
-  max-width: 122px;
-  width: 122px;
-  height: 183px;
-  border-radius: 9px;
-  margin-bottom: 0px;
-  cursor: pointer;
-}
-
-.game-info {
-  display: flex;
-  flex-direction: column-reverse;
-  align-items: flex-start;
-  justify-content: flex-end;
-
-  
-  border-radius: 8px;
-
-  .game-name {
+    object-fit: cover;
+    max-width: 122px;
+    width: 122px;
+    height: 183px;
+    border-radius: 9px;
     margin-bottom: 0px;
+    cursor: pointer;
   }
 
+  .game-info {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    justify-content: flex-end;
+    border-radius: 8px;
 
-}
-
-.game-info-promo {
-  width: 135px;
-  .game-price-promo {
-font-size: 18px;
-font-weight: 800;
-line-height: 23px;
-letter-spacing: 0em;
-text-align: left;
-
-
+    .game-name {
+      margin-bottom: 0px;
+    }
   }
 
-  .game-discount-promo {
-font-size: 18px;
-font-weight: 500;
-line-height: 23px;
-letter-spacing: 0em;
-text-align: left;
-color: rgba(119, 190, 29, 1);
-background: none;
-margin: 0;
+  .game-info-promo {
+    width: 135px;
+    .game-price-promo {
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 23px;
+      letter-spacing: 0em;
+      text-align: left;
+    }
 
-
+    .game-discount-promo {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 23px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: rgba(119, 190, 29, 1);
+      background: none;
+      margin: 0;
+    }
   }
 }
-}
-
-
-
 </style>
