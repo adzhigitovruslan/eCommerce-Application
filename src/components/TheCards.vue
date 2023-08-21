@@ -203,12 +203,12 @@ h2 {
     margin-top: 100px;
 
     .card {
-      width: 320px;
+      width: 310px;
       height: 183px;
       border-radius: 10px;
       padding: 25px;
       padding-right: 38px;
-      gap: 30px;
+      gap: 20px;
 
       h2 {
         font-size: 20px;

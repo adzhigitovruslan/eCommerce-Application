@@ -56,7 +56,6 @@ h2 {
   letter-spacing: 0em;
   text-align: left;
   margin-top: 15px;
-  margin-bottom: 15px;
   color: white;
   margin-bottom: 45px;
 
@@ -66,18 +65,19 @@ h2 {
   }
 }
 .promotions-container {
-  max-width: 80vw;
+  width: 80vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   margin: auto;
 
   .promotions-list {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 15px;
+    width: 80vw;
+    align-items: center;
+    justify-content: space-between;
 
     .promotion-card {
       display: flex;

@@ -95,8 +95,8 @@ export default defineComponent({
 
 .image-mode-promo {
   object-fit: cover;
+  width: 500px;
   max-width: 620px;
-  width: 550px;
   height: 319px;
   border-radius: 15px;
   margin-bottom: 20px;
