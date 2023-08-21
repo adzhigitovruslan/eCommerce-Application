@@ -55,7 +55,6 @@ export default defineComponent({
       return shuffledArray;
     },
     getItemsPerRow(): number {
-      
       return window.innerWidth > 380 ? 4 : 1;
     },
   },
