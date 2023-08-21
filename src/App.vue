@@ -1,19 +1,12 @@
 <template>
-  <TheNavigation />
-  <div class="container">
-    <router-view v-slot="{ Component }">
-      <transition name="slide" mode="out-in">
-        <component :is="Component"></component>
-      </transition>
-    </router-view>
-    <AppFooter />
-  </div>
+  <router-view v-slot="{ Component }">
+    <transition name="slide" mode="out-in">
+      <component :is="Component"></component>
+    </transition>
+  </router-view>
 </template>
 
-<script setup lang="ts">
-import TheNavigation from '@/components/layout/TheNavigation.vue';
-import AppFooter from '@/components/layout/AppFooter.vue';
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss">
 @import '@/assets/reset.scss';

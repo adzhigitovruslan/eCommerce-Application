@@ -1,5 +1,5 @@
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import { ctpClient } from '@/utiles/BuildClient';
+import { ctpClient } from '@/utils/BuildClient';
 import { LoginPayload, SingUpPayload } from '@/types/interfaces/api';
 
 interface GlobalState {

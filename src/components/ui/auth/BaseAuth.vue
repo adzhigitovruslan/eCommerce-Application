@@ -1,31 +1,19 @@
 <template>
-  <div class="container">
-    <div class="auth__wrapper">
-      <div class="auth__header">
-        <div class="auth__logo-wrapper">
-          <div class="auth__logo">
-            <img src="@/assets/icon_logo2.png" alt="main_logo" />
-          </div>
-          <h1>Playnchill</h1>
+  <div class="auth__wrapper">
+    <div class="auth__header">
+      <div class="auth__logo-wrapper">
+        <div class="auth__logo">
+          <img src="@/assets/icon_logo2.png" alt="main_logo" />
         </div>
-        <base-auth-button close mode="dark">close</base-auth-button>
+        <h1>Playnchill</h1>
       </div>
-      <slot class="slot"></slot>
+      <base-auth-button close mode="dark">close</base-auth-button>
     </div>
+    <slot class="slot"></slot>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.container {
-  background: #010101;
-  width: 100vw;
-  min-height: 100vh;
-  padding: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .auth {
   &__wrapper {
     display: flex;
