@@ -66,7 +66,7 @@
       <div>
         <router-link
           to="/login"
-          class="nav-link"
+          class="nav-link login"
           :class="{ active: activeLink === 'login' }"
           data-type="login"
           @click="setActiveLink('login')"
@@ -281,7 +281,10 @@ option:checked {
   }
 
   .search-input {
-    max-width: 100%;
+    width: 85vw;
+    max-width: 85vw;
+    top: 35px;
+    left: -60px;
   }
 
   nav {
@@ -290,6 +293,28 @@ option:checked {
 }
 
 @media (max-width: 380px) {
+  .search-input {
+    display: none;
+  }
+
+  .bottom-navigation {
+    width: 90vw;
+    margin: auto;
+  }
+
+  .nav-link {
+    font-size: 14px;
+  }
+  .link-text {
+    width: 90px;
+    font-size: 22px;
+  }
+
+  .logo-link img {
+    width: 20px;
+    height: auto;
+    margin: 5px;
+  }
   .menu-icon {
     position: relative;
     top: 0;
@@ -319,7 +344,6 @@ option:checked {
     height: 100vh;
     background: rgba(19, 16, 27, 1);
     z-index: 9997;
-    display: none;
   }
 
   .menu-links {
@@ -355,6 +379,8 @@ option:checked {
 
       .nav-link {
         position: relative;
+        top: 0;
+        left: 0;
         z-index: 10002;
         color: white;
         text-decoration: none;
