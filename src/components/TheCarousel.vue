@@ -274,9 +274,7 @@ onMounted(() => {
     bottom: 0;
     left: 0;
     right: 0;
-
     border-radius: 0;
-
   }
 }
 </style>
