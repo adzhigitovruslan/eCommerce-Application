@@ -1,6 +1,9 @@
 <template>
   <header class="header">
-    <nav class="top-navigation">
+    <nav class="top-navigation" :class="{ active: showMenu }">
+      <button class="menu-icon" @click="toggleMenu">
+        <font-awesome-icon :icon="['fas', 'bars']" style="color: #ffffff;" />
+        </button>
       <div>
         <form style="visibility: hidden">
           <label for="languageSelect"></label>
@@ -104,14 +107,19 @@ export default defineComponent({
       selectedLanguage: 'EN',
       searchTerm: '',
       activeLink: '',
+      showMenu: false,
     };
   },
   methods: {
     setActiveLink(linkType: string) {
       this.activeLink = linkType;
     },
+    toggleMenu() {
+      this.showMenu = !this.showMenu;
+    },
   },
-});
+  },
+);
 </script>
 
 <style scoped lang="scss">
@@ -285,6 +293,26 @@ option:checked {
 
   nav {
     max-width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .top-navigation {
+    display: none; 
+  }
+
+  .top-navigation.active {
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start; 
+  }
+
+  .menu-icon {
+    background: none;
+    border: none;
+    color: $white-color;
+    font-size: 24px;
+    cursor: pointer;
   }
 }
 </style>

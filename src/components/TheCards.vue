@@ -35,8 +35,7 @@
 .card-container {
   display: flex;
   width: 80vw;
-  justify-content: space-between;
-  gap: 10px;
+  justify-content: space-around;
   margin-top: 100px;
 }
 
@@ -44,7 +43,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 30px;
   width: 550px;
   height: 360px;
   padding: 50px;
@@ -71,15 +69,17 @@
 .green-card-img {
   position: relative;
   left: 290px;
-  width: 262px;
-  top: -400px;
+  width: 100%;
+  max-width: 262px;
+  top: -300px;
 }
 
 .red-card-img {
   position: relative;
-  width: 452px;
-  left: 320px;
-  top: -400px;
+  width: 100%; 
+  max-width: 432px; 
+  left: 300px;
+  top: -170px;
 }
 
 h2 {

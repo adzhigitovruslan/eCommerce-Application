@@ -11,15 +11,13 @@ import {
   faDollarSign,
   faSearch,
   faCartShopping,
-  faCircle,
-  faCircleDot,
+ faBars
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   faDollarSign,
   faSearch,
   faCartShopping,
-  faCircle,
-  faCircleDot,
+ faBars,
   faCircleXmark,
   faXTwitter,
   faVk,

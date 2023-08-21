@@ -23,8 +23,8 @@
               >About us</router-link
             >
           </li>
-          <li>Legal Information</li>
-          <li>Careers</li>
+          <li><a href="#" v-if="showEmptyLinks"></a>Legal Information</li>
+          <li><a href="#" v-if="showEmptyLinks"></a>Careers</li>
         </ul>
       </div>
 
@@ -66,7 +66,7 @@
       <div class="footer_column">
         <h3>Shop Info</h3>
         <ul>
-          <li>New Products</li>
+          <li><a href="#" v-if="showEmptyLinks"></a>New Products</li>
           <li>
             <router-link
               to="/#reviews"
@@ -77,7 +77,7 @@
               >Reviews</router-link
             >
           </li>
-          <li>Our Blog</li>
+          <li><a href="#" v-if="showEmptyLinks"></a>Our Blog</li>
         </ul>
       </div>
       <div class="footer_column footer_column_image">
@@ -95,7 +95,7 @@
         and Enaza.
       </p>
       <div class="footer_bottom_line">
-        <div class="footer_bottom_legal">Legal Information</div>
+        <div class="footer_bottom_legal"><a href="#" v-if="showEmptyLinks"></a>Legal Information</div>
         <div class="footer_bottom_copywrite">&copy; 2023 Playnchill. All Rights Reserved.</div>
         <div class="footer_bottom_icons">
           <a href="https://www.vk.com" target="_blank">
@@ -122,6 +122,7 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   data() {
     return {
+      showEmptyLinks: false,
       activeLink: '',
     };
   },
@@ -185,10 +186,6 @@ export default defineComponent({
     text-align: left;
     color: $white-color;
     cursor: pointer;
-
-    &:hover {
-      color: #808080;
-    }
   }
 
   ul {
