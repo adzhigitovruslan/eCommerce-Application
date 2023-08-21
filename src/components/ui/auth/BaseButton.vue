@@ -28,15 +28,31 @@ defineProps<Props>();
   border-radius: 10px;
   opacity: 0.8;
   transition: 0.2s;
+
   padding: 5px 10px;
   text-transform: uppercase;
+  @media (max-width: 1200px) {
+    padding-left: calc(5px + 5 * ((100vw - 320px) / (1200 - 320)));
+    padding-right: calc(5px + 5 * ((100vw - 320px) / (1200 - 320)));
+  }
   &__close {
     gap: 10px;
     background: #010101;
     border: 1px solid #383636;
+    font-size: 13px;
+    @media (max-width: 1200px) {
+      font-size: calc(10px + (13 - 10) * ((100vw - 320px) / (1200 - 320)));
+    }
+    & .button-icon {
+      display: flex;
+    }
+
     & svg {
       height: 15px;
       transition: 2s;
+      @media (max-width: 1200px) {
+        height: calc(10px + 5 * ((100vw - 320px) / (1200 - 320)));
+      }
     }
     & .bell path {
       fill: #010101;
@@ -67,6 +83,9 @@ defineProps<Props>();
     padding: 10px;
     background: transparent;
     overflow: hidden;
+    @media (max-width: 1200px) {
+      padding: calc(5px + 5 * ((100vw - 320px) / (1200 - 320)));
+    }
     &:hover {
       background: #fefefe;
       color: #fff;
