@@ -14,8 +14,18 @@ import {
   faCircle,
   faCircleDot,
 } from '@fortawesome/free-solid-svg-icons';
-import VueSelect from 'vue-select';
-library.add(faDollarSign, faSearch, faCartShopping, faCircle, faCircleDot, faCircleXmark);
+library.add(
+  faDollarSign,
+  faSearch,
+  faCartShopping,
+  faCircle,
+  faCircleDot,
+  faCircleXmark,
+  faXTwitter,
+  faVk,
+  faInstagram,
+  faDiscord,
+);
 import { clickOutSide as vClickOutSide } from '@mahdikhashan/vue3-click-outside';
 import { faDiscord, faInstagram, faVk, faXTwitter } from '@fortawesome/free-brands-svg-icons';
 
