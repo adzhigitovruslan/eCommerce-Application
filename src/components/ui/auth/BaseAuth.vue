@@ -20,6 +20,7 @@
   background: #010101;
   width: 100vw;
   min-height: 100vh;
+  padding: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,7 +30,7 @@
   &__wrapper {
     display: flex;
     flex-direction: column;
-    max-width: 350px;
+    max-width: 400px;
     width: 100%;
     padding: 15px 20px;
     background: #1c1c1c;
@@ -37,6 +38,9 @@
     border: 1px solid #383636;
     & > *:not(:last-child) {
       margin-bottom: 20px;
+      @media (max-width: 1200px) {
+        margin-bottom: calc(10px + 10 * ((100vw - 320px) / (1200 - 320)));
+      }
     }
   }
 
@@ -49,10 +53,16 @@
       color: #f3f3f3;
       font-weight: 600;
       font-size: 20px;
+      @media (max-width: 1200px) {
+        font-size: calc(15px + 5 * ((100vw - 320px) / (1200 - 320)));
+      }
     }
   }
   &__logo {
     width: 25px;
+    @media (max-width: 1200px) {
+      width: calc(20px + 5 * ((100vw - 320px) / (1200 - 320)));
+    }
     img {
       height: 100%;
       width: 100%;

@@ -20,6 +20,9 @@ defineProps<{
   color: #fefefecc;
   font-size: 13px;
   margin-top: 10px;
+  @media (max-width: 1200px) {
+    font-size: calc(10px + 3 * ((100vw - 320px) / (1200 - 320)));
+  }
   & .button {
     color: #fefefe;
     font-weight: 800;

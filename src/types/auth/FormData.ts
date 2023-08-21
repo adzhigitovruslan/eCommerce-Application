@@ -12,5 +12,6 @@ export interface DataForm {
   email: string;
   password: string;
   date: string;
-  address: DataFormAddress;
+  billingAddress: DataFormAddress;
+  shippingAddress: DataFormAddress;
 }
