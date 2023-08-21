@@ -12,7 +12,6 @@
           <div class="overlay" :class="{ 'active-slide': index === currentSlide }"></div>
         </div>
       </Slide>
-      {{ console.log('Carousel items-to-show:', carouselItemsToShow) }}
       <template #addons>
         <Navigation v-if="showNavigation" />
         <Pagination />
@@ -57,8 +56,6 @@ onMounted(() => {
   currentSlide.value = Math.floor(slides.length / 2);
 });
 watchEffect(() => {
-  console.log('Window Width:', window.innerWidth);
-  console.log('carouselItemsToShow:', carouselItemsToShow.value);
 
   if (window.innerWidth > 768) {
     carouselItemsToShow.value = 1.5;
