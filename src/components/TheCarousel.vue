@@ -56,7 +56,6 @@ onMounted(() => {
   currentSlide.value = Math.floor(slides.length / 2);
 });
 watchEffect(() => {
-
   if (window.innerWidth > 768) {
     carouselItemsToShow.value = 1.5;
   } else {
