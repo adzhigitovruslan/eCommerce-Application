@@ -1,6 +1,6 @@
 <template>
   <div class="top-games-container">
-    <h2>Top 4 </h2>
+    <h2>Top 4</h2>
     <div class="top-games-row">
       <div v-for="game in topGames" :key="game.key">
         <ProductCard :game="game" imageClass="top-four-image" />

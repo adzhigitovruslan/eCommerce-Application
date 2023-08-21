@@ -98,14 +98,14 @@
         <div class="footer_bottom_legal">Legal Information</div>
         <div class="footer_bottom_copywrite">&copy; 2023 Playnchill. All Rights Reserved.</div>
         <div class="footer_bottom_icons">
-          <a href="https://www.vk.com" target="_blank" >
-            <font-awesome-icon :icon="['fab', 'vk']" class="footer_icon"/>
+          <a href="https://www.vk.com" target="_blank">
+            <font-awesome-icon :icon="['fab', 'vk']" class="footer_icon" />
           </a>
-          <a href="https://www.discord.com" target="_blank" >
-            <font-awesome-icon :icon="['fab', 'discord']" class="footer_icon icon_discord"/>
+          <a href="https://www.discord.com" target="_blank">
+            <font-awesome-icon :icon="['fab', 'discord']" class="footer_icon icon_discord" />
           </a>
-          <a href="https://www.twitter.com" target="_blank" >
-            <font-awesome-icon :icon="['fab', 'x-twitter']" class="footer_icon"/>
+          <a href="https://www.twitter.com" target="_blank">
+            <font-awesome-icon :icon="['fab', 'x-twitter']" class="footer_icon" />
           </a>
           <a href="https://www.instagram.com" target="_blank">
             <font-awesome-icon :icon="['fab', 'instagram']" class="footer_icon" />
