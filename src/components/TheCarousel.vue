@@ -220,7 +220,7 @@ onMounted(() => {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: end;
+  align-items: flex-end;
   gap: 10px;
 }
 

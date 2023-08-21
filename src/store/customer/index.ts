@@ -1,5 +1,5 @@
 import mutations from '@/store/customer/mutations';
-import { LoginPayload } from '@/types/interfaces/api';
+import { LoginPayload, SingUpPayload } from '@/types/interfaces/api';
 import { Module } from 'vuex';
 
 interface CustomerState {
@@ -32,6 +32,9 @@ const customerModule: Module<CustomerState, undefined> = {
     },
     logout(context) {
       context.commit('logout');
+    },
+    singUp(context, payload: SingUpPayload) {
+      context.commit('singUp', payload);
     },
   },
 };
