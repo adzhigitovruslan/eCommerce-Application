@@ -1,10 +1,10 @@
 <template>
   <div class="promotion-card" v-if="game">
     <img :src="getImagePath(game.image)" :alt="game.name" :class="imageClass" />
-    <div class="game-info">
+    <div class="game-info" :class="gameInfo">
       <div class="game-price-container">
-        <div class="game-price">Price: ${{ game.price }}</div>
-        <div class="game-discount">{{ game.discount }}% off</div>
+        <div class="game-price" :class="gamePrice">Price: ${{ game.price }}</div>
+        <div class="game-discount" :class="gameDiscount">{{ game.discount }}% off</div>
       </div>
       <div class="game-name">{{ game.name }}</div>
     </div>
@@ -19,6 +19,9 @@ export default defineComponent({
   props: {
     game: Object as () => Game,
     imageClass: String,
+    gameDiscount: String,
+    gamePrice: String,
+    gameInfo: String,
   },
 
   computed: {
@@ -108,4 +111,61 @@ export default defineComponent({
   object-fit: cover;
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .image-mode-promo {
+  object-fit: cover;
+  max-width: 122px;
+  width: 122px;
+  height: 183px;
+  border-radius: 9px;
+  margin-bottom: 0px;
+  cursor: pointer;
+}
+
+.game-info {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  justify-content: flex-end;
+
+  
+  border-radius: 8px;
+
+  .game-name {
+    margin-bottom: 0px;
+  }
+
+
+}
+
+.game-info-promo {
+  width: 135px;
+  .game-price-promo {
+font-size: 18px;
+font-weight: 800;
+line-height: 23px;
+letter-spacing: 0em;
+text-align: left;
+
+
+  }
+
+  .game-discount-promo {
+font-size: 18px;
+font-weight: 500;
+line-height: 23px;
+letter-spacing: 0em;
+text-align: left;
+color: rgba(119, 190, 29, 1);
+background: none;
+margin: 0;
+
+
+  }
+}
+}
+
+
+
 </style>

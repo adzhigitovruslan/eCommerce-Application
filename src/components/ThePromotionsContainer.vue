@@ -2,7 +2,7 @@
   <div class="promotions-container">
     <h2>Promotions<span>%</span></h2>
     <div class="promotions-list">
-      <ProductCard v-for="(game, index) in discountedGames" :key="index" :game="game" imageClass="image-mode-promo" />
+      <ProductCard v-for="(game, index) in discountedGames" :key="index" :game="game" imageClass="image-mode-promo" gameDiscount="game-discount-promo" gamePrice="game-price-promo" gameInfo="game-info-promo"/>
     </div>
   </div>
 </template>
@@ -62,6 +62,7 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   margin: auto;
 
   .promotions-list {
@@ -78,15 +79,7 @@ h2 {
       max-width: 620px;
       height: 464px;
 
-      .game-image {
-        object-fit: cover;
-        max-width: 620px;
-        width: 550px;
-        height: 319px;
-        border-radius: 15px;
-        margin-bottom: 20px;
-        cursor: pointer;
-      }
+  
     }
   }
 
@@ -96,23 +89,33 @@ h2 {
 
     .promotions-list {
       justify-content: center;
+    gap: 0px;
 
       .promotion-card {
         max-width: 100%;
         height: auto;
+      max-width: 158px;
+      height: 364px;
+
       }
     }
   }
 }
 
 @media (max-width: 380px) {
+
+  .promotions-container {
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
   .promotion-card {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: left;
-    max-width: 320px;
-    height: 150px;
+    max-width: 158px;
+    height: 364px;
 
     .game-image {
       object-fit: cover;
@@ -124,5 +127,10 @@ h2 {
       cursor: pointer;
     }
   }
+}
+
+
+
+
 }
 </style>
