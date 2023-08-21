@@ -3,10 +3,14 @@
     <nav class="top-navigation">
       <div class="menu-button-container">
         <button class="menu-icon" @click="toggleMenu">
-          <font-awesome-icon :icon="['fas', 'bars']" class="menu_bars" />
+          <font-awesome-icon
+            :icon="['fas', 'bars']"
+            class="menu_bars fa-rotate-transition"
+            :class="{ 'fa-rotate-90': showMenu }"
+          />
         </button>
       </div>
-      <div class="menu-overlay" v-if="showMenu" @click="toggleMenu"></div>
+      <div class="menu-overlay" v-if="showMenu" @click="toggleMenuAndHide"></div>
       <div class="menu-links" :class="{ active: showMenu }">
         <div class="menu-categories" v-if="showMenu">
           <router-link
@@ -14,7 +18,10 @@
             class="nav-link"
             :class="{ active: activeLink === 'catalog' }"
             data-type="catalog"
-            @click="setActiveLink('catalog')"
+            @click="
+              setActiveLink('catalog');
+              hideMenu();
+            "
             >Products</router-link
           >
           |
@@ -23,7 +30,10 @@
             class="nav-link reviews"
             :class="{ active: activeLink === 'reviews' }"
             data-type="reviews"
-            @click="setActiveLink('reviews')"
+            @click="
+              setActiveLink('reviews');
+              hideMenu();
+            "
             >Reviews</router-link
           >
           |
@@ -32,7 +42,10 @@
             class="nav-link promotions"
             :class="{ active: activeLink === 'promotions' }"
             data-type="promotions"
-            @click="setActiveLink('promotions')"
+            @click="
+              setActiveLink('promotions');
+              hideMenu();
+            "
             >Promotions</router-link
           >
           |
@@ -41,7 +54,10 @@
             class="nav-link about"
             :class="{ active: activeLink === 'about' }"
             data-type="about"
-            @click="setActiveLink('about')"
+            @click="
+              setActiveLink('about');
+              hideMenu();
+            "
             >About us</router-link
           >
         </div>
@@ -104,8 +120,15 @@ export default defineComponent({
     setActiveLink(linkType: string) {
       this.activeLink = linkType;
     },
+    toggleMenuAndHide() {
+      this.toggleMenu(); // Сначала вызываем toggleMenu
+      this.hideMenu(); // Затем вызываем hideMenu
+    },
     toggleMenu() {
       this.showMenu = !this.showMenu;
+    },
+    hideMenu() {
+      this.showMenu = false;
     },
   },
 });
@@ -384,12 +407,12 @@ option:checked {
         z-index: 10002;
         color: white;
         text-decoration: none;
-        padding: 10px;
-        font-size: 18px;
+        padding: 20px;
+        font-size: 28px;
         transition: background-color 0.2s ease;
 
         &:hover {
-          background-color: rgba(255, 255, 255, 0.1); /* Highlight on hover */
+          color: rgba(255, 255, 255, 0.1);
         }
       }
     }
@@ -401,6 +424,14 @@ option:checked {
     top: 0;
     left: 0;
     z-index: 100000;
+  }
+
+  .fa-rotate-90 {
+    transform: rotate(90deg);
+  }
+
+  .fa-rotate-transition {
+    transition: transform 0.3s ease;
   }
 }
 </style>

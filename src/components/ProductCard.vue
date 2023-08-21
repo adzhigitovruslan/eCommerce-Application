@@ -35,10 +35,6 @@ export default defineComponent({
 <style lang="scss">
 @import '@/assets/styles/global.scss';
 
-.promotion-card {
-  display: flex;
-}
-
 .game-info {
   width: 265px;
   height: 113px;

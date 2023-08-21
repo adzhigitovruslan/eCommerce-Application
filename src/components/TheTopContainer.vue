@@ -84,5 +84,9 @@ h2 {
     align-items: flex-start;
     gap: 30px;
   }
+
+  h2 {
+    text-align: center;
+  }
 }
 </style>
