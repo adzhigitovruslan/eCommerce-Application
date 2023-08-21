@@ -196,7 +196,7 @@ h2 {
   .card-container {
     display: flex;
     flex-direction: column;
-    width: 90vw;
+    width: 100%;
     justify-content: space-between;
     gap: 30px;
     margin: auto;

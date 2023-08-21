@@ -12,7 +12,7 @@
       </div>
       <div class="menu-overlay" v-if="showMenu" @click="toggleMenuAndHide"></div>
       <div class="menu-links" :class="{ active: showMenu }">
-        <div class="menu-categories" v-if="showMenu">
+        <div class="menu-categories">
           <router-link
             to="/catalog"
             class="nav-link"
@@ -190,7 +190,7 @@ export default defineComponent({
 }
 
 .menu-button-container {
-  display: none;
+  visibility: hidden;
 }
 
 nav {
@@ -303,13 +303,6 @@ option:checked {
     height: auto;
   }
 
-  .search-input {
-    width: 85vw;
-    max-width: 85vw;
-    top: 35px;
-    left: -60px;
-  }
-
   nav {
     max-width: 100%;
   }
@@ -325,9 +318,6 @@ option:checked {
     margin: auto;
   }
 
-  .nav-link {
-    font-size: 14px;
-  }
   .link-text {
     width: 90px;
     font-size: 22px;
@@ -410,6 +400,7 @@ option:checked {
         padding: 20px;
         font-size: 28px;
         transition: background-color 0.2s ease;
+        font-size: 14px;
 
         &:hover {
           color: rgba(255, 255, 255, 0.1);
@@ -424,6 +415,7 @@ option:checked {
     top: 0;
     left: 0;
     z-index: 100000;
+    visibility: visible;
   }
 
   .fa-rotate-90 {
