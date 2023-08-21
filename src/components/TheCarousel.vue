@@ -1,13 +1,18 @@
 <template>
   <div>
-    <Carousel :items-to-show="1.5" :items-to-scroll="1" :wrap-around="true" v-model:modelValue="currentSlide">
+    <Carousel
+      :items-to-show="carouselItemsToShow"
+      :items-to-scroll="1"
+      :wrap-around="true"
+      v-model:modelValue="currentSlide"
+    >
       <Slide v-for="(slide, index) in slides" :key="index">
         <div class="carousel__item">
           <img :src="slide.imageUrl" :alt="'Slide ' + (index + 1)" class="custom-image" />
           <div class="overlay" :class="{ 'active-slide': index === currentSlide }"></div>
         </div>
       </Slide>
-
+{{ console.log('Carousel items-to-show:', carouselItemsToShow) }}
       <template #addons>
         <Navigation />
         <Pagination />
@@ -37,7 +42,7 @@
 <script setup lang="ts">
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Navigation, Pagination } from 'vue3-carousel';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watchEffect } from 'vue';
 
 const slides = [
   { id: 1, imageUrl: require('../assets/images/minecraft/minecraft_6.jpeg') },
@@ -46,10 +51,24 @@ const slides = [
 ];
 
 const currentSlide = ref(0);
+const carouselItemsToShow = ref(1);
+
+
 
 onMounted(() => {
   currentSlide.value = Math.floor(slides.length / 2);
+  console.log('Window Width:', window.innerWidth);
+console.log('carouselItemsToShow:', carouselItemsToShow.value);
 });
+watchEffect(() => {
+  if (window.innerWidth > 380) {
+    carouselItemsToShow.value = 1.5;
+  } else {
+    carouselItemsToShow.value = 1;
+    
+  }
+});
+
 </script>
 
 <style lang="scss">
@@ -269,7 +288,6 @@ onMounted(() => {
   .game-info__container {
     width: 100%;
     max-width: none;
-
     top: auto;
     bottom: 0;
     left: 0;
