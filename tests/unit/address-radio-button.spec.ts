@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import AddressComponent from '@/components/auth/HeaderSecondStep.vue';
+import AddressComponent from '@/components/auth/registration/HeaderSecondStep.vue';
 
 describe('AddressComponent.vue', () => {
   it('renders billing and shipping address titles', () => {

@@ -1,39 +1,57 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
 import UserRegistration from '@/views/auth/UserRegistration.vue';
-
-// const UserSignup = () => '@/views/auth/AuthPage.vue';
+import UserLogin from '@/views/auth/UserLogin.vue';
+import TheMainPage from '@/components/layout/TheMainPage.vue';
+import AuthLayout from '@/components/layout/TheAuthLayout.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
+    path: '/home',
+    component: TheMainPage,
+    children: [
+      {
+        path: '',
+        name: 'home',
+        component: HomeView,
+      },
+      {
+        path: 'about',
+        name: 'about',
+        component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
+      },
+      {
+        path: 'cart',
+        name: 'cart',
+        component: () => import(/* webpackChunkName: "cart" */ '../views/CartView.vue'),
+      },
+      {
+        path: 'catalog',
+        name: 'catalog',
+        component: () => import(/* webpackChunkName: "catalog" */ '../views/CatalogView.vue'),
+      },
+    ],
+  },
+  {
     path: '/',
-    name: 'home',
-    component: HomeView,
-  },
-  {
-    path: '/signup',
-    name: 'signup',
-    component: UserRegistration,
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import(/* webpackChunkName: "login" */ '../views/LoginView.vue'),
-  },
-  {
-    path: '/cart',
-    name: 'cart',
-    component: () => import(/* webpackChunkName: "cart" */ '../views/CartView.vue'),
-  },
-  {
-    path: '/catalog',
-    name: 'catalog',
-    component: () => import(/* webpackChunkName: "catalog" */ '../views/CatalogView.vue'),
+    name: 'account-layout',
+    component: AuthLayout,
+    children: [
+      {
+        path: '/',
+        redirect: 'login',
+      },
+      {
+        path: '/signup',
+        name: 'signup',
+        component: UserRegistration,
+      },
+      {
+        path: '/login',
+        name: 'login',
+        component: UserLogin,
+      },
+    ],
   },
   {
     path: '/:catchAll(.*)',
@@ -43,7 +61,7 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(process.env.BASE_URL),
   routes,
   scrollBehavior(to, from, savedPosition) {
     return new Promise((resolve) => {

@@ -3,7 +3,6 @@ import { Router, createRouter, createWebHistory } from 'vue-router';
 import App from '@/App.vue';
 import HomeView from '@/views/HomeView.vue';
 import AboutView from '@/views/AboutView.vue';
-import LoginView from '@/views/LoginView.vue';
 import CartView from '@/views/CartView.vue';
 import CatalogView from '@/views/CatalogView.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
@@ -15,7 +14,6 @@ const setupRouter = () => {
     routes: [
       { path: '/', component: HomeView },
       { path: '/about', component: AboutView },
-      { path: '/login', component: LoginView },
       { path: '/cart', component: CartView },
       { path: '/catalog', component: CatalogView },
       { path: '/:catchAll(.*)', component: NotFoundView },
@@ -57,10 +55,6 @@ describe('App', () => {
 
   it('renders the about view when the route is /about', async () => {
     await navigateAndAssertViewExists(router, wrapper, '/about', AboutView);
-  });
-
-  it('renders the login view when the route is /login', async () => {
-    await navigateAndAssertViewExists(router, wrapper, '/login', LoginView);
   });
 
   it('renders the cart view when the route is /cart', async () => {
