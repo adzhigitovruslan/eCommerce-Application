@@ -17,7 +17,7 @@
           </svg>
         </div>
       </label>
-      <label class="radio-text" for="radio1" :class="{ disabled: isBothAddressChecked }">Set default</label>
+      <label class="radio-text" for="radio1" :class="{ disabled: isBothAddressChecked }">Set as default address</label>
     </div>
     <div class="radio-button-wrapper">
       <label class="container" :class="{ disabled: isBothAddressChecked }">
@@ -36,7 +36,7 @@
           </svg>
         </div>
       </label>
-      <label class="radio-text" for="radio2" :class="{ disabled: isBothAddressChecked }">Set default</label>
+      <label class="radio-text" for="radio2" :class="{ disabled: isBothAddressChecked }">Set as default address</label>
     </div>
   </div>
 </template>

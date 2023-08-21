@@ -6,7 +6,7 @@ export interface DataFormAddress {
   phoneNumber: string;
 }
 
-export interface DataForm {
+export interface RegisterData {
   firstName: string;
   lastName: string;
   email: string;

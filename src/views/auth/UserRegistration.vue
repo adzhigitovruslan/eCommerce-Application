@@ -397,12 +397,17 @@
 
 <script setup lang="ts">
 import { reactive, ref, Ref, computed, watch } from 'vue';
-import { calculateAge } from '@/utils/auth/calculateAge';
-import HaveAnAccountForm from '@/components/auth/HaveAnAccountForm.vue';
-import VCheckbox from '@/components/auth/AddressCheckbox.vue';
-import VHeader from '@/components/auth/HeaderSecondStep.vue';
-import VRadioButtons from '@/components/auth/AddressRadioButtons.vue';
+import { useStore } from 'vuex';
+import HaveAnAccountForm from '@/components/auth/registration/HaveAnAccountForm.vue';
+import VCheckbox from '@/components/auth/registration/AddressCheckbox.vue';
+import VHeader from '@/components/auth/registration/HeaderSecondStep.vue';
+import VRadioButtons from '@/components/auth/registration/AddressRadioButtons.vue';
+import vSelect from '@/components/auth/registration/SelectForm.vue';
+import { useVuelidate } from '@vuelidate/core';
+import { required, email, minLength } from '@vuelidate/validators';
+import { RegisterData } from '@/types/auth/RegisterData';
 import { Country } from '@/types/auth/SelectFormCountry';
+import { calculateAge } from '@/utils/auth/calculateAge';
 import {
   validateLastName,
   validatePassword,
@@ -412,11 +417,6 @@ import {
   validateCountry,
   formatPhoneNumber,
 } from '@/utils/auth/validator';
-import { useVuelidate } from '@vuelidate/core';
-import vSelect from '@/components/auth/SelectForm.vue';
-import { required, email, minLength } from '@vuelidate/validators';
-import { DataForm } from '@/types/auth/FormData';
-import { useStore } from 'vuex';
 
 const activePhase: Ref<number> = ref(2);
 const transitionName: Ref<string> = ref('');
@@ -436,6 +436,7 @@ const countries = ref([
   { title: 'RU', value: 'Russian Federation' },
   { title: 'USA', value: 'The United States' },
 ]);
+
 const selectedCountry = reactive({
   billingCountry: { title: '', value: 'Select country' },
   shippingCountry: { title: '', value: 'Select country' },
@@ -476,7 +477,7 @@ async function sendRuslanData() {
   await store.dispatch('customer/singUp', ruslanData);
 }
 
-const formData: DataForm = reactive({
+const formData: RegisterData = reactive({
   firstName: '',
   lastName: '',
   email: '',
@@ -558,6 +559,7 @@ watch(
     }
   },
 );
+
 watch(
   () => formData.billingAddress.phoneNumber,
   (newValue) => {
@@ -571,6 +573,7 @@ watch(
     formData.shippingAddress.phoneNumber = formatPhoneNumber(newValue, selectedCountry.shippingCountry.title);
   },
 );
+
 watch(
   () => checkGroup.isCheckboxTrue,
   (newValue) => {
@@ -592,6 +595,7 @@ function validateBillingPostalCode(postalCode: string) {
 
   return false;
 }
+
 function validateShippingPostalCode(postalCode: string) {
   if (selectedCountry.shippingCountry.title.toLocaleLowerCase() === 'ru') {
     return /^[0-9]{6}$/.test(postalCode);
@@ -631,10 +635,15 @@ function setShippingCountry(option: Country) {
   formData.shippingAddress.phoneNumber = '';
 }
 
-const submitHandler = () => {
-  v$.value.$validate();
+async function submitHandler() {
+  const isFormCorrect = await v$.value.$validate();
   // you can show some extra alert to the user or just leave the each field to show it's `$errors`.
-};
+
+  console.log('validation signup error');
+
+  if (!isFormCorrect) return;
+  // actually submit form
+}
 </script>
 
 <style lang="scss" scoped>
@@ -669,9 +678,6 @@ form {
   align-items: center;
   gap: 10px;
   overflow: hidden;
-  // @media (max-width: 1200px) {
-  //   gap: calc(15px + 10 * ((100vw - 320px) / (1200 - 320)));
-  // }
   & .form-wrapper {
     display: flex;
     flex-direction: column;
