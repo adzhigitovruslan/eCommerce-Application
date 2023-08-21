@@ -91,19 +91,6 @@ h2 {
   text-align: left;
 }
 
-.game-info__description {
-  color: $white-color;
-
-  p {
-    font-family: $manrope-font-family;
-    font-size: 36px;
-    font-weight: 800;
-    line-height: 43px;
-    letter-spacing: 0em;
-    text-align: left;
-  }
-}
-
 .game-info__price {
   display: flex;
   flex-direction: row;

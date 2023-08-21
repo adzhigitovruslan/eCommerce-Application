@@ -52,7 +52,7 @@ onMounted(() => {
 });
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import '@/assets/styles/global.scss';
 
 .carousel {
