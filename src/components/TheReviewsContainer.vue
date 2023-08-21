@@ -28,13 +28,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-
-interface Review {
-  rating: number;
-  name: string;
-  title: string;
-  comment: string;
-}
+import { Review } from '@/types/interfaces/reviews';
 
 export default defineComponent({
   data() {

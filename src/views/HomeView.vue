@@ -7,7 +7,7 @@
         </template>
       </the-carousel>
       <h2><the-top /></h2>
-      <h2><the-slides /></h2>
+      <h2><the-cards /></h2>
       <h2><the-products /></h2>
       <h2 id="promotions"><the-promotions /></h2>
       <h2 id="reviews"><the-reviews /></h2>
@@ -22,7 +22,7 @@ import ThePromotions from '@/components/ThePromotionsContainer.vue';
 import TheReviews from '@/components/TheReviewsContainer.vue';
 import TheProducts from '@/components/TheProductsContainer.vue';
 import TheTop from '@/components/TheTopContainer.vue';
-import TheSlides from '@/components/TheSlider.vue';
+import TheCards from '@/components/TheCards.vue';
 
 export default defineComponent({
   components: {
@@ -31,7 +31,7 @@ export default defineComponent({
     TheReviews: TheReviews,
     TheProducts: TheProducts,
     TheTop: TheTop,
-    TheSlides: TheSlides,
+    TheCards: TheCards,
   },
 });
 </script>

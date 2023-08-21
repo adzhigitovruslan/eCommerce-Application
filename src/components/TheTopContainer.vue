@@ -1,6 +1,6 @@
 <template>
   <div class="top-games-container">
-    <h2>Top 4 Games</h2>
+    <h2>Top 4 </h2>
     <div class="top-games-row">
       <div v-for="game in topGames" :key="game.key">
         <ProductCard :game="game" imageClass="top-four-image" />
@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import gamesData from '@/data.json';
-import { Game } from '@/components/game';
+import { Game } from '@/types/interfaces/game';
 import ProductCard from '@/components/ProductCard.vue';
 import { defineComponent } from 'vue';
 

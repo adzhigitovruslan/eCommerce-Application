@@ -13,7 +13,16 @@
       <div class="footer_column">
         <h3>About Company</h3>
         <ul>
-          <li>About Us</li>
+          <li>
+            <router-link
+              to="/about"
+              class="nav-link about"
+              :class="{ active: activeLink === 'about' }"
+              data-type="about"
+              @click="setActiveLink('about')"
+              >About us</router-link
+            >
+          </li>
           <li>Legal Information</li>
           <li>Careers</li>
         </ul>
@@ -22,16 +31,52 @@
       <div class="footer_column">
         <h3>Terms of Service</h3>
         <ul>
-          <li>Catalog</li>
-          <li>Promotions</li>
-          <li>Personal Account</li>
+          <li>
+            <router-link
+              to="/catalog"
+              class="nav-link"
+              :class="{ active: activeLink === 'catalog' }"
+              data-type="catalog"
+              @click="setActiveLink('catalog')"
+              >Products</router-link
+            >
+          </li>
+          <li>
+            <router-link
+              to="/#promotions"
+              class="nav-link promotions"
+              :class="{ active: activeLink === 'promotions' }"
+              data-type="promotions"
+              @click="setActiveLink('promotions')"
+              >Promotions</router-link
+            >
+          </li>
+          <li>
+            <router-link
+              to="/login"
+              class="nav-link"
+              :class="{ active: activeLink === 'login' }"
+              data-type="login"
+              @click="setActiveLink('login')"
+              >Personal Account</router-link
+            >
+          </li>
         </ul>
       </div>
       <div class="footer_column">
         <h3>Shop Info</h3>
         <ul>
           <li>New Products</li>
-          <li>News</li>
+          <li>
+            <router-link
+              to="/#reviews"
+              class="nav-link reviews"
+              :class="{ active: activeLink === 'reviews' }"
+              data-type="reviews"
+              @click="setActiveLink('reviews')"
+              >Reviews</router-link
+            >
+          </li>
           <li>Our Blog</li>
         </ul>
       </div>
@@ -51,12 +96,20 @@
       </p>
       <div class="footer_bottom_line">
         <div class="footer_bottom_legal">Legal Information</div>
-        <div>&copy; 2023 Playnchill. All Rights Reserved.</div>
+        <div class="footer_bottom_copywrite">&copy; 2023 Playnchill. All Rights Reserved.</div>
         <div class="footer_bottom_icons">
-          <font-awesome-icon :icon="['fab', 'vk']" class="footer_icon" />
-          <font-awesome-icon :icon="['fab', 'discord']" class="footer_icon icon_discord" />
-          <font-awesome-icon :icon="['fab', 'x-twitter']" class="footer_icon" />
-          <font-awesome-icon :icon="['fab', 'instagram']" class="footer_icon" />
+          <a href="https://www.vk.com" target="_blank" >
+            <font-awesome-icon :icon="['fab', 'vk']" class="footer_icon"/>
+          </a>
+          <a href="https://www.discord.com" target="_blank" >
+            <font-awesome-icon :icon="['fab', 'discord']" class="footer_icon icon_discord"/>
+          </a>
+          <a href="https://www.twitter.com" target="_blank" >
+            <font-awesome-icon :icon="['fab', 'x-twitter']" class="footer_icon"/>
+          </a>
+          <a href="https://www.instagram.com" target="_blank">
+            <font-awesome-icon :icon="['fab', 'instagram']" class="footer_icon" />
+          </a>
         </div>
       </div>
     </div>
@@ -64,13 +117,34 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: 'AppFooter',
-};
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  data() {
+    return {
+      activeLink: '',
+    };
+  },
+  methods: {
+    setActiveLink(linkType: string) {
+      this.activeLink = linkType;
+    },
+  },
+});
 </script>
 
 <style scoped lang="scss">
 @import '@/assets/styles/global.scss';
+
+.nav-link {
+  color: rgba(205, 205, 207, 1);
+  text-decoration: none;
+  transition: color 0.3s;
+
+  &:hover {
+    color: rgba(99, 104, 109, 1);
+  }
+}
 
 .footer_payments {
   width: 80vw;
@@ -218,6 +292,10 @@ export default {
     letter-spacing: 0em;
     text-align: left;
 
+    .footer_bottom_copywrite:hover {
+      color: rgba(205, 205, 207, 1);
+    }
+
     .footer_bottom_legal {
       color: rgba(66, 119, 255, 1);
       cursor: pointer;
@@ -228,8 +306,11 @@ export default {
       justify-content: space-between;
       gap: 16px;
       font-size: 21px;
-      color: rgba(255, 255, 255, 0.15);
       cursor: pointer;
+
+      .footer_icon {
+        color: rgba(255, 255, 255, 0.15);
+      }
 
       .footer_icon:hover {
         color: #808080;

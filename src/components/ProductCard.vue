@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Game } from '@/components/game';
+import { Game } from '@/types/interfaces/game';
 
 export default defineComponent({
   props: {

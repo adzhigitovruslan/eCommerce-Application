@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import gamesData from '@/data.json';
-import { Game } from '@/components/game';
+import { Game } from '@/types/interfaces/game';
 import ProductCard from '@/components/ProductCard.vue';
 import { defineComponent } from 'vue';
 
