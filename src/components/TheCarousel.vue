@@ -52,7 +52,7 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @import '@/assets/styles/global.scss';
 
 .carousel {
@@ -65,7 +65,7 @@ onMounted(() => {
     justify-content: center;
     overflow: hidden;
     border-radius: 5%;
-    object-fit: cover !important;
+    object-fit: cover;
     transition: background-color 0.5s ease-in-out;
 
     .overlay {
@@ -86,7 +86,7 @@ onMounted(() => {
 
   .custom-image {
     width: 100%;
-    object-fit: cover !important;
+    object-fit: cover;
     border-radius: 5%;
     background-color: rgba(6, 5, 12, 0.5);
   }
@@ -149,21 +149,17 @@ onMounted(() => {
   left: 350px;
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 5%;
-  padding: 10px;
+  padding: 20px;
 }
 
 .game-info__image {
   height: 85px;
-  top: 373px;
-  left: 450px;
 }
 
 .game-info__description {
   color: $white-color;
-  width: 592px;
-  height: 114px;
+  width: 572px;
   position: relative;
-  top: -50px;
 
   p {
     font-family: $manrope-font-family;
@@ -263,5 +259,22 @@ onMounted(() => {
 
 .active-slide {
   background-color: transparent !important;
+}
+
+@media (max-width: 768px) {
+  .carousel__item {
+    height: 400px;
+  }
+
+  .game-info__container {
+    width: 100%;
+    max-width: none;
+
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0;
+  }
 }
 </style>

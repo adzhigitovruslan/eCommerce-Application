@@ -63,7 +63,7 @@
         data-type="logo"
         @click="setActiveLink('logo')"
       >
-        <img src="@/assets/images/main_logo.png" alt="logo" />
+        <img src="../../../public/icon_logo2.png" alt="logo" />
         <span class="link-text">Playnchill</span>
       </router-link>
       <div class="search-input">
@@ -115,8 +115,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-$white-color: white;
-$font-family: Manrope, sans-serif;
+@import '@/assets/styles/global.scss';
 
 .header {
   height: 157px;
@@ -133,7 +132,7 @@ $font-family: Manrope, sans-serif;
   padding-left: 15px;
   box-sizing: border-box;
   outline: none;
-  color: white;
+  color: $white-color;
   border-radius: 15px;
   background: rgba(196, 196, 196, 0.05);
 }
@@ -175,7 +174,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: $font-family;
+  font-family: $manrope-font-family;
   margin: 0 auto;
   margin-bottom: 24px;
 
@@ -183,8 +182,8 @@ nav {
     font-weight: bold;
     margin: 10px;
     text-decoration: none;
-    color: #ffffff;
-    font-family: $font-family;
+    color: $white-color;
+    font-family: $manrope-font-family;
     font-size: 16px;
     font-weight: 600;
     line-height: 21px;
@@ -206,7 +205,7 @@ nav .nav-link:hover {
   display: inline-block;
   vertical-align: middle;
   margin-right: 10px;
-  color: #ffffff;
+  color: $white-color;
 
   &:hover {
     color: #808080;
@@ -222,7 +221,7 @@ nav .nav-link:hover {
 .logo-link {
   display: flex;
   align-items: center;
-  font-family: $font-family;
+  font-family: $manrope-font-family;
   font-size: 32px;
   font-weight: 800;
   line-height: 29px;
@@ -236,18 +235,18 @@ nav .nav-link:hover {
   img {
     margin-right: 10px;
     height: 29px;
-    color: white;
+    color: $white-color;
   }
 
   .link-text {
     white-space: nowrap;
-    color: #ffffff;
+    color: $white-color;
   }
 }
 
 .language-icon {
   color: $white-color;
-  font-family: $font-family;
+  font-family: $manrope-font-family;
 }
 
 .currency-icon {
@@ -256,13 +255,13 @@ nav .nav-link:hover {
 
 select {
   background-color: black;
-  color: white;
+  color: $white-color;
   border: none;
 }
 
 option {
   background-color: black;
-  color: white;
+  color: $white-color;
   padding: 5px;
 }
 
@@ -273,5 +272,19 @@ option {
 option:checked {
   background-color: #808080;
   font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .header {
+    height: auto;
+  }
+
+  .search-input {
+    max-width: 100%;
+  }
+
+  nav {
+    max-width: 100%;
+  }
 }
 </style>
