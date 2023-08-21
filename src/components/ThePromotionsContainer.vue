@@ -3,7 +3,6 @@
     <h2>Promotions<span>%</span></h2>
     <div class="promotions-list">
       <ProductCard v-for="(game, index) in discountedGames" :key="index" :game="game" imageClass="image-mode-promo" />
-      />
     </div>
   </div>
 </template>

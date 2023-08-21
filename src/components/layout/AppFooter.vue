@@ -1,13 +1,13 @@
 <template>
   <footer>
     <div class="footer_payments">
-      <img src="@/assets/images/paypal-logo.png" alt="PayPal" />
-      <img src="@/assets/images/mastercard-logo.png" alt="MasterCard" />
-      <img src="@/assets/images/mir-logo.png" alt="MIR" />
-      <img src="@/assets/images/WebMoney_logo.png" alt="WebMoney" />
-      <img src="@/assets/images/visa-logo.png" alt="Visa" />
-      <img src="@/assets/images/paypal-logo.png" alt="PayPal" />
-      <img src="@/assets/images/mastercard-logo.png" alt="MasterCard" />
+      <img class="footer-icon" src="@/assets/images/paypal-logo.png" alt="PayPal" />
+      <img class="footer-icon" src="@/assets/images/mastercard-logo.png" alt="MasterCard" />
+      <img class="footer-icon" src="@/assets/images/mir-logo.png" alt="MIR" />
+      <img class="footer-icon" src="@/assets/images/WebMoney_logo.png" alt="WebMoney" />
+      <img class="footer-icon" src="@/assets/images/visa-logo.png" alt="Visa" />
+
+      <img class="footer-icon" src="@/assets/images/mastercard-logo.png" alt="MasterCard" />
     </div>
     <div class="footer-columns">
       <div class="footer_column">
@@ -81,12 +81,14 @@
         </ul>
       </div>
       <div class="footer_column footer_column_image">
-        <img src="@/assets/images/webmoney.png" alt="Verified WebMoney" />
-        <div>Verified <br /><span>WebMoney</span></div>
-      </div>
-      <div class="footer_column footer_column_image">
-        <img src="@/assets/images/SafeBrowsing_Icon.png" alt="Safe Browsing Google" />
-        <div>Safe Browsing <br /><span>Google</span></div>
+        <div>
+          <img src="@/assets/images/webmoney.png" alt="Verified WebMoney" />
+          <div>Verified <br /><span>WebMoney</span></div>
+        </div>
+        <div>
+          <img src="@/assets/images/SafeBrowsing_Icon.png" alt="Safe Browsing Google" />
+          <div>Safe Browsing <br /><span>Google</span></div>
+        </div>
       </div>
     </div>
     <div class="footer_bottom">
@@ -165,7 +167,7 @@ export default defineComponent({
   margin-bottom: 50px;
   align-items: flex-start;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
 }
 
@@ -223,8 +225,8 @@ export default defineComponent({
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 100px;
   text-align: center;
   flex-wrap: nowrap;
   margin: auto;
@@ -361,6 +363,120 @@ export default defineComponent({
     align-items: center;
     justify-content: center;
     gap: 5px;
+  }
+
+  .footer_payments {
+    width: 90vw;
+    margin: auto;
+
+    img {
+      height: 15px;
+      margin-right: 2px;
+      margin-top: 15px;
+      margin-bottom: 25px;
+    }
+  }
+
+  .footer-column ul {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .footer-columns {
+    width: 90vw;
+    margin: auto;
+    margin-bottom: 50px;
+    align-items: flex-start;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 26px;
+      letter-spacing: 0em;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    li {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 18px;
+      letter-spacing: 0em;
+      text-align: left;
+    }
+  }
+
+  .footer_column_image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0;
+    flex-wrap: nowrap;
+    margin: auto;
+
+    img {
+      width: 40px;
+      height: auto;
+    }
+  }
+
+  .footer_bottom {
+    width: 90vw;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 19px;
+    margin: auto;
+    margin-bottom: 200px;
+
+    p {
+      margin-bottom: 50px;
+    }
+
+    .footer_bottom_line {
+      display: flex;
+      gap: 20px;
+      width: 90vw;
+      flex-direction: column-reverse;
+      flex-wrap: wrap;
+      font-size: 18px;
+
+      .footer_bottom_copywrite {
+        font-size: 16px;
+        &:hover {
+          color: rgba(205, 205, 207, 1);
+        }
+
+        .footer_bottom_legal {
+          color: rgba(66, 119, 255, 1);
+          cursor: pointer;
+        }
+
+        .footer_bottom_icons {
+          display: flex;
+          justify-content: space-between;
+          gap: 16px;
+          font-size: 21px;
+          cursor: pointer;
+
+          .footer_icon {
+            color: rgba(255, 255, 255, 0.15);
+          }
+
+          .footer_icon:hover {
+            color: #808080;
+          }
+
+          .icon_discord {
+            color: #77be1d;
+          }
+        }
+      }
+    }
   }
 }
 </style>

@@ -14,11 +14,11 @@
       </Slide>
       {{ console.log('Carousel items-to-show:', carouselItemsToShow) }}
       <template #addons>
-        <Navigation />
+        <Navigation v-if="showNavigation" />
         <Pagination />
       </template>
     </Carousel>
-    <div class="game-info__container">
+    <div class="game-info__container" v-if="showGameInfo">
       <img src="../assets/images/minecraft/minecraft-logo.png" alt="Game Title" class="game-info__image" />
       <div class="game-info__description">
         <p>
@@ -42,7 +42,7 @@
 <script setup lang="ts">
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Navigation, Pagination } from 'vue3-carousel';
-import { ref, onMounted, watchEffect } from 'vue';
+import { ref, onMounted, watchEffect, computed } from 'vue';
 
 const slides = [
   { id: 1, imageUrl: require('../assets/images/minecraft/minecraft_6.jpeg') },
@@ -65,6 +65,14 @@ watchEffect(() => {
   } else {
     carouselItemsToShow.value = 1;
   }
+});
+
+const showGameInfo = computed(() => {
+  return window.innerWidth > 768;
+});
+
+const showNavigation = computed(() => {
+  return window.innerWidth > 768;
 });
 </script>
 
