@@ -277,30 +277,6 @@ onMounted(() => {
 
     border-radius: 0;
 
-    .game-info__image {
-    }
-
-    .game-info__description {
-    }
-
-    .game-info__price {
-    }
-
-    .game-info__new-price {
-    }
-
-    .game-info__discount {
-    }
-
-    .game-info__old-price {
-    }
-
-    .game-info__buttons {
-    }
-
-    .game-info__button-cart,
-    .game-info__button-favourites {
-    }
   }
 }
 </style>
