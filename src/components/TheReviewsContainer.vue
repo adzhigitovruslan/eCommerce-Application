@@ -121,21 +121,6 @@ export default defineComponent({
         color: #007bff;
       }
     }
-    @media (max-width: 768px) {
-      width: 90vw;
-      padding: 10px;
-      margin-bottom: 30px;
-
-      .reviews-list {
-        flex-direction: column;
-        align-items: center;
-
-        .review-card {
-          max-width: 100%;
-          margin: 10px 0;
-        }
-      }
-    }
   }
 
   .average-rating {
@@ -250,6 +235,38 @@ export default defineComponent({
       .review-comment {
         margin-top: 10px;
         text-align: center;
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .average-rating {
+    margin-top: 10px;
+  }
+
+  .reviews-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .review-card {
+    max-width: 90%;
+    height: auto;
+  }
+
+  .reviews-container {
+    .reviews-list {
+      flex-direction: column;
+      align-items: center;
+
+      .average-rating {
+        margin-bottom: 20px;
+      }
+
+      .review-card {
+        max-width: 100%;
+        margin: 10px 0;
+        border: 1px solid white;
       }
     }
   }

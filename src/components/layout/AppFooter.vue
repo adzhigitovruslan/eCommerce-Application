@@ -6,8 +6,8 @@
       <img class="footer-icon" src="@/assets/images/mir-logo.png" alt="MIR" />
       <img class="footer-icon" src="@/assets/images/WebMoney_logo.png" alt="WebMoney" />
       <img class="footer-icon" src="@/assets/images/visa-logo.png" alt="Visa" />
-
       <img class="footer-icon" src="@/assets/images/mastercard-logo.png" alt="MasterCard" />
+      <img class="footer-icon" src="@/assets/images/paypal-logo.png" alt="PayPal" />
     </div>
     <div class="footer-columns">
       <div class="footer_column">
@@ -152,12 +152,12 @@ export default defineComponent({
 .footer_payments {
   width: 80vw;
   margin: auto;
+  margin-bottom: 60px;
 
   img {
     height: 40px;
     margin-right: 38px;
     margin-top: 60px;
-    margin-bottom: 60px;
   }
 }
 
@@ -165,6 +165,7 @@ export default defineComponent({
   width: 80vw;
   margin: auto;
   margin-bottom: 50px;
+  margin-top: 20px;
   align-items: flex-start;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -326,7 +327,8 @@ export default defineComponent({
   .footer_payments,
   .footer-columns {
     width: 90vw;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .footer_column {
@@ -366,11 +368,8 @@ export default defineComponent({
   }
 
   .footer_payments {
-    width: 90vw;
-    margin: auto;
-
     img {
-      height: 15px;
+      height: 25px;
       margin-right: 2px;
       margin-top: 15px;
       margin-bottom: 25px;
@@ -476,6 +475,17 @@ export default defineComponent({
           }
         }
       }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .footer_payments {
+    margin-bottom: 40px;
+    img {
+      max-height: 14px;
+      margin-right: 2px;
+      margin-top: 15px;
     }
   }
 }
