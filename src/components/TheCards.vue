@@ -76,8 +76,8 @@
 
 .red-card-img {
   position: relative;
-  width: 100%; 
-  max-width: 432px; 
+  width: 100%;
+  max-width: 432px;
   left: 300px;
   top: -170px;
 }

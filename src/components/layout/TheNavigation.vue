@@ -2,8 +2,8 @@
   <header class="header">
     <nav class="top-navigation" :class="{ active: showMenu }">
       <button class="menu-icon" @click="toggleMenu">
-        <font-awesome-icon :icon="['fas', 'bars']" style="color: #ffffff;" />
-        </button>
+        <font-awesome-icon :icon="['fas', 'bars']" style="color: #ffffff" />
+      </button>
       <div>
         <form style="visibility: hidden">
           <label for="languageSelect"></label>
@@ -118,8 +118,7 @@ export default defineComponent({
       this.showMenu = !this.showMenu;
     },
   },
-  },
-);
+});
 </script>
 
 <style scoped lang="scss">
@@ -298,13 +297,13 @@ option:checked {
 
 @media (max-width: 380px) {
   .top-navigation {
-    display: none; 
+    display: none;
   }
 
   .top-navigation.active {
-    display: flex; 
-    flex-direction: column; 
-    align-items: flex-start; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .menu-icon {
