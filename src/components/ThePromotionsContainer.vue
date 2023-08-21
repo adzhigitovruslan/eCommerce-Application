@@ -103,6 +103,26 @@ h2 {
         height: auto;
       }
     }
-  }
+  }}
+
+  @media (max-width: 380px) {
+    .promotion-card {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: left;
+      max-width: 320px;
+      height: 150px;
+
+      .game-image {
+        object-fit: cover;
+        max-width: 100px;
+        width: 100px;
+        height: 150px;
+        border-radius: 8px;
+        margin-bottom: 0;
+        cursor: pointer;
+      }
+    }
 }
 </style>

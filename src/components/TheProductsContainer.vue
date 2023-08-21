@@ -29,7 +29,7 @@ export default defineComponent({
       const games = this.shuffleArray(this.games);
       const rows: Game[][] = [];
 
-      const itemsPerRow = 4;
+      const itemsPerRow = this.getItemsPerRow();
       const numRows = 3;
 
       for (let i = 0; i < numRows; i++) {
@@ -53,6 +53,10 @@ export default defineComponent({
       }
 
       return shuffledArray;
+    },
+    getItemsPerRow(): number {
+      
+      return window.innerWidth > 380 ? 4 : 1;
     },
   },
 });

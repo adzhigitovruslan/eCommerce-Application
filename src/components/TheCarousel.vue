@@ -12,7 +12,7 @@
           <div class="overlay" :class="{ 'active-slide': index === currentSlide }"></div>
         </div>
       </Slide>
-{{ console.log('Carousel items-to-show:', carouselItemsToShow) }}
+      {{ console.log('Carousel items-to-show:', carouselItemsToShow) }}
       <template #addons>
         <Navigation />
         <Pagination />
@@ -53,22 +53,19 @@ const slides = [
 const currentSlide = ref(0);
 const carouselItemsToShow = ref(1);
 
-
-
 onMounted(() => {
   currentSlide.value = Math.floor(slides.length / 2);
-  console.log('Window Width:', window.innerWidth);
-console.log('carouselItemsToShow:', carouselItemsToShow.value);
+  
 });
 watchEffect(() => {
+  console.log('Window Width:', window.innerWidth);
+  console.log('carouselItemsToShow:', carouselItemsToShow.value);
   if (window.innerWidth > 380) {
     carouselItemsToShow.value = 1.5;
   } else {
     carouselItemsToShow.value = 1;
-    
   }
 });
-
 </script>
 
 <style lang="scss">
