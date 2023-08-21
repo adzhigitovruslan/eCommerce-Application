@@ -1,62 +1,56 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import HomeView from '@/views/HomeView.vue';
-import UserRegistration from '@/views/auth/UserRegistration.vue';
-import UserLogin from '@/views/auth/UserLogin.vue';
-import TheMainPage from '@/components/layout/TheMainPage.vue';
-import AuthLayout from '@/components/layout/TheAuthLayout.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/home',
-    component: TheMainPage,
+    path: '/',
+    component: () => import('@/components/layout/TheMainPage.vue'),
     children: [
       {
-        path: '',
+        path: '/',
+        redirect: 'home',
+      },
+      {
+        path: 'home',
         name: 'home',
-        component: HomeView,
+        component: () => import('@/views/HomeView.vue'),
       },
       {
         path: 'about',
         name: 'about',
-        component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
+        component: () => import('../views/AboutView.vue'),
       },
       {
         path: 'cart',
         name: 'cart',
-        component: () => import(/* webpackChunkName: "cart" */ '../views/CartView.vue'),
+        component: () => import('../views/CartView.vue'),
       },
       {
         path: 'catalog',
         name: 'catalog',
-        component: () => import(/* webpackChunkName: "catalog" */ '../views/CatalogView.vue'),
+        component: () => import('../views/CatalogView.vue'),
       },
     ],
   },
   {
-    path: '/',
-    name: 'account-layout',
-    component: AuthLayout,
+    path: '/login',
+    component: () => import('@/components/layout/TheAuthLayout.vue'),
     children: [
       {
-        path: '/',
-        redirect: 'login',
+        path: '',
+        name: 'login',
+        component: () => import('@/views/auth/UserLogin.vue'),
       },
       {
         path: '/signup',
         name: 'signup',
-        component: UserRegistration,
-      },
-      {
-        path: '/login',
-        name: 'login',
-        component: UserLogin,
+        component: () => import('@/views/auth/UserRegistration.vue'),
       },
     ],
   },
   {
     path: '/:catchAll(.*)',
     name: 'not-found',
-    component: () => import(/* webpackChunkName: "not-found" */ '../views/NotFoundView.vue'),
+    component: () => import('@/views/NotFoundView.vue'),
   },
 ];
 

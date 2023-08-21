@@ -18,7 +18,7 @@
       </div>
       <div>
         <router-link
-          to="/catalog"
+          :to="{ name: 'catalog' }"
           class="nav-link"
           :class="{ active: activeLink === 'catalog' }"
           data-type="catalog"
@@ -45,7 +45,7 @@
         >
         |
         <router-link
-          to="/about"
+          :to="{ name: 'about' }"
           class="nav-link about"
           :class="{ active: activeLink === 'about' }"
           data-type="about"
@@ -72,7 +72,7 @@
       </div>
       <div>
         <router-link
-          to="/login"
+          :to="{ name: 'login' }"
           class="nav-link"
           :class="{ active: activeLink === 'login' }"
           data-type="login"
@@ -81,7 +81,7 @@
         >
         |
         <router-link
-          to="/cart"
+          :to="{ name: 'cart' }"
           class="nav-link cart-link"
           :class="{ active: activeLink === 'cart' }"
           data-type="cart"

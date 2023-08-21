@@ -397,6 +397,7 @@
 
 <script setup lang="ts">
 import { reactive, ref, Ref, computed, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import HaveAnAccountForm from '@/components/auth/registration/HaveAnAccountForm.vue';
 import VCheckbox from '@/components/auth/registration/AddressCheckbox.vue';
@@ -418,9 +419,11 @@ import {
   formatPhoneNumber,
 } from '@/utils/auth/validator';
 
+const router = useRouter();
 const activePhase: Ref<number> = ref(2);
 const transitionName: Ref<string> = ref('');
 const minAge: Ref<number> = ref(13);
+const isLoading: Ref<boolean> = ref(false);
 const checkGroup = reactive({
   isCheckboxTrue: true,
 });
@@ -637,12 +640,13 @@ function setShippingCountry(option: Country) {
 
 async function submitHandler() {
   const isFormCorrect = await v$.value.$validate();
-  // you can show some extra alert to the user or just leave the each field to show it's `$errors`.
 
-  console.log('validation signup error');
-
-  if (!isFormCorrect) return;
-  // actually submit form
+  if (!isFormCorrect) {
+    return;
+  }
+  isLoading.value = true;
+  router.push({ name: 'home' });
+  isLoading.value = false;
 }
 </script>
 

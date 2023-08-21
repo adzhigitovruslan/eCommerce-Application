@@ -1,10 +1,10 @@
 <template>
-  <button v-if="close" class="button button__close">
+  <router-link :to="{ name: 'home' }" v-if="close" class="button button__close">
     <div class="button-icon">
       <font-awesome-icon icon="fa-solid fa-circle-xmark" />
     </div>
     <slot></slot>
-  </button>
+  </router-link>
   <button v-else class="button button__next">
     <slot></slot>
     <span :class="{ underline: mode }"></span>

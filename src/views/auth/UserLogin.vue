@@ -1,5 +1,5 @@
 <template>
-  <base-auth-wrapper>
+  <base-auth-wrapper v-if="!isLoading">
     <form @submit.prevent="submitHandler">
       <div class="form-wrapper">
         <div class="form-control">
@@ -32,14 +32,12 @@
               placeholder="Enter your password"
               v-model.trim="formData.password"
               @blur="v$.password.$validate"
-              class="animation"
               :class="{
                 error:
                   (v$.password.$dirty && v$.password.required.$invalid) ||
                   (v$.password.$dirty && v$.password.validatePassword.$invalid),
               }"
             />
-            <!-- <transition mode="out-in" name="eye-icon"> -->
             <font-awesome-icon
               class="eye-icon"
               :class="{
@@ -62,7 +60,6 @@
               v-else
               @click.capture="isPasswordHidden = !isPasswordHidden"
             />
-            <!-- </transition> -->
           </div>
           <div class="input-errors" v-if="v$.password.$dirty && v$.password.required.$invalid">
             <div class="error-msg">Enter password</div>
@@ -79,22 +76,25 @@
     </form>
     <HaveAnAccountForm mode="login" />
   </base-auth-wrapper>
+  <base-spinner v-else></base-spinner>
 </template>
 
 <script setup lang="ts">
-import { reactive, computed, ref } from 'vue';
+import { reactive, computed, ref, Ref } from 'vue';
+import { useRouter } from 'vue-router';
 import HaveAnAccountForm from '@/components/auth/registration/HaveAnAccountForm.vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required, email } from '@vuelidate/validators';
 import { validatePassword } from '@/utils/auth/validator';
 import { LoginData } from '@/types/auth/LoginData';
 
+const router = useRouter();
+const isPasswordHidden = ref(true);
 const formData: LoginData = reactive({
   email: '',
   password: '',
 });
-
-const isPasswordHidden = ref(true);
+const isLoading: Ref<boolean> = ref(false);
 
 const rules = computed(() => {
   return {
@@ -107,12 +107,19 @@ const v$ = useVuelidate(rules, formData);
 
 const submitHandler = async () => {
   const isFormCorrect = await v$.value.$validate();
-  // you can show some extra alert to the user or just leave the each field to show it's `$errors`.
 
-  console.log('validation login error');
+  if (!isFormCorrect) {
+    console.log('validation login error');
 
-  if (!isFormCorrect) return;
-  // actually submit form
+    return;
+  }
+  isLoading.value = true;
+
+  console.log('validation login success');
+  router.push({
+    name: 'home',
+  });
+  isLoading.value = false;
 };
 </script>
 
@@ -211,11 +218,6 @@ form {
           padding-right: calc(5px + 10 * ((100vw - 320px) / (1200 - 320)));
           font-size: calc(13px + 2 * ((100vw - 320px) / (1200 - 320)));
         }
-        &.animation {
-          &::placeholder {
-            animation: inputText 3s linear infinite;
-          }
-        }
         &.disabled {
           opacity: 0.3;
           cursor: no-drop;
@@ -253,35 +255,6 @@ form {
   }
 }
 
-.eye-icon-leave-to {
-  opacity: 0;
-}
-
-.eye-icon-enter-from {
-  opacity: 0;
-}
-
-.eye-icon-enter-active {
-  transition: all 0.2s ease-out;
-}
-.eye-icon-leave-active {
-  transition: all 0.2s ease-in;
-}
-
-.eye-icon-enter-to,
-.eye-icon-leave-from {
-  opacity: 1;
-}
-
-@keyframes inputText {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
 @keyframes btn-anim1 {
   0% {
     left: -100%;

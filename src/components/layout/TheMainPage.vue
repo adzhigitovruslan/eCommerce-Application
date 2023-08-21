@@ -1,13 +1,15 @@
 <template>
-  <TheNavigation />
-  <div class="container">
-    <router-view v-slot="{ Component }">
-      <transition name="slide" mode="out-in">
-        <component :is="Component"></component>
-      </transition>
-    </router-view>
+  <div>
+    <TheNavigation />
+    <div class="container">
+      <router-view v-slot="{ Component }">
+        <transition name="slide" mode="out-in">
+          <component :is="Component"></component>
+        </transition>
+      </router-view>
+    </div>
+    <TheFooter />
   </div>
-  <TheFooter />
 </template>
 
 <script setup lang="ts">
