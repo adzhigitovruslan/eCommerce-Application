@@ -87,7 +87,9 @@ import { useVuelidate } from '@vuelidate/core';
 import { required, email } from '@vuelidate/validators';
 import { validatePassword } from '@/utils/auth/validator';
 import { LoginData } from '@/types/auth/LoginData';
+import { useStore } from 'vuex';
 
+const store = useStore();
 const router = useRouter();
 const isPasswordHidden = ref(true);
 const formData: LoginData = reactive({
@@ -109,17 +111,20 @@ const submitHandler = async () => {
   const isFormCorrect = await v$.value.$validate();
 
   if (!isFormCorrect) {
-    console.log('validation login error');
-
     return;
   }
-  isLoading.value = true;
 
-  console.log('validation login success');
-  router.push({
-    name: 'home',
-  });
-  isLoading.value = false;
+  try {
+    await store.dispatch('customer/login', {
+      email: formData.email,
+      password: formData.password,
+    });
+    router.push({
+      name: 'home',
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 </script>
 

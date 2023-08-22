@@ -1,7 +1,7 @@
 <template>
   <div class="address-wrapper">
-    <h2>Billing address</h2>
     <h2>Shipping address</h2>
+    <h2>Billing address</h2>
   </div>
 </template>
 

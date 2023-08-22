@@ -40,6 +40,7 @@ function isCheckboxTrue(e: Event) {
   align-items: center;
   gap: 15px;
   width: 100%;
+  margin-top: 15px;
   & .checkbox-text {
     color: #fefefecc;
     font-size: 13px;

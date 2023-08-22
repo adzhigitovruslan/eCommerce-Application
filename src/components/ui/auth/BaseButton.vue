@@ -5,6 +5,10 @@
     </div>
     <slot></slot>
   </router-link>
+  <button v-else-if="type" class="button button__next" type="submit">
+    <slot></slot>
+    <span :class="{ underline: mode }"></span>
+  </button>
   <button v-else class="button button__next">
     <slot></slot>
     <span :class="{ underline: mode }"></span>
@@ -15,6 +19,7 @@
 interface Props {
   mode?: string;
   close?: boolean;
+  type?: boolean;
 }
 
 defineProps<Props>();

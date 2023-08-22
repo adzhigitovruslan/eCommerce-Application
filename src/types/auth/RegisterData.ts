@@ -1,17 +1,22 @@
-export interface DataFormAddress {
-  street: string;
+interface DataFormAddress {
+  streetName: string;
   city: string;
   postalCode: string;
   country: string;
-  phoneNumber: string;
+  phone: string;
 }
 
-export interface RegisterData {
+interface BodyForm {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
-  date: string;
-  billingAddress: DataFormAddress;
-  shippingAddress: DataFormAddress;
+  dateOfBirth: string;
+  addresses: DataFormAddress[];
+  billingAddresses: number[];
+  shippingAddresses: number[];
+}
+
+export interface RegisterData {
+  body: BodyForm;
 }

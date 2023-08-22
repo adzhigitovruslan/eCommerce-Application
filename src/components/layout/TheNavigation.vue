@@ -72,12 +72,22 @@
       </div>
       <div>
         <router-link
+          v-if="!isLoggedIn"
           :to="{ name: 'login' }"
           class="nav-link"
           :class="{ active: activeLink === 'login' }"
           data-type="login"
-          @click="setActiveLink('login')"
+          @click="setActiveLink('login'), login()"
           >Log in</router-link
+        >
+        <router-link
+          v-else
+          :to="{ name: 'login' }"
+          class="nav-link"
+          :class="{ active: activeLink === 'login' }"
+          data-type="login"
+          @click="setActiveLink('login'), logout()"
+          >Log out</router-link
         >
         |
         <router-link
@@ -109,6 +119,17 @@ export default defineComponent({
   methods: {
     setActiveLink(linkType: string) {
       this.activeLink = linkType;
+    },
+    logout() {
+      this.$store.dispatch('customer/logout');
+    },
+    login() {
+      this.$router.push({ name: 'login' });
+    },
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters['customer/getIsLoggedIn'];
     },
   },
 });
