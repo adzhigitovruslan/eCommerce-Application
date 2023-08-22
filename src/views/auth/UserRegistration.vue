@@ -90,7 +90,7 @@
               id="date"
               type="text"
               v-model.trim="formData.body.dateOfBirth"
-              placeholder="year/mm/dd"
+              placeholder="yyyy-mm-dd"
               maxlength="10"
               minlength="10"
               inputmode="numeric"
@@ -107,7 +107,7 @@
               <div class="error-msg">Enter date of birth</div>
             </div>
             <div class="input-errors" v-else-if="v$.body.dateOfBirth.$dirty && v$.body.dateOfBirth.minLength.$invalid">
-              <div class="error-msg">Enter a valid date in the format DD/MM/YYYY"</div>
+              <div class="error-msg">Enter a valid date in the format YYYY-MM-DD"</div>
             </div>
             <div
               class="input-errors"
