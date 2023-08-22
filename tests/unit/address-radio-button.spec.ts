@@ -7,12 +7,12 @@ describe('AddressComponent.vue', () => {
 
     const h2Elements = wrapper.findAll('h2');
 
-    const billingTitle = h2Elements[0].text();
-
-    expect(billingTitle).toBe('Billing address');
-
-    const shippingTitle = h2Elements[1].text();
+    const shippingTitle = h2Elements[0].text();
 
     expect(shippingTitle).toBe('Shipping address');
+
+    const billingTitle = h2Elements[1].text();
+
+    expect(billingTitle).toBe('Billing address');
   });
 });

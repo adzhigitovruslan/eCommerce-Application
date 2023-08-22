@@ -136,19 +136,20 @@ export default defineComponent({
     login() {
       this.$router.push({ name: 'login' });
     },
-  },
-  computed: {
-    isLoggedIn() {
-      return this.$store.getters['customer/getIsLoggedIn'];
     toggleMenuAndHide() {
-      this.toggleMenu(); // Сначала вызываем toggleMenu
-      this.hideMenu(); // Затем вызываем hideMenu
+      this.toggleMenu();
+      this.hideMenu();
     },
     toggleMenu() {
       this.showMenu = !this.showMenu;
     },
     hideMenu() {
       this.showMenu = false;
+    },
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters['customer/getIsLoggedIn'];
     },
   },
 });

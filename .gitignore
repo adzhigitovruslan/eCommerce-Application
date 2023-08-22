@@ -13,15 +13,6 @@
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
 
-### macOS ###[build]
-command = "npm run build"
-publish = "/dist"
-base = "/"
-
-[[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
 # General
 .DS_Store
 .AppleDouble
