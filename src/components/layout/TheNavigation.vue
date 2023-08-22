@@ -1,57 +1,66 @@
 <template>
   <header class="header">
     <nav class="top-navigation">
-      <div>
-        <form style="visibility: hidden">
-          <label for="languageSelect"></label>
-          <select id="languageSelect" v-model="selectedLanguage">
-            <option class="language-icon" value="EN">EN</option>
-            <option value="RU">RU</option>
-          </select>
-
-          <label for="currencySelect"></label>
-          <select id="currencySelect" v-model="selectedCurrency">
-            <option value="$"><span class="icon">$</span> USD</option>
-            <option value="€"><span class="icon">€</span> EURO</option>
-          </select>
-        </form>
+      <div class="menu-button-container">
+        <button class="menu-icon" @click="toggleMenu">
+          <font-awesome-icon
+            :icon="['fas', 'bars']"
+            class="menu_bars fa-rotate-transition"
+            :class="{ 'fa-rotate-90': showMenu }"
+          />
+        </button>
       </div>
-      <div>
-        <router-link
-          to="/catalog"
-          class="nav-link"
-          :class="{ active: activeLink === 'catalog' }"
-          data-type="catalog"
-          @click="setActiveLink('catalog')"
-          >Products</router-link
-        >
-        |
-        <router-link
-          to="/#reviews"
-          class="nav-link reviews"
-          :class="{ active: activeLink === 'reviews' }"
-          data-type="reviews"
-          @click="setActiveLink('reviews')"
-          >Reviews</router-link
-        >
-        |
-        <router-link
-          to="/#promotions"
-          class="nav-link promotions"
-          :class="{ active: activeLink === 'promotions' }"
-          data-type="promotions"
-          @click="setActiveLink('promotions')"
-          >Promotions</router-link
-        >
-        |
-        <router-link
-          to="/about"
-          class="nav-link about"
-          :class="{ active: activeLink === 'about' }"
-          data-type="about"
-          @click="setActiveLink('about')"
-          >About us</router-link
-        >
+      <div class="menu-overlay" v-if="showMenu" @click="toggleMenuAndHide"></div>
+      <div class="menu-links" :class="{ active: showMenu }">
+        <div class="menu-categories">
+          <router-link
+            to="/catalog"
+            class="nav-link"
+            :class="{ active: activeLink === 'catalog' }"
+            data-type="catalog"
+            @click="
+              setActiveLink('catalog');
+              hideMenu();
+            "
+            >Products</router-link
+          >
+          |
+          <router-link
+            to="/#reviews"
+            class="nav-link reviews"
+            :class="{ active: activeLink === 'reviews' }"
+            data-type="reviews"
+            @click="
+              setActiveLink('reviews');
+              hideMenu();
+            "
+            >Reviews</router-link
+          >
+          |
+          <router-link
+            to="/#promotions"
+            class="nav-link promotions"
+            :class="{ active: activeLink === 'promotions' }"
+            data-type="promotions"
+            @click="
+              setActiveLink('promotions');
+              hideMenu();
+            "
+            >Promotions</router-link
+          >
+          |
+          <router-link
+            to="/about"
+            class="nav-link about"
+            :class="{ active: activeLink === 'about' }"
+            data-type="about"
+            @click="
+              setActiveLink('about');
+              hideMenu();
+            "
+            >About us</router-link
+          >
+        </div>
       </div>
     </nav>
 
@@ -73,7 +82,7 @@
       <div>
         <router-link
           to="/login"
-          class="nav-link"
+          class="nav-link login"
           :class="{ active: activeLink === 'login' }"
           data-type="login"
           @click="setActiveLink('login')"
@@ -104,11 +113,22 @@ export default defineComponent({
       selectedLanguage: 'EN',
       searchTerm: '',
       activeLink: '',
+      showMenu: false,
     };
   },
   methods: {
     setActiveLink(linkType: string) {
       this.activeLink = linkType;
+    },
+    toggleMenuAndHide() {
+      this.toggleMenu(); // Сначала вызываем toggleMenu
+      this.hideMenu(); // Затем вызываем hideMenu
+    },
+    toggleMenu() {
+      this.showMenu = !this.showMenu;
+    },
+    hideMenu() {
+      this.showMenu = false;
     },
   },
 });
@@ -167,6 +187,10 @@ export default defineComponent({
   .nav-link {
     color: $white-color;
   }
+}
+
+.menu-button-container {
+  visibility: hidden;
 }
 
 nav {
@@ -279,12 +303,127 @@ option:checked {
     height: auto;
   }
 
-  .search-input {
-    max-width: 100%;
-  }
-
   nav {
     max-width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .search-input {
+    display: none;
+  }
+
+  .bottom-navigation {
+    width: 90vw;
+    margin: auto;
+  }
+
+  .link-text {
+    width: 90px;
+    font-size: 22px;
+  }
+
+  .logo-link img {
+    width: 20px;
+    height: auto;
+    margin: 5px;
+  }
+  .menu-icon {
+    position: relative;
+    top: 0;
+    left: 25px;
+    background: none;
+    border: none;
+    color: $white-color;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 9999;
+    margin: 0;
+  }
+
+  .menu_bars {
+    position: relative;
+    top: 0;
+    left: 0;
+    color: $white-color;
+    z-index: 9998;
+  }
+
+  .menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(19, 16, 27, 1);
+    z-index: 9997;
+  }
+
+  .menu-links {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+    &.active {
+      display: flex;
+    }
+
+    .menu-categories {
+      position: relative;
+      top: 0;
+      left: 0;
+      z-index: 10001;
+      flex-direction: column;
+      align-items: flex-start;
+      color: white;
+      display: flex;
+
+      &.active {
+        display: flex;
+      }
+
+      .nav-link {
+        position: relative;
+        top: 0;
+        left: 0;
+        z-index: 10002;
+        color: white;
+        text-decoration: none;
+        padding: 20px;
+        font-size: 28px;
+        transition: background-color 0.2s ease;
+        font-size: 14px;
+
+        &:hover {
+          color: rgba(255, 255, 255, 0.1);
+        }
+      }
+    }
+  }
+
+  .menu-button-container {
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 100000;
+    visibility: visible;
+  }
+
+  .fa-rotate-90 {
+    transform: rotate(90deg);
+  }
+
+  .fa-rotate-transition {
+    transition: transform 0.3s ease;
   }
 }
 </style>

@@ -2,7 +2,14 @@
   <div class="promotions-container">
     <h2>Promotions<span>%</span></h2>
     <div class="promotions-list">
-      <ProductCard v-for="(game, index) in discountedGames" :key="index" :game="game" imageClass="image-mode-promo" />
+      <ProductCard
+        v-for="(game, index) in discountedGames"
+        :key="index"
+        :game="game"
+        imageClass="image-mode-promo"
+        gameDiscount="game-discount-promo"
+        gamePrice="game-price-promo"
+        gameInfo="game-info-promo"
       />
     </div>
   </div>
@@ -49,7 +56,6 @@ h2 {
   letter-spacing: 0em;
   text-align: left;
   margin-top: 15px;
-  margin-bottom: 15px;
   color: white;
   margin-bottom: 45px;
 
@@ -59,7 +65,7 @@ h2 {
   }
 }
 .promotions-container {
-  max-width: 80vw;
+  width: 80vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -69,7 +75,9 @@ h2 {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 15px;
+    width: 80vw;
+    align-items: center;
+    justify-content: space-between;
 
     .promotion-card {
       display: flex;
@@ -78,16 +86,6 @@ h2 {
       align-items: left;
       max-width: 620px;
       height: 464px;
-
-      .game-image {
-        object-fit: cover;
-        max-width: 620px;
-        width: 550px;
-        height: 319px;
-        border-radius: 15px;
-        margin-bottom: 20px;
-        cursor: pointer;
-      }
     }
   }
 
@@ -97,10 +95,40 @@ h2 {
 
     .promotions-list {
       justify-content: center;
+      gap: 0px;
 
       .promotion-card {
         max-width: 100%;
         height: auto;
+        max-width: 158px;
+        height: 364px;
+      }
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  .promotions-container {
+    max-width: 90vw;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    .promotion-card {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: left;
+      max-width: 158px;
+      height: 364px;
+
+      .game-image {
+        object-fit: cover;
+        max-width: 100px;
+        width: 100px;
+        height: 150px;
+        border-radius: 8px;
+        margin-bottom: 0;
+        cursor: pointer;
       }
     }
   }
