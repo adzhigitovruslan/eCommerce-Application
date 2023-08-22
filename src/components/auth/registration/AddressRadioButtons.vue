@@ -65,6 +65,8 @@ const isRadioChecked = computed(() => {
   justify-content: space-between;
   gap: 10px;
   width: 100%;
+  margin-top: 15px;
+
   & .radio-text {
     color: #fefefecc;
     font-size: 13px;

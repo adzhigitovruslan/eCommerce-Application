@@ -14,7 +14,7 @@
       <div class="menu-links" :class="{ active: showMenu }">
         <div class="menu-categories">
           <router-link
-            to="/catalog"
+            to="{ name: 'catalog' }"
             class="nav-link"
             :class="{ active: activeLink === 'catalog' }"
             data-type="catalog"
@@ -50,7 +50,7 @@
           >
           |
           <router-link
-            to="/about"
+            to="{ name: 'about' }"
             class="nav-link about"
             :class="{ active: activeLink === 'about' }"
             data-type="about"
@@ -81,16 +81,26 @@
       </div>
       <div>
         <router-link
-          to="/login"
+          v-if="!isLoggedIn"
+          :to="{ name: 'login' }"
           class="nav-link login"
           :class="{ active: activeLink === 'login' }"
           data-type="login"
-          @click="setActiveLink('login')"
+          @click="setActiveLink('login'), login()"
           >Log in</router-link
+        >
+        <router-link
+          v-else
+          :to="{ name: 'login' }"
+          class="nav-link"
+          :class="{ active: activeLink === 'login' }"
+          data-type="login"
+          @click="setActiveLink('login'), logout()"
+          >Log out</router-link
         >
         |
         <router-link
-          to="/cart"
+          :to="{ name: 'cart' }"
           class="nav-link cart-link"
           :class="{ active: activeLink === 'cart' }"
           data-type="cart"
@@ -120,6 +130,16 @@ export default defineComponent({
     setActiveLink(linkType: string) {
       this.activeLink = linkType;
     },
+    logout() {
+      this.$store.dispatch('customer/logout');
+    },
+    login() {
+      this.$router.push({ name: 'login' });
+    },
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters['customer/getIsLoggedIn'];
     toggleMenuAndHide() {
       this.toggleMenu(); // Сначала вызываем toggleMenu
       this.hideMenu(); // Затем вызываем hideMenu

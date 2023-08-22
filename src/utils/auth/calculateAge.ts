@@ -4,14 +4,16 @@ export const calculateAge = (rawDate: string, minAge: number) => {
   cleanedDate = cleanedDate.replace(/\D/g, ''); // Удаляем все нечисловые символы
 
   if (cleanedDate.length === 8) {
-    const day = parseInt(cleanedDate.slice(0, 2));
-    const month = parseInt(cleanedDate.slice(2, 4)) - 1;
-    const year = parseInt(cleanedDate.slice(4, 8));
+    const day = parseInt(cleanedDate.slice(6, 8));
+    const month = parseInt(cleanedDate.slice(4, 6)) - 1;
+    const year = parseInt(cleanedDate.slice(0, 4));
 
     const birthDate = new Date(year, month, day);
     const currentDate = new Date();
 
     let age = currentDate.getFullYear() - birthDate.getFullYear();
+
+    console.log(age, currentDate.getFullYear(), birthDate.getFullYear());
 
     if (
       currentDate.getMonth() < birthDate.getMonth() ||
