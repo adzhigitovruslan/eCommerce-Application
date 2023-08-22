@@ -35,8 +35,7 @@
 .card-container {
   display: flex;
   width: 80vw;
-  justify-content: space-between;
-  gap: 10px;
+  justify-content: space-around;
   margin-top: 100px;
 }
 
@@ -44,7 +43,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 30px;
   width: 550px;
   height: 360px;
   padding: 50px;
@@ -71,15 +69,17 @@
 .green-card-img {
   position: relative;
   left: 290px;
-  width: 262px;
-  top: -400px;
+  width: 100%;
+  max-width: 262px;
+  top: -300px;
 }
 
 .red-card-img {
   position: relative;
-  width: 452px;
-  left: 320px;
-  top: -400px;
+  width: 100%;
+  max-width: 432px;
+  left: 300px;
+  top: -170px;
 }
 
 h2 {
@@ -89,19 +89,6 @@ h2 {
   line-height: 43px;
   letter-spacing: 0em;
   text-align: left;
-}
-
-.game-info__description {
-  color: $white-color;
-
-  p {
-    font-family: $manrope-font-family;
-    font-size: 36px;
-    font-weight: 800;
-    line-height: 43px;
-    letter-spacing: 0em;
-    text-align: left;
-  }
 }
 
 .game-info__price {
@@ -187,6 +174,74 @@ h2 {
     background-color: rgba(255, 255, 255, 0.1);
     color: rgba(0, 0, 0, 0.9);
     border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+@media (max-width: 780px) {
+  .green-card-img {
+    width: 128px;
+    top: -200px;
+    left: 180px;
+  }
+
+  .red-card-img {
+    width: 158px;
+    top: -100px;
+    left: 160px;
+  }
+
+  .game-info__buttons {
+    display: none;
+  }
+  .card-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
+    gap: 30px;
+    margin: auto;
+    margin-top: 100px;
+
+    .card {
+      width: 310px;
+      height: 183px;
+      border-radius: 10px;
+      padding: 25px;
+      padding-right: 38px;
+      gap: 20px;
+
+      h2 {
+        font-size: 20px;
+        font-weight: 800;
+        line-height: 24px;
+      }
+
+      .game-info__price {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 18px;
+        font-weight: 800;
+        line-height: 23px;
+        width: 180px;
+
+        .game-info__new-price,
+        .game-info__discount,
+        .game-info__old-price {
+          font-size: 18px;
+          font-weight: 800;
+          line-height: 23px;
+        }
+        .game-info__discount {
+          color: rgba(255, 232, 23, 1);
+        }
+
+        .game-info__new-price {
+          width: 64px;
+          height: auto;
+        }
+      }
+    }
   }
 }
 </style>

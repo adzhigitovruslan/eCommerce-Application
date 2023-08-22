@@ -77,4 +77,16 @@ h2 {
   margin: auto;
   gap: 15px;
 }
+
+@media (max-width: 768px) {
+  .top-games-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+  }
+
+  h2 {
+    text-align: center;
+  }
+}
 </style>

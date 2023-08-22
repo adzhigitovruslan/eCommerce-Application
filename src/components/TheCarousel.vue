@@ -1,19 +1,23 @@
 <template>
   <div>
-    <Carousel :items-to-show="1.5" :items-to-scroll="1" :wrap-around="true" v-model:modelValue="currentSlide">
+    <Carousel
+      :items-to-show="carouselItemsToShow"
+      :items-to-scroll="1"
+      :wrap-around="true"
+      v-model:modelValue="currentSlide"
+    >
       <Slide v-for="(slide, index) in slides" :key="index">
         <div class="carousel__item">
           <img :src="slide.imageUrl" :alt="'Slide ' + (index + 1)" class="custom-image" />
           <div class="overlay" :class="{ 'active-slide': index === currentSlide }"></div>
         </div>
       </Slide>
-
       <template #addons>
-        <Navigation />
+        <Navigation v-if="showNavigation" />
         <Pagination />
       </template>
     </Carousel>
-    <div class="game-info__container">
+    <div class="game-info__container" v-if="showGameInfo">
       <img src="../assets/images/minecraft/minecraft-logo.png" alt="Game Title" class="game-info__image" />
       <div class="game-info__description">
         <p>
@@ -37,7 +41,7 @@
 <script setup lang="ts">
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Navigation, Pagination } from 'vue3-carousel';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watchEffect, computed } from 'vue';
 
 const slides = [
   { id: 1, imageUrl: require('../assets/images/minecraft/minecraft_6.jpeg') },
@@ -46,13 +50,29 @@ const slides = [
 ];
 
 const currentSlide = ref(0);
+const carouselItemsToShow = ref(1);
 
 onMounted(() => {
   currentSlide.value = Math.floor(slides.length / 2);
 });
+watchEffect(() => {
+  if (window.innerWidth > 768) {
+    carouselItemsToShow.value = 1.5;
+  } else {
+    carouselItemsToShow.value = 1;
+  }
+});
+
+const showGameInfo = computed(() => {
+  return window.innerWidth > 768;
+});
+
+const showNavigation = computed(() => {
+  return window.innerWidth > 768;
+});
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import '@/assets/styles/global.scss';
 
 .carousel {
@@ -269,7 +289,6 @@ onMounted(() => {
   .game-info__container {
     width: 100%;
     max-width: none;
-
     top: auto;
     bottom: 0;
     left: 0;
