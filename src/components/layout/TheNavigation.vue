@@ -14,7 +14,7 @@
       <div class="menu-links" :class="{ active: showMenu }">
         <div class="menu-categories">
           <router-link
-            to="{ name: 'catalog' }"
+            :to="{ name: 'catalog' }"
             class="nav-link"
             :class="{ active: activeLink === 'catalog' }"
             data-type="catalog"
@@ -50,7 +50,7 @@
           >
           |
           <router-link
-            to="{ name: 'about' }"
+            :to="{ name: 'about' }"
             class="nav-link about"
             :class="{ active: activeLink === 'about' }"
             data-type="about"
@@ -76,7 +76,7 @@
         <span class="link-text">Playnchill</span>
       </router-link>
       <div class="search-input">
-        <input v-model="searchTerm" type="text" placeholder="Search products" class="search-input" />
+        <input v-model="searchTerm" type="text" placeholder="Search products" class="search-input input" />
         <font-awesome-icon :icon="['fas', 'search']" class="search-icon" />
       </div>
       <div>
@@ -170,12 +170,26 @@ export default defineComponent({
   max-width: 40vw;
   height: 66px;
   border: none;
-  padding-left: 15px;
   box-sizing: border-box;
   outline: none;
   color: $white-color;
   border-radius: 15px;
   background: rgba(196, 196, 196, 0.05);
+  &.input {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 40vw;
+    height: 66px;
+    border: none;
+    padding-left: 15px;
+    box-sizing: border-box;
+    outline: none;
+    color: $white-color;
+    border-radius: 15px;
+    background: rgba(196, 196, 196, 0.05);
+  }
 }
 
 .search-icon {
