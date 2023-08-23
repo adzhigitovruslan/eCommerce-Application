@@ -1,14 +1,21 @@
 <template>
   <div class="loader">
-    <span>loading</span>
-    <span>loading</span>
+    <span>{{ title }}</span>
+    <span>{{ title }}</span>
   </div>
 </template>
+
+<script setup lang="ts">
+defineProps<{
+  title: string;
+}>();
+</script>
 
 <style lang="scss">
 .loader {
   position: relative;
   height: 50px;
+  white-space: nowrap;
 }
 
 .loader span {

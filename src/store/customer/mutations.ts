@@ -1,65 +1,21 @@
-import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import { ctpClient } from '@/utils/BuildClient';
-import { LoginPayload, SingUpPayload } from '@/types/interfaces/api';
-
-interface GlobalState {
-  isLoggedIn: boolean;
-  currentUserFirstName: string;
-  currentUserId: string;
-}
-
-const projectKey = process.env.VUE_APP_PRJ_KEY;
+import { ServerResponse } from '@/types/interfaces/api';
+import { CustomerState } from '@/types/interfaces/states';
 
 export default {
-  login(state: GlobalState, payload: LoginPayload) {
-    if (state.isLoggedIn) return;
+  SET_USER(state: CustomerState, body: ServerResponse) {
+    const firstNameUser = body.customer.firstName || 'New User';
 
-    const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
-      projectKey: `${projectKey}`,
-    });
-    const doCustomer = () => {
-      return apiRoot
-        .me()
-        .login()
-        .post({
-          body: {
-            email: `${payload.email}`,
-            password: `${payload.password}`,
-          },
-        })
-        .execute();
-    };
-
-    doCustomer()
-      .then(({ body }) => {
-        const firstNameUser = body.customer.firstName || 'Anonym';
-
-        state.currentUserId = body.customer.id;
-        state.currentUserFirstName = firstNameUser;
-        state.isLoggedIn = true;
-      })
-      .catch(console.error);
+    state.currentUserId = body.customer.id;
+    state.currentUserFirstName = firstNameUser;
+    state.isLoggedIn = true;
   },
-  logout(state: GlobalState) {
+  SIGN_UP(state: CustomerState, body: ServerResponse) {
+    state.currentUserFirstName = body.customer.firstName;
+    state.isLoggedIn = true;
+  },
+  logout(state: CustomerState) {
     state.currentUserId = '';
     state.currentUserFirstName = '';
     state.isLoggedIn = false;
-  },
-  singUp(state: GlobalState, payload: SingUpPayload) {
-    const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
-      projectKey: `${projectKey}`,
-    });
-
-    const doCustomer = () => {
-      return apiRoot.customers().post(payload).execute();
-    };
-
-    doCustomer()
-      .then(({ body }) => {
-        console.log(body);
-        state.currentUserFirstName = payload.body.firstName;
-        state.isLoggedIn = true;
-      })
-      .catch(console.error);
   },
 };
