@@ -1,8 +1,8 @@
 <template>
   <div class="radio-wrapper">
     <div class="radio-button-wrapper">
-      <label class="container" :class="{ disabled: isBothAddressChecked }">
-        <input id="radio1" type="radio" name="setDefault" :checked="isRadioChecked" :disabled="isBothAddressChecked" />
+      <label class="container">
+        <input id="radio1" type="radio" name="setDefault" checked />
         <div class="checkmark">
           <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
             <title>Checkmark</title>
@@ -17,7 +17,7 @@
           </svg>
         </div>
       </label>
-      <label class="radio-text" for="radio1" :class="{ disabled: isBothAddressChecked }">Set as default address</label>
+      <label class="radio-text" for="radio1">Set as default address</label>
     </div>
     <div class="radio-button-wrapper">
       <label class="container" :class="{ disabled: isBothAddressChecked }">

@@ -420,7 +420,7 @@
             </div>
           </div>
           <VCheckbox v-model="checkGroup.isCheckboxTrue" v-if="activePhase !== 1" />
-          <VRadioButtons :isBothAddressChecked="checkGroup.isCheckboxTrue" v-if="activePhase !== 1" />
+          <VSetDefaultButtons :isBothAddressChecked="checkGroup.isCheckboxTrue" v-if="activePhase !== 1" />
         </div>
       </transition>
       <base-auth-button v-if="!isLastPage" @click.prevent="goToStep(2, 'next')" mode="true">continue</base-auth-button>
@@ -442,7 +442,7 @@ import { useStore } from 'vuex';
 import HaveAnAccountForm from '@/components/auth/registration/HaveAnAccountForm.vue';
 import VCheckbox from '@/components/auth/registration/AddressCheckbox.vue';
 import VHeader from '@/components/auth/registration/HeaderSecondStep.vue';
-import VRadioButtons from '@/components/auth/registration/AddressRadioButtons.vue';
+import VSetDefaultButtons from '@/components/auth/registration/VSetDefaultButtons.vue';
 import vSelect from '@/components/auth/registration/SelectForm.vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required, email, minLength } from '@vuelidate/validators';
@@ -603,7 +603,9 @@ watch(
       formData.body.addresses[1].streetName = '';
       formData.body.addresses[1].city = '';
       formData.body.addresses[1].country = '';
-      setBillingCountry({ title: '', value: 'Select country' });
+      formData.body.addresses[1].postalCode = '';
+      formData.body.addresses[1].phone = '';
+      // setBillingCountry({ title: 'default', value: 'Select country' });
       v$.value.body.addresses[1].$reset();
     }
   },

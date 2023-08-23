@@ -126,4 +126,8 @@ export const validateCountry: CountryValidators = {
     placeholder: 'Enter Postal Code (e.g., 123456)',
     phoneMask: '+7 (###) ###-####',
   },
+  DEFAULT: {
+    placeholder: 'Select country',
+    phoneMask: 'Select country',
+  },
 };
