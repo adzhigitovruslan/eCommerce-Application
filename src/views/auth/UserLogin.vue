@@ -76,18 +76,20 @@
     </form>
     <HaveAnAccountForm mode="login" />
   </base-auth-wrapper>
-  <base-spinner v-else></base-spinner>
+  <base-spinner title="logging in" v-else></base-spinner>
 </template>
 
 <script setup lang="ts">
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 import { reactive, computed, ref, Ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import HaveAnAccountForm from '@/components/auth/registration/HaveAnAccountForm.vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required, email } from '@vuelidate/validators';
 import { validatePassword } from '@/utils/auth/validator';
 import { LoginData } from '@/types/auth/LoginData';
-import { useStore } from 'vuex';
 
 const store = useStore();
 const router = useRouter();
@@ -107,23 +109,46 @@ const rules = computed(() => {
 
 const v$ = useVuelidate(rules, formData);
 
+// eslint-disable-next-line max-lines-per-function
 const submitHandler = async () => {
   const isFormCorrect = await v$.value.$validate();
 
   if (!isFormCorrect) {
     return;
   }
-
+  isLoading.value = true;
   try {
-    await store.dispatch('customer/login', {
+    const res = await store.dispatch('customer/login', {
       email: formData.email,
       password: formData.password,
     });
-    router.push({
-      name: 'home',
+
+    toast.success(`Welcome back, ` + res.customer.firstName, {
+      autoClose: 1000,
+      theme: 'dark',
+      icon: '🎉',
+      transition: toast.TRANSITIONS.SLIDE,
+      onClose: () => {
+        router.push({
+          name: 'home',
+        });
+      },
     });
   } catch (err) {
-    console.log(err);
+    if (err instanceof Error) {
+      toast.error(err.message, {
+        autoClose: 3000,
+        theme: 'dark',
+        icon: '🔐',
+        transition: toast.TRANSITIONS.SLIDE,
+        onClose: () => {
+          formData.password = '';
+          formData.email = '';
+          isLoading.value = false;
+          v$.value.$reset();
+        },
+      });
+    }
   }
 };
 </script>

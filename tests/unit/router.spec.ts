@@ -12,10 +12,10 @@ const setupRouter = () => {
   return createRouter({
     history: createWebHistory(),
     routes: [
-      { path: '/', component: HomeView },
-      { path: '/about', component: AboutView },
-      { path: '/cart', component: CartView },
-      { path: '/catalog', component: CatalogView },
+      { path: '/', name: 'home', component: HomeView },
+      { path: '/about', name: 'about', component: AboutView },
+      { path: '/cart', name: 'cart', component: CartView },
+      { path: '/catalog', name: 'catalog', component: CatalogView },
       { path: '/:catchAll(.*)', component: NotFoundView },
     ],
   });

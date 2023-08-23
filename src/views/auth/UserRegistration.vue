@@ -432,7 +432,7 @@
     </form>
     <HaveAnAccountForm mode="signup" />
   </base-auth-wrapper>
-  <base-spinner v-else></base-spinner>
+  <base-spinner title="signing up" v-else></base-spinner>
 </template>
 
 <script setup lang="ts">
@@ -458,6 +458,8 @@ import {
   validateCountry,
   formatPhoneNumber,
 } from '@/utils/auth/validator';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const router = useRouter();
 const activePhase: Ref<number> = ref(1);
@@ -686,26 +688,73 @@ function setShippingDataAsBilling() {
   };
 }
 
+// eslint-disable-next-line max-lines-per-function
 async function submitHandler() {
   if (checkGroup.isCheckboxTrue) {
     const isFormCorrect = await v$.value.body.addresses[0].$validate();
 
     if (!isFormCorrect) return;
+    isLoading.value = true;
     try {
-      await store.dispatch('customer/singUp', setShippingDataAsBilling());
-      router.push({ name: 'home' });
+      const res = await store.dispatch('customer/singUp', setShippingDataAsBilling());
+
+      toast.success(`Welcome , ` + res.customer.firstName, {
+        autoClose: 1000,
+        theme: 'dark',
+        icon: '🎉',
+        transition: toast.TRANSITIONS.SLIDE,
+        onClose: () => {
+          router.push({
+            name: 'home',
+          });
+        },
+      });
     } catch (err) {
-      console.log(err);
+      if (err instanceof Error) {
+        toast.error(err.message, {
+          autoClose: 3000,
+          theme: 'dark',
+          icon: '🔐',
+          transition: toast.TRANSITIONS.SLIDE,
+          onClose: () => {
+            isLoading.value = false;
+            v$.value.$reset();
+          },
+        });
+      }
     }
   } else {
     const isFormCorrect = await v$.value.$validate();
 
     if (!isFormCorrect) return;
+    isLoading.value = true;
     try {
-      await store.dispatch('customer/singUp', formData);
-      router.push({ name: 'home' });
+      const res = await store.dispatch('customer/singUp', formData);
+
+      toast.success(`Welcome , ` + res.customer.firstName, {
+        autoClose: 1000,
+        theme: 'dark',
+        icon: '🎉',
+        transition: toast.TRANSITIONS.SLIDE,
+        onClose: () => {
+          router.push({
+            name: 'home',
+          });
+        },
+      });
     } catch (err) {
-      console.log(err);
+      if (err instanceof Error) {
+        toast.error(err.message, {
+          autoClose: 3000,
+          theme: 'dark',
+          icon: '🔐',
+          transition: toast.TRANSITIONS.SLIDE,
+          onClose: () => {
+            isLoading.value = false;
+            v$.value.$reset();
+          },
+        });
+      }
     }
   }
 }
