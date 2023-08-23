@@ -95,8 +95,8 @@ const store = useStore();
 const router = useRouter();
 const isPasswordHidden = ref(true);
 const formData: LoginData = reactive({
-  email: 'test1@mail.com',
-  password: 'Test@mail.com1',
+  email: '',
+  password: '',
 });
 const isLoading: Ref<boolean> = ref(false);
 
