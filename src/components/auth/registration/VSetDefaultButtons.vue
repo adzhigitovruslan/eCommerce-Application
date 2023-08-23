@@ -42,15 +42,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-
-const props = defineProps<{
+defineProps<{
   isBothAddressChecked: boolean;
 }>();
-
-const isRadioChecked = computed(() => {
-  return !props.isBothAddressChecked;
-});
 </script>
 <style lang="scss" scoped>
 .radio-button-wrapper {
