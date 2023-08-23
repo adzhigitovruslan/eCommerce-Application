@@ -91,10 +91,10 @@
         >
         <router-link
           v-else
-          :to="{ name: 'login' }"
+          to=""
           class="nav-link"
           :class="{ active: activeLink === 'login' }"
-          data-type="login"
+          data-type="logout"
           @click="setActiveLink('login'), logout()"
           >Log out</router-link
         >
@@ -115,6 +115,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 export default defineComponent({
   data() {
@@ -132,6 +134,12 @@ export default defineComponent({
     },
     logout() {
       this.$store.dispatch('customer/logout');
+      toast.success(`Bye bye, ` + this.$store.getters['customer/getCurrentUserFirstName'], {
+        autoClose: 1000,
+        theme: 'dark',
+        icon: '🎉',
+        transition: toast.TRANSITIONS.SLIDE,
+      });
     },
     login() {
       this.$router.push({ name: 'login' });
