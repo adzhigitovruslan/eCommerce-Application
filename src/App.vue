@@ -9,13 +9,12 @@
 <script setup lang="ts">
 import { useStore } from 'vuex';
 
-const store = useStore();
-
 function isLoggedIn() {
   const isLoggedInString = localStorage.getItem('isLoggedIn');
 
   if (isLoggedInString !== null) {
     const isLoggedInValue = JSON.parse(isLoggedInString);
+    const store = useStore();
 
     store.commit('customer/setLoggedIn', isLoggedInValue);
   } else {
