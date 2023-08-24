@@ -7,7 +7,7 @@
         </div>
         <h1>Playnchill</h1>
       </div>
-      <base-auth-button close mode="dark">close</base-auth-button>
+      <base-auth-button close mode="dark">main</base-auth-button>
     </div>
     <slot class="slot"></slot>
   </div>

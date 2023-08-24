@@ -3,3 +3,7 @@ export interface CustomerState {
   currentUserFirstName: string;
   currentUserId: string;
 }
+
+export interface GlobalState {
+  customer: CustomerState;
+}

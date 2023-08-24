@@ -1,7 +1,7 @@
 import { GetterTree } from 'vuex';
-import { CustomerState } from '@/types/interfaces/states';
+import { CustomerState, GlobalState } from '@/types/interfaces/states';
 
-const getters: GetterTree<CustomerState, undefined> = {
+const getters: GetterTree<CustomerState, GlobalState> = {
   getIsLoggedIn(state) {
     return state.isLoggedIn;
   },

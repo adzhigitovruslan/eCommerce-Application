@@ -10,7 +10,7 @@
               type="text"
               placeholder="Enter your first name"
               v-model.trim="formData.body.firstName"
-              @blur="v$.body.firstName.$validate"
+              @input="v$.body.firstName.$validate"
               :class="{
                 error:
                   (v$.body.firstName.$dirty && v$.body.firstName.required.$invalid) ||
@@ -28,7 +28,7 @@
               type="text"
               placeholder="Enter your last name"
               v-model.trim="formData.body.lastName"
-              @blur="v$.body.lastName.$validate"
+              @input="v$.body.lastName.$validate"
               :class="{
                 error:
                   (v$.body.lastName.$dirty && v$.body.lastName.required.$invalid) ||
@@ -46,7 +46,7 @@
               type="email"
               placeholder="Enter your email"
               v-model.trim="formData.body.email"
-              @blur="v$.body.email.$validate"
+              @input="v$.body.email.$validate"
               :class="{
                 error:
                   (v$.body.email.$dirty && v$.body.email.required.$invalid) ||
@@ -61,19 +61,43 @@
             </div>
           </div>
           <div class="form-control">
-            <label for="password">Password</label>
-            <input
-              id="password"
-              type="password"
-              placeholder="Enter your password"
-              v-model.trim="formData.body.password"
-              @blur="v$.body.password.$validate"
-              :class="{
-                error:
-                  (v$.body.password.$dirty && v$.body.password.required.$invalid) ||
-                  (v$.body.password.$dirty && v$.body.password.validatePassword.$invalid),
-              }"
-            />
+            <label class="label-input" for="password"
+              >Password
+              <input
+                id="password"
+                :type="isPasswordHidden ? 'password' : 'text'"
+                placeholder="Enter your password"
+                v-model.trim="formData.body.password"
+                @input="v$.body.password.$validate"
+                :class="{
+                  error:
+                    (v$.body.password.$dirty && v$.body.password.required.$invalid) ||
+                    (v$.body.password.$dirty && v$.body.password.validatePassword.$invalid),
+                }"
+              />
+              <font-awesome-icon
+                class="eye-icon"
+                :class="{
+                  error:
+                    (v$.body.password.$dirty && v$.body.password.required.$invalid) ||
+                    (v$.body.password.$dirty && v$.body.password.validatePassword.$invalid),
+                }"
+                icon="fa-solid fa-eye"
+                v-if="!isPasswordHidden"
+                @click.capture="isPasswordHidden = !isPasswordHidden"
+              />
+              <font-awesome-icon
+                class="eye-icon"
+                :class="{
+                  error:
+                    (v$.body.password.$dirty && v$.body.password.required.$invalid) ||
+                    (v$.body.password.$dirty && v$.body.password.validatePassword.$invalid),
+                }"
+                icon="fa-solid fa-eye-slash"
+                v-else
+                @click.capture="isPasswordHidden = !isPasswordHidden"
+              />
+            </label>
             <div class="input-errors" v-if="v$.body.password.$dirty && v$.body.password.required.$invalid">
               <div class="error-msg">Enter password</div>
             </div>
@@ -94,13 +118,18 @@
               maxlength="10"
               minlength="10"
               inputmode="numeric"
-              @blur="v$.body.dateOfBirth.$validate"
+              @input="v$.body.dateOfBirth.$validate"
               :class="{
                 error:
                   (v$.body.dateOfBirth.$dirty && v$.body.dateOfBirth.required.$invalid) ||
                   (v$.body.dateOfBirth.$dirty && v$.body.dateOfBirth.minLength.$invalid) ||
-                  (isValidAge.age ? v$.body.dateOfBirth.$dirty && !isValidAge.isTrue : false) ||
-                  (isValidAge.age ? v$.body.dateOfBirth.$dirty && !isValidAge.isTrue : false),
+                  (isValidAge.age !== null && isValidAge.age >= 0
+                    ? v$.body.dateOfBirth.$dirty && !isValidAge.isTrue
+                    : false) ||
+                  (isValidAge.age !== null && isValidAge.age >= 0
+                    ? v$.body.dateOfBirth.$dirty && !isValidAge.isTrue
+                    : false) ||
+                  (isValidAge.age !== null ? v$.body.dateOfBirth.$dirty && isValidAge.age >= 150 : false),
               }"
             />
             <div class="input-errors" v-if="v$.body.dateOfBirth.$dirty && v$.body.dateOfBirth.required.$invalid">
@@ -112,13 +141,21 @@
             <div
               class="input-errors"
               v-else-if="
-                isValidAge.age && isValidAge.age > 0 ? v$.body.dateOfBirth.$dirty && !isValidAge.isTrue : false
+                isValidAge.age !== null && isValidAge.age >= 0
+                  ? v$.body.dateOfBirth.$dirty && !isValidAge.isTrue
+                  : false
               "
             >
               <div class="error-msg">Age is below the allowed limit({{ minAge }}). You'r {{ isValidAge.age }} now</div>
             </div>
             <div class="input-errors" v-else-if="v$.body.dateOfBirth.$dirty && !isValidAge.isTrue">
               <div class="error-msg">Birth date cannot be in the future. Enter a valid date</div>
+            </div>
+            <div
+              class="input-errors"
+              v-else-if="isValidAge.age !== null ? v$.body.dateOfBirth.$dirty && isValidAge.age >= 150 : false"
+            >
+              <div class="error-msg">Enter an existing date</div>
             </div>
           </div>
         </div>
@@ -133,7 +170,7 @@
                   type="text"
                   placeholder="Enter your street"
                   v-model.trim="formData.body.addresses[0].streetName"
-                  @blur="v$.body.addresses[0].streetName.$validate"
+                  @input="v$.body.addresses[0].streetName.$validate"
                   :class="{
                     error: v$.body.addresses[0].streetName.$dirty && v$.body.addresses[0].streetName.required.$invalid,
                   }"
@@ -151,7 +188,7 @@
                   type="text"
                   placeholder="Enter your street"
                   v-model.trim="formData.body.addresses[1].streetName"
-                  @blur="v$.body.addresses[1].streetName.$validate"
+                  @input="v$.body.addresses[1].streetName.$validate"
                   :disabled="checkGroup.isCheckboxTrue"
                   :class="{
                     error:
@@ -181,7 +218,7 @@
                   type="text"
                   placeholder="Enter your city"
                   v-model.trim="formData.body.addresses[0].city"
-                  @blur="v$.body.addresses[0].city.$validate"
+                  @input="v$.body.addresses[0].city.$validate"
                   :class="{
                     error: v$.body.addresses[0].city.$dirty && v$.body.addresses[0].city.validateCity.$invalid,
                   }"
@@ -199,7 +236,7 @@
                   type="text"
                   placeholder="Enter your city"
                   v-model.trim="formData.body.addresses[1].city"
-                  @blur="v$.body.addresses[1].city.$validate"
+                  @input="v$.body.addresses[1].city.$validate"
                   :disabled="checkGroup.isCheckboxTrue"
                   :class="{
                     error:
@@ -228,7 +265,7 @@
                   :countries="countries"
                   :selected="selectedCountry.shippingCountry"
                   @select="setShippingCountry"
-                  @blur="v$.body.addresses[0].country.$validate"
+                  @input="v$.body.addresses[0].country.$validate"
                   :class="{
                     error: v$.body.addresses[0].country.$dirty && v$.body.addresses[0].country.required.$invalid,
                   }"
@@ -245,7 +282,7 @@
                   :countries="countries"
                   :selected="selectedCountry.billingCountry"
                   @select="setBillingCountry"
-                  @blur="v$.body.addresses[1].country.$validate"
+                  @input="v$.body.addresses[1].country.$validate"
                   :class="{
                     error:
                       v$.body.addresses[1].country.$dirty &&
@@ -276,7 +313,7 @@
                   :maxlength="v$.body.addresses[0].phone.minLength.$params.min"
                   :placeholder="placeholders.phoneNumberShippingPlaceholder"
                   v-model="formData.body.addresses[0].phone"
-                  @blur="v$.body.addresses[0].phone.$validate"
+                  @input="v$.body.addresses[0].phone.$validate"
                   :class="{
                     error:
                       (v$.body.addresses[0].phone.$dirty && v$.body.addresses[0].phone.required.$invalid) ||
@@ -307,7 +344,7 @@
                   :maxlength="v$.body.addresses[1].phone.minLength.$params.min"
                   :placeholder="placeholders.phoneNumberBillingPlaceholder"
                   v-model="formData.body.addresses[1].phone"
-                  @blur="v$.body.addresses[1].phone.$validate"
+                  @input="v$.body.addresses[1].phone.$validate"
                   :class="{
                     error:
                       (v$.body.addresses[1].phone.$dirty &&
@@ -350,7 +387,7 @@
                   id="postalCode"
                   type="text"
                   v-model.trim="formData.body.addresses[0].postalCode"
-                  @blur="v$.body.addresses[0].postalCode.$validate"
+                  @input="v$.body.addresses[0].postalCode.$validate"
                   :class="{
                     error:
                       (v$.body.addresses[0].postalCode.$dirty && v$.body.addresses[0].postalCode.required.$invalid) ||
@@ -382,7 +419,7 @@
                   id="postalCode"
                   type="text"
                   v-model.trim="formData.body.addresses[1].postalCode"
-                  @blur="v$.body.addresses[1].postalCode.$validate"
+                  @input="v$.body.addresses[1].postalCode.$validate"
                   :class="{
                     error:
                       (v$.body.addresses[1].postalCode.$dirty &&
@@ -469,6 +506,7 @@ const isLoading: Ref<boolean> = ref(false);
 const checkGroup = reactive({
   isCheckboxTrue: true,
 });
+const isPasswordHidden = ref(true);
 const isValidAge: Ref<{ isTrue: boolean; age: number | null }> = ref({ isTrue: false, age: null });
 const placeholders = reactive({
   postalCodeBillingPlaceholder: 'Select country',
@@ -517,6 +555,8 @@ const formData: RegisterData = reactive({
   },
 });
 
+const calcAgeValidator = computed(() => calculateAge(formData.body.dateOfBirth, minAge.value).isTrue);
+
 const rules = computed(() => {
   return {
     body: {
@@ -524,7 +564,7 @@ const rules = computed(() => {
       lastName: { required, validateLastName },
       email: { required, email },
       password: { required, validatePassword },
-      dateOfBirth: { required, minLength: minLength(10) },
+      dateOfBirth: { required, minLength: minLength(10), calcAgeValidator },
       addresses: [
         {
           country: { required },
@@ -605,7 +645,6 @@ watch(
       formData.body.addresses[1].country = '';
       formData.body.addresses[1].postalCode = '';
       formData.body.addresses[1].phone = '';
-      // setBillingCountry({ title: 'default', value: 'Select country' });
       v$.value.body.addresses[1].$reset();
     }
   },
@@ -700,6 +739,7 @@ async function submitHandler() {
     try {
       const res = await store.dispatch('customer/singUp', setShippingDataAsBilling());
 
+      localStorage.setItem('isLoggedIn', JSON.stringify(true));
       toast.success(`Welcome , ` + res.customer.firstName, {
         autoClose: 1000,
         theme: 'dark',
@@ -713,7 +753,7 @@ async function submitHandler() {
       });
     } catch (err) {
       if (err instanceof Error) {
-        toast.error(err.message, {
+        toast.error(`${err.message} Try to log in or use another email address.`, {
           autoClose: 3000,
           theme: 'dark',
           icon: '🔐',
@@ -766,6 +806,19 @@ async function submitHandler() {
 $errorColor: #ff3333;
 $mainWhiteColor: #fefefe;
 $darkBackgroundColor: #010101;
+
+.eye-icon {
+  position: absolute;
+  color: #fefefecc;
+  right: 5%;
+  top: 60%;
+  z-index: 2;
+  cursor: pointer;
+  &.error {
+    color: $darkBackgroundColor;
+  }
+}
+
 .button-wrapper {
   display: flex;
   position: relative;
@@ -829,6 +882,13 @@ form {
         font-size: 16px;
         @media (max-width: 1200px) {
           font-size: calc(13px + 3 * ((100vw - 320px) / (1200 - 320)));
+        }
+
+        &.label-input {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
         }
       }
       & input:-webkit-autofill,

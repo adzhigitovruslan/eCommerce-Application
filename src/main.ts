@@ -8,7 +8,7 @@ import BaseSpinner from '@/components/ui/BaseSpinner.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import {
-  faCircleXmark,
+  faRightLong,
   faDollarSign,
   faSearch,
   faCartShopping,
@@ -21,7 +21,7 @@ library.add(
   faSearch,
   faCartShopping,
   faBars,
-  faCircleXmark,
+  faRightLong,
   faXTwitter,
   faVk,
   faInstagram,
