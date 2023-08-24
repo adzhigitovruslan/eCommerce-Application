@@ -1,7 +1,7 @@
 <template>
   <router-link :to="{ name: 'home' }" v-if="close" class="button button__close">
     <div class="button-icon">
-      <font-awesome-icon icon="fa-solid fa-circle-xmark" />
+      <font-awesome-icon icon="fa-solid fa-right-long" fade />
     </div>
     <slot></slot>
   </router-link>
@@ -71,11 +71,6 @@ defineProps<Props>();
     &:active {
       transform: scale(0.97);
       transition: 0.2s;
-    }
-
-    &:hover svg {
-      transform: rotate(250deg);
-      transition-duration: 1.5s;
     }
   }
   &__next {

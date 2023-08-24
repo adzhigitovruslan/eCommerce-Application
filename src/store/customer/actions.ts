@@ -2,11 +2,11 @@ import { LoginPayload, SingUpPayload } from '@/types/interfaces/api';
 import { ActionTree } from 'vuex';
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import { ctpClient } from '@/utils/BuildClient';
-import { CustomerState } from '@/types/interfaces/states';
+import { CustomerState, GlobalState } from '@/types/interfaces/states';
 
 const projectKey = process.env.VUE_APP_PRJ_KEY;
 
-const actions: ActionTree<CustomerState, undefined> = {
+const actions: ActionTree<CustomerState, GlobalState> = {
   async login(context, payload: LoginPayload) {
     const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
       projectKey: `${projectKey}`,
@@ -52,7 +52,9 @@ const actions: ActionTree<CustomerState, undefined> = {
 
         return body;
       })
-      .catch(console.error);
+      .catch((err) => {
+        throw err;
+      });
   },
 };
 

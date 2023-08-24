@@ -1,7 +1,7 @@
 export const calculateAge = (rawDate: string, minAge: number) => {
-  let cleanedDate = rawDate.toString(); // Преобразуем в строку
+  let cleanedDate = rawDate.toString();
 
-  cleanedDate = cleanedDate.replace(/\D/g, ''); // Удаляем все нечисловые символы
+  cleanedDate = cleanedDate.replace(/\D/g, '');
 
   if (cleanedDate.length === 8) {
     const day = parseInt(cleanedDate.slice(6, 8));
@@ -23,5 +23,5 @@ export const calculateAge = (rawDate: string, minAge: number) => {
     return { isTrue: age > minAge, age };
   }
 
-  return { isTrue: false, age: -1 }; // Возвращаем -1, если данные некорректны
+  return { isTrue: false, age: -1 };
 };

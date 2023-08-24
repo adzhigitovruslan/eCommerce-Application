@@ -17,5 +17,9 @@ export default {
     state.currentUserId = '';
     state.currentUserFirstName = '';
     state.isLoggedIn = false;
+    localStorage.removeItem('isLoggedIn');
+  },
+  setLoggedIn(state: CustomerState, payload: boolean) {
+    state.isLoggedIn = payload;
   },
 };

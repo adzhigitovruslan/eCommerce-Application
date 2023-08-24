@@ -10,7 +10,7 @@
               type="email"
               placeholder="Enter your email"
               v-model.trim="formData.email"
-              @blur="v$.email.$validate"
+              @input="v$.email.$validate"
               :class="{
                 error: (v$.email.$dirty && v$.email.required.$invalid) || (v$.email.$dirty && v$.email.email.$invalid),
               }"
@@ -24,14 +24,14 @@
           </div>
         </div>
         <div class="form-control">
-          <div class="label">
+          <div class="label label-input">
             Password
             <input
               id="password"
               :type="isPasswordHidden ? 'password' : 'text'"
               placeholder="Enter your password"
               v-model.trim="formData.password"
-              @blur="v$.password.$validate"
+              @input="v$.password.$validate"
               :class="{
                 error:
                   (v$.password.$dirty && v$.password.required.$invalid) ||

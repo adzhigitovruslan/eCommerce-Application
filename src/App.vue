@@ -6,7 +6,25 @@
   </router-view>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useStore } from 'vuex';
+
+const store = useStore();
+
+function isLoggedIn() {
+  const isLoggedInString = localStorage.getItem('isLoggedIn');
+
+  if (isLoggedInString !== null) {
+    const isLoggedInValue = JSON.parse(isLoggedInString);
+
+    store.commit('customer/setLoggedIn', isLoggedInValue);
+  } else {
+    return false;
+  }
+}
+
+isLoggedIn();
+</script>
 
 <style lang="scss">
 @import '@/assets/reset.scss';

@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import store from '@/store/index.ts';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -34,16 +35,33 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     component: () => import('@/components/layout/TheAuthLayout.vue'),
+    meta: { requiresAuth: true },
     children: [
       {
         path: '',
         name: 'login',
         component: () => import('@/views/auth/UserLogin.vue'),
+        meta: { requiresAuth: true },
+        beforeEnter(to, from, next) {
+          if (store.state.customer.isLoggedIn) {
+            next({ name: 'home' });
+          } else {
+            next();
+          }
+        },
       },
       {
         path: '/signup',
         name: 'signup',
         component: () => import('@/views/auth/UserRegistration.vue'),
+        meta: { requiresAuth: true },
+        beforeEnter(to, from, next) {
+          if (store.state.customer.isLoggedIn) {
+            next({ name: 'home' });
+          } else {
+            next();
+          }
+        },
       },
     ],
   },

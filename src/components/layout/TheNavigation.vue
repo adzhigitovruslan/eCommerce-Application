@@ -82,20 +82,29 @@
       <div>
         <router-link
           v-if="!isLoggedIn"
+          :to="{ name: 'signup' }"
+          class="nav-link"
+          :class="{ active: activeLink === 'signup' }"
+          data-type="signup"
+          @click="setActiveLink('signup')"
+          >Sign up</router-link
+        >
+        <router-link
+          v-if="!isLoggedIn"
           :to="{ name: 'login' }"
           class="nav-link login"
           :class="{ active: activeLink === 'login' }"
           data-type="login"
-          @click="setActiveLink('login'), login()"
+          @click="setActiveLink('login')"
           >Log in</router-link
         >
         <router-link
           v-else
           to=""
-          class="nav-link"
-          :class="{ active: activeLink === 'login' }"
+          class="nav-link logout"
+          :class="{ active: activeLink === 'logout' }"
           data-type="logout"
-          @click="setActiveLink('login'), logout()"
+          @click="setActiveLink('logout'), logout()"
           >Log out</router-link
         >
         |
@@ -140,9 +149,6 @@ export default defineComponent({
         icon: '🎉',
         transition: toast.TRANSITIONS.SLIDE,
       });
-    },
-    login() {
-      this.$router.push({ name: 'login' });
     },
     toggleMenuAndHide() {
       this.toggleMenu();
