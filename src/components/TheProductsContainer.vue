@@ -1,16 +1,17 @@
 <template>
   <div class="products-container">
     <h2>Our Products</h2>
-    <div v-for="(row, index) in rows" :key="index" class="product-row">
-      <div v-for="game in row" :key="game.key">
-        <ProductCard :game="game" imageClass="image-mode" />
+    <div>
+      <div v-for="(row, rowIndex) in rows" :key="rowIndex" class="product-row">
+        <div v-for="game in row" :key="game.key">
+          <ProductCard :product="game" imageClass="image-mode" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import gamesData from '@/data.json';
 import { Game } from '@/types/interfaces/game';
 import ProductCard from '@/components/ProductCard.vue';
 import { defineComponent } from 'vue';
@@ -19,14 +20,18 @@ export default defineComponent({
   components: {
     ProductCard,
   },
-  data() {
-    return {
-      games: (gamesData as { Games: Game[] }).Games,
-    };
-  },
   computed: {
     rows(): Game[][] {
-      const games = this.shuffleArray(this.games);
+      const fetchedGames = this.$store.state.products.products || [];
+
+      const filteredGames = fetchedGames.filter(
+        (game: Game) => game.productType.id === '80040722-52b8-4a44-a613-005b0b124877',
+      );
+
+      const games = this.shuffleArray(filteredGames);
+
+      console.log(games);
+
       const rows: Game[][] = [];
 
       const itemsPerRow = this.getItemsPerRow();
@@ -38,6 +43,7 @@ export default defineComponent({
 
         rows.push(games.slice(startIndex, endIndex));
       }
+      console.log(rows);
 
       return rows;
     },

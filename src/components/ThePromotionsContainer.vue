@@ -5,7 +5,7 @@
       <ProductCard
         v-for="(game, index) in discountedGames"
         :key="index"
-        :game="game"
+        :product="game"
         imageClass="image-mode-promo"
         gameDiscount="game-discount-promo"
         gamePrice="game-price-promo"
@@ -16,7 +16,6 @@
 </template>
 
 <script scoped lang="ts">
-import gamesData from '@/data.json';
 import { defineComponent } from 'vue';
 import { Game } from '@/types/interfaces/game';
 import ProductCard from '@/components/ProductCard.vue';
@@ -25,14 +24,10 @@ export default defineComponent({
   components: {
     ProductCard,
   },
-  data() {
-    return {
-      games: (gamesData as { Games: Game[] }).Games,
-    };
-  },
   computed: {
     discountedGames(): Game[] {
-      const discountedGames = this.games.filter((game: Game) => game.discount > 0);
+      const games = this.$store.state.games || [];
+      const discountedGames = games.filter((game: Game) => game.discount && game.discount > 0);
 
       const shuffledGames = discountedGames.slice();
 

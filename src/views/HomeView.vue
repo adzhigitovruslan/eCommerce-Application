@@ -16,13 +16,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted } from 'vue';
 import TheCarousel from '@/components/TheCarousel.vue';
 import ThePromotions from '@/components/ThePromotionsContainer.vue';
 import TheReviews from '@/components/TheReviewsContainer.vue';
 import TheProducts from '@/components/TheProductsContainer.vue';
 import TheTop from '@/components/TheTopContainer.vue';
 import TheCards from '@/components/TheCards.vue';
+import { useStore } from 'vuex';
 
 export default defineComponent({
   components: {
@@ -32,6 +33,13 @@ export default defineComponent({
     TheProducts: TheProducts,
     TheTop: TheTop,
     TheCards: TheCards,
+  },
+  setup() {
+    const store = useStore();
+
+    onMounted(() => {
+      store.dispatch('fetchProducts');
+    });
   },
 });
 </script>

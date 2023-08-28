@@ -3,14 +3,13 @@
     <h2>Top 4</h2>
     <div class="top-games-row">
       <div v-for="game in topGames" :key="game.key">
-        <ProductCard :game="game" imageClass="top-four-image" />
+        <ProductCard :product="game" imageClass="top-four-image" />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import gamesData from '@/data.json';
 import { Game } from '@/types/interfaces/game';
 import ProductCard from '@/components/ProductCard.vue';
 import { defineComponent } from 'vue';
@@ -19,14 +18,13 @@ export default defineComponent({
   components: {
     ProductCard,
   },
-  data() {
-    return {
-      games: (gamesData as { Games: Game[] }).Games,
-    };
-  },
   computed: {
     topGames(): Game[] {
-      const shuffledGames = this.shuffleArray(this.games);
+      const games = this.$store.state.products.products || [];
+      const filteredGames = games.filter(
+        (game: Game) => game.productType.id === '80040722-52b8-4a44-a613-005b0b124877',
+      );
+      const shuffledGames = this.shuffleArray(filteredGames);
 
       return shuffledGames.slice(0, 4);
     },

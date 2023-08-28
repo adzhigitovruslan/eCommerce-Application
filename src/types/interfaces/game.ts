@@ -1,26 +1,39 @@
 export interface Game {
+  id: string;
   key: number;
-  name: string;
+  discount?: number;
   productType: {
+    id: string;
     typeId: string;
-    key: string;
   };
-  slug: string;
-  price: number;
-  discount: number;
-  description: string;
-  categories: {
-    typeId: string;
-    key: string;
+  masterData: {
+    current: {
+      slug: string;
+      name: Record<string, string>;
+      description: Record<string, string>;
+      masterVariant: {
+        prices: Array<{
+          value: {
+            centAmount: number;
+          };
+        }>;
+        attributes: Array<{
+          name: string;
+          value: string | number | boolean | Record<string, unknown>;
+        }>;
+        availability: {
+          availableQuantity: number;
+          isOnStock: boolean;
+        };
+        images: Array<{
+          dimensions: {
+            w: number;
+            h: number;
+          };
+          label: string;
+          url: string;
+        }>;
+      };
+    };
   };
-  platform: string[];
-  'activation region': string;
-  'system requirements': {
-    'operating system': string;
-    processor: string;
-    memory: string;
-    'graphics card': string;
-    'disk space': string;
-  };
-  image: string;
 }

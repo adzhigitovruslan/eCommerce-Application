@@ -1,32 +1,61 @@
 <template>
-  <div class="promotion-card" v-if="game">
-    <img :src="getImagePath(game.image)" :alt="game.name" :class="imageClass" />
+  <div class="promotion-card" :key="product.id">
+    <img
+      :src="getCoverImageUrl(product.masterData.current.masterVariant.images)"
+      :alt="product.masterData.current.name['en-US']"
+      :class="imageClass"
+    />
     <div class="game-info" :class="gameInfo">
       <div class="game-price-container">
-        <div class="game-price" :class="gamePrice">Price: ${{ game.price }}</div>
-        <div class="game-discount" :class="gameDiscount">{{ game.discount }}% off</div>
+        <div class="game-price" :class="gamePrice">
+          Price: ${{ product.masterData.current.masterVariant.prices[0].value.centAmount / 100 }}
+        </div>
+        <div class="game-discount" :class="gameDiscount">{{ getProductDiscount(product) }}% off</div>
       </div>
-      <div class="game-name">{{ game.name }}</div>
+      <div class="game-name">{{ product.masterData.current.name['en-US'] }}</div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+
 import { Game } from '@/types/interfaces/game';
+
+interface Image {
+  dimensions: {
+    w: number;
+    h: number;
+  };
+  label: string;
+  url: string;
+}
 
 export default defineComponent({
   props: {
-    game: Object as () => Game,
+    product: {
+      type: Object as () => Game,
+      required: true,
+    },
     imageClass: String,
     gameDiscount: String,
     gamePrice: String,
     gameInfo: String,
   },
+  methods: {
+    getCoverImageUrl(images: Image[]): string {
+      const coverImage = images.find((image) => image.label === 'Cover');
 
-  computed: {
-    getImagePath(): (image: string) => string {
-      return (image: string) => require(`@/assets/images/${image}`);
+      if (coverImage) {
+        return coverImage.url;
+      } else if (images.length > 0) {
+        return images[0].url;
+      } else {
+        return '';
+      }
+    },
+    getProductDiscount(product: Game) {
+      return product.discount || 0;
     },
   },
 });
