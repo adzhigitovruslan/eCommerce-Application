@@ -7,6 +7,9 @@
           <ProductCard :product="game" imageClass="image-mode" />
         </div>
       </div>
+      <button class="products-button">
+        <router-link :to="{ name: 'catalog' }" class="nav-link">Visit Products</router-link>
+      </button>
     </div>
   </div>
 </template>
@@ -104,6 +107,36 @@ h2 {
   flex-direction: column;
   align-items: center;
 }
+
+.products-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+height: 76px;
+border-radius: 15px;
+margin: auto;
+margin-top: 25px;
+margin-bottom: 75px;
+border: 2px solid rgba(255, 255, 255, 0.1);
+background-color: transparent;
+
+&:hover {
+        background-color: rgba(0, 123, 255, 0.1);
+        border-color: #007bff;
+        color: #0056b3;
+      }
+
+      .nav-link {
+font-size: 18px;
+font-weight: 600;
+line-height: 23px;
+letter-spacing: 0em;
+color: rgba(54, 110, 220, 1);
+}
+}
+
+
 
 @media (max-width: 380px) {
   h2 {
