@@ -135,10 +135,11 @@ export default defineComponent({
         margin-top: 45px;
 
         .product-card {
-          transition: transform 0.3s ease;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
 
           &:hover {
             transform: scale(1.07);
+            box-shadow: 0px 8px 12px rgba(200, 200, 200, 0.4);
           }
         }
       }
