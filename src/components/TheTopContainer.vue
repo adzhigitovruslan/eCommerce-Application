@@ -10,20 +10,19 @@
 </template>
 
 <script lang="ts">
-import { Game } from '@/types/interfaces/game';
+import { ProductItem } from '@/types/interfaces/productItem';
 import ProductCard from '@/components/ProductCard.vue';
 import { defineComponent } from 'vue';
-import { useStore } from 'vuex';
 
 export default defineComponent({
   components: {
     ProductCard,
   },
   computed: {
-    topGames(): Game[] {
+    topGames(): ProductItem[] {
       const games = this.$store.state.products.products || [];
       const filteredGames = games.filter(
-        (game: Game) => game.productType.id === '80040722-52b8-4a44-a613-005b0b124877',
+        (game: ProductItem) => game.productType.id === '80040722-52b8-4a44-a613-005b0b124877',
       );
       const shuffledGames = this.shuffleArray(filteredGames);
 
@@ -31,7 +30,7 @@ export default defineComponent({
     },
   },
   methods: {
-    shuffleArray(array: Game[]): Game[] {
+    shuffleArray(array: ProductItem[]): ProductItem[] {
       const shuffledArray = array.slice();
 
       for (let i = shuffledArray.length - 1; i > 0; i--) {

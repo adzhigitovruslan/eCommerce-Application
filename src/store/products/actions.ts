@@ -1,5 +1,5 @@
 import { ProductsState, GlobalState } from '@/types/interfaces/states';
-import { Game } from '@/types/interfaces/game';
+import { ProductItem } from '@/types/interfaces/productItem';
 import { ActionContext } from 'vuex';
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import { ctpClient } from '@/utils/BuildClient';
@@ -29,7 +29,7 @@ export default {
       throw error;
     }
   },
-  addProductToCart(context: ActionContext<ProductsState, GlobalState>, product: Game) {
+  addProductToCart(context: ActionContext<ProductsState, GlobalState>, product: ProductItem) {
     const cartItem = context.state.cart.find((item) => item.id === product.key);
 
     if (!cartItem) {

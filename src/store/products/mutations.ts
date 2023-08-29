@@ -1,10 +1,10 @@
 import { MutationTree } from 'vuex';
 import { ProductsState } from '@/types/interfaces/states';
-import { Game } from '@/types/interfaces/game';
+import { ProductItem } from '@/types/interfaces/productItem';
 import { CartItem } from '@/types/interfaces/cartItem';
 
 const mutations: MutationTree<ProductsState> = {
-  setProducts(state, products: Game[]) {
+  setProducts(state, products: ProductItem[]) {
     state.products = products;
   },
   pushProductToCart(state, productId: number) {
@@ -13,7 +13,7 @@ const mutations: MutationTree<ProductsState> = {
   incrementItemQuantity(state, cartItem: CartItem) {
     cartItem.quantity++;
   },
-  decrementProductInventory(state, product: Game) {
+  decrementProductInventory(state, product: ProductItem) {
     if (product.masterData.current.masterVariant.availability.availableQuantity > 0) {
       product.masterData.current.masterVariant.availability.availableQuantity--;
     }

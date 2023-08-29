@@ -3,13 +3,8 @@ import { enableFetchMocks } from 'jest-fetch-mock';
 
 enableFetchMocks();
 
-const mockStore = {
-  dispatch: jest.fn(),
-  commit: jest.fn(),
-};
-
 const routes: Array<RouteRecordRaw> = [
-  { path: '/', name: 'home', component: {} }, 
+  { path: '/', name: 'home', component: {} },
   { path: '/about', name: 'about', component: {} },
   { path: '/cart', name: 'cart', component: {} },
   { path: '/catalog', name: 'catalog', component: {} },

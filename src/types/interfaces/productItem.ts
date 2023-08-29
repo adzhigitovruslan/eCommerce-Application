@@ -1,4 +1,4 @@
-export interface Game {
+export interface ProductItem {
   id: string;
   key: number;
   discount?: number;

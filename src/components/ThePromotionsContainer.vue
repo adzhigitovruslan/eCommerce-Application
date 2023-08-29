@@ -17,18 +17,17 @@
 
 <script scoped lang="ts">
 import { defineComponent } from 'vue';
-import { Game } from '@/types/interfaces/game';
+import { ProductItem } from '@/types/interfaces/productItem';
 import ProductCard from '@/components/ProductCard.vue';
-import { useStore } from 'vuex';
 
 export default defineComponent({
   components: {
     ProductCard,
   },
   computed: {
-    discountedGames(): Game[] {
+    discountedGames(): ProductItem[] {
       const games = this.$store.state.games || [];
-      const discountedGames = games.filter((game: Game) => game.discount && game.discount > 0);
+      const discountedGames = games.filter((game: ProductItem) => game.discount && game.discount > 0);
 
       const shuffledGames = discountedGames.slice();
 

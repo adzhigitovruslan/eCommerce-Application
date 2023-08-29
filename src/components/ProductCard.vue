@@ -20,7 +20,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { Game } from '@/types/interfaces/game';
+import { ProductItem } from '@/types/interfaces/productItem';
 
 interface Image {
   dimensions: {
@@ -34,7 +34,7 @@ interface Image {
 export default defineComponent({
   props: {
     product: {
-      type: Object as () => Game,
+      type: Object as () => ProductItem,
       required: true,
     },
     imageClass: String,
@@ -54,7 +54,7 @@ export default defineComponent({
         return '';
       }
     },
-    getProductDiscount(product: Game) {
+    getProductDiscount(product: ProductItem) {
       return product.discount || 0;
     },
   },

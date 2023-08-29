@@ -1,4 +1,4 @@
-import { Game } from '@/types/interfaces/game';
+import { ProductItem } from '@/types/interfaces/productItem';
 import { CartItem } from '@/types/interfaces/cartItem';
 
 export interface CustomerState {
@@ -13,6 +13,6 @@ export interface GlobalState {
 }
 
 export interface ProductsState {
-  products: Game[];
+  products: ProductItem[];
   cart: CartItem[];
 }
