@@ -19,6 +19,7 @@
 import { defineComponent } from 'vue';
 import { Game } from '@/types/interfaces/game';
 import ProductCard from '@/components/ProductCard.vue';
+import { useStore } from 'vuex';
 
 export default defineComponent({
   components: {

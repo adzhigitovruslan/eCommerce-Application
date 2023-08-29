@@ -3,7 +3,7 @@
     <h2>Our Products</h2>
     <div>
       <div v-for="(row, rowIndex) in rows" :key="rowIndex" class="product-row">
-        <div v-for="game in row" :key="game.key">
+        <div v-for="game in row || []" :key="game.key">
           <ProductCard :product="game" imageClass="image-mode" />
         </div>
       </div>
@@ -18,6 +18,7 @@
 import { Game } from '@/types/interfaces/game';
 import ProductCard from '@/components/ProductCard.vue';
 import { defineComponent } from 'vue';
+import { useStore } from 'vuex';
 
 export default defineComponent({
   components: {
@@ -32,8 +33,6 @@ export default defineComponent({
       );
 
       const games = this.shuffleArray(filteredGames);
-
-      console.log(games);
 
       const rows: Game[][] = [];
 
@@ -113,30 +112,28 @@ h2 {
   justify-content: center;
   align-items: center;
   width: 100%;
-height: 76px;
-border-radius: 15px;
-margin: auto;
-margin-top: 25px;
-margin-bottom: 75px;
-border: 2px solid rgba(255, 255, 255, 0.1);
-background-color: transparent;
+  height: 76px;
+  border-radius: 15px;
+  margin: auto;
+  margin-top: 25px;
+  margin-bottom: 75px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background-color: transparent;
 
-&:hover {
-        background-color: rgba(0, 123, 255, 0.1);
-        border-color: #007bff;
-        color: #0056b3;
-      }
+  &:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+    border-color: #007bff;
+    color: #0056b3;
+  }
 
-      .nav-link {
-font-size: 18px;
-font-weight: 600;
-line-height: 23px;
-letter-spacing: 0em;
-color: rgba(54, 110, 220, 1);
+  .nav-link {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 23px;
+    letter-spacing: 0em;
+    color: rgba(54, 110, 220, 1);
+  }
 }
-}
-
-
 
 @media (max-width: 380px) {
   h2 {

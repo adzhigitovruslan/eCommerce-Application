@@ -2,7 +2,7 @@
   <div class="top-games-container">
     <h2>Top 4</h2>
     <div class="top-games-row">
-      <div v-for="game in topGames" :key="game.key">
+      <div v-for="game in topGames || []" :key="game.key">
         <ProductCard :product="game" imageClass="top-four-image" />
       </div>
     </div>
@@ -13,6 +13,7 @@
 import { Game } from '@/types/interfaces/game';
 import ProductCard from '@/components/ProductCard.vue';
 import { defineComponent } from 'vue';
+import { useStore } from 'vuex';
 
 export default defineComponent({
   components: {

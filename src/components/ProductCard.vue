@@ -64,6 +64,14 @@ export default defineComponent({
 <style lang="scss">
 @import '@/assets/styles/global.scss';
 
+.promotion-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 .game-info {
   width: 265px;
   height: 113px;
