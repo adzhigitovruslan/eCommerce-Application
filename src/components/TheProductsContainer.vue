@@ -23,6 +23,12 @@ export default defineComponent({
   components: {
     ProductCard,
   },
+  data() {
+    return {
+      itemsPerRow: this.getItemsPerRow(),
+      numRows: 3,
+    };
+  },
   computed: {
     rows(): ProductItem[][] {
       const fetchedGames = this.$store.state.products.products || [];
@@ -35,12 +41,9 @@ export default defineComponent({
 
       const rows: ProductItem[][] = [];
 
-      const itemsPerRow = this.getItemsPerRow();
-      const numRows = 3;
-
-      for (let i = 0; i < numRows; i++) {
-        const startIndex = i * itemsPerRow;
-        const endIndex = (i + 1) * itemsPerRow;
+      for (let i = 0; i < this.numRows; i++) {
+        const startIndex = i * this.itemsPerRow;
+        const endIndex = (i + 1) * this.itemsPerRow;
 
         rows.push(games.slice(startIndex, endIndex));
       }
@@ -63,6 +66,15 @@ export default defineComponent({
     getItemsPerRow(): number {
       return window.innerWidth > 780 ? 4 : 1;
     },
+    handleResize() {
+      this.itemsPerRow = this.getItemsPerRow();
+    },
+  },
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.handleResize);
   },
 });
 </script>
