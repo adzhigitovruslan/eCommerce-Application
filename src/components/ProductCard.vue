@@ -42,7 +42,8 @@ export default defineComponent({
   },
   methods: {
     getCoverImageUrl(images: Image[]): string {
-      const coverImage = images.find((image) => image.label === 'Cover');
+      const coverLabel = 'Cover';
+      const coverImage = images.find((image) => image.label === coverLabel);
 
       const imageUrl = coverImage ? coverImage.url : images.length > 0 ? images[0].url : '';
 
