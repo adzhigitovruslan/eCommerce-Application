@@ -44,13 +44,9 @@ export default defineComponent({
     getCoverImageUrl(images: Image[]): string {
       const coverImage = images.find((image) => image.label === 'Cover');
 
-      if (coverImage) {
-        return coverImage.url;
-      } else if (images.length > 0) {
-        return images[0].url;
-      } else {
-        return '';
-      }
+      const imageUrl = coverImage ? coverImage.url : images.length > 0 ? images[0].url : '';
+
+      return imageUrl;
     },
     getProductPrice(product: ProductItem): string {
       if (product.masterData.current.masterVariant.prices[0]?.discounted?.value?.centAmount) {
