@@ -49,12 +49,15 @@ export default defineComponent({
       return imageUrl;
     },
     getProductPrice(product: ProductItem): string {
-      if (product.masterData.current.masterVariant.prices[0]?.discounted?.value?.centAmount) {
-        const discountedPrice = product.masterData.current.masterVariant.prices[0]?.discounted?.value?.centAmount;
+      const currentVariant = product.masterData.current.masterVariant;
+      const hasDiscountedPrice = !!currentVariant.prices[0]?.discounted?.value?.centAmount;
+
+      if (hasDiscountedPrice) {
+        const discountedPrice = currentVariant.prices[0]?.discounted?.value?.centAmount || 0;
 
         return (discountedPrice / 100).toFixed(2);
       } else {
-        const regularPrice = product.masterData.current.masterVariant.prices[0].value.centAmount;
+        const regularPrice = currentVariant.prices[0].value.centAmount;
 
         return (regularPrice / 100).toFixed(2);
       }
