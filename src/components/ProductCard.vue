@@ -63,10 +63,13 @@ export default defineComponent({
       }
     },
     getProductDiscount(product: ProductItem) {
-      if (product.masterData.current.masterVariant.prices[0]?.discounted?.value?.centAmount) {
-        let oldPrice = product.masterData.current.masterVariant.prices[0].value.centAmount;
-        let newPrice = product.masterData.current.masterVariant.prices[0]?.discounted?.value?.centAmount;
-        let discount = Math.floor(((oldPrice - newPrice) / oldPrice) * 100);
+      const currentVariant = product.masterData.current.masterVariant;
+      const hasDiscountedPrice = !!currentVariant.prices[0]?.discounted?.value?.centAmount;
+
+      if (hasDiscountedPrice) {
+        const oldPrice = currentVariant.prices[0].value.centAmount;
+        const newPrice = currentVariant.prices[0]?.discounted?.value?.centAmount || 0;
+        const discount = Math.floor(((oldPrice - newPrice) / oldPrice) * 100);
 
         return discount;
       } else {
