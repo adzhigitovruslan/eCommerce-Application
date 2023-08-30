@@ -46,7 +46,7 @@ export default defineComponent({
   computed: {
     games(): ProductItem[] {
       const fetchedGames = this.$store.state.products.products || [];
-
+console.log(fetchedGames)
       return this.shuffleArray(fetchedGames);
     },
   },

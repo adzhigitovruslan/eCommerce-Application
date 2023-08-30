@@ -8,7 +8,7 @@
     <div class="game-info" :class="gameInfo">
       <div class="game-price-container">
         <div class="game-price" :class="gamePrice">
-          Price: ${{ product.masterData.current.masterVariant.prices[0].value.centAmount / 100 }}
+          Price: ${{ getProductPrice(product) }}
         </div>
         <div class="game-discount" :class="gameDiscount">{{ getProductDiscount(product) }}% off</div>
       </div>
@@ -54,8 +54,23 @@ export default defineComponent({
         return '';
       }
     },
-    getProductDiscount(product: ProductItem) {
-      return product.discount || 0;
+    getProductPrice(product: ProductItem): string {
+    if (product.masterData.current.masterVariant.prices[0]?.discounted?.value?.centAmount) {
+      const discountedPrice = product.masterData.current.masterVariant.prices[0]?.discounted?.value?.centAmount;
+      return (discountedPrice / 100).toFixed(2); 
+    } else {
+      const regularPrice = product.masterData.current.masterVariant.prices[0].value.centAmount;
+      return (regularPrice / 100).toFixed(2); 
+    }
+  },
+    getProductDiscount(product:ProductItem) {
+      if (product.masterData.current.masterVariant.prices[0]?.discounted?.value?.centAmount) {
+        let oldPrice=product.masterData.current.masterVariant.prices[0].value.centAmount;
+        let newPrice=product.masterData.current.masterVariant.prices[0]?.discounted?.value?.centAmount;
+        let discount = Math.floor(((oldPrice - newPrice) / oldPrice) * 100);
+        return discount;
+      }
+      else {return 0};
     },
   },
 });

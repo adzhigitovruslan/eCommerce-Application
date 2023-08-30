@@ -16,6 +16,18 @@ export interface ProductItem {
           value: {
             centAmount: number;
           };
+          discounted?: {
+            discount: {
+              typeId: string;
+              id: string;
+            };
+            value: {
+              type: string;
+              currencyCode: string;
+              centAmount: number;
+              fractionDigits: number;
+            };
+          };
         }>;
         attributes: Array<{
           name: string;
