@@ -10,7 +10,8 @@
             <span>v</span>
           </button>
         </div>
-        <div class="product-card-container">
+        <div>
+          <div class="product-card-container" v-if="loading">
           <ProductCard
             v-for="game in games || []"
             :key="game.id"
@@ -19,13 +20,15 @@
             class="product-card"
           />
         </div>
+        <base-spinner title="loading" v-else class="spinner-style"></base-spinner>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 import { ProductItem } from '@/types/interfaces/productItem';
 import ProductCard from '@/components/ProductCard.vue';
 import { useStore } from 'vuex';
@@ -36,10 +39,16 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    const loading = ref(false);
 
-    onMounted(() => {
-      store.dispatch('fetchProducts');
+    onMounted(async () => {
+      await store.dispatch('fetchProducts');
+      loading.value = true;
     });
+
+    return {
+      loading,
+    };
   },
   computed: {
     games(): ProductItem[] {
@@ -69,6 +78,12 @@ export default defineComponent({
   width: 80vw;
   margin: auto;
   display: flex;
+
+  .spinner-style {
+    height: 50px;
+    margin: 100px;
+    transition: opacity 0.3s ease;
+  }
 
   .catalog-container {
     display: flex;
