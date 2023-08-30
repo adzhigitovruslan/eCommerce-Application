@@ -44,7 +44,6 @@ export default defineComponent({
 
         rows.push(games.slice(startIndex, endIndex));
       }
-      console.log(rows);
 
       return rows;
     },

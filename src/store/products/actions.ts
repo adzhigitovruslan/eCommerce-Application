@@ -21,7 +21,6 @@ export default {
       const products = response.body.results;
 
       commit('setProducts', products);
-      console.log(products);
 
       return products;
     } catch (error) {

@@ -32,8 +32,6 @@ export default defineComponent({
           product.masterData.current.masterVariant.prices[0]?.discounted?.value?.centAmount !== undefined,
       );
 
-      console.log(products, discountedGames);
-
       const shuffledGames = discountedGames.slice();
 
       for (let i = shuffledGames.length - 1; i > 0; i--) {

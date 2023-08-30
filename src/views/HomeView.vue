@@ -37,8 +37,6 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    console.log(store);
-
     onMounted(() => {
       store.dispatch('fetchProducts');
     });
