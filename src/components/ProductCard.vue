@@ -75,6 +75,13 @@ export default defineComponent({
       }
     },
   },
+  watch: {
+    'product.masterData.current.masterVariant.prices[0]?.discounted?.value?.centAmount'(newDiscount, oldDiscount) {
+      if (newDiscount !== oldDiscount) {
+        this.$emit('productDiscountChanged', Boolean(newDiscount));
+      }
+    },
+  },
 });
 </script>
 

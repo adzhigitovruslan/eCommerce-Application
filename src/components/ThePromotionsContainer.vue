@@ -3,9 +3,9 @@
     <h2>Promotions<span>%</span></h2>
     <div class="promotions-list">
       <ProductCard
-        v-for="(game, index) in discountedGames"
+        v-for="(product, index) in discountedProducts"
         :key="index"
-        :product="game"
+        :product="product"
         imageClass="image-mode-promo"
         gameDiscount="game-discount-promo"
         gamePrice="game-price-promo"
@@ -25,9 +25,14 @@ export default defineComponent({
     ProductCard,
   },
   computed: {
-    discountedGames(): ProductItem[] {
-      const games = this.$store.state.games || [];
-      const discountedGames = games.filter((game: ProductItem) => game.discount && game.discount > 0);
+    discountedProducts(): ProductItem[] {
+      const products = this.$store.state.products.products || [];
+      const discountedGames = products.filter(
+        (product: ProductItem) =>
+          product.masterData.current.masterVariant.prices[0]?.discounted?.value?.centAmount !== undefined,
+      );
+
+      console.log(products, discountedGames);
 
       const shuffledGames = discountedGames.slice();
 
