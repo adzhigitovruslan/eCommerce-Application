@@ -5,6 +5,7 @@ import store from './store';
 import BaseAuth from '@/components/ui/auth/BaseAuth.vue';
 import BaseButton from '@/components/ui/auth/BaseButton.vue';
 import BaseSpinner from '@/components/ui/BaseSpinner.vue';
+import BaseCard from '@/components/ui/user-page/BaseCard.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import {
@@ -37,6 +38,7 @@ const app = createApp(App);
 app.component('base-auth-button', BaseButton);
 app.component('base-auth-wrapper', BaseAuth);
 app.component('base-spinner', BaseSpinner);
+app.component('base-card', BaseCard);
 app.component('font-awesome-icon', FontAwesomeIcon);
 app.use(store);
 app.use(router);
