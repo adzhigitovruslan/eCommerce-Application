@@ -22,8 +22,8 @@ import { ProductItem } from '@/types/interfaces/productItem';
 
 interface Image {
   dimensions: {
-    w: number;
-    h: number;
+    width: number;
+    height: number;
   };
   label: string;
   url: string;

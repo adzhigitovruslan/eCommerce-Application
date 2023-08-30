@@ -39,8 +39,8 @@ export interface ProductItem {
         };
         images: Array<{
           dimensions: {
-            w: number;
-            h: number;
+            width: number;
+            height: number;
           };
           label: string;
           url: string;
