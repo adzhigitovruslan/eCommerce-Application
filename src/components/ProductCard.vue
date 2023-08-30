@@ -72,9 +72,9 @@ export default defineComponent({
         const discount = Math.floor(((oldPrice - newPrice) / oldPrice) * 100);
 
         return discount;
-      } else {
-        return 0;
       }
+
+      return 0;
     },
   },
   watch: {
