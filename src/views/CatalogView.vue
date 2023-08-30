@@ -12,15 +12,15 @@
         </div>
         <div>
           <div class="product-card-container" v-if="loading">
-          <ProductCard
-            v-for="game in games || []"
-            :key="game.id"
-            :product="game"
-            imageClass="image-mode"
-            class="product-card"
-          />
-        </div>
-        <base-spinner title="loading" v-else class="spinner-style"></base-spinner>
+            <ProductCard
+              v-for="game in games || []"
+              :key="game.id"
+              :product="game"
+              imageClass="image-mode"
+              class="product-card"
+            />
+          </div>
+          <base-spinner title="loading" v-else class="spinner-style"></base-spinner>
         </div>
       </div>
     </div>
