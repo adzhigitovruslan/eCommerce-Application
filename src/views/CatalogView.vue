@@ -1,7 +1,8 @@
 <template>
   <div class="catalog">
     <div class="catalog-container">
-      <div class="catalog-filters">Filters</div>
+      <div class="catalog-filters">Filters <FilterBar /></div>
+
       <div class="catalog-products">
         <div class="catalog-header">
           <h2>This is a catalog</h2>
@@ -32,10 +33,12 @@ import { defineComponent, onMounted, ref } from 'vue';
 import { ProductItem } from '@/types/interfaces/productItem';
 import ProductCard from '@/components/ProductCard.vue';
 import { useStore } from 'vuex';
+import FilterBar from '@/components/FilterBar.vue';
 
 export default defineComponent({
   components: {
     ProductCard,
+    FilterBar,
   },
   setup() {
     const store = useStore();
