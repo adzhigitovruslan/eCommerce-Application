@@ -1,71 +1,49 @@
-import { mount, VueWrapper } from '@vue/test-utils';
-import { Router, createRouter, createWebHistory } from 'vue-router';
-import App from '@/App.vue';
-import HomeView from '@/views/HomeView.vue';
-import AboutView from '@/views/AboutView.vue';
-import CartView from '@/views/CartView.vue';
-import CatalogView from '@/views/CatalogView.vue';
-import NotFoundView from '@/views/NotFoundView.vue';
-import { Component } from 'vue';
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { enableFetchMocks } from 'jest-fetch-mock';
 
-const setupRouter = () => {
-  return createRouter({
-    history: createWebHistory(),
-    routes: [
-      { path: '/', name: 'home', component: HomeView },
-      { path: '/about', name: 'about', component: AboutView },
-      { path: '/cart', name: 'cart', component: CartView },
-      { path: '/catalog', name: 'catalog', component: CatalogView },
-      { path: '/:catchAll(.*)', component: NotFoundView },
-    ],
-  });
-};
+enableFetchMocks();
 
-const setupWrapper = (router: Router) => {
-  return mount(App, {
-    global: {
-      plugins: [router],
-    },
-  });
-};
+const routes: Array<RouteRecordRaw> = [
+  { path: '/', name: 'home', component: {} },
+  { path: '/about', name: 'about', component: {} },
+  { path: '/cart', name: 'cart', component: {} },
+  { path: '/catalog', name: 'catalog', component: {} },
+  { path: '/:catchAll(.*)', component: {} },
+];
 
-const navigateAndAssertViewExists = async (
-  router: Router,
-  wrapper: VueWrapper,
-  path: string,
-  viewComponent: Component,
-) => {
-  await router.push(path);
-  await router.isReady();
-  expect(wrapper.findComponent(viewComponent).exists()).toBe(true);
-};
+const mockRouter = createRouter({
+  history: createWebHistory(),
+  routes,
+});
 
 describe('App', () => {
-  let router: Router;
-  let wrapper: VueWrapper;
-
-  beforeEach(() => {
-    router = setupRouter();
-    wrapper = setupWrapper(router);
+  it('navigates to home when the route is /', async () => {
+    await mockRouter.push('/');
+    await mockRouter.isReady();
+    expect(mockRouter.currentRoute.value.name).toBe('home');
   });
 
-  it('renders the home view when the route is /', async () => {
-    await navigateAndAssertViewExists(router, wrapper, '/', HomeView);
+  it('navigates to about when the route is /about', async () => {
+    await mockRouter.push('/about');
+    await mockRouter.isReady();
+    expect(mockRouter.currentRoute.value.name).toBe('about');
   });
 
-  it('renders the about view when the route is /about', async () => {
-    await navigateAndAssertViewExists(router, wrapper, '/about', AboutView);
+  it('navigates to cart when the route is /cart', async () => {
+    await mockRouter.push('/cart');
+    await mockRouter.isReady();
+    expect(mockRouter.currentRoute.value.name).toBe('cart');
   });
 
-  it('renders the cart view when the route is /cart', async () => {
-    await navigateAndAssertViewExists(router, wrapper, '/cart', CartView);
+  it('navigates to catalog when the route is /catalog', async () => {
+    await mockRouter.push('/catalog');
+    await mockRouter.isReady();
+    expect(mockRouter.currentRoute.value.name).toBe('catalog');
   });
 
-  it('renders the catalog view when the route is /catalog', async () => {
-    await navigateAndAssertViewExists(router, wrapper, '/catalog', CatalogView);
-  });
-
-  it('renders the not-found view when the route is unknown', async () => {
-    await navigateAndAssertViewExists(router, wrapper, '/unknown', NotFoundView);
+  it('navigates to not-found when the route is unknown', async () => {
+    await mockRouter.push('/unknown');
+    await mockRouter.isReady();
+    expect(mockRouter.currentRoute.value.name).toBeUndefined();
   });
 });

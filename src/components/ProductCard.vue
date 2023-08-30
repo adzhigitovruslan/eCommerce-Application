@@ -1,32 +1,88 @@
 <template>
-  <div class="promotion-card" v-if="game">
-    <img :src="getImagePath(game.image)" :alt="game.name" :class="imageClass" />
+  <div class="promotion-card" :key="product.id">
+    <img
+      :src="getCoverImageUrl(product.masterData.current.masterVariant.images)"
+      :alt="product.masterData.current.name['en-US']"
+      :class="imageClass"
+    />
     <div class="game-info" :class="gameInfo">
       <div class="game-price-container">
-        <div class="game-price" :class="gamePrice">Price: ${{ game.price }}</div>
-        <div class="game-discount" :class="gameDiscount">{{ game.discount }}% off</div>
+        <div class="game-price" :class="gamePrice">Price: ${{ getProductPrice(product) }}</div>
+        <div class="game-discount" :class="gameDiscount">{{ getProductDiscount(product) }}% off</div>
       </div>
-      <div class="game-name">{{ game.name }}</div>
+      <div class="game-name">{{ product.masterData.current.name['en-US'] }}</div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Game } from '@/types/interfaces/game';
+
+import { ProductItem } from '@/types/interfaces/productItem';
+
+interface Image {
+  dimensions: {
+    width: number;
+    height: number;
+  };
+  label: string;
+  url: string;
+}
 
 export default defineComponent({
   props: {
-    game: Object as () => Game,
+    product: {
+      type: Object as () => ProductItem,
+      required: true,
+    },
     imageClass: String,
     gameDiscount: String,
     gamePrice: String,
     gameInfo: String,
   },
+  methods: {
+    getCoverImageUrl(images: Image[]): string {
+      const coverLabel = 'Cover';
+      const coverImage = images.find((image) => image.label === coverLabel);
 
-  computed: {
-    getImagePath(): (image: string) => string {
-      return (image: string) => require(`@/assets/images/${image}`);
+      const imageUrl = coverImage ? coverImage.url : images.length > 0 ? images[0].url : '';
+
+      return imageUrl;
+    },
+    getProductPrice(product: ProductItem): string {
+      const currentVariant = product.masterData.current.masterVariant;
+      const hasDiscountedPrice = !!currentVariant.prices[0]?.discounted?.value?.centAmount;
+
+      if (hasDiscountedPrice) {
+        const discountedPrice = currentVariant.prices[0]?.discounted?.value?.centAmount || 0;
+
+        return (discountedPrice / 100).toFixed(2);
+      } else {
+        const regularPrice = currentVariant.prices[0].value.centAmount;
+
+        return (regularPrice / 100).toFixed(2);
+      }
+    },
+    getProductDiscount(product: ProductItem) {
+      const currentVariant = product.masterData.current.masterVariant;
+      const hasDiscountedPrice = !!currentVariant.prices[0]?.discounted?.value?.centAmount;
+
+      if (hasDiscountedPrice) {
+        const oldPrice = currentVariant.prices[0].value.centAmount;
+        const newPrice = currentVariant.prices[0]?.discounted?.value?.centAmount || 0;
+        const discount = Math.floor(((oldPrice - newPrice) / oldPrice) * 100);
+
+        return discount;
+      }
+
+      return 0;
+    },
+  },
+  watch: {
+    'product.masterData.current.masterVariant.prices[0]?.discounted?.value?.centAmount'(newDiscount, oldDiscount) {
+      if (newDiscount !== oldDiscount) {
+        this.$emit('productDiscountChanged', Boolean(newDiscount));
+      }
     },
   },
 });
@@ -34,6 +90,14 @@ export default defineComponent({
 
 <style lang="scss">
 @import '@/assets/styles/global.scss';
+
+.promotion-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 
 .game-info {
   width: 265px;

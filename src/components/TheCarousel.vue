@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Navigation, Pagination } from 'vue3-carousel';
-import { ref, onMounted, watchEffect, computed } from 'vue';
+import { ref, onMounted, computed, onBeforeUnmount } from 'vue';
 
 const slides = [
   { id: 1, imageUrl: require('../assets/images/minecraft/minecraft_6.jpeg') },
@@ -52,15 +52,22 @@ const slides = [
 const currentSlide = ref(0);
 const carouselItemsToShow = ref(1);
 
-onMounted(() => {
-  currentSlide.value = Math.floor(slides.length / 2);
-});
-watchEffect(() => {
+const handleResize = () => {
   if (window.innerWidth > 768) {
     carouselItemsToShow.value = 1.5;
   } else {
     carouselItemsToShow.value = 1;
   }
+};
+
+onMounted(() => {
+  currentSlide.value = Math.floor(slides.length / 2);
+  handleResize();
+  window.addEventListener('resize', handleResize);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', handleResize);
 });
 
 const showGameInfo = computed(() => {
