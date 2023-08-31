@@ -456,7 +456,11 @@
               </div>
             </div>
           </div>
-          <VCheckbox v-model="checkGroup.isCheckboxTrue" v-if="activePhase !== 1" />
+          <VCheckbox
+            v-model="checkGroup.isCheckboxTrue"
+            label="Set shipping address same as billing address"
+            v-if="activePhase !== 1"
+          />
           <VSetDefaultButtons :isBothAddressChecked="checkGroup.isCheckboxTrue" v-if="activePhase !== 1" />
         </div>
       </transition>

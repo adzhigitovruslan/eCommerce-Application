@@ -8,8 +8,11 @@
 .card {
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(255, 255, 255, 0.26);
-  padding: 1rem;
-  margin: 2rem auto;
+  padding: 20px;
+  margin: 30px auto;
   max-width: 40rem;
+  @media (max-width: 600px) {
+    margin: calc(20px + (30 - 20) * ((100vw - 320px) / (600 - 320))) auto;
+  }
 }
 </style>

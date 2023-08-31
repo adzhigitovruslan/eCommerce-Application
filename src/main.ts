@@ -9,6 +9,7 @@ import BaseCard from '@/components/ui/user-page/BaseCard.vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import {
+  faPenToSquare,
   faRightLong,
   faDollarSign,
   faSearch,
@@ -16,8 +17,12 @@ import {
   faBars,
   faEye,
   faEyeSlash,
+  faCheck,
+  faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
+  faCheck,
+  faPenToSquare,
   faDollarSign,
   faSearch,
   faCartShopping,
@@ -29,6 +34,7 @@ library.add(
   faDiscord,
   faEye,
   faEyeSlash,
+  faXmark,
 );
 import { clickOutSide as vClickOutSide } from '@mahdikhashan/vue3-click-outside';
 import { faDiscord, faInstagram, faVk, faXTwitter } from '@fortawesome/free-brands-svg-icons';
