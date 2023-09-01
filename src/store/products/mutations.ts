@@ -7,6 +7,9 @@ const mutations: MutationTree<ProductsState> = {
   setProducts(state, products: ProductItem[]) {
     state.products = products;
   },
+  updatePriceRange(state: ProductsState, newPriceRange: number) {
+    state.priceRange = newPriceRange;
+  },
   pushProductToCart(state, productId: number) {
     state.cart.push({ id: productId, quantity: 1 });
   },

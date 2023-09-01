@@ -8,6 +8,7 @@ const productsModule: Module<ProductsState, GlobalState> = {
   state: {
     products: [],
     cart: [],
+    priceRange: 0,
   },
   mutations,
   actions,

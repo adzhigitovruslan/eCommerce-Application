@@ -20,12 +20,11 @@
       <div class="game-name">{{ product.masterData.current.name['en-US'] }}</div>
       <button @click="toggleDescription" class="read-description-button">Read Description</button>
     </div>
-    <div :class="{ 'overlay': true, 'show': showDescription }">
+    <div :class="{ overlay: true, show: showDescription }">
       <div class="description-overlay">
         <button @click="toggleDescription" class="close-description-button">Close</button>
         <div class="game-description">{{ product.masterData.current.description['en-US'] }}</div>
       </div>
-  
     </div>
   </div>
 </template>
@@ -253,16 +252,16 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  opacity: 0; 
-  visibility: hidden; 
-  transition: opacity 0.3s, visibility 0s 0.3s; 
-  overflow-y: auto; 
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0s 0.3s;
+  overflow-y: auto;
 }
 
 .overlay.show {
-  opacity: 1; 
-  visibility: visible; 
-  transition: opacity 0.3s, visibility 0s; 
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s, visibility 0s;
 }
 
 .description-overlay {
@@ -271,7 +270,7 @@ export default defineComponent({
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  text-align:justify;
+  text-align: justify;
 }
 
 .close-description-button {

@@ -15,4 +15,5 @@ export interface GlobalState {
 export interface ProductsState {
   products: ProductItem[];
   cart: CartItem[];
+  priceRange: number;
 }

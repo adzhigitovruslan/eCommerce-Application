@@ -2,8 +2,17 @@
   <div class="filter-bar">
     <h3>Filters</h3>
     <div class="price-filter">
-      <label for="price-range">Price Range:</label>
-      <input type="range" id="price-range" v-model="priceRange" min="0" :max="maxPrice" />
+      <label for="price-range">Price $:</label>
+      
+      <span>{{ priceFrom }}</span> to <span>{{ priceTo }}</span>
+      <input
+        type="range"
+        id="price-range"
+        min="0"
+        :max="computedMaxPrice"
+        @input="updatePriceRange($event)"
+        :value="priceRange"
+      />
       <span>{{ priceRange }}</span>
     </div>
     <div class="category-filter">
@@ -17,23 +26,52 @@
 </template>
 
 <script lang="ts">
+import { mapMutations, mapState } from 'vuex';
+
 export default {
   data() {
     return {
-      priceRange: 0,
-      maxPrice: 100, // Set your maximum price value
-      categories: ['Category 1', 'Category 2', 'Category 3'], // Replace with your categories
+      priceFrom: 0,
+      priceTo: 200,
+      categories: ['Category 1', 'Category 2', 'Category 3'],
       selectedCategories: [],
     };
   },
-};
+  computed: {
+    ...mapState(['priceRange']), 
+    computedMaxPrice(): number {
+      return this.priceTo;
+     
+  },
+  priceRange() {
+    return this.$store.state.products.priceRange; 
+    },
+  },
+  methods: {
+    ...mapMutations('products', ['updatePriceRange']),
+    updatePriceRange(event: Event | null) {
+      if (event && event.target instanceof HTMLInputElement) {
+        const newPriceRange = parseFloat(event.target.value);
+        console.log(this.$store.state.products.priceRange, newPriceRange)
+        this.$store.commit('updatePriceRange', newPriceRange);
+      }
+  },
+},}
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/assets/styles/global.scss';
 .filter-bar {
   padding: 10px;
-  border: 1px solid #ccc;
-  background-color: #f5f5f5;
+  border: 2px solid rgba(30, 28, 39, 1);
+  background-color: transparent;
+  color: rgba(255, 255, 255, 1);
+  font-family: $manrope-font-family;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: 0em;
+  text-align: left;
 }
 
 .price-filter {

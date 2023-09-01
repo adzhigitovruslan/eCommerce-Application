@@ -34,6 +34,7 @@ import { ProductItem } from '@/types/interfaces/productItem';
 import ProductCard from '@/components/ProductCard.vue';
 import { useStore } from 'vuex';
 import FilterBar from '@/components/FilterBar.vue';
+import { mapGetters } from 'vuex';
 
 export default defineComponent({
   components: {
@@ -59,6 +60,7 @@ export default defineComponent({
 
       return this.shuffleArray(fetchedGames);
     },
+    ...mapGetters(['filteredProducts']),
   },
   methods: {
     shuffleArray(array: ProductItem[]): ProductItem[] {
