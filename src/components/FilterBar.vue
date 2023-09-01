@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       priceRange: 0,
-      maxPrice: 1000, // Set your maximum price value
+      maxPrice: 100, // Set your maximum price value
       categories: ['Category 1', 'Category 2', 'Category 3'], // Replace with your categories
       selectedCategories: [],
     };

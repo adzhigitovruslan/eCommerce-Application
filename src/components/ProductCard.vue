@@ -7,10 +7,25 @@
     />
     <div class="game-info" :class="gameInfo">
       <div class="game-price-container">
-        <div class="game-price" :class="gamePrice">Price: ${{ getProductPrice(product) }}</div>
-        <div class="game-discount" :class="gameDiscount">{{ getProductDiscount(product) }}% off</div>
+        <div class="game-price" :class="gamePrice">
+          {{ getProductPrice(product) }}
+        </div>
+        <div v-if="hasDiscountedPrice(product)" class="game-price-original">
+          {{ getOriginalPrice(product) }}
+        </div>
+        <div v-if="getProductDiscount(product) > 0" class="game-discount" :class="gameDiscount">
+          {{ getProductDiscount(product) }}% off
+        </div>
       </div>
       <div class="game-name">{{ product.masterData.current.name['en-US'] }}</div>
+      <button @click="toggleDescription" class="read-description-button">Read Description</button>
+    </div>
+    <div :class="{ 'overlay': true, 'show': showDescription }">
+      <div class="description-overlay">
+        <button @click="toggleDescription" class="close-description-button">Close</button>
+        <div class="game-description">{{ product.masterData.current.description['en-US'] }}</div>
+      </div>
+  
     </div>
   </div>
 </template>
@@ -40,6 +55,11 @@ export default defineComponent({
     gamePrice: String,
     gameInfo: String,
   },
+  data() {
+    return {
+      showDescription: false,
+    };
+  },
   methods: {
     getCoverImageUrl(images: Image[]): string {
       const coverLabel = 'Cover';
@@ -49,20 +69,35 @@ export default defineComponent({
 
       return imageUrl;
     },
-    getProductPrice(product: ProductItem): string {
+    getProductPrice(product: ProductItem) {
       const currentVariant = product.masterData.current.masterVariant;
       const hasDiscountedPrice = !!currentVariant.prices[0]?.discounted?.value?.centAmount;
+      const regularPrice = currentVariant.prices[0].value.centAmount;
 
       if (hasDiscountedPrice) {
         const discountedPrice = currentVariant.prices[0]?.discounted?.value?.centAmount || 0;
+        const formattedDiscountedPrice = (discountedPrice / 100).toFixed(2);
 
-        return (discountedPrice / 100).toFixed(2);
+        return `${formattedDiscountedPrice}`;
       } else {
-        const regularPrice = currentVariant.prices[0].value.centAmount;
+        const formattedRegularPrice = (regularPrice / 100).toFixed(2);
 
-        return (regularPrice / 100).toFixed(2);
+        return `${formattedRegularPrice}`;
       }
     },
+    hasDiscountedPrice(product: ProductItem) {
+      const currentVariant = product.masterData.current.masterVariant;
+
+      return !!currentVariant.prices[0]?.discounted?.value?.centAmount;
+    },
+    getOriginalPrice(product: ProductItem) {
+      const currentVariant = product.masterData.current.masterVariant;
+      const regularPrice = currentVariant.prices[0]?.value?.centAmount;
+      const formattedRegularPrice = (regularPrice / 100).toFixed(2);
+
+      return formattedRegularPrice;
+    },
+
     getProductDiscount(product: ProductItem) {
       const currentVariant = product.masterData.current.masterVariant;
       const hasDiscountedPrice = !!currentVariant.prices[0]?.discounted?.value?.centAmount;
@@ -76,6 +111,9 @@ export default defineComponent({
       }
 
       return 0;
+    },
+    toggleDescription() {
+      this.showDescription = !this.showDescription;
     },
   },
   watch: {
@@ -95,12 +133,15 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   text-align: center;
+  position: relative;
+  height: 100%;
 }
 
 .game-info {
-  width: 265px;
+  width: 90%;
+  margin: auto;
   height: 113px;
   border-radius: 8px;
 
@@ -112,6 +153,19 @@ export default defineComponent({
     line-height: 31px;
     letter-spacing: 0em;
     text-align: left;
+  }
+
+  .read-description-button {
+    padding: 12px 20px;
+    border-radius: 15px;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: background-color 0.5s, color 0.5s;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 1);
+      color: rgba(0, 0, 0, 1);
+    }
   }
 
   .game-discount {
@@ -126,16 +180,24 @@ export default defineComponent({
     background: rgba(119, 190, 29, 1);
     color: $white-color;
     text-align: center;
-    margin: auto;
   }
 }
 
 .game-price-container {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+
+  .game-price-original {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 31px;
+    letter-spacing: 0em;
+    text-align: left;
+    text-decoration: line-through;
+  }
 }
 
 .game-name {
@@ -174,6 +236,50 @@ export default defineComponent({
   margin-bottom: 10px;
   object-fit: cover;
   cursor: pointer;
+}
+
+.game-description {
+  background-color: transparent;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0; 
+  visibility: hidden; 
+  transition: opacity 0.3s, visibility 0s 0.3s; 
+  overflow-y: auto; 
+}
+
+.overlay.show {
+  opacity: 1; 
+  visibility: visible; 
+  transition: opacity 0.3s, visibility 0s; 
+}
+
+.description-overlay {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align:justify;
+}
+
+.close-description-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
 }
 
 @media (max-width: 768px) {
