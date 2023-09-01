@@ -3,7 +3,7 @@
     <h3>Filters</h3>
     <div class="price-filter">
       <label for="price-range">Price $:</label>
-      
+
       <span>{{ priceFrom }}</span> to <span>{{ priceTo }}</span>
       <input
         type="range"
@@ -38,13 +38,12 @@ export default {
     };
   },
   computed: {
-    ...mapState(['priceRange']), 
+    ...mapState(['priceRange']),
     computedMaxPrice(): number {
       return this.priceTo;
-     
-  },
-  priceRange() {
-    return this.$store.state.products.priceRange; 
+    },
+    priceRange(): number {
+      return this.$store.state.products.priceRange;
     },
   },
   methods: {
@@ -52,11 +51,12 @@ export default {
     updatePriceRange(event: Event | null) {
       if (event && event.target instanceof HTMLInputElement) {
         const newPriceRange = parseFloat(event.target.value);
-        console.log(this.$store.state.products.priceRange, newPriceRange)
+
         this.$store.commit('updatePriceRange', newPriceRange);
       }
+    },
   },
-},}
+};
 </script>
 
 <style scoped lang="scss">
