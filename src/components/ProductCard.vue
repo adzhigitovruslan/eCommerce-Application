@@ -1,10 +1,6 @@
 <template>
   <div class="promotion-card" :key="product.id">
-    <img
-      :src="getCoverImageUrl(product.masterData.current.masterVariant.images)"
-      :alt="product.masterData.current.name['en-US']"
-      :class="imageClass"
-    />
+    <img :src="getCoverImageUrl(product.masterVariant.images)" :alt="product.name['en-US']" :class="imageClass" />
     <div class="game-info" :class="gameInfo">
       <div class="game-price-container">
         <div class="game-price" :class="gamePrice">
@@ -17,13 +13,13 @@
           {{ getProductDiscount(product) }}% off
         </div>
       </div>
-      <div class="game-name">{{ product.masterData.current.name['en-US'] }}</div>
+      <div class="game-name">{{ product.name['en-US'] }}</div>
       <button @click="toggleDescription" class="read-description-button">Read Description</button>
     </div>
     <div :class="{ overlay: true, show: showDescription }">
       <div class="description-overlay">
         <button @click="toggleDescription" class="close-description-button">Close</button>
-        <div class="game-description">{{ product.masterData.current.description['en-US'] }}</div>
+        <div class="game-description">{{ product.description['en-US'] }}</div>
       </div>
     </div>
   </div>
@@ -68,7 +64,7 @@ export default defineComponent({
       return imageUrl;
     },
     getProductPrice(product: ProductItem) {
-      const currentVariant = product.masterData.current.masterVariant;
+      const currentVariant = product.masterVariant;
       const hasDiscountedPrice = !!currentVariant.prices[0]?.discounted?.value?.centAmount;
       const regularPrice = currentVariant.prices[0].value.centAmount;
 
@@ -84,12 +80,12 @@ export default defineComponent({
       }
     },
     hasDiscountedPrice(product: ProductItem) {
-      const currentVariant = product.masterData.current.masterVariant;
+      const currentVariant = product.masterVariant;
 
       return !!currentVariant.prices[0]?.discounted?.value?.centAmount;
     },
     getOriginalPrice(product: ProductItem) {
-      const currentVariant = product.masterData.current.masterVariant;
+      const currentVariant = product.masterVariant;
       const regularPrice = currentVariant.prices[0]?.value?.centAmount;
       const formattedRegularPrice = (regularPrice / 100).toFixed(2);
 
@@ -97,7 +93,7 @@ export default defineComponent({
     },
 
     getProductDiscount(product: ProductItem) {
-      const currentVariant = product.masterData.current.masterVariant;
+      const currentVariant = product.masterVariant;
       const hasDiscountedPrice = !!currentVariant.prices[0]?.discounted?.value?.centAmount;
 
       if (hasDiscountedPrice) {
@@ -115,7 +111,7 @@ export default defineComponent({
     },
   },
   watch: {
-    'product.masterData.current.masterVariant.prices[0]?.discounted?.value?.centAmount'(newDiscount, oldDiscount) {
+    'product.masterVariant.prices[0]?.discounted?.value?.centAmount'(newDiscount, oldDiscount) {
       if (newDiscount !== oldDiscount) {
         this.$emit('productDiscountChanged', Boolean(newDiscount));
       }

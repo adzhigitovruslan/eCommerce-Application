@@ -16,4 +16,10 @@ export interface ProductsState {
   products: ProductItem[];
   cart: CartItem[];
   priceRange: number;
+  selectedCategories: {
+    [key: string]: {
+      value: string;
+      selected: boolean;
+    };
+  };
 }

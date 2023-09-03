@@ -9,6 +9,13 @@ const mutations: MutationTree<ProductsState> = {
   },
   updatePriceRange(state: ProductsState, newPriceRange: number) {
     state.priceRange = newPriceRange;
+    console.log(`new: ${newPriceRange}`);
+  },
+  updateSelectedGameCategories(state, selectedCategories) {
+    for (const category in selectedCategories) {
+      state.selectedCategories[category].selected = selectedCategories[category].selected;
+    }
+    console.log('New selectedCategories:', state.selectedCategories);
   },
   pushProductToCart(state, productId: number) {
     state.cart.push({ id: productId, quantity: 1 });
@@ -17,8 +24,8 @@ const mutations: MutationTree<ProductsState> = {
     cartItem.quantity++;
   },
   decrementProductInventory(state, product: ProductItem) {
-    if (product.masterData.current.masterVariant.availability.availableQuantity > 0) {
-      product.masterData.current.masterVariant.availability.availableQuantity--;
+    if (product.masterVariant.availability.availableQuantity > 0) {
+      product.masterVariant.availability.availableQuantity--;
     }
   },
 };

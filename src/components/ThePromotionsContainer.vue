@@ -28,8 +28,7 @@ export default defineComponent({
     discountedProducts(): ProductItem[] {
       const products = this.$store.state.products.products || [];
       const discountedGames = products.filter(
-        (product: ProductItem) =>
-          product.masterData.current.masterVariant.prices[0]?.discounted?.value?.centAmount !== undefined,
+        (product: ProductItem) => product.masterVariant.prices[0]?.discounted?.value?.centAmount !== undefined,
       );
 
       const shuffledGames = discountedGames.slice();
