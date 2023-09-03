@@ -40,9 +40,14 @@ export default {
 };
 
 async function doFetch(priceRange: number, selectedCategoryValues: string | null = null) {
-  const queryParams1 = {
-    filter: `categories.id:${selectedCategoryValues}`,
-  };
+  let queryParams1 = {};
+
+  if (selectedCategoryValues) {
+    queryParams1 = {
+      filter: `categories.id:${selectedCategoryValues}`,
+    };
+  }
+
   const queryParams2 = {
     filter: `variants.price.centAmount:range(* to ${priceRange * 100})`,
   };
@@ -56,6 +61,10 @@ async function doFetch(priceRange: number, selectedCategoryValues: string | null
   const commonResults = results1.filter((value1) => {
     return results2.some((value2) => value2.id === value1.id);
   });
+
+  if (commonResults.length === 0) {
+    alert('Unfortunately, there are no products that match your criteria.');
+  }
 
   return commonResults;
 }

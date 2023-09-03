@@ -10,7 +10,6 @@ const productsModule: Module<ProductsState, GlobalState> = {
     cart: [],
     priceRange: 200,
     selectedCategories: {
-      All: { value: '59fa4bdf-195e-4c48-930b-df4ae9429534', selected: true },
       Merch: { value: '0b7fcf32-3835-4e41-8f49-b2d70f0e997d', selected: true },
       Games: { value: '59fa4bdf-195e-4c48-930b-df4ae9429534', selected: true },
       MOBA: { value: '78c0393f-9fc6-4744-96ef-faf666f9102f', selected: true },
@@ -19,6 +18,7 @@ const productsModule: Module<ProductsState, GlobalState> = {
       LifeSimulation: { value: '2be077db-42bc-4b9d-aa6d-a62bcfa11d85', selected: true },
       RPG: { value: '0be1c5d8-7680-4426-96d5-26a6989dd9b4', selected: true },
       ActionAdventure: { value: '5402faca-17a1-4830-b92c-292c16d1568d', selected: true },
+      Other: { value: 'missing', selected: true },
     },
   },
   mutations,

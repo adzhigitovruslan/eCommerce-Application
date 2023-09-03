@@ -20,12 +20,7 @@
       />
     </div>
     <div class="category-filter">
-      <div class="category-item">
-        <label for="all">
-          <input type="checkbox" id="all" class="checkbox" v-model="selectedCategories.All.selected" />
-          All
-        </label>
-      </div>
+      <h2>Products</h2>
       <div class="category-item">
         <label for="merch">
           <input
@@ -47,34 +42,54 @@
             v-model="selectedCategories.Games.selected"
             @change="handleProductChange"
           />
-          Games
+          All Games
         </label>
       </div>
 
       <div>
         <h2>Genres</h2>
-        <label for="moba" class="games-label">
-          <input type="checkbox" id="moba" v-model="selectedCategories.MOBA.selected" />
+        <label for="moba" class="category-item">
+          <input type="checkbox" id="moba" v-model="selectedCategories.MOBA.selected" @change="handleProductChange" />
           Multiplayer Online Battle Arena
         </label>
-        <label for="shooter" class="games-label">
-          <input type="checkbox" id="shooter" v-model="selectedCategories.Shooter.selected" />
+        <label for="shooter" class="category-item">
+          <input
+            type="checkbox"
+            id="shooter"
+            v-model="selectedCategories.Shooter.selected"
+            @change="handleProductChange"
+          />
           Shooter
         </label>
-        <label for="battleRoyale" class="games-label">
-          <input type="checkbox" id="battleRoyale" v-model="selectedCategories.BattleRoyale.selected" />
+        <label for="battleRoyale" class="category-item">
+          <input
+            type="checkbox"
+            id="battleRoyale"
+            v-model="selectedCategories.BattleRoyale.selected"
+            @change="handleProductChange"
+          />
           Battle Royale
         </label>
-        <label for="lifeSimulation" class="games-label">
-          <input type="checkbox" id="lifeSimulation" v-model="selectedCategories.LifeSimulation.selected" />
+        <label for="lifeSimulation" class="category-item">
+          <input
+            type="checkbox"
+            id="lifeSimulation"
+            v-model="selectedCategories.LifeSimulation.selected"
+            @change="handleProductChange"
+          />
           Life Simulation
         </label>
-        <label for="actionAdventure" class="games-label">
-          <input type="checkbox" id="actionAdventure" v-model="selectedCategories.ActionAdventure.selected" />
+        <label for="actionAdventure" class="category-item">
+          <input
+            type="checkbox"
+            id="actionAdventure"
+            v-model="selectedCategories.ActionAdventure.selected"
+            @change="handleProductChange"
+          />
           Action-adventure
         </label>
-        <label for="rpg" class="games-label">
-          <input type="checkbox" id="rpg" v-model="selectedCategories.RPG.selected" />
+        <label for="rpg" class="category-item">
+          <input type="checkbox" id="rpg" v-model="selectedCategories.RPG.selected" @change="handleProductChange" />
           Role-playing game
         </label>
       </div>
@@ -99,15 +114,15 @@ export default defineComponent({
       priceFrom: 0,
       isChecked: true,
       selectedCategories: {
-        All: { value: '59fa4bdf-195e-4c48-930b-df4ae9429534', selected: true },
         Merch: { value: '0b7fcf32-3835-4e41-8f49-b2d70f0e997d', selected: true },
         Games: { value: '59fa4bdf-195e-4c48-930b-df4ae9429534', selected: true },
-        MOBA: { value: '78c0393f-9fc6-4744-96ef-faf666f9102f', selected: true },
-        Shooter: { value: 'b222a2a4-da7e-4088-ab08-57700b9327df', selected: true },
-        BattleRoyale: { value: '4c6abd1a-f6fc-4aa5-a271-7cb5ff2e4228', selected: true },
-        LifeSimulation: { value: '2be077db-42bc-4b9d-aa6d-a62bcfa11d85', selected: true },
-        RPG: { value: '0be1c5d8-7680-4426-96d5-26a6989dd9b4', selected: true },
-        ActionAdventure: { value: '5402faca-17a1-4830-b92c-292c16d1568d', selected: true },
+        MOBA: { value: '78c0393f-9fc6-4744-96ef-faf666f9102f', selected: false },
+        Shooter: { value: 'b222a2a4-da7e-4088-ab08-57700b9327df', selected: false },
+        BattleRoyale: { value: '4c6abd1a-f6fc-4aa5-a271-7cb5ff2e4228', selected: false },
+        LifeSimulation: { value: '2be077db-42bc-4b9d-aa6d-a62bcfa11d85', selected: false },
+        RPG: { value: '0be1c5d8-7680-4426-96d5-26a6989dd9b4', selected: false },
+        ActionAdventure: { value: '5402faca-17a1-4830-b92c-292c16d1568d', selected: false },
+        Other: { value: 'missing', selected: false },
       } as SelectedCategories,
     };
   },
@@ -129,27 +144,9 @@ export default defineComponent({
       }
     },
     handleProductChange() {
-      if (this.selectedCategories.Merch.selected && this.selectedCategories.Games.selected) {
-        this.selectedCategories.All.selected = true;
-      } else {
-        this.selectedCategories.All.selected = false;
-      }
+      const selectedCategories = this.selectedCategories;
 
-      if (this.selectedCategories.Games.selected) {
-        for (const category in this.selectedCategories) {
-          if (category !== 'All' && category !== 'Games' && category !== 'Merch') {
-            this.selectedCategories[category as keyof typeof this.selectedCategories].selected = true;
-          }
-        }
-      } else {
-        for (const category in this.selectedCategories) {
-          if (category !== 'All' && category !== 'Games' && category !== 'Merch') {
-            this.selectedCategories[category as keyof typeof this.selectedCategories].selected = false;
-          }
-        }
-      }
-
-      this.$store.commit('updateSelectedGameCategories', this.selectedCategories);
+      this.$store.commit('updateSelectedGameCategories', selectedCategories);
     },
   },
 });
@@ -182,11 +179,11 @@ export default defineComponent({
   .price-filter {
     margin-bottom: 10px;
     display: flex;
-    flex-direction: column; /* Используем flex-контейнер для выравнивания элементов */
+    flex-direction: column;
     justify-content: space-between;
 
     .price-range {
-      display: flex; /* Используем flex-контейнер для размещения "от" и числа на одной строке */
+      display: flex;
       align-items: center;
     }
 
@@ -200,7 +197,7 @@ export default defineComponent({
 
     .custom-price-range {
       width: 90%;
-      height: 2px; /* Увеличил высоту ползунка */
+      height: 2px;
       background-color: #fff;
       outline: none;
       opacity: 0.7;
@@ -208,7 +205,6 @@ export default defineComponent({
       transition: opacity 0.2s;
       border: none;
       margin: 0.4rem;
-      /* Сдвиг ползунка вверх, чтобы он находился на линии */
     }
 
     .custom-price-range::-webkit-slider-thumb {
@@ -218,7 +214,7 @@ export default defineComponent({
       cursor: pointer;
       border-radius: 50%;
       border: none;
-      margin-top: -8px; /* Сдвиг ползунка вверх */
+      margin-top: -8px;
     }
 
     .custom-price-range::-moz-range-thumb {
@@ -228,22 +224,19 @@ export default defineComponent({
       cursor: pointer;
       border-radius: 50%;
       border: none;
-      margin-top: -8px; /* Сдвиг ползунка вверх */
+      margin-top: -8px;
     }
 
-    /* Добавляем стили при фокусе на элементе */
     .custom-price-range:focus {
       opacity: 1;
       outline: none;
     }
 
-    /* Стили для ползунка в неактивном состоянии */
     .custom-price-range:disabled {
       background: #ccc;
       cursor: not-allowed;
     }
 
-    /* Стили для заполненной части полоски слева от ползунка */
     .custom-price-range::-webkit-slider-runnable-track {
       width: 100%;
       height: 1px;
