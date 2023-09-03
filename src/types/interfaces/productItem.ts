@@ -1,7 +1,6 @@
 export interface ProductItem {
   id: string;
   key: number;
-  discount?: number;
   name: Record<string, string>;
   productType: {
     id: string;

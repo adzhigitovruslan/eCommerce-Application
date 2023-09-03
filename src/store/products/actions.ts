@@ -4,11 +4,9 @@ import { ActionContext } from 'vuex';
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import { ctpClient } from '@/utils/BuildClient';
 
-const projectKey = process.env.VUE_APP_PRJ_KEY;
+const projectKey = process.env.VUE_APP_PRJ_KEY || 'defaultProjectKey';
 
-const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
-  projectKey: `${projectKey}`,
-});
+const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({ projectKey });
 
 export default {
   async fetchProducts({ commit, state }: ActionContext<ProductsState, GlobalState>) {
@@ -19,7 +17,7 @@ export default {
       .join(',');
 
     try {
-      const products = await doFetch(apiRoot, priceRange, selectedCategoryValues);
+      const products = await doFetch(priceRange, selectedCategoryValues);
 
       commit('setProducts', products);
 
@@ -41,7 +39,7 @@ export default {
   },
 };
 
-async function doFetch(apiRoot, priceRange: number, selectedCategoryValues: string | null = null) {
+async function doFetch(priceRange: number, selectedCategoryValues: string | null = null) {
   const queryParams1 = {
     filter: `categories.id:${selectedCategoryValues}`,
   };
@@ -55,13 +53,9 @@ async function doFetch(apiRoot, priceRange: number, selectedCategoryValues: stri
   const results1 = response1.body.results;
   const results2 = response2.body.results;
 
-  console.log(results1, results2);
-
-  function isInResults2(element: ProductItem) {
-    return results2.some((result: ProductItem) => result.id === element.id);
-  }
-
-  const commonResults = results1.filter(isInResults2);
+  const commonResults = results1.filter((value1) => {
+    return results2.some((value2) => value2.id === value1.id);
+  });
 
   return commonResults;
 }

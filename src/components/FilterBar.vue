@@ -84,6 +84,7 @@
 
 <script lang="ts">
 import { mapMutations, mapState, mapActions } from 'vuex';
+import { defineComponent } from 'vue';
 
 interface SelectedCategories {
   [key: string]: {
@@ -92,7 +93,7 @@ interface SelectedCategories {
   };
 }
 
-export default {
+export default defineComponent({
   data() {
     return {
       priceFrom: 0,
@@ -151,7 +152,7 @@ export default {
       this.$store.commit('updateSelectedGameCategories', this.selectedCategories);
     },
   },
-};
+});
 </script>
 
 <style scoped lang="scss">

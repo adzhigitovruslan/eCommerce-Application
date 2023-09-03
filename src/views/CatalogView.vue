@@ -160,22 +160,10 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.dropdown-list {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #fff;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  z-index: 1; /* Добавьте это свойство */
-}
-
 .dropdown-list li {
   padding: 8px 16px;
   cursor: pointer;
+  background-color: rgba(27, 23, 41, 1);
 }
 
 .sort-dropdown {
@@ -199,11 +187,15 @@ export default defineComponent({
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #fff;
+  background-color: rgba(27, 23, 41, 1);
+  color: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   list-style-type: none;
   margin: 0;
   padding: 0;
+  z-index: 1;
+  width: 255px;
+  height: 19px;
 }
 
 .dropdown-list li {
