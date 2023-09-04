@@ -1,7 +1,9 @@
 <template>
   <router-view v-slot="{ Component }">
     <transition name="slide" mode="out-in">
-      <component :is="Component"></component>
+      <Suspense>
+        <component :is="Component"></component>
+      </Suspense>
     </transition>
   </router-view>
 </template>

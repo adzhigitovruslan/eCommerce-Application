@@ -208,7 +208,9 @@ export default defineComponent({
 @import '@/assets/styles/global.scss';
 
 .header {
+  position: relative;
   height: 157px;
+  z-index: 2;
 }
 
 .search-input {

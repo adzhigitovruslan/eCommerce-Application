@@ -30,6 +30,12 @@ const routes: Array<RouteRecordRaw> = [
         name: 'catalog',
         component: () => import('../views/CatalogView.vue'),
       },
+      {
+        path: 'product:prodId',
+        name: 'product',
+        component: () => import('../views/ProductDetailView.vue'),
+        props: true,
+      },
     ],
   },
   {

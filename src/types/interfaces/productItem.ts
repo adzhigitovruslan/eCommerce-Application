@@ -6,12 +6,15 @@ export interface ProductItem {
     id: string;
     typeId: string;
   };
-  slug: string;
+  slug: {
+    'en-US': string;
+  };
   description: Record<string, string>;
   masterVariant: {
     prices: Array<{
       value: {
         centAmount: number;
+        currencyCode: string;
       };
       discounted?: {
         discount: {

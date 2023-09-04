@@ -1,5 +1,11 @@
 <template>
-  <div class="promotion-card" :key="product.id" @mouseover="onMouseOver" @mouseleave="onMouseLeave">
+  <router-link
+    class="promotion-card"
+    :key="product.id"
+    :to="`product:${product.slug['en-US']}`"
+    @mouseover="onMouseOver"
+    @mouseleave="onMouseLeave"
+  >
     <img :src="getCoverImageUrl(product.masterVariant.images)" :alt="product.name['en-US']" :class="imageClass" />
     <div class="game-buttons" :class="{ 'show-buttons': showButtons }">
       <div class="game-add-to-cart" v-if="showButtons">
@@ -13,7 +19,6 @@
         </button>
       </div>
     </div>
-
     <div class="game-info" :class="gameInfo">
       <div class="game-price-container">
         <div class="game-price" :class="gamePrice">
@@ -37,7 +42,7 @@
         <div class="game-description">{{ product.description['en-US'] }}</div>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script lang="ts">
@@ -132,11 +137,9 @@ export default defineComponent({
       this.$emit('addToFavouritesClicked', product);
     },
     onMouseOver() {
-      console.log('Mouse over');
       this.showButtons = true;
     },
     onMouseLeave() {
-      console.log('Mouse leave');
       this.showButtons = false;
     },
   },
