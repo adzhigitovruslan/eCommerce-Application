@@ -23,11 +23,14 @@ import TheCardContent from '@/components/product-detail/TheCardContent.vue';
 import TheCardCarousel from '@/components/product-detail/TheCardCarousel.vue';
 import TheCardDescription from '@/components/product-detail/TheCardDescription.vue';
 
+const store = useStore();
+
+if (!store.getters['allProducts'][0]) await store.dispatch('fetchProducts');
+
 const isLoading = ref('');
 const backgroundImg = ref<HTMLElement | null>(null);
 const location = window.location.pathname;
 const prodId = location.split('/product:')[1];
-const store = useStore();
 const router = useRouter();
 const beforeRouteLeave = (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
   if (backgroundImg.value) {
@@ -61,7 +64,7 @@ const imgArrFilter = imgArr.filter((img) => img.isSlide);
 const description = currentProd.description['en-US'];
 const requirements = currentProd.masterVariant.attributes.find((att) => att.name === 'System_Requirements')?.value;
 
-onMounted(() => {
+onMounted(async () => {
   if (backgroundImg.value)
     backgroundImg.value.style.backgroundImage = `linear-gradient(to bottom, transparent, transparent 50%, #06030f 90%),
     url('${images[2].url}')`;
@@ -71,7 +74,6 @@ onMounted(() => {
 });
 
 router.beforeEach(beforeRouteLeave);
-console.log(price);
 </script>
 
 <style lang="scss" scoped>

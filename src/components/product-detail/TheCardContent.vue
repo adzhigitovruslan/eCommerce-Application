@@ -10,15 +10,15 @@
         <button class="detail-view__content__card__buttons__cart">Into cart</button>
       </div>
       <div class="detail-view__content__card__short-info">
-        <div class="detail-view__content__card__short-info__box">
+        <div class="detail-view__content__card__short-info__box" v-if="props.genre !== 'undefined'">
           <p class="detail-view__content__card__short-info__box__title">Genre</p>
           <p class="detail-view__content__card__short-info__box__content">{{ props.genre }}</p>
         </div>
-        <div class="detail-view__content__card__short-info__box">
+        <div class="detail-view__content__card__short-info__box" v-if="props.publisher !== 'undefined'">
           <p class="detail-view__content__card__short-info__box__title">Publisher</p>
           <p class="detail-view__content__card__short-info__box__content">{{ props.publisher }}</p>
         </div>
-        <div class="detail-view__content__card__short-info__box">
+        <div class="detail-view__content__card__short-info__box" v-if="!isNaN(props.ratings)">
           <p class="detail-view__content__card__short-info__box__title">Ratings</p>
           <p class="detail-view__content__card__short-info__box__content">{{ props.ratings }}</p>
         </div>

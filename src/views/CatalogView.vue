@@ -101,7 +101,6 @@ export default defineComponent({
     },
     sortByHigherPrice() {
       this.selectedOption = 'Sort by higher price';
-      console.log(this.$store.state.products);
 
       const products = [...this.$store.state.products.products];
 

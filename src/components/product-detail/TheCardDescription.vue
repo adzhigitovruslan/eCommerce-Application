@@ -10,6 +10,7 @@
       <p
         :class="`description__navigation__item ${choiceNav === 'req' ? 'active' : ''}`"
         @click="() => (choiceNav = 'req')"
+        v-if="props.requirements !== 'undefined'"
       >
         System Requirements
       </p>

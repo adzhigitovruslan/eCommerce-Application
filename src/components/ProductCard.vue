@@ -137,11 +137,9 @@ export default defineComponent({
       this.$emit('addToFavouritesClicked', product);
     },
     onMouseOver() {
-      console.log('Mouse over');
       this.showButtons = true;
     },
     onMouseLeave() {
-      console.log('Mouse leave');
       this.showButtons = false;
     },
   },
