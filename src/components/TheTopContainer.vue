@@ -2,16 +2,15 @@
   <div class="top-games-container">
     <h2>Top 4</h2>
     <div class="top-games-row">
-      <div v-for="game in topGames" :key="game.key">
-        <ProductCard :game="game" imageClass="top-four-image" />
+      <div v-for="game in topGames || []" :key="game.key">
+        <ProductCard :product="game" imageClass="top-four-image" />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import gamesData from '@/data.json';
-import { Game } from '@/types/interfaces/game';
+import { ProductItem } from '@/types/interfaces/productItem';
 import ProductCard from '@/components/ProductCard.vue';
 import { defineComponent } from 'vue';
 
@@ -19,20 +18,18 @@ export default defineComponent({
   components: {
     ProductCard,
   },
-  data() {
-    return {
-      games: (gamesData as { Games: Game[] }).Games,
-    };
-  },
   computed: {
-    topGames(): Game[] {
-      const shuffledGames = this.shuffleArray(this.games);
+    topGames(): ProductItem[] {
+      const games = this.$store.state.products.products || [];
+      const typeGame = '80040722-52b8-4a44-a613-005b0b124877';
+      const filteredGames = games.filter((game: ProductItem) => game.productType.id === typeGame);
+      const shuffledGames = this.shuffleArray(filteredGames);
 
       return shuffledGames.slice(0, 4);
     },
   },
   methods: {
-    shuffleArray(array: Game[]): Game[] {
+    shuffleArray(array: ProductItem[]): ProductItem[] {
       const shuffledArray = array.slice();
 
       for (let i = shuffledArray.length - 1; i > 0; i--) {

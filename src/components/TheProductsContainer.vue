@@ -1,17 +1,21 @@
 <template>
   <div class="products-container">
     <h2>Our Products</h2>
-    <div v-for="(row, index) in rows" :key="index" class="product-row">
-      <div v-for="game in row" :key="game.key">
-        <ProductCard :game="game" imageClass="image-mode" />
+    <div>
+      <div v-for="(row, rowIndex) in rows" :key="rowIndex" class="product-row">
+        <div v-for="game in row || []" :key="game.key">
+          <ProductCard :product="game" imageClass="image-mode" />
+        </div>
       </div>
+      <button class="products-button">
+        <router-link :to="{ name: 'catalog' }" class="nav-link">Visit Products</router-link>
+      </button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import gamesData from '@/data.json';
-import { Game } from '@/types/interfaces/game';
+import { ProductItem } from '@/types/interfaces/productItem';
 import ProductCard from '@/components/ProductCard.vue';
 import { defineComponent } from 'vue';
 
@@ -21,20 +25,25 @@ export default defineComponent({
   },
   data() {
     return {
-      games: (gamesData as { Games: Game[] }).Games,
+      itemsPerRow: this.getItemsPerRow(),
+      numRows: 3,
     };
   },
   computed: {
-    rows(): Game[][] {
-      const games = this.shuffleArray(this.games);
-      const rows: Game[][] = [];
+    rows(): ProductItem[][] {
+      const fetchedGames = this.$store.state.products.products || [];
 
-      const itemsPerRow = this.getItemsPerRow();
-      const numRows = 3;
+      const typeGame = '80040722-52b8-4a44-a613-005b0b124877';
 
-      for (let i = 0; i < numRows; i++) {
-        const startIndex = i * itemsPerRow;
-        const endIndex = (i + 1) * itemsPerRow;
+      const filteredGames = fetchedGames.filter((game: ProductItem) => game.productType.id === typeGame);
+
+      const games = this.shuffleArray(filteredGames);
+
+      const rows: ProductItem[][] = [];
+
+      for (let i = 0; i < this.numRows; i++) {
+        const startIndex = i * this.itemsPerRow;
+        const endIndex = (i + 1) * this.itemsPerRow;
 
         rows.push(games.slice(startIndex, endIndex));
       }
@@ -43,7 +52,7 @@ export default defineComponent({
     },
   },
   methods: {
-    shuffleArray(array: Game[]): Game[] {
+    shuffleArray(array: ProductItem[]): ProductItem[] {
       const shuffledArray = array.slice();
 
       for (let i = shuffledArray.length - 1; i > 0; i--) {
@@ -57,6 +66,15 @@ export default defineComponent({
     getItemsPerRow(): number {
       return window.innerWidth > 780 ? 4 : 1;
     },
+    handleResize() {
+      this.itemsPerRow = this.getItemsPerRow();
+    },
+  },
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.handleResize);
   },
 });
 </script>
@@ -97,6 +115,34 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.products-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 76px;
+  border-radius: 15px;
+  margin: auto;
+  margin-top: 25px;
+  margin-bottom: 75px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background-color: transparent;
+
+  &:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+    border-color: #007bff;
+    color: #0056b3;
+  }
+
+  .nav-link {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 23px;
+    letter-spacing: 0em;
+    color: rgba(54, 110, 220, 1);
+  }
 }
 
 @media (max-width: 380px) {

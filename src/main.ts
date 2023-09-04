@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './router';
-import store from './store';
+import router from './router/index';
+import store from './store/index';
 import BaseAuth from '@/components/ui/auth/BaseAuth.vue';
 import BaseButton from '@/components/ui/auth/BaseButton.vue';
 import BaseSpinner from '@/components/ui/BaseSpinner.vue';
@@ -19,6 +19,7 @@ import {
   faEyeSlash,
   faCheck,
   faXmark,
+  faHeart,
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   faCheck,
@@ -35,6 +36,7 @@ library.add(
   faEye,
   faEyeSlash,
   faXmark,
+  faHeart,
 );
 import { clickOutSide as vClickOutSide } from '@mahdikhashan/vue3-click-outside';
 import { faDiscord, faInstagram, faVk, faXTwitter } from '@fortawesome/free-brands-svg-icons';
