@@ -27,12 +27,14 @@
         </div>
       </div>
       <div class="game-name">{{ product.name['en-US'] }}</div>
-      <button @click="toggleDescription" class="read-description-button" v-if="$route.name === 'catalog'">Read Description</button>
+      <button @click="toggleDescription" class="read-description-button" v-if="$route.name === 'catalog'">
+        Read Description
+      </button>
     </div>
     <div :class="{ overlay: true, show: showDescription }">
       <div class="description-overlay">
         <button @click="toggleDescription" class="close-description-button">Close</button>
-        <div class="game-description" >{{ product.description['en-US'] }}</div>
+        <div class="game-description">{{ product.description['en-US'] }}</div>
       </div>
     </div>
   </div>
