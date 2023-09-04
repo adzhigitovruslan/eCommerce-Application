@@ -1,15 +1,19 @@
 <template>
   <div class="promotion-card" :key="product.id" @mouseover="onMouseOver" @mouseleave="onMouseLeave">
     <img :src="getCoverImageUrl(product.masterVariant.images)" :alt="product.name['en-US']" :class="imageClass" />
-    <div class="game-buttons" :class="{ 'show-buttons': showButtons }" >
-      <div class="game-add-to-cart"  v-if="showButtons">
-          <button @click="addToCart(product)" class="add-to-cart-button"><font-awesome-icon :icon="['fas', 'cart-shopping']" class="cart-icon"></font-awesome-icon></button>
-        </div>
-        <div class="game-add-to-fav"  v-if="showButtons">
-          <button @click="addToFavourites(product)" class="add-to-fav-button"><font-awesome-icon :icon="['fas', 'heart']" class="heart-icon"/></button>
-        </div>
+    <div class="game-buttons" :class="{ 'show-buttons': showButtons }">
+      <div class="game-add-to-cart" v-if="showButtons">
+        <button @click="addToCart(product)" class="add-to-cart-button">
+          <font-awesome-icon :icon="['fas', 'cart-shopping']" class="cart-icon"></font-awesome-icon>
+        </button>
+      </div>
+      <div class="game-add-to-fav" v-if="showButtons">
+        <button @click="addToFavourites(product)" class="add-to-fav-button">
+          <font-awesome-icon :icon="['fas', 'heart']" class="heart-icon" />
+        </button>
+      </div>
     </div>
-    
+
     <div class="game-info" :class="gameInfo">
       <div class="game-price-container">
         <div class="game-price" :class="gamePrice">
@@ -57,7 +61,6 @@ export default defineComponent({
     gameDiscount: String,
     gamePrice: String,
     gameInfo: String,
-   
   },
   data() {
     return {
@@ -121,11 +124,9 @@ export default defineComponent({
       this.showDescription = !this.showDescription;
     },
     addToCart(product: ProductItem) {
-     
       this.$emit('addToCartClicked', product);
     },
     addToFavourites(product: ProductItem) {
-     
       this.$emit('addToFavouritesClicked', product);
     },
     onMouseOver() {
@@ -164,7 +165,6 @@ export default defineComponent({
   &:hover {
     filter: brightness(60%);
   }
-  
 }
 .game-buttons {
   position: absolute;
@@ -173,24 +173,26 @@ export default defineComponent({
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: row;
-  
+
   align-items: center;
   text-align: center;
-  z-index: 999; 
+  z-index: 999;
   background-color: transparent;
 }
 
-.add-to-cart-button, .add-to-fav-button {
+.add-to-cart-button,
+.add-to-fav-button {
   color: rgba(119, 190, 29, 1);
   background-color: transparent;
   margin: auto;
   transition: transform 0.2s ease;
 
   &:hover {
-    transform: scale(1.1); 
+    transform: scale(1.1);
   }
 
-  .cart-icon, .heart-icon {
+  .cart-icon,
+  .heart-icon {
     height: 40px;
     margin: 30px;
   }
