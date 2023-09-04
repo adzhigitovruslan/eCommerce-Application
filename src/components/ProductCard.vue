@@ -1,6 +1,15 @@
 <template>
-  <div class="promotion-card" :key="product.id">
+  <div class="promotion-card" :key="product.id" @mouseover="onMouseOver" @mouseleave="onMouseLeave">
     <img :src="getCoverImageUrl(product.masterVariant.images)" :alt="product.name['en-US']" :class="imageClass" />
+    <div class="game-buttons" :class="{ 'show-buttons': showButtons }" >
+      <div class="game-add-to-cart"  v-if="showButtons">
+          <button @click="addToCart(product)" class="add-to-cart-button"><font-awesome-icon :icon="['fas', 'cart-shopping']" class="cart-icon"></font-awesome-icon></button>
+        </div>
+        <div class="game-add-to-fav"  v-if="showButtons">
+          <button @click="addToFavourites(product)" class="add-to-fav-button"><font-awesome-icon :icon="['fas', 'heart']" class="heart-icon"/></button>
+        </div>
+    </div>
+    
     <div class="game-info" :class="gameInfo">
       <div class="game-price-container">
         <div class="game-price" :class="gamePrice">
@@ -48,10 +57,12 @@ export default defineComponent({
     gameDiscount: String,
     gamePrice: String,
     gameInfo: String,
+   
   },
   data() {
     return {
       showDescription: false,
+      showButtons: false,
     };
   },
   methods: {
@@ -109,6 +120,22 @@ export default defineComponent({
     toggleDescription() {
       this.showDescription = !this.showDescription;
     },
+    addToCart(product: ProductItem) {
+     
+      this.$emit('addToCartClicked', product);
+    },
+    addToFavourites(product: ProductItem) {
+     
+      this.$emit('addToFavouritesClicked', product);
+    },
+    onMouseOver() {
+      console.log('Mouse over');
+      this.showButtons = true;
+    },
+    onMouseLeave() {
+      console.log('Mouse leave');
+      this.showButtons = false;
+    },
   },
   watch: {
     'product.masterVariant.prices[0]?.discounted?.value?.centAmount'(newDiscount, oldDiscount) {
@@ -131,6 +158,42 @@ export default defineComponent({
   text-align: center;
   position: relative;
   height: 100%;
+  position: relative;
+  transition: filter 0.3s ease;
+
+  &:hover {
+    filter: brightness(60%);
+  }
+  
+}
+.game-buttons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: row;
+  
+  align-items: center;
+  text-align: center;
+  z-index: 999; 
+  background-color: transparent;
+}
+
+.add-to-cart-button, .add-to-fav-button {
+  color: rgba(119, 190, 29, 1);
+  background-color: transparent;
+  margin: auto;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1); 
+  }
+
+  .cart-icon, .heart-icon {
+    height: 40px;
+    margin: 30px;
+  }
 }
 
 .game-info {

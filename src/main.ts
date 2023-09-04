@@ -14,7 +14,7 @@ import {
   faCartShopping,
   faBars,
   faEye,
-  faEyeSlash,
+  faEyeSlash, faHeart
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   faDollarSign,
@@ -27,7 +27,7 @@ library.add(
   faInstagram,
   faDiscord,
   faEye,
-  faEyeSlash,
+  faEyeSlash, faHeart
 );
 import { clickOutSide as vClickOutSide } from '@mahdikhashan/vue3-click-outside';
 import { faDiscord, faInstagram, faVk, faXTwitter } from '@fortawesome/free-brands-svg-icons';
