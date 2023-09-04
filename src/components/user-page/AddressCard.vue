@@ -1,32 +1,62 @@
 <template>
-  <div>
+  <div class="address-card">
     <h1 class="profile__header">
-      Shipping Address
-      <span v-if="isCheckboxTrue">default</span>
+      Address
+      <span class="address-span" data-span="spanBilling">Default billing address</span>
+      <span class="address-span" data-span="spanShipping">Default shipping address</span>
     </h1>
     <div class="form-wrapper">
-      <label>Street</label>
-      <div class="form-control">
-        <div class="form-item">
-          <input
-            id="street"
-            type="text"
-            placeholder="Your street"
-            v-model="address.streetName"
-            @input="v$.streetName.$validate"
-            :disabled="!isStreetEdit"
-            :class="{ disabled: !isStreetEdit, error: v$.streetName.$dirty && v$.streetName.required.$invalid }"
-          />
-          <font-awesome-icon v-if="!isStreetEdit" @click="isStreetEdit = !isStreetEdit" icon="pen-to-square" />
-          <div class="form-item" v-else>
-            <font-awesome-icon @click="setStreetName($event, 'cancel')" icon="fa-solid fa-xmark" />
-            <font-awesome-icon @click="setStreetName($event, 'submit')" icon="fa-solid fa-check" />
+      <div class="form-block">
+        <div class="form-block__item">
+          <label>Street</label>
+          <div class="form-control">
+            <div class="form-item">
+              <input
+                id="street"
+                type="text"
+                placeholder="Your street"
+                v-model="address.streetName"
+                @input="v$.streetName.$validate"
+                :disabled="!isStreetEdit"
+                :class="{ disabled: !isStreetEdit, error: v$.streetName.$dirty && v$.streetName.required.$invalid }"
+              />
+              <font-awesome-icon v-if="!isStreetEdit" @click="isStreetEdit = !isStreetEdit" icon="pen-to-square" />
+              <div class="form-item" v-else>
+                <font-awesome-icon @click="setStreetName($event, 'cancel')" icon="fa-solid fa-xmark" />
+                <font-awesome-icon @click="setStreetName($event, 'submit')" icon="fa-solid fa-check" />
+              </div>
+            </div>
+            <div class="input-errors" v-if="v$.streetName.$dirty && v$.streetName.required.$invalid">
+              <div class="error-msg">Must contain at least one character</div>
+            </div>
           </div>
         </div>
-        <div class="input-errors" v-if="v$.streetName.$dirty && v$.streetName.required.$invalid">
-          <div class="error-msg">Must contain at least one character</div>
+        <div class="form-block__item">
+          <label>City</label>
+          <div class="form-control">
+            <div class="form-item">
+              <input
+                id="city"
+                type="text"
+                placeholder="Your city"
+                v-model="address.city"
+                @input="v$.city.$validate"
+                :disabled="!isCityEdit"
+                :class="{ disabled: !isCityEdit, error: v$.city.$dirty && v$.city.validateCity.$invalid }"
+              />
+              <font-awesome-icon v-if="!isCityEdit" @click="isCityEdit = !isCityEdit" icon="pen-to-square" />
+              <div class="form-item" v-else>
+                <font-awesome-icon @click="setCity($event, 'cancel')" icon="fa-solid fa-xmark" />
+                <font-awesome-icon @click="setCity($event, 'submit')" icon="fa-solid fa-check" />
+              </div>
+            </div>
+            <div class="input-errors" v-if="v$.city.$dirty && v$.city.validateCity.$invalid">
+              <div class="error-msg">Must contain at least one character and no special characters or numbers</div>
+            </div>
+          </div>
         </div>
       </div>
+
       <label>Country</label>
       <div class="form-control">
         <div class="form-item">
@@ -48,25 +78,7 @@
           <div class="error-msg">Must be a valid country from a predefined list</div>
         </div>
       </div>
-      <div class="form-control">
-        <label>City</label>
-        <div class="form-item">
-          <input
-            id="city"
-            type="text"
-            placeholder="Your city"
-            v-model="address.city"
-            @input="v$.city.$validate"
-            :disabled="!isCityEdit"
-            :class="{ disabled: !isCityEdit, error: v$.city.$dirty && v$.city.validateCity.$invalid }"
-          />
-          <font-awesome-icon v-if="!isCityEdit" @click="isCityEdit = !isCityEdit" icon="pen-to-square" />
-          <div class="form-item" v-else>
-            <font-awesome-icon @click="setCity($event, 'cancel')" icon="fa-solid fa-xmark" />
-            <font-awesome-icon @click="setCity($event, 'submit')" icon="fa-solid fa-check" />
-          </div>
-        </div>
-      </div>
+
       <label>Phone number</label>
       <div class="form-control">
         <div class="form-item">
@@ -138,14 +150,22 @@
         </div>
       </div>
     </div>
-    <VCheckbox v-model="isCheckboxTrue" label="Set as default billing address" />
+    <div class="checkboxes">
+      <VSetDefaultButtonsVue
+        shippingAddress="Set as default shipping address"
+        billingAddress="Set as default billing address"
+        :addressId="address.id"
+        :version="version"
+        mode="inputAddress"
+      />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, reactive, watch } from 'vue';
 import { useStore } from 'vuex';
-import VCheckbox from '@/components/auth/registration/AddressCheckbox.vue';
+import VSetDefaultButtonsVue from '../auth/registration/VSetDefaultButtons.vue';
 import vSelect from '@/components/auth/registration/SelectForm.vue';
 import { Country } from '@/types/auth/SelectFormCountry';
 import { toast } from 'vue3-toastify';
@@ -153,34 +173,35 @@ import 'vue3-toastify/dist/index.css';
 import { useVuelidate } from '@vuelidate/core';
 import { required, minLength } from '@vuelidate/validators';
 import { validateCity, validateCountry, formatPhoneNumber } from '@/utils/auth/validator';
+import { DataFormAddress } from '@/types/auth/RegisterData';
+
+const props = defineProps<{
+  address: DataFormAddress;
+  version: number;
+}>();
 
 const store = useStore();
 const countries = ref([
   { title: 'RU', value: 'Russian Federation' },
   { title: 'US', value: 'The United States' },
 ]);
-const getUser = computed(() => store.getters['customer/getUser']);
-const getVersion = computed(() => store.getters['customer/getVersion']);
-const isCheckboxTrue = ref(false);
 const isSelectEdit = ref(false);
 const isCityEdit = ref(false);
 const isPostalCodeEdit = ref(false);
 const isPhoneEdit = ref(false);
 const isStreetEdit = ref(false);
-
 const address = reactive({
-  streetName: getUser.value.address[0].streetName,
-  city: getUser.value.address[0].city,
+  streetName: props.address.streetName,
+  city: props.address.city,
   phone: {
-    number: getUser.value.address[0].phone,
-    code: getUser.value.address[0].country,
+    number: props.address.phone,
+    code: props.address.country,
   },
-  postalCode: getUser.value.address[0].postalCode,
-  country: getUser.value.address[0].country,
-  version: getVersion,
-  addressId: getUser.value.address[0].addressId,
+  postalCode: props.address.postalCode,
+  country: props.address.country,
+  version: props.version,
+  id: props.address.id,
 });
-
 const rules = computed(() => {
   return {
     country: { required },
@@ -190,7 +211,6 @@ const rules = computed(() => {
     phone: { number: { required, minLength: minLength(17), isCountryMatchPhoneNumber } },
   };
 });
-
 const placeholders = reactive({
   postalCodePlaceholder: validateCountry[address.country].placeholder,
   phoneNumberPlaceholder: validateCountry[address.country].phoneMask,
@@ -247,7 +267,7 @@ async function setCountryToData(event: Event, mode: string) {
       actions: [
         {
           action: 'changeAddress',
-          addressId: address.addressId,
+          addressId: address.id,
           address: {
             country: selectedCountry.value?.title,
             streetName: address.streetName,
@@ -287,7 +307,7 @@ async function setCountryToData(event: Event, mode: string) {
   } else if (mode === 'cancel') {
     isSelectEdit.value = !isSelectEdit.value;
 
-    selectedCountry.value = countries.value.find((obj) => obj.title === getUser.value.address[0].country) || {
+    selectedCountry.value = countries.value.find((obj) => obj.title === props.address.country) || {
       title: '',
       value: 'Select country',
     };
@@ -310,7 +330,7 @@ async function setStreetName(event: Event, mode: string) {
       actions: [
         {
           action: 'changeAddress',
-          addressId: address.addressId,
+          addressId: address.id,
           address: {
             country: selectedCountry.value?.title,
             streetName: input.value,
@@ -348,7 +368,7 @@ async function setStreetName(event: Event, mode: string) {
   } else if (mode === 'cancel') {
     isStreetEdit.value = !isStreetEdit.value;
 
-    address.streetName = getUser.value.address[0].streetName;
+    address.streetName = props.address.streetName;
   }
 }
 // eslint-disable-next-line max-lines-per-function
@@ -368,7 +388,7 @@ async function setCity(event: Event, mode: string) {
       actions: [
         {
           action: 'changeAddress',
-          addressId: address.addressId,
+          addressId: address.id,
           address: {
             country: selectedCountry.value?.title,
             city: input.value,
@@ -406,7 +426,7 @@ async function setCity(event: Event, mode: string) {
   } else if (mode === 'cancel') {
     isCityEdit.value = !isCityEdit.value;
 
-    address.city = getUser.value.address[0].city;
+    address.city = props.address.city;
   }
 }
 // eslint-disable-next-line max-lines-per-function
@@ -426,7 +446,7 @@ async function setPostalCode(event: Event, mode: string) {
       actions: [
         {
           action: 'changeAddress',
-          addressId: address.addressId,
+          addressId: address.id,
           address: {
             country: selectedCountry.value?.title,
             postalCode: input.value,
@@ -464,7 +484,7 @@ async function setPostalCode(event: Event, mode: string) {
   } else if (mode === 'cancel') {
     isPostalCodeEdit.value = !isPostalCodeEdit.value;
 
-    address.postalCode = getUser.value.address[0].postalCode;
+    address.postalCode = props.address.postalCode;
   }
 }
 // eslint-disable-next-line max-lines-per-function
@@ -484,7 +504,7 @@ async function setPhone(event: Event, mode: string) {
       actions: [
         {
           action: 'changeAddress',
-          addressId: address.addressId,
+          addressId: address.id,
           address: {
             country: selectedCountry.value?.title,
             phone: {
@@ -524,7 +544,7 @@ async function setPhone(event: Event, mode: string) {
   } else if (mode === 'cancel') {
     isPhoneEdit.value = !isPhoneEdit.value;
 
-    address.phone.number = getUser.value.address[0].phone;
+    address.phone.number = props.address.phone;
   }
 }
 </script>
@@ -534,6 +554,14 @@ $errorColor: #ff3333;
 $mainWhiteColor: #fefefe;
 $darkBackgroundColor: #010101;
 
+.address-span {
+  display: none;
+}
+.checkboxes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .profile {
   &__header {
     font-size: 20px;
@@ -554,6 +582,20 @@ $darkBackgroundColor: #010101;
       margin-bottom: 15px;
       padding-bottom: 15px;
     }
+  }
+}
+
+.form-block {
+  display: flex;
+  gap: 15px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
   }
 }
 .form-wrapper {

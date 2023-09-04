@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="profile__header">Account</h1>
+    <h1 class="profile__header">Account information</h1>
     <div class="profile__wrapper">
       <div class="row">
         <div class="form-control">
@@ -10,6 +10,7 @@
               type="text"
               id="firstName"
               placeholder="First name"
+              v-model="data.firstName"
               :disabled="!isFirstNameEdit"
               :class="{ disabled: !isFirstNameEdit }"
             />
@@ -19,8 +20,8 @@
               icon="pen-to-square"
             />
             <div class="form-item" v-else>
-              <font-awesome-icon @click="isFirstNameEdit = !isFirstNameEdit" icon="fa-solid fa-xmark" />
-              <font-awesome-icon @click="isFirstNameEdit = !isFirstNameEdit" icon="fa-solid fa-check" />
+              <font-awesome-icon @click="setFirstName($event, 'cancel')" icon="fa-solid fa-xmark" />
+              <font-awesome-icon @click="setFirstName($event, 'submit')" icon="fa-solid fa-check" />
             </div>
           </div>
         </div>
@@ -31,13 +32,14 @@
               id="lastName"
               type="text"
               placeholder="Last name"
+              v-model="data.lastName"
               :disabled="!isLastNameEdit"
               :class="{ disabled: !isLastNameEdit }"
             />
             <font-awesome-icon v-if="!isLastNameEdit" @click="isLastNameEdit = !isLastNameEdit" icon="pen-to-square" />
             <div class="form-item" v-else>
-              <font-awesome-icon @click="isLastNameEdit = !isLastNameEdit" icon="fa-solid fa-xmark" />
-              <font-awesome-icon @click="isLastNameEdit = !isLastNameEdit" icon="fa-solid fa-check" />
+              <font-awesome-icon @click="setLastName($event, 'cancel')" icon="fa-solid fa-xmark" />
+              <font-awesome-icon @click="setLastName($event, 'submit')" icon="fa-solid fa-check" />
             </div>
           </div>
         </div>
@@ -49,13 +51,14 @@
             id="email"
             type="email"
             placeholder="Email"
+            v-model="data.email"
             :disabled="!isEmailEdit"
             :class="{ disabled: !isEmailEdit }"
           />
           <font-awesome-icon v-if="!isEmailEdit" @click="isEmailEdit = !isEmailEdit" icon="pen-to-square" />
           <div class="form-item" v-else>
-            <font-awesome-icon @click="isEmailEdit = !isEmailEdit" icon="fa-solid fa-xmark" />
-            <font-awesome-icon @click="isEmailEdit = !isEmailEdit" icon="fa-solid fa-check" />
+            <font-awesome-icon @click="setEmail($event, 'cancel')" icon="fa-solid fa-xmark" />
+            <font-awesome-icon @click="setEmail($event, 'submit')" icon="fa-solid fa-check" />
           </div>
         </div>
         <!-- <div class="input-errors" v-if="v$.body.email.$dirty && v$.body.email.required.$invalid">
@@ -75,13 +78,14 @@
             maxlength="10"
             minlength="10"
             inputmode="numeric"
+            v-model="data.dateOfBirth"
             :disabled="!isDateBirthEdit"
             :class="{ disabled: !isDateBirthEdit }"
           />
           <font-awesome-icon v-if="!isDateBirthEdit" @click="isDateBirthEdit = !isDateBirthEdit" icon="pen-to-square" />
           <div class="form-item" v-else>
-            <font-awesome-icon @click="isDateBirthEdit = !isDateBirthEdit" icon="fa-solid fa-xmark" />
-            <font-awesome-icon @click="isDateBirthEdit = !isDateBirthEdit" icon="fa-solid fa-check" />
+            <font-awesome-icon @click="setDateOfBirth($event, 'cancel')" icon="fa-solid fa-xmark" />
+            <font-awesome-icon @click="setDateOfBirth($event, 'submit')" icon="fa-solid fa-check" />
           </div>
         </div>
       </div>
@@ -90,12 +94,210 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed, reactive } from 'vue';
+import { useStore } from 'vuex';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
+const store = useStore();
+const getUser = computed(() => store.getters['customer/getUser']);
+const getVersion = computed(() => store.getters['customer/getVersion']);
 const isEmailEdit = ref(false);
 const isFirstNameEdit = ref(false);
 const isLastNameEdit = ref(false);
 const isDateBirthEdit = ref(false);
+const data = reactive({
+  firstName: getUser.value.firstName,
+  lastName: getUser.value.lastName,
+  email: getUser.value.email,
+  dateOfBirth: getUser.value.dateOfBirth,
+  version: getVersion,
+});
+
+// eslint-disable-next-line max-lines-per-function
+async function setFirstName(event: Event, mode: string) {
+  isFirstNameEdit.value = !isFirstNameEdit.value;
+
+  if (mode === 'submit') {
+    const parentElem = event.currentTarget as HTMLElement;
+
+    const input = parentElem.parentElement?.parentElement?.firstChild as HTMLInputElement;
+
+    const formData = {
+      version: data.version,
+      actions: [
+        {
+          action: 'setFirstName',
+          firstName: input.value,
+        },
+      ],
+    };
+
+    store.commit('customer/setVersion', data.version + 1);
+
+    try {
+      const updateCustomer = async () => {
+        await store.dispatch('customer/updateCustomer', formData);
+      };
+
+      toast.promise(
+        updateCustomer,
+        {
+          pending: 'First name is updating',
+          success: 'First name has updated 👌',
+          error: 'Something goes wrong 🤯',
+        },
+        {
+          theme: 'dark',
+          icon: '🎉',
+          transition: toast.TRANSITIONS.SLIDE,
+        },
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  } else if (mode === 'cancel') {
+    data.firstName = getUser.value.firstName;
+  }
+}
+// eslint-disable-next-line max-lines-per-function
+async function setLastName(event: Event, mode: string) {
+  isLastNameEdit.value = !isLastNameEdit.value;
+
+  if (mode === 'submit') {
+    const parentElem = event.currentTarget as HTMLElement;
+
+    const input = parentElem.parentElement?.parentElement?.firstChild as HTMLInputElement;
+
+    const formData = {
+      version: data.version,
+      actions: [
+        {
+          action: 'setLastName',
+          lastName: input.value,
+        },
+      ],
+    };
+
+    store.commit('customer/setVersion', data.version + 1);
+
+    try {
+      const updateCustomer = async () => {
+        await store.dispatch('customer/updateCustomer', formData);
+      };
+
+      toast.promise(
+        updateCustomer,
+        {
+          pending: 'Last name is updating',
+          success: 'Last name has updated 👌',
+          error: 'Something goes wrong 🤯',
+        },
+        {
+          theme: 'dark',
+          icon: '🎉',
+          transition: toast.TRANSITIONS.SLIDE,
+        },
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  } else if (mode === 'cancel') {
+    data.lastName = getUser.value.lastName;
+  }
+}
+// eslint-disable-next-line max-lines-per-function
+async function setDateOfBirth(event: Event, mode: string) {
+  isDateBirthEdit.value = !isDateBirthEdit.value;
+
+  if (mode === 'submit') {
+    const parentElem = event.currentTarget as HTMLElement;
+
+    const input = parentElem.parentElement?.parentElement?.firstChild as HTMLInputElement;
+
+    const formData = {
+      version: data.version,
+      actions: [
+        {
+          action: 'setDateOfBirth',
+          dateOfBirth: input.value,
+        },
+      ],
+    };
+
+    store.commit('customer/setVersion', data.version + 1);
+
+    try {
+      const updateCustomer = async () => {
+        await store.dispatch('customer/updateCustomer', formData);
+      };
+
+      toast.promise(
+        updateCustomer,
+        {
+          pending: 'Date of birth is updating',
+          success: 'Date of birth has updated 👌',
+          error: 'Something goes wrong 🤯',
+        },
+        {
+          theme: 'dark',
+          icon: '🎉',
+          transition: toast.TRANSITIONS.SLIDE,
+        },
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  } else if (mode === 'cancel') {
+    data.dateOfBirth = getUser.value.dateOfBirth;
+  }
+}
+// eslint-disable-next-line max-lines-per-function
+async function setEmail(event: Event, mode: string) {
+  isEmailEdit.value = !isEmailEdit.value;
+
+  if (mode === 'submit') {
+    const parentElem = event.currentTarget as HTMLElement;
+
+    const input = parentElem.parentElement?.parentElement?.firstChild as HTMLInputElement;
+
+    const formData = {
+      version: data.version,
+      actions: [
+        {
+          action: 'changeEmail',
+          email: input.value,
+        },
+      ],
+    };
+
+    store.commit('customer/setVersion', data.version + 1);
+
+    try {
+      const updateCustomer = async () => {
+        await store.dispatch('customer/updateCustomer', formData);
+      };
+
+      toast.promise(
+        updateCustomer,
+        {
+          pending: 'Email is updating',
+          success: 'Email has updated 👌',
+          error: 'Something goes wrong 🤯',
+        },
+        {
+          theme: 'dark',
+          icon: '🎉',
+          transition: toast.TRANSITIONS.SLIDE,
+        },
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  } else if (mode === 'cancel') {
+    data.email = getUser.value.email;
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -123,6 +123,7 @@ const submitHandler = async () => {
       password: formData.password,
     });
 
+    localStorage.setItem('isLoggedIn', JSON.stringify(true));
     toast.success(`Welcome back, ` + res.customer.firstName, {
       autoClose: 1000,
       theme: 'dark',

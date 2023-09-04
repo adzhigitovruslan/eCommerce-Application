@@ -6,9 +6,34 @@ const customerModule = {
   namespaced: true,
   state() {
     return {
-      isLoggedIn: localStorage.getItem('isLoggedIn') || false,
+      isLoggedIn: false,
       currentUserFirstName: '',
       currentUserId: '',
+      user: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        dateOfBirth: '',
+        address: [
+          {
+            streetName: '',
+            city: '',
+            phone: '',
+            postalCode: '',
+            country: '',
+            id: '',
+          },
+          {
+            streetName: '',
+            city: '',
+            phone: '',
+            postalCode: '',
+            country: '',
+            id: '',
+          },
+        ],
+      },
+      version: null,
     };
   },
   getters,

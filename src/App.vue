@@ -11,12 +11,13 @@ import { useStore } from 'vuex';
 
 function isLoggedIn() {
   const isLoggedInString = localStorage.getItem('isLoggedIn');
+  const hasId = localStorage.getItem('id');
 
-  if (isLoggedInString !== null) {
-    const isLoggedInValue = JSON.parse(isLoggedInString);
+  if (isLoggedInString !== null && hasId !== null) {
+    const isLoggedInValue: boolean = JSON.parse(isLoggedInString);
     const store = useStore();
 
-    store.commit('customer/setLoggedIn', isLoggedInValue);
+    store.commit('customer/setLoggedIn', { isLoggedInValue, hasId });
   } else {
     return false;
   }

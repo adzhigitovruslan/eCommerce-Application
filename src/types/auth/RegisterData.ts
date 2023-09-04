@@ -1,9 +1,10 @@
-interface DataFormAddress {
+export interface DataFormAddress {
   streetName: string;
   city: string;
   postalCode: string;
   country: string;
   phone: string;
+  id?: string;
 }
 
 interface BodyForm {
@@ -15,6 +16,7 @@ interface BodyForm {
   addresses: DataFormAddress[];
   billingAddresses: number[];
   shippingAddresses: number[];
+  version: number;
 }
 
 export interface RegisterData {

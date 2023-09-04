@@ -1,20 +1,28 @@
 <template>
   <div class="user__wrapper">
     <div class="user__header">
-      <h1 class="user__settings-header">Settings</h1>
+      <h1 class="user__settings-header">User Profile</h1>
       <burger-menu @set-option="setProfileOption"></burger-menu>
     </div>
     <div class="user__settings">
       <base-card class="user__profile">
         <profile-settings @set-option="setProfileOption" />
       </base-card>
-      <base-card class="user__info">
-        <transition mode="out-in">
-          <keep-alive>
-            <component :is="tab"></component>
-          </keep-alive>
-        </transition>
-      </base-card>
+      <transition mode="out-in">
+        <base-card class="user__info" v-if="profileHeader === 'Account' && !isLoading">
+          <div>
+            <ProfileInfo />
+          </div>
+        </base-card>
+        <div class="user__info-wrapper" v-else-if="profileHeader === 'Address' && !isLoading">
+          <base-card class="user__info" v-for="address in getUser.address" :key="address.id">
+            <AddressCard :address="address" :version="getVersion" />
+          </base-card>
+        </div>
+        <base-card class="user__info" v-else>
+          <base-spinner title="loading"></base-spinner>
+        </base-card>
+      </transition>
     </div>
   </div>
 </template>
@@ -22,25 +30,31 @@
 <script setup lang="ts">
 import ProfileSettings from '@/components/user-page/ProfileSettings.vue';
 import ProfileInfo from '@/components/user-page/ProfileInfo.vue';
-import BillingAddress from '@/components/user-page/BillingAddress.vue';
-import ShippingAddress from '@/components/user-page/ShippingAddress.vue';
+import AddressCard from '@/components/user-page/AddressCard.vue';
 import BurgerMenu from '@/components/user-page/BurgerMenu.vue';
-import { ref, markRaw } from 'vue';
+import { ref, computed } from 'vue';
+import { useStore } from 'vuex';
 
-let tab = ref(markRaw(ProfileInfo));
-let profileHeader = ref('');
+const store = useStore();
+let profileHeader = ref('Account');
+const isLoading = ref(false);
+const getUser = computed(() => store.getters['customer/getUser']);
+const getVersion = computed(() => store.getters['customer/getVersion']);
 
 function setProfileOption(option: string) {
   profileHeader.value = option;
+}
 
-  if (option === 'Account') {
-    tab.value = markRaw(ProfileInfo);
-  } else if (option === 'Billing address') {
-    tab.value = markRaw(BillingAddress);
-  } else if (option === 'Shipping address') {
-    tab.value = markRaw(ShippingAddress);
+async function getCustomerData() {
+  try {
+    isLoading.value = true;
+    await store.dispatch('customer/getCustomer');
+    isLoading.value = false;
+  } catch (err) {
+    console.log(err);
   }
 }
+getCustomerData();
 </script>
 
 <style lang="scss" scoped>
@@ -77,6 +91,9 @@ $mainTextColor: #fefefecc;
   &__info {
     width: 100%;
     background: #1c1c1c;
+    &-wrapper {
+      width: 100%;
+    }
   }
   &__header {
     display: flex;

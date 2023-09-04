@@ -2,6 +2,31 @@ export interface CustomerState {
   isLoggedIn: boolean;
   currentUserFirstName: string;
   currentUserId: string;
+  version: number;
+  user: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    dateOfBirth: string;
+    address: [
+      {
+        streetName: string;
+        city: string;
+        phone: string;
+        postalCode: string;
+        country: string;
+        id: string;
+      },
+      {
+        streetName: string;
+        city: string;
+        phone: string;
+        postalCode: string;
+        country: string;
+        id: string;
+      },
+    ];
+  };
 }
 
 export interface GlobalState {

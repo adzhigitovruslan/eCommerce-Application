@@ -41,7 +41,7 @@ export const formatDate = (rawDate: string) => {
         cleanedDate = cleanedDate.slice(0, 4) + '-' + fifthChar;
       }
     } else if (fifthChar === '0') {
-      if (sixthChar >= '0' && sixthChar <= '9') {
+      if (sixthChar > '0' && sixthChar <= '9') {
         cleanedDate = cleanedDate.slice(0, 4) + '-' + fifthChar + sixthChar;
       } else {
         cleanedDate = cleanedDate.slice(0, 4);
@@ -63,7 +63,7 @@ export const formatDate = (rawDate: string) => {
     const seventhChar = cleanedDate[6];
     const eighthChar = cleanedDate[7];
 
-    if (seventhChar === '0' || seventhChar === '1' || seventhChar === '2') {
+    if ((seventhChar === '0' && eighthChar !== '0') || seventhChar === '1' || seventhChar === '2') {
       cleanedDate = cleanedDate.slice(0, 4) + '-' + cleanedDate.slice(4, 6) + '-' + seventhChar + eighthChar;
     } else if (seventhChar === '3') {
       if (eighthChar === '0' || eighthChar === '1') {

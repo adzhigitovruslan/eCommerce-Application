@@ -5,19 +5,8 @@
       <div class="user__item" :class="{ active: isActive === 'Account' }" @click="setProfileOptions('Account')">
         Account
       </div>
-      <div
-        class="user__item"
-        :class="{ active: isActive === 'Billing address' }"
-        @click="setProfileOptions('Billing address')"
-      >
-        Billing address
-      </div>
-      <div
-        class="user__item"
-        :class="{ active: isActive === 'Shipping address' }"
-        @click="setProfileOptions('Shipping address')"
-      >
-        Shipping address
+      <div class="user__item" :class="{ active: isActive === 'Address' }" @click="setProfileOptions('Address')">
+        Addresses
       </div>
     </div>
   </div>

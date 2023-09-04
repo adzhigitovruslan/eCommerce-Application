@@ -11,6 +11,7 @@ const actions: ActionTree<CustomerState, GlobalState> = {
     const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
       projectKey: `${projectKey}`,
     });
+
     const doCustomer = () => {
       return apiRoot
         .me()
@@ -27,6 +28,10 @@ const actions: ActionTree<CustomerState, GlobalState> = {
     return doCustomer()
       .then(({ body }) => {
         context.commit('SET_USER', body);
+
+        const id = body.customer.id;
+
+        localStorage.setItem('id', id);
 
         return body;
       })
@@ -50,6 +55,46 @@ const actions: ActionTree<CustomerState, GlobalState> = {
       .then(({ body }) => {
         context.commit('SIGN_UP', body);
 
+        return body;
+      })
+      .catch((err) => {
+        throw err;
+      });
+  },
+  async getCustomer(context) {
+    const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
+      projectKey: `${projectKey}`,
+    });
+
+    console.log(apiRoot.quoteRequests().withId({ ID: context.state.currentUserId }).get());
+
+    return apiRoot
+      .customers()
+      .withId({ ID: context.state.currentUserId })
+      .get()
+      .execute()
+      .then((body) => {
+        context.commit('getUser', body);
+
+        return body;
+      })
+      .catch((err) => {
+        throw err;
+      });
+  },
+  async updateCustomer(context, body) {
+    const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
+      projectKey: `${projectKey}`,
+    });
+
+    return apiRoot
+      .customers()
+      .withId({ ID: context.state.currentUserId })
+      .post({
+        body,
+      })
+      .execute()
+      .then((body) => {
         return body;
       })
       .catch((err) => {

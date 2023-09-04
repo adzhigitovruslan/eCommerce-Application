@@ -8,6 +8,12 @@ const getters: GetterTree<CustomerState, GlobalState> = {
   getCurrentUserFirstName(state) {
     return state.currentUserFirstName;
   },
+  getUser(state) {
+    return state.user;
+  },
+  getVersion(state) {
+    return state.version;
+  },
 };
 
 export default getters;
