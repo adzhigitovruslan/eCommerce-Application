@@ -47,51 +47,63 @@
       </div>
 
       <div>
-        <h2>Genres</h2>
-        <label for="moba" class="category-item">
-          <input type="checkbox" id="moba" v-model="selectedCategories.MOBA.selected" @change="handleProductChange" />
-          Multiplayer Online Battle Arena
-        </label>
-        <label for="shooter" class="category-item">
-          <input
-            type="checkbox"
-            id="shooter"
-            v-model="selectedCategories.Shooter.selected"
-            @change="handleProductChange"
-          />
-          Shooter
-        </label>
-        <label for="battleRoyale" class="category-item">
-          <input
-            type="checkbox"
-            id="battleRoyale"
-            v-model="selectedCategories.BattleRoyale.selected"
-            @change="handleProductChange"
-          />
-          Battle Royale
-        </label>
-        <label for="lifeSimulation" class="category-item">
-          <input
-            type="checkbox"
-            id="lifeSimulation"
-            v-model="selectedCategories.LifeSimulation.selected"
-            @change="handleProductChange"
-          />
-          Life Simulation
-        </label>
-        <label for="actionAdventure" class="category-item">
-          <input
-            type="checkbox"
-            id="actionAdventure"
-            v-model="selectedCategories.ActionAdventure.selected"
-            @change="handleProductChange"
-          />
-          Action-adventure
-        </label>
-        <label for="rpg" class="category-item">
-          <input type="checkbox" id="rpg" v-model="selectedCategories.RPG.selected" @change="handleProductChange" />
-          Role-playing game
-        </label>
+        <h2>Video Games Genres</h2>
+        <div class="category-item">
+          <label for="moba">
+            <input type="checkbox" id="moba" v-model="selectedCategories.MOBA.selected" @change="handleProductChange" />
+            Multiplayer Online Battle Arena
+          </label>
+        </div>
+        <div class="category-item">
+          <label for="shooter">
+            <input
+              type="checkbox"
+              id="shooter"
+              v-model="selectedCategories.Shooter.selected"
+              @change="handleProductChange"
+            />
+            Shooter
+          </label>
+        </div>
+        <div class="category-item">
+          <label for="battleRoyale">
+            <input
+              type="checkbox"
+              id="battleRoyale"
+              v-model="selectedCategories.BattleRoyale.selected"
+              @change="handleProductChange"
+            />
+            Battle Royale
+          </label>
+        </div>
+        <div class="category-item">
+          <label for="lifeSimulation">
+            <input
+              type="checkbox"
+              id="lifeSimulation"
+              v-model="selectedCategories.LifeSimulation.selected"
+              @change="handleProductChange"
+            />
+            Life Simulation
+          </label>
+        </div>
+        <div class="category-item">
+          <label for="actionAdventure">
+            <input
+              type="checkbox"
+              id="actionAdventure"
+              v-model="selectedCategories.ActionAdventure.selected"
+              @change="handleProductChange"
+            />
+            Action-adventure
+          </label>
+        </div>
+        <div class="category-item">
+          <label for="rpg">
+            <input type="checkbox" id="rpg" v-model="selectedCategories.RPG.selected" @change="handleProductChange" />
+            Role-playing game
+          </label>
+        </div>
       </div>
     </div>
   </div>
@@ -154,13 +166,13 @@ export default defineComponent({
 
 <style scoped lang="scss">
 @import '@/assets/styles/global.scss';
+
 .filter-bar {
-  width: 90%;
+  width: 85%;
   padding: 15px;
   border: 2px solid rgba(30, 28, 39, 1);
   background-color: transparent;
   color: rgba(255, 255, 255, 1);
-  font-family: $manrope-font-family;
   font-size: 20px;
   font-weight: 700;
   line-height: 28px;
@@ -201,52 +213,51 @@ export default defineComponent({
       background-color: #fff;
       outline: none;
       opacity: 0.7;
-      -webkit-transition: 0.2s;
       transition: opacity 0.2s;
       border: none;
       margin: 0.4rem;
-    }
 
-    .custom-price-range::-webkit-slider-thumb {
-      width: 20px;
-      height: 20px;
-      background-color: rgba(119, 190, 29, 1);
-      cursor: pointer;
-      border-radius: 50%;
-      border: none;
-      margin-top: -8px;
-    }
+      &:focus {
+        opacity: 1;
+        outline: none;
+      }
 
-    .custom-price-range::-moz-range-thumb {
-      width: 20px;
-      height: 20px;
-      background: rgba(119, 190, 29, 1);
-      cursor: pointer;
-      border-radius: 50%;
-      border: none;
-      margin-top: -8px;
-    }
+      &:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+      }
 
-    .custom-price-range:focus {
-      opacity: 1;
-      outline: none;
-    }
+      &::-webkit-slider-thumb {
+        width: 20px;
+        height: 20px;
+        background-color: rgba(119, 190, 29, 1);
+        cursor: pointer;
+        border-radius: 50%;
+        border: none;
+        margin-top: -8px;
+      }
 
-    .custom-price-range:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-    }
+      &::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background: rgba(119, 190, 29, 1);
+        cursor: pointer;
+        border-radius: 50%;
+        border: none;
+        margin-top: -8px;
+      }
 
-    .custom-price-range::-webkit-slider-runnable-track {
-      width: 100%;
-      height: 1px;
-      background: #fff;
-    }
+      &::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 1px;
+        background: #fff;
+      }
 
-    .custom-price-range::-moz-range-track {
-      width: 100%;
-      height: 1px;
-      background: #fff;
+      &::-moz-range-track {
+        width: 100%;
+        height: 1px;
+        background: #fff;
+      }
     }
   }
 }
@@ -255,6 +266,7 @@ export default defineComponent({
   margin-bottom: 5px;
   padding: 5px;
 }
+
 .category-filter {
   label {
     display: block;
@@ -270,5 +282,37 @@ export default defineComponent({
 
 .games-label {
   padding-left: 25px;
+}
+
+@media (max-width: 768px) {
+  .filter-bar {
+    width: 100%;
+    font-size: 14px;
+    padding: 5px;
+
+    h2 {
+      font-size: 18px;
+    }
+  }
+
+  .price-filter {
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+  .category-item label {
+    font-size: 14px;
+  }
+}
+@media (max-width: 380px) {
+  .filter-bar {
+    width: 100%;
+    font-size: 12px;
+    padding: 2px;
+  }
+
+  .category-item {
+    margin-bottom: 3px;
+    font-size: 12px;
+  }
 }
 </style>

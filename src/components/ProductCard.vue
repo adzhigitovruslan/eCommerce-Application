@@ -155,6 +155,7 @@ export default defineComponent({
     color: white;
     background-color: rgba(255, 255, 255, 0.1);
     transition: background-color 0.5s, color 0.5s;
+    margin: auto;
 
     &:hover {
       background-color: rgba(255, 255, 255, 1);

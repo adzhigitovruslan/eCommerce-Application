@@ -20,7 +20,7 @@
             </ul>
           </div>
         </div>
-        <div>
+        <div class="product-cards">
           <div class="product-card-container" v-if="loading">
             <ProductCard
               v-for="product in displayedGames || []"
@@ -160,6 +160,8 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+@import '@/assets/styles/global.scss';
+
 .dropdown-list li {
   padding: 8px 16px;
   cursor: pointer;
@@ -169,6 +171,10 @@ export default defineComponent({
 .sort-dropdown {
   position: relative;
   display: inline-block;
+
+  &:hover .dropdown-list {
+    display: block;
+  }
 }
 
 .catalog-header__button {
@@ -180,6 +186,10 @@ export default defineComponent({
   padding: 0;
   width: 255px;
   height: 19px;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 }
 
 .dropdown-list {
@@ -198,14 +208,6 @@ export default defineComponent({
   height: 19px;
 }
 
-.dropdown-list li {
-  padding: 8px 16px;
-  cursor: pointer;
-}
-
-.sort-dropdown:hover .dropdown-list {
-  display: block;
-}
 .catalog {
   width: 80vw;
   margin: auto;
@@ -275,7 +277,7 @@ export default defineComponent({
       .product-card-container {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
+        gap: 30px;
         margin: auto;
         margin-top: 45px;
 
@@ -292,9 +294,84 @@ export default defineComponent({
   }
 }
 
+@media (max-width: 768px) {
+  .catalog {
+    width: 90vw;
+    margin: auto;
+    display: flex;
+
+    .catalog-container {
+      width: 90vw;
+      margin: auto;
+
+      .catalog-products {
+        margin: auto;
+        .catalog-header {
+          display: flex;
+          flex-direction: column;
+
+          h2 {
+            font-size: 28px;
+          }
+        }
+
+        .product-card-container {
+          display: grid;
+          grid-template-columns: repeat(1, 1fr);
+          gap: 70px;
+          margin: auto;
+          margin-top: 45px;
+
+          .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+            &:hover {
+              transform: scale(1.02);
+              box-shadow: 0px 8px 12px rgba(200, 200, 200, 0.4);
+            }
+          }
+        }
+      }
+    }
+    .catalog-header {
+      .catalog-header__button {
+        width: auto;
+        margin-top: 50px;
+      }
+    }
+  }
+}
+
 @media (max-width: 380px) {
-  h2 {
-    text-align: center;
+  .catalog {
+    .catalog-container {
+      display: flex;
+      flex-direction: column;
+      margin: auto;
+      margin-top: 50px;
+      width: 100%;
+
+      .catalog-products {
+        margin: auto;
+        max-width: 90vw;
+        margin-top: 50px;
+
+        .catalog-header {
+          display: flex;
+          flex-direction: column;
+
+          h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+          }
+
+          .catalog-header__button {
+            width: auto;
+          }
+        }
+      }
+    }
   }
 }
 </style>
