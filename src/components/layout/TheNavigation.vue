@@ -7,7 +7,7 @@
             :icon="['fas', 'bars']"
             class="menu_bars fa-rotate-transition"
             :class="{ 'fa-rotate-90': showMenu }"
-          />
+          ></font-awesome-icon>
         </button>
       </div>
       <div class="menu-overlay" v-if="showMenu" @click="toggleMenuAndHide"></div>
@@ -76,8 +76,18 @@
         <span class="link-text">Playnchill</span>
       </router-link>
       <div class="search-input">
-        <input v-model="searchTerm" type="text" placeholder="Search products" class="search-input input" />
-        <font-awesome-icon :icon="['fas', 'search']" class="search-icon" />
+        <input
+          v-model="searchTerm"
+          type="text"
+          placeholder="Search products"
+          class="search-input input"
+          list="productSuggestions"
+          @input="searchProducts"
+        />
+        <font-awesome-icon :icon="['fas', 'search']" class="search-icon" @click="handleSearch"></font-awesome-icon>
+        <datalist id="productSuggestions">
+          <option v-for="(product, index) in productSuggestions" :value="product" :key="index">{{ product }}</option>
+        </datalist>
       </div>
       <div>
         <router-link
@@ -115,7 +125,7 @@
           data-type="cart"
           @click="setActiveLink('cart')"
         >
-          <font-awesome-icon :icon="['fas', 'cart-shopping']" />
+          <font-awesome-icon :icon="['fas', 'cart-shopping']"></font-awesome-icon>
         </router-link>
       </div>
     </nav>
@@ -123,6 +133,7 @@
 </template>
 
 <script lang="ts">
+import { ProductItem } from '@/types/interfaces/productItem';
 import { defineComponent } from 'vue';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
@@ -135,6 +146,7 @@ export default defineComponent({
       searchTerm: '',
       activeLink: '',
       showMenu: false,
+      productSuggestions: [] as string[],
     };
   },
   methods: {
@@ -159,6 +171,29 @@ export default defineComponent({
     },
     hideMenu() {
       this.showMenu = false;
+    },
+    searchProducts() {
+      const searchTerm = this.searchTerm.toLowerCase();
+      const products = this.$store.state.products.products || [];
+
+      const filteredProducts = products.filter((product: ProductItem) => {
+        const productName = product.name['en-US'].toLowerCase();
+
+        return productName.includes(searchTerm);
+      });
+
+      this.productSuggestions = filteredProducts.map((product: ProductItem) => product.name['en-US']);
+
+      if (this.$route.name === 'catalog') {
+        this.$store.commit('setProducts', filteredProducts);
+      }
+    },
+    handleSearch() {
+      if (this.$route.name === 'catalog') {
+        this.searchProducts();
+
+        this.searchTerm = '';
+      }
     },
   },
   computed: {
@@ -209,7 +244,7 @@ export default defineComponent({
 .search-icon {
   position: absolute;
   top: 50%;
-  right: 10px;
+  right: 30px;
   transform: translateY(-50%);
   font-size: 16px;
   color: #ffffff33;
@@ -350,6 +385,8 @@ option:checked {
 @media (max-width: 768px) {
   .header {
     height: auto;
+    width: 90vw;
+    margin: auto;
   }
 
   nav {
