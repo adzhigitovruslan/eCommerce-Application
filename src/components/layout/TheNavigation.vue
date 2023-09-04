@@ -84,7 +84,7 @@
           list="productSuggestions"
           @input="searchProducts"
         />
-        <font-awesome-icon :icon="['fas', 'search']" class="search-icon" @click="clearSearchInput"></font-awesome-icon>
+        <font-awesome-icon :icon="['fas', 'search']" class="search-icon" @click="handleSearch"></font-awesome-icon>
         <datalist id="productSuggestions">
           <option v-for="(product, index) in productSuggestions" :value="product" :key="index">{{ product }}</option>
         </datalist>
@@ -183,10 +183,17 @@ export default defineComponent({
       });
 
       this.productSuggestions = filteredProducts.map((product: ProductItem) => product.name['en-US']);
-      this.$store.commit('setProducts', filteredProducts);
+
+      if (this.$route.name === 'catalog') {
+        this.$store.commit('setProducts', filteredProducts);
+      }
     },
-    clearSearchInput() {
-      this.searchTerm = '';
+    handleSearch() {
+      if (this.$route.name === 'catalog') {
+        this.searchProducts();
+
+        this.searchTerm = '';
+      }
     },
   },
   computed: {
@@ -237,7 +244,7 @@ export default defineComponent({
 .search-icon {
   position: absolute;
   top: 50%;
-  right: 10px;
+  right: 30px;
   transform: translateY(-50%);
   font-size: 16px;
   color: #ffffff33;
