@@ -180,12 +180,14 @@ export default defineComponent({
   text-align: left;
 
   h2 {
-    margin-bottom: 5px;
+    margin-bottom: 20px;
+    margin-top: 20px;
     font-size: 20px;
     font-weight: 700;
     line-height: 28px;
     letter-spacing: 0em;
     text-align: left;
+    color: #808080;
   }
 
   .price-filter {
