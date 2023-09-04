@@ -1,5 +1,5 @@
 <template>
-  <div class="promotion-card" :key="product.id">
+  <router-link class="promotion-card" :key="product.id" :to="`product:${product.masterData.current.slug['en-US']}`">
     <img
       :src="getCoverImageUrl(product.masterData.current.masterVariant.images)"
       :alt="product.masterData.current.name['en-US']"
@@ -12,7 +12,7 @@
       </div>
       <div class="game-name">{{ product.masterData.current.name['en-US'] }}</div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script lang="ts">

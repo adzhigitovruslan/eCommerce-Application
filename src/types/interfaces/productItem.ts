@@ -8,13 +8,16 @@ export interface ProductItem {
   };
   masterData: {
     current: {
-      slug: string;
+      slug: {
+        'en-US': string;
+      };
       name: Record<string, string>;
       description: Record<string, string>;
       masterVariant: {
         prices: Array<{
           value: {
             centAmount: number;
+            currencyCode: string;
           };
           discounted?: {
             discount: {
