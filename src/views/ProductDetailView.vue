@@ -10,7 +10,7 @@
       :ratings="+ratings"
     />
     <TheCardCarousel :imgArr="imgArrFilter" />
-    <TheCardDescription :description="description" :requirements="requirements" />
+    <TheCardDescription :description="description" :requirements="`${requirements}`" />
   </section>
 </template>
 
@@ -36,22 +36,18 @@ const beforeRouteLeave = (to: RouteLocationNormalized, from: RouteLocationNormal
   next();
 };
 const products = store.getters['allProducts'];
-const currentProd: ProductItem = products.find((prod: ProductItem) => prod.masterData.current.slug['en-US'] === prodId);
-const images = currentProd.masterData.current.masterVariant.images;
+const currentProd: ProductItem = products.find((prod: ProductItem) => prod.slug['en-US'] === prodId);
+const images = currentProd.masterVariant.images;
 const coverImg = images.find((img) => img.label === 'Cover')?.url;
-const name = currentProd.masterData.current.name['en-US'];
-const price = currentProd.masterData.current.masterVariant.prices[0].value;
+const name = currentProd.name['en-US'];
+const price = currentProd.masterVariant.prices[0].value;
 const firstPrice = `${price.centAmount}`.length === 3 ? `${price.centAmount}`[1] : `${price.centAmount}`.slice(0, 2);
 const secondPrice =
   `${price.centAmount}`.length === 3 ? `${price.centAmount}`.slice(1) : `${price.centAmount}`.slice(2);
 const priceStr = `${firstPrice}.${secondPrice} ${price.currencyCode}`;
-const genre = currentProd.masterData.current.masterVariant.attributes.find((att) => att.name === 'Genre')?.value;
-const publisher = currentProd.masterData.current.masterVariant.attributes.find(
-  (att) => att.name === 'Publisher',
-)?.value;
-const ratings = `${
-  currentProd.masterData.current.masterVariant.attributes.find((att) => att.name === 'Ratings')?.value
-}`;
+const genre = currentProd.masterVariant.attributes.find((att) => att.name === 'Genre')?.value;
+const publisher = currentProd.masterVariant.attributes.find((att) => att.name === 'Publisher')?.value;
+const ratings = `${currentProd.masterVariant.attributes.find((att) => att.name === 'Ratings')?.value}`;
 const imgArr = images.map((img, index) => {
   const isSlide = !img.label;
 
@@ -62,10 +58,8 @@ const imgArr = images.map((img, index) => {
   };
 });
 const imgArrFilter = imgArr.filter((img) => img.isSlide);
-const description = currentProd.masterData.current.description['en-US'];
-const requirements = currentProd.masterData.current.masterVariant.attributes.find(
-  (att) => att.name === 'System_Requirements',
-)?.value;
+const description = currentProd.description['en-US'];
+const requirements = currentProd.masterVariant.attributes.find((att) => att.name === 'System_Requirements')?.value;
 
 onMounted(() => {
   if (backgroundImg.value)

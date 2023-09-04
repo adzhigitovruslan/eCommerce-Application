@@ -1,21 +1,31 @@
 <template>
   <div class="catalog">
     <div class="catalog-container">
-      <div class="catalog-filters">Filters</div>
+      <div class="catalog-filters"><FilterBar /></div>
+
       <div class="catalog-products">
         <div class="catalog-header">
           <h2>This is a catalog</h2>
-          <button class="catalog-header__button">
-            <div>Sort by higher price</div>
-            <span>v</span>
-          </button>
+          <div class="sort-dropdown">
+            <button class="catalog-header__button" @click="toggleDropdown">
+              <div>{{ selectedOption }}</div>
+              <span v-if="isDropdownOpen">▲</span>
+              <span v-else>▼</span>
+            </button>
+            <ul v-show="isDropdownOpen" class="dropdown-list">
+              <li @click="sortByHigherPrice">Sort by higher Price</li>
+              <li @click="sortAZ">Sort A-Z</li>
+              <li @click="sortZA">Sort Z-A</li>
+              <li @click="sortByLowerPrice">Sort by lower Price</li>
+            </ul>
+          </div>
         </div>
-        <div>
+        <div class="product-cards">
           <div class="product-card-container" v-if="loading">
             <ProductCard
-              v-for="game in games || []"
-              :key="game.id"
-              :product="game"
+              v-for="product in displayedGames || []"
+              :key="product.id"
+              :product="product"
               imageClass="image-mode"
               class="product-card"
             />
@@ -28,52 +38,176 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+import { defineComponent, onMounted, ref, watch } from 'vue';
 import { ProductItem } from '@/types/interfaces/productItem';
 import ProductCard from '@/components/ProductCard.vue';
 import { useStore } from 'vuex';
+import FilterBar from '@/components/FilterBar.vue';
 
 export default defineComponent({
+  data() {
+    return {
+      isDropdownOpen: false,
+      selectedOption: 'Sort by higher price',
+    };
+  },
   components: {
     ProductCard,
+    FilterBar,
   },
   setup() {
     const store = useStore();
     const loading = ref(false);
+    const displayedGames = ref<ProductItem[]>([]);
+
+    const priceRange = store.state.products.priceRange;
 
     onMounted(async () => {
-      await store.dispatch('fetchProducts');
+      await store.dispatch('fetchProducts', priceRange);
       loading.value = true;
+      displayedGames.value = store.state.products.products || [];
     });
+
+    watch(
+      () => store.state.products.priceRange,
+      (newPriceRange) => {
+        store.dispatch('fetchProducts', newPriceRange);
+      },
+      { immediate: true },
+    );
+    watch(
+      () => store.state.products.products,
+      (newProducts) => {
+        displayedGames.value = newProducts || [];
+      },
+      { immediate: true },
+    );
+    watch(
+      () => store.state.products.selectedCategories,
+      (newSelectedCategories) => {
+        store.dispatch('fetchProducts', newSelectedCategories);
+      },
+      { deep: true, immediate: true },
+    );
 
     return {
       loading,
+      displayedGames,
     };
   },
-  computed: {
-    games(): ProductItem[] {
-      const fetchedGames = this.$store.state.products.products || [];
-
-      return this.shuffleArray(fetchedGames);
-    },
-  },
   methods: {
-    shuffleArray(array: ProductItem[]): ProductItem[] {
-      const shuffledArray = array.slice();
+    toggleDropdown() {
+      this.isDropdownOpen = !this.isDropdownOpen;
+    },
+    sortByHigherPrice() {
+      this.selectedOption = 'Sort by higher price';
+      console.log(this.$store.state.products);
 
-      for (let i = shuffledArray.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+      const products = [...this.$store.state.products.products];
 
-        [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-      }
+      products.sort((a, b) => {
+        const priceA = a.masterVariant.prices[0]?.value?.centAmount || 0;
+        const priceB = b.masterVariant.prices[0]?.value?.centAmount || 0;
 
-      return shuffledArray;
+        return priceB - priceA;
+      });
+
+      this.$store.commit('setProducts', products);
+    },
+    sortAZ() {
+      this.selectedOption = 'Sort A-Z';
+
+      const products = [...this.$store.state.products.products];
+
+      products.sort((a, b) => {
+        const nameA = a.name['en-US'].toLowerCase();
+        const nameB = b.name['en-US'].toLowerCase();
+
+        return nameA.localeCompare(nameB);
+      });
+      this.$store.commit('setProducts', products);
+    },
+    sortZA() {
+      this.selectedOption = 'Sort Z-A';
+
+      const products = [...this.$store.state.products.products];
+
+      products.sort((a, b) => {
+        const nameA = a.name['en-US'].toLowerCase();
+        const nameB = b.name['en-US'].toLowerCase();
+
+        return nameB.localeCompare(nameA);
+      });
+
+      this.$store.commit('setProducts', products);
+    },
+    sortByLowerPrice() {
+      this.selectedOption = 'Sort by lower price';
+
+      const products = [...this.$store.state.products.products];
+
+      products.sort((a, b) => {
+        const priceA = a.masterVariant.prices[0]?.value?.centAmount || 0;
+        const priceB = b.masterVariant.prices[0]?.value?.centAmount || 0;
+
+        return priceA - priceB;
+      });
+
+      this.$store.commit('setProducts', products);
     },
   },
 });
 </script>
 
 <style scoped lang="scss">
+@import '@/assets/styles/global.scss';
+
+.dropdown-list li {
+  padding: 8px 16px;
+  cursor: pointer;
+  background-color: rgba(27, 23, 41, 1);
+}
+
+.sort-dropdown {
+  position: relative;
+  display: inline-block;
+
+  &:hover .dropdown-list {
+    display: block;
+  }
+}
+
+.catalog-header__button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  width: 255px;
+  height: 19px;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.dropdown-list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: rgba(27, 23, 41, 1);
+  color: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+  width: 255px;
+  height: 19px;
+}
+
 .catalog {
   width: 80vw;
   margin: auto;
@@ -143,7 +277,7 @@ export default defineComponent({
       .product-card-container {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
+        gap: 30px;
         margin: auto;
         margin-top: 45px;
 
@@ -160,9 +294,84 @@ export default defineComponent({
   }
 }
 
+@media (max-width: 768px) {
+  .catalog {
+    width: 90vw;
+    margin: auto;
+    display: flex;
+
+    .catalog-container {
+      width: 90vw;
+      margin: auto;
+
+      .catalog-products {
+        margin: auto;
+        .catalog-header {
+          display: flex;
+          flex-direction: column;
+
+          h2 {
+            font-size: 28px;
+          }
+        }
+
+        .product-card-container {
+          display: grid;
+          grid-template-columns: repeat(1, 1fr);
+          gap: 70px;
+          margin: auto;
+          margin-top: 45px;
+
+          .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+            &:hover {
+              transform: scale(1.02);
+              box-shadow: 0px 8px 12px rgba(200, 200, 200, 0.4);
+            }
+          }
+        }
+      }
+    }
+    .catalog-header {
+      .catalog-header__button {
+        width: auto;
+        margin-top: 50px;
+      }
+    }
+  }
+}
+
 @media (max-width: 380px) {
-  h2 {
-    text-align: center;
+  .catalog {
+    .catalog-container {
+      display: flex;
+      flex-direction: column;
+      margin: auto;
+      margin-top: 50px;
+      width: 100%;
+
+      .catalog-products {
+        margin: auto;
+        max-width: 90vw;
+        margin-top: 50px;
+
+        .catalog-header {
+          display: flex;
+          flex-direction: column;
+
+          h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+          }
+
+          .catalog-header__button {
+            width: auto;
+          }
+        }
+      }
+    }
   }
 }
 </style>

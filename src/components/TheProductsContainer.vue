@@ -33,9 +33,9 @@ export default defineComponent({
     rows(): ProductItem[][] {
       const fetchedGames = this.$store.state.products.products || [];
 
-      const filteredGames = fetchedGames.filter(
-        (game: ProductItem) => game.productType.id === '80040722-52b8-4a44-a613-005b0b124877',
-      );
+      const typeGame = '80040722-52b8-4a44-a613-005b0b124877';
+
+      const filteredGames = fetchedGames.filter((game: ProductItem) => game.productType.id === typeGame);
 
       const games = this.shuffleArray(filteredGames);
 
