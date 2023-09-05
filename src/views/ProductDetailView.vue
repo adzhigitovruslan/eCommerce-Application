@@ -11,7 +11,7 @@
       :publisher="`${publisher}`"
       :ratings="+ratings"
     />
-    <TheCardCarousel :imgArr="imgArrFilter" @click="isModalImg = true" />
+    <TheCardCarousel :imgArr="imgArrFilter" />
     <TheCardDescription :description="description" :requirements="`${requirements}`" />
     <div v-if="isModalImg">
       <TheModalImgWindow :imgArr="imgArrFilter" />
@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, provide } from 'vue';
 import { useRouter, RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 import { useStore } from 'vuex';
 import { ProductItem } from '@/types/interfaces/productItem';
@@ -66,9 +66,16 @@ const imgArr = images.map((img, index) => {
     isSlide: isSlide,
   };
 });
-const imgArrFilter = imgArr.filter((img) => img.isSlide);
+const imgArrFilter = ref(imgArr.filter((img) => img.isSlide));
 const description = currentProd.description['en-US'];
 const requirements = currentProd.masterVariant.attributes.find((att) => att.name === 'System_Requirements')?.value;
+
+function openModalWindow(imgId: number) {
+  imgArrFilter.value.sort((img) => (img.id === imgId ? -1 : +1));
+  isModalImg.value = true;
+}
+
+provide('openModalWindow', openModalWindow);
 
 onMounted(async () => {
   if (backgroundImg.value)
