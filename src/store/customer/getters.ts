@@ -14,6 +14,9 @@ const getters: GetterTree<CustomerState, GlobalState> = {
   getVersion(state) {
     return state.version;
   },
+  getDefaultAddresses(state) {
+    return state.defaultAddresses;
+  },
 };
 
 export default getters;

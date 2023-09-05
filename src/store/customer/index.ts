@@ -14,26 +14,13 @@ const customerModule = {
         lastName: '',
         email: '',
         dateOfBirth: '',
-        address: [
-          {
-            streetName: '',
-            city: '',
-            phone: '',
-            postalCode: '',
-            country: '',
-            id: '',
-          },
-          {
-            streetName: '',
-            city: '',
-            phone: '',
-            postalCode: '',
-            country: '',
-            id: '',
-          },
-        ],
+        address: [],
       },
       version: null,
+      defaultAddresses: {
+        billingId: '',
+        shippingId: '',
+      },
     };
   },
   getters,

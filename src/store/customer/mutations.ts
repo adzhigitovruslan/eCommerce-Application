@@ -1,5 +1,5 @@
 import { ServerResponse } from '@/types/interfaces/api';
-import { CustomerState } from '@/types/interfaces/states';
+import { CustomerState, IAddress } from '@/types/interfaces/states';
 import { RegisterData } from '@/types/auth/RegisterData';
 
 export default {
@@ -30,17 +30,31 @@ export default {
     state.user.email = payload.body.email;
     state.user.dateOfBirth = payload.body.dateOfBirth;
     state.version = payload.body.version;
-    payload.body.addresses.forEach((obj, index) => {
-      state.user.address[index].country = obj.country;
-      state.user.address[index].city = obj.city;
-      state.user.address[index].phone = obj.phone;
-      state.user.address[index].postalCode = obj.postalCode;
-      state.user.address[index].streetName = obj.streetName;
 
-      if (obj.id) state.user.address[index].id = obj.id;
+    if (payload.body.defaultBillingAddressId) state.defaultAddresses.billingId = payload.body.defaultBillingAddressId;
+
+    if (payload.body.defaultShippingAddressId)
+      state.defaultAddresses.shippingId = payload.body.defaultShippingAddressId;
+    payload.body.addresses.forEach((obj, index) => {
+      const address = {
+        streetName: obj.streetName,
+        city: obj.city,
+        phone: obj.phone,
+        postalCode: obj.postalCode,
+        country: obj.country,
+        id: obj.id ? obj.id : '',
+      };
+
+      state.user.address.push(address);
     });
   },
   setVersion(state: CustomerState, payload: number) {
     state.version = payload;
+  },
+  deleteAddress(state: CustomerState, id: string) {
+    state.user.address = state.user.address.filter((obj) => obj.id !== id);
+  },
+  addNewAddress(state: CustomerState, payload: IAddress) {
+    state.user.address.unshift(payload);
   },
 };

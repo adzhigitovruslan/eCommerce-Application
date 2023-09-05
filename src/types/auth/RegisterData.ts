@@ -17,6 +17,8 @@ interface BodyForm {
   billingAddresses: number[];
   shippingAddresses: number[];
   version: number;
+  defaultBillingAddressId?: string;
+  defaultShippingAddressId?: string;
 }
 
 export interface RegisterData {

@@ -1,10 +1,16 @@
 <template>
   <div class="address-card">
-    <h1 class="profile__header">
-      Address
-      <span class="address-span" data-span="spanBilling">Default billing address</span>
-      <span class="address-span" data-span="spanShipping">Default shipping address</span>
-    </h1>
+    <div class="address-card__header">
+      <div class="address-card__header-row">
+        <h1 class="profile__header">Address</h1>
+        <font-awesome-icon @click="deleteAddress" icon="fa-solid fa-xmark"></font-awesome-icon>
+      </div>
+      <div class="address-card__span-block">
+        <span class="address-span" data-span="spanBilling">Default billing address</span>
+        <span class="address-span" data-span="spanShipping">Default shipping address</span>
+      </div>
+    </div>
+
     <div class="form-wrapper">
       <div class="form-block">
         <div class="form-block__item">
@@ -163,7 +169,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, reactive, watch } from 'vue';
+import { ref, computed, reactive, watch, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import VSetDefaultButtonsVue from '../auth/registration/VSetDefaultButtons.vue';
 import vSelect from '@/components/auth/registration/SelectForm.vue';
@@ -178,6 +184,10 @@ import { DataFormAddress } from '@/types/auth/RegisterData';
 const props = defineProps<{
   address: DataFormAddress;
   version: number;
+  defaultAddresses: {
+    billingId: string;
+    shippingId: string;
+  };
 }>();
 
 const store = useStore();
@@ -545,6 +555,79 @@ async function setPhone(event: Event, mode: string) {
     address.phone.number = props.address.phone;
   }
 }
+
+async function deleteAddress() {
+  const formData = {
+    version: address.version,
+    actions: [
+      {
+        action: 'removeAddress',
+        addressId: props.address.id,
+      },
+    ],
+  };
+
+  try {
+    const updateCustomer = async () => {
+      const res = await store.dispatch('customer/updateCustomer', formData);
+
+      store.commit('customer/setVersion', res.body.version);
+    };
+
+    toast.promise(
+      updateCustomer,
+      {
+        pending: 'Address is deleting',
+        success: 'Address has deleted 👌',
+        error: 'Something goes wrong 🤯',
+      },
+      {
+        theme: 'dark',
+        icon: '🎉',
+        transition: toast.TRANSITIONS.SLIDE,
+      },
+    );
+    store.commit('customer/deleteAddress', props.address.id);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function getDefaultAddresses() {
+  const shippingId = props.defaultAddresses.shippingId;
+  const billingId = props.defaultAddresses.billingId;
+
+  if (address.id === shippingId) {
+    const inputElemShipping = document.querySelector(
+      `input[name="${shippingId}"][data-type="shippingAddress"]`,
+    ) as HTMLInputElement;
+
+    inputElemShipping.checked = true;
+
+    const spanShipping = inputElemShipping
+      .closest('.address-card')
+      ?.querySelector('.address-card__span-block > span[data-span="spanShipping"]') as HTMLSpanElement;
+
+    spanShipping.style.display = 'inline';
+  }
+
+  if (address.id === billingId) {
+    const inputElemBilling = document.querySelector(
+      `input[name="${billingId}"][data-type="billingAddress"]`,
+    ) as HTMLInputElement;
+
+    inputElemBilling.checked = true;
+
+    const spanBilling = inputElemBilling
+      .closest('.address-card')
+      ?.querySelector('.address-card__span-block > span[data-span="spanBilling"]') as HTMLSpanElement;
+
+    spanBilling.style.display = 'inline';
+  }
+}
+onMounted(() => {
+  getDefaultAddresses();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -552,22 +635,48 @@ $errorColor: #ff3333;
 $mainWhiteColor: #fefefe;
 $darkBackgroundColor: #010101;
 
-.address-span {
-  display: none;
-}
-.checkboxes {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.profile {
+.address-card {
+  position: relative;
+  &__span-block {
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
   &__header {
-    font-size: 20px;
-    font-weight: 900;
     border-bottom: 1px solid #fefefecc;
     margin-bottom: 20px;
-    line-height: 50px;
-    transition: 0.5s ease;
+    padding-bottom: 15px;
+    &-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    & .address-span {
+      display: none;
+    }
+    .profile {
+      &__header {
+        font-size: 20px;
+        font-weight: 900;
+        line-height: 50px;
+        transition: 0.5s ease;
+
+        @media (max-width: 600px) {
+          font-size: calc(16px + (20 - 16) * ((100vw - 320px) / (600 - 320)));
+        }
+      }
+    }
+    & svg {
+      position: absolute;
+      right: 0;
+      top: 20px;
+      transition: 0.2s;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
     & span {
       font-size: 13px;
       background-color: green;
@@ -575,12 +684,13 @@ $darkBackgroundColor: #010101;
       border-radius: 5px;
       padding: 2px;
     }
-    @media (max-width: 600px) {
-      font-size: calc(16px + (20 - 16) * ((100vw - 320px) / (600 - 320)));
-      margin-bottom: 15px;
-      padding-bottom: 15px;
-    }
   }
+}
+
+.checkboxes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .form-block {

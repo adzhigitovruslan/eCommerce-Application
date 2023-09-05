@@ -74,7 +74,7 @@ function setShippingAddress(event: Event) {
   const inputElem = event.target as HTMLInputElement;
   const spanShipping = inputElem
     .closest('.address-card')
-    ?.querySelector('.profile__header > span[data-span="spanShipping"]') as HTMLSpanElement;
+    ?.querySelector('.address-card__span-block > span[data-span="spanShipping"]') as HTMLSpanElement;
   const allSpans = [...document.querySelectorAll('span[data-span="spanShipping"]')] as HTMLSpanElement[];
 
   allSpans.forEach((span) => {
@@ -128,7 +128,7 @@ function setBillingAddress(event: Event) {
   const allSpans = [...document.querySelectorAll('span[data-span="spanBilling"]')] as HTMLSpanElement[];
   const spanBilling = inputElem
     .closest('.address-card')
-    ?.querySelector('.profile__header > span[data-span="spanBilling"]') as HTMLSpanElement;
+    ?.querySelector('.address-card__span-block > span[data-span="spanBilling"]') as HTMLSpanElement;
 
   allSpans.forEach((span) => {
     span.style.display = 'none';

@@ -6,30 +6,26 @@ export interface CustomerState {
   currentUserFirstName: string;
   currentUserId: string;
   version: number;
+  defaultAddresses: {
+    billingId: string;
+    shippingId: string;
+  };
   user: {
     firstName: string;
     lastName: string;
     email: string;
     dateOfBirth: string;
-    address: [
-      {
-        streetName: string;
-        city: string;
-        phone: string;
-        postalCode: string;
-        country: string;
-        id: string;
-      },
-      {
-        streetName: string;
-        city: string;
-        phone: string;
-        postalCode: string;
-        country: string;
-        id: string;
-      },
-    ];
+    address: IAddress[];
   };
+}
+
+export interface IAddress {
+  streetName: string;
+  city: string;
+  phone: string;
+  postalCode: string;
+  country: string;
+  id: string;
 }
 
 export interface GlobalState {
