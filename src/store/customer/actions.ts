@@ -99,6 +99,25 @@ const actions: ActionTree<CustomerState, GlobalState> = {
         throw err;
       });
   },
+  async changePassword(context, body) {
+    const apiRoot = createApiBuilderFromCtpClient(ctpClient).withProjectKey({
+      projectKey: `${projectKey}`,
+    });
+
+    return apiRoot
+      .customers()
+      .password()
+      .post({ body })
+      .execute()
+      .then((body) => {
+        console.log(body);
+
+        return body;
+      })
+      .catch((err) => {
+        throw err;
+      });
+  },
 };
 
 export default actions;

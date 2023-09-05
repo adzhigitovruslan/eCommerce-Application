@@ -14,6 +14,11 @@
             <ProfileInfo />
           </base-card>
         </div>
+        <div class="user__info-wrapper" v-else-if="profileHeader === 'Password' && !isLoading">
+          <base-card class="user__info">
+            <PasswordCard />
+          </base-card>
+        </div>
         <div class="user__info-wrapper" v-else-if="profileHeader === 'Address' && !isLoading">
           <base-card class="user__info add-address" @click="isNewAddress = !isNewAddress">
             <h1>Add new address</h1>
@@ -46,6 +51,7 @@ import ProfileInfo from '@/components/user-page/ProfileInfo.vue';
 import AddressCard from '@/components/user-page/AddressCard.vue';
 import BurgerMenu from '@/components/user-page/BurgerMenu.vue';
 import NewAddress from '@/components/user-page/NewAddress.vue';
+import PasswordCard from '@/components/user-page/PasswordCard.vue';
 import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
 

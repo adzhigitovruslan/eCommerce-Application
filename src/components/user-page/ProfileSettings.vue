@@ -3,7 +3,10 @@
     <div class="user__wrapper">
       <div class="user__item header">Profile Settings</div>
       <div class="user__item" :class="{ active: isActive === 'Account' }" @click="setProfileOptions('Account')">
-        Account
+        Personal info
+      </div>
+      <div class="user__item" :class="{ active: isActive === 'Password' }" @click="setProfileOptions('Password')">
+        Change password
       </div>
       <div class="user__item" :class="{ active: isActive === 'Address' }" @click="setProfileOptions('Address')">
         Addresses
