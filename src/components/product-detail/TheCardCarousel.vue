@@ -1,6 +1,6 @@
 <template>
   <div class="carousel-wrapper">
-    <Carousel v-bind="settings" :breakpoints="breakpoints" ref="myCarousel">
+    <Carousel v-bind="settings" :breakpoints="breakpoints">
       <Slide v-for="slide in props.imgArr" :key="slide.id">
         <div class="carousel__item">
           <img :src="slide.url" alt="logo" class="carousel__item__img" @click="openModalWindow(slide.id)" />
@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, inject } from 'vue';
+import { reactive, inject } from 'vue';
 import { Carousel, Navigation, Slide } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 
@@ -25,7 +25,6 @@ interface IImg {
   isSlide: boolean;
 }
 
-const myCarousel = ref(null);
 const props = defineProps<{
   imgArr: IImg[];
 }>();

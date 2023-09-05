@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, provide } from 'vue';
+import { onMounted, ref, reactive, provide } from 'vue';
 import { useRouter, RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 import { useStore } from 'vuex';
 import { ProductItem } from '@/types/interfaces/productItem';
@@ -66,12 +66,13 @@ const imgArr = images.map((img, index) => {
     isSlide: isSlide,
   };
 });
-const imgArrFilter = ref(imgArr.filter((img) => img.isSlide));
+const imgArrFilter = reactive(imgArr.filter((img) => img.isSlide));
 const description = currentProd.description['en-US'];
 const requirements = currentProd.masterVariant.attributes.find((att) => att.name === 'System_Requirements')?.value;
 
 function openModalWindow(imgId: number) {
-  imgArrFilter.value.sort((img) => (img.id === imgId ? -1 : +1));
+  imgArrFilter.sort((img) => (img.id === imgId ? -1 : +1));
+  console.log(imgArrFilter);
   isModalImg.value = true;
 }
 

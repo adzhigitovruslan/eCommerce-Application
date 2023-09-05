@@ -73,7 +73,7 @@ const breakpoints = reactive({
   border-radius: 15px;
 
   &__img {
-    max-height: 400px;
+    width: 70%;
     border-radius: 15px;
   }
 }
