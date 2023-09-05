@@ -1,5 +1,5 @@
 <template>
-  <div class="carousel-wrapper">
+  <div class="modal-window-carousel">
     <Carousel v-bind="settings" :breakpoints="breakpoints">
       <Slide v-for="slide in props.imgArr" :key="slide.id">
         <div class="carousel__item">
@@ -33,7 +33,7 @@ const settings = reactive({
   itemsToShow: 1,
   wrapAround: true,
   transition: 500,
-  autoplay: 5000,
+  autoplay: 0,
   mouseDrag: true,
   touchDrag: true,
   pauseAutoplayOnHover: true,
@@ -43,31 +43,37 @@ const settings = reactive({
 const breakpoints = reactive({
   // 700px and up
   700: {
-    itemsToShow: 2,
+    itemsToShow: 1,
     snapAlign: 'center',
   },
   // 1024 and up
   1024: {
-    itemsToShow: 2,
+    itemsToShow: 1,
     snapAlign: 'start',
   },
 });
 </script>
 
 <style lang="scss" scoped>
-.carousel-wrapper {
-  max-width: 700px;
-  margin: 70px auto 70px;
+.modal-window-carousel {
+  position: fixed;
+  max-width: 900px;
+  max-height: 500px;
+  padding: 50px 40px;
+  z-index: 5;
+  background-color: #322d42;
+  border-radius: 15px;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
 }
 
 .carousel__item {
-  max-width: 297px;
-  height: 167px;
   border-radius: 15px;
 
   &__img {
-    height: 167px;
-    cursor: pointer;
+    max-height: 400px;
     border-radius: 15px;
   }
 }

@@ -4,7 +4,17 @@
     <div class="detail-view__content__card">
       <h2 class="detail-view__content__card__title">{{ props.name }}</h2>
       <p class="detail-view__content__card__condition">In stock</p>
-      <p class="detail-view__content__card__price">{{ props.priceStr }}</p>
+      <div class="detail-view__content__card__wrapper">
+        <p class="detail-view__content__card__price">
+          {{ `$ ${props.discount === 100 ? props.oldPrice / 100 : props.newPrice / 100}` }}
+        </p>
+        <p class="detail-view__content__card__discount" v-if="props.discount !== 100">
+          {{ '-' + props.discount + '%' }}
+        </p>
+        <p class="detail-view__content__card__old-price" v-if="props.discount !== 100">
+          {{ '$ ' + props.oldPrice / 100 }}
+        </p>
+      </div>
       <div class="detail-view__content__card__buttons">
         <button class="detail-view__content__card__buttons__buy">Buy</button>
         <button class="detail-view__content__card__buttons__cart">Into cart</button>
@@ -42,7 +52,9 @@
 const props = defineProps<{
   coverImg: string;
   name: string;
-  priceStr: string;
+  oldPrice: number;
+  newPrice: number;
+  discount: number;
   genre: string;
   publisher: string;
   ratings: number;
@@ -91,10 +103,28 @@ const props = defineProps<{
         border-radius: 50%;
       }
 
-      &__price {
+      &__wrapper {
         margin-bottom: 20px;
-        font-size: 36px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
         font-weight: 700;
+      }
+
+      &__price {
+        font-size: 36px;
+        line-height: 160%;
+      }
+
+      &__discount {
+        color: #77be1d;
+        font-size: 24px;
+        line-height: 160%;
+      }
+
+      &__old-price {
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 24px;
         line-height: 160%;
       }
 
