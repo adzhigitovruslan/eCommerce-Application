@@ -90,4 +90,12 @@ const props = defineProps<{
     line-height: 180%;
   }
 }
+
+@media (max-width: 940px) {
+  .description__require,
+  .description__main {
+    max-width: 80%;
+    margin: auto;
+  }
+}
 </style>

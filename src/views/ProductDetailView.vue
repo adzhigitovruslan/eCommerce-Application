@@ -16,6 +16,7 @@
     <div v-if="isModalImg">
       <TheModalImgWindow :imgArr="imgArrFilter" />
       <div class="bg" @click="isModalImg = false"></div>
+      <font-awesome-icon icon="fa-solid fa-xmark" class="bg-icon" @click="isModalImg = false" />
     </div>
   </section>
 </template>
@@ -117,5 +118,16 @@ router.beforeEach(beforeRouteLeave);
   background-color: #000;
   opacity: 0.9;
   z-index: 4;
+}
+
+.bg-icon {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  top: 15px;
+  right: 15px;
+  fill: #fff;
+  z-index: 4;
+  cursor: pointer;
 }
 </style>

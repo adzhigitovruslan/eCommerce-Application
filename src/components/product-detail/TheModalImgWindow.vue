@@ -1,6 +1,19 @@
 <template>
   <div class="modal-window-carousel">
-    <Carousel v-bind="settings" :breakpoints="breakpoints">
+    <Carousel
+      v-bind="{
+        itemsToShow: 1,
+        wrapAround: true,
+        transition: 500,
+        autoplay: 0,
+        mouseDrag: true,
+        touchDrag: true,
+        pauseAutoplayOnHover: true,
+        snapAlign: 'center',
+        dir: 'rtl',
+      }"
+      :breakpoints="breakpoints"
+    >
       <Slide v-for="slide in props.imgArr" :key="slide.id">
         <div class="carousel__item">
           <img :src="slide.url" alt="logo" class="carousel__item__img" />
@@ -29,17 +42,6 @@ const props = defineProps<{
   imgArr: IImg[];
 }>();
 
-const settings = reactive({
-  itemsToShow: 1,
-  wrapAround: true,
-  transition: 500,
-  autoplay: 0,
-  mouseDrag: true,
-  touchDrag: true,
-  pauseAutoplayOnHover: true,
-  snapAlign: 'center',
-  dir: 'rtl',
-});
 const breakpoints = reactive({
   // 700px and up
   700: {
@@ -76,6 +78,18 @@ const breakpoints = reactive({
     width: 70%;
     height: auto;
     border-radius: 15px;
+  }
+}
+
+@media (max-width: 1050px) {
+  .modal-window-carousel {
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 715px) {
+  .modal-window-carousel {
+    max-width: 500px;
   }
 }
 </style>

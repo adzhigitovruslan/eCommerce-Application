@@ -1,6 +1,19 @@
 <template>
   <div class="carousel-wrapper">
-    <Carousel v-bind="settings" :breakpoints="breakpoints">
+    <Carousel
+      v-bind="{
+        itemsToShow: 1,
+        wrapAround: true,
+        transition: 500,
+        autoplay: 5000,
+        mouseDrag: true,
+        touchDrag: true,
+        pauseAutoplayOnHover: true,
+        snapAlign: 'center',
+        dir: 'rtl',
+      }"
+      :breakpoints="breakpoints"
+    >
       <Slide v-for="slide in props.imgArr" :key="slide.id">
         <div class="carousel__item">
           <img :src="slide.url" alt="logo" class="carousel__item__img" @click="openModalWindow(slide.id)" />
@@ -29,17 +42,6 @@ const props = defineProps<{
   imgArr: IImg[];
 }>();
 
-const settings = reactive({
-  itemsToShow: 1,
-  wrapAround: true,
-  transition: 500,
-  autoplay: 5000,
-  mouseDrag: true,
-  touchDrag: true,
-  pauseAutoplayOnHover: true,
-  snapAlign: 'center',
-  dir: 'rtl',
-});
 const breakpoints = reactive({
   // 700px and up
   700: {
