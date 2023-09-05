@@ -40,6 +40,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/profile-settings',
+    name: 'userProfile',
     component: () => import('@/views/user-page/UserPage.vue'),
   },
   {

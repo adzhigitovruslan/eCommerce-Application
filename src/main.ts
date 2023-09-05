@@ -18,7 +18,6 @@ import {
   faEye,
   faEyeSlash,
   faCheck,
-  faXmark,
   faHeart,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons';

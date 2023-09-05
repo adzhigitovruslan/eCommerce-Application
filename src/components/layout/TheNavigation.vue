@@ -108,15 +108,24 @@
           @click="setActiveLink('login')"
           >Log in</router-link
         >
-        <router-link
-          v-else
-          to=""
-          class="nav-link logout"
-          :class="{ active: activeLink === 'logout' }"
-          data-type="logout"
-          @click="setActiveLink('logout'), logout()"
-          >Log out</router-link
-        >
+        <div v-else>
+          <router-link
+            :to="{ name: 'userProfile' }"
+            class="nav-link logout"
+            :class="{ active: activeLink === 'user' }"
+            data-type="logout"
+            >User Profile</router-link
+          >
+          <router-link
+            to=""
+            class="nav-link logout"
+            :class="{ active: activeLink === 'logout' }"
+            data-type="logout"
+            @click="setActiveLink('logout'), logout()"
+            >Log out</router-link
+          >
+        </div>
+
         |
         <router-link
           :to="{ name: 'cart' }"
