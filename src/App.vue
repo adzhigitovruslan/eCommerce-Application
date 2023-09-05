@@ -1,8 +1,10 @@
 <template>
   <router-view v-slot="{ Component }">
     <transition name="slide" mode="out-in">
-      <Suspense>
-        <component :is="Component"></component>
+      <Suspense timeout="0">
+        <div>
+          <component :is="Component"></component>
+        </div>
       </Suspense>
     </transition>
   </router-view>
