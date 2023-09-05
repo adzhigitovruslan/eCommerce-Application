@@ -66,7 +66,7 @@ const props = defineProps<{
   billingAddress?: string;
   addressId?: string;
   mode?: string;
-  version: number;
+  version?: number;
 }>();
 
 // eslint-disable-next-line max-lines-per-function

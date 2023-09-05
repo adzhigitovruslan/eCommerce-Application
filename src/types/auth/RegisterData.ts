@@ -22,3 +22,11 @@ interface BodyForm {
 export interface RegisterData {
   body: BodyForm;
 }
+
+export interface PersonalAccount {
+  firstName: string;
+  lastName: string;
+  email: string;
+  dateOfBirth: string;
+  version: number;
+}

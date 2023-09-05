@@ -507,9 +507,7 @@ async function setPhone(event: Event, mode: string) {
           addressId: address.id,
           address: {
             country: selectedCountry.value?.title,
-            phone: {
-              number: input.value,
-            },
+            phone: input.value,
             city: address.city,
             postalCode: address.postalCode,
             streetName: address.streetName,

@@ -66,8 +66,6 @@ const actions: ActionTree<CustomerState, GlobalState> = {
       projectKey: `${projectKey}`,
     });
 
-    console.log(apiRoot.quoteRequests().withId({ ID: context.state.currentUserId }).get());
-
     return apiRoot
       .customers()
       .withId({ ID: context.state.currentUserId })

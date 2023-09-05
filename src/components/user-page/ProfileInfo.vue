@@ -10,9 +10,15 @@
               type="text"
               id="firstName"
               placeholder="First name"
-              v-model="data.firstName"
+              v-model.trim="data.firstName"
+              @input="v$.firstName.$validate"
               :disabled="!isFirstNameEdit"
-              :class="{ disabled: !isFirstNameEdit }"
+              :class="{
+                disabled: !isFirstNameEdit,
+                error:
+                  (v$.firstName.$dirty && v$.firstName.required.$invalid) ||
+                  (v$.firstName.$dirty && v$.firstName.validateFirstName.$invalid),
+              }"
             />
             <font-awesome-icon
               v-if="!isFirstNameEdit"
@@ -24,6 +30,9 @@
               <font-awesome-icon @click="setFirstName($event, 'submit')" icon="fa-solid fa-check" />
             </div>
           </div>
+          <div class="input-errors" v-if="v$.firstName.$dirty && v$.firstName.validateFirstName.$invalid">
+            <div class="error-msg">Must contain at least one character and no special characters or numbers</div>
+          </div>
         </div>
         <div class="form-control">
           <label for="lastName">Last name</label>
@@ -32,15 +41,24 @@
               id="lastName"
               type="text"
               placeholder="Last name"
-              v-model="data.lastName"
+              v-model.trim="data.lastName"
+              @input="v$.lastName.$validate"
               :disabled="!isLastNameEdit"
-              :class="{ disabled: !isLastNameEdit }"
+              :class="{
+                disabled: !isLastNameEdit,
+                error:
+                  (v$.lastName.$dirty && v$.lastName.required.$invalid) ||
+                  (v$.lastName.$dirty && v$.lastName.validateLastName.$invalid),
+              }"
             />
             <font-awesome-icon v-if="!isLastNameEdit" @click="isLastNameEdit = !isLastNameEdit" icon="pen-to-square" />
             <div class="form-item" v-else>
               <font-awesome-icon @click="setLastName($event, 'cancel')" icon="fa-solid fa-xmark" />
               <font-awesome-icon @click="setLastName($event, 'submit')" icon="fa-solid fa-check" />
             </div>
+          </div>
+          <div class="input-errors" v-if="v$.lastName.$dirty && v$.lastName.validateLastName.$invalid">
+            <div class="error-msg">Must contain at least one character and no special characters or numbers</div>
           </div>
         </div>
       </div>
@@ -51,9 +69,13 @@
             id="email"
             type="email"
             placeholder="Email"
-            v-model="data.email"
+            v-model.trim="data.email"
+            @input="v$.email.$validate"
             :disabled="!isEmailEdit"
-            :class="{ disabled: !isEmailEdit }"
+            :class="{
+              disabled: !isEmailEdit,
+              error: (v$.email.$dirty && v$.email.required.$invalid) || (v$.email.$dirty && v$.email.email.$invalid),
+            }"
           />
           <font-awesome-icon v-if="!isEmailEdit" @click="isEmailEdit = !isEmailEdit" icon="pen-to-square" />
           <div class="form-item" v-else>
@@ -61,12 +83,12 @@
             <font-awesome-icon @click="setEmail($event, 'submit')" icon="fa-solid fa-check" />
           </div>
         </div>
-        <!-- <div class="input-errors" v-if="v$.body.email.$dirty && v$.body.email.required.$invalid">
+        <div class="input-errors" v-if="v$.email.$dirty && v$.email.required.$invalid">
           <div class="error-msg">Email can't be empty</div>
         </div>
-        <div class="input-errors" v-else-if="v$.body.email.$dirty && v$.body.email.email.$invalid">
+        <div class="input-errors" v-else-if="v$.email.$dirty && v$.email.email.$invalid">
           <div class="error-msg">Enter valid email address</div>
-        </div> -->
+        </div>
       </div>
       <div class="form-control">
         <label for="date">Date of birth</label>
@@ -78,9 +100,22 @@
             maxlength="10"
             minlength="10"
             inputmode="numeric"
-            v-model="data.dateOfBirth"
+            v-model.trim="data.dateOfBirth"
+            @input="v$.dateOfBirth.$validate"
             :disabled="!isDateBirthEdit"
-            :class="{ disabled: !isDateBirthEdit }"
+            :class="{
+              disabled: !isDateBirthEdit,
+              error:
+                (v$.dateOfBirth.$dirty && v$.dateOfBirth.required.$invalid) ||
+                (v$.dateOfBirth.$dirty && v$.dateOfBirth.minLength.$invalid) ||
+                (isValidAge.age !== null && isValidAge.age >= 0
+                  ? v$.dateOfBirth.$dirty && !isValidAge.isTrue
+                  : false) ||
+                (isValidAge.age !== null && isValidAge.age >= 0
+                  ? v$.dateOfBirth.$dirty && !isValidAge.isTrue
+                  : false) ||
+                (isValidAge.age !== null ? v$.dateOfBirth.$dirty && isValidAge.age >= 150 : false),
+            }"
           />
           <font-awesome-icon v-if="!isDateBirthEdit" @click="isDateBirthEdit = !isDateBirthEdit" icon="pen-to-square" />
           <div class="form-item" v-else>
@@ -88,16 +123,44 @@
             <font-awesome-icon @click="setDateOfBirth($event, 'submit')" icon="fa-solid fa-check" />
           </div>
         </div>
+        <div class="input-errors" v-if="v$.dateOfBirth.$dirty && v$.dateOfBirth.required.$invalid">
+          <div class="error-msg">Enter date of birth</div>
+        </div>
+        <div class="input-errors" v-else-if="v$.dateOfBirth.$dirty && v$.dateOfBirth.minLength.$invalid">
+          <div class="error-msg">Enter a valid date in the format YYYY-MM-DD"</div>
+        </div>
+        <div
+          class="input-errors"
+          v-else-if="
+            isValidAge.age !== null && isValidAge.age >= 0 ? v$.dateOfBirth.$dirty && !isValidAge.isTrue : false
+          "
+        >
+          <div class="error-msg">Age is below the allowed limit({{ minAge }}). You'r {{ isValidAge.age }} now</div>
+        </div>
+        <div class="input-errors" v-else-if="v$.dateOfBirth.$dirty && !isValidAge.isTrue">
+          <div class="error-msg">Birth date cannot be in the future. Enter a valid date</div>
+        </div>
+        <div
+          class="input-errors"
+          v-else-if="isValidAge.age !== null ? v$.dateOfBirth.$dirty && isValidAge.age >= 150 : false"
+        >
+          <div class="error-msg">Enter an existing date</div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, reactive } from 'vue';
+import { ref, computed, reactive, Ref, watch } from 'vue';
 import { useStore } from 'vuex';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import { validateLastName, validateFirstName, formatDate } from '@/utils/auth/validator';
+import { calculateAge } from '@/utils/auth/calculateAge';
+import { useVuelidate } from '@vuelidate/core';
+import { required, email, minLength } from '@vuelidate/validators';
+import { PersonalAccount } from '@/types/auth/RegisterData';
 
 const store = useStore();
 const getUser = computed(() => store.getters['customer/getUser']);
@@ -106,19 +169,47 @@ const isEmailEdit = ref(false);
 const isFirstNameEdit = ref(false);
 const isLastNameEdit = ref(false);
 const isDateBirthEdit = ref(false);
-const data = reactive({
+const minAge: Ref<number> = ref(13);
+const calcAgeValidator = computed(() => calculateAge(data.dateOfBirth, minAge.value).isTrue);
+const isValidAge: Ref<{ isTrue: boolean; age: number | null }> = ref(
+  calculateAge(getUser.value.dateOfBirth, minAge.value),
+);
+const data: PersonalAccount = reactive({
   firstName: getUser.value.firstName,
   lastName: getUser.value.lastName,
   email: getUser.value.email,
   dateOfBirth: getUser.value.dateOfBirth,
   version: getVersion,
 });
+const rules = computed(() => {
+  return {
+    firstName: { required, validateFirstName },
+    lastName: { required, validateLastName },
+    email: { required, email },
+    dateOfBirth: { required, minLength: minLength(10), calcAgeValidator },
+  };
+});
+const v$ = useVuelidate(rules, data);
+
+watch(
+  () => data.dateOfBirth,
+  (newFormDate) => {
+    data.dateOfBirth = formatDate(newFormDate);
+
+    if (!v$.value.dateOfBirth.minLength.$invalid) {
+      isValidAge.value = calculateAge(data.dateOfBirth, minAge.value);
+    }
+  },
+);
 
 // eslint-disable-next-line max-lines-per-function
 async function setFirstName(event: Event, mode: string) {
-  isFirstNameEdit.value = !isFirstNameEdit.value;
-
   if (mode === 'submit') {
+    const isFormCorrect = await v$.value.$validate();
+
+    if (!isFormCorrect) return;
+    isFirstNameEdit.value = !isFirstNameEdit.value;
+
     const parentElem = event.currentTarget as HTMLElement;
 
     const input = parentElem.parentElement?.parentElement?.firstChild as HTMLInputElement;
@@ -133,11 +224,11 @@ async function setFirstName(event: Event, mode: string) {
       ],
     };
 
-    store.commit('customer/setVersion', data.version + 1);
-
     try {
       const updateCustomer = async () => {
-        await store.dispatch('customer/updateCustomer', formData);
+        const res = await store.dispatch('customer/updateCustomer', formData);
+
+        store.commit('customer/setVersion', res.body.version);
       };
 
       toast.promise(
@@ -157,14 +248,18 @@ async function setFirstName(event: Event, mode: string) {
       console.log(error);
     }
   } else if (mode === 'cancel') {
+    isFirstNameEdit.value = !isFirstNameEdit.value;
     data.firstName = getUser.value.firstName;
   }
 }
 // eslint-disable-next-line max-lines-per-function
 async function setLastName(event: Event, mode: string) {
-  isLastNameEdit.value = !isLastNameEdit.value;
-
   if (mode === 'submit') {
+    const isFormCorrect = await v$.value.$validate();
+
+    if (!isFormCorrect) return;
+    isLastNameEdit.value = !isLastNameEdit.value;
+
     const parentElem = event.currentTarget as HTMLElement;
 
     const input = parentElem.parentElement?.parentElement?.firstChild as HTMLInputElement;
@@ -179,11 +274,11 @@ async function setLastName(event: Event, mode: string) {
       ],
     };
 
-    store.commit('customer/setVersion', data.version + 1);
-
     try {
       const updateCustomer = async () => {
-        await store.dispatch('customer/updateCustomer', formData);
+        const res = await store.dispatch('customer/updateCustomer', formData);
+
+        store.commit('customer/setVersion', res.body.version);
       };
 
       toast.promise(
@@ -203,14 +298,18 @@ async function setLastName(event: Event, mode: string) {
       console.log(error);
     }
   } else if (mode === 'cancel') {
+    isLastNameEdit.value = !isLastNameEdit.value;
     data.lastName = getUser.value.lastName;
   }
 }
 // eslint-disable-next-line max-lines-per-function
 async function setDateOfBirth(event: Event, mode: string) {
-  isDateBirthEdit.value = !isDateBirthEdit.value;
-
   if (mode === 'submit') {
+    const isFormCorrect = await v$.value.$validate();
+
+    if (!isFormCorrect) return;
+    isDateBirthEdit.value = !isDateBirthEdit.value;
+
     const parentElem = event.currentTarget as HTMLElement;
 
     const input = parentElem.parentElement?.parentElement?.firstChild as HTMLInputElement;
@@ -225,11 +324,11 @@ async function setDateOfBirth(event: Event, mode: string) {
       ],
     };
 
-    store.commit('customer/setVersion', data.version + 1);
-
     try {
       const updateCustomer = async () => {
-        await store.dispatch('customer/updateCustomer', formData);
+        const res = await store.dispatch('customer/updateCustomer', formData);
+
+        store.commit('customer/setVersion', res.body.version);
       };
 
       toast.promise(
@@ -249,14 +348,18 @@ async function setDateOfBirth(event: Event, mode: string) {
       console.log(error);
     }
   } else if (mode === 'cancel') {
+    isDateBirthEdit.value = !isDateBirthEdit.value;
     data.dateOfBirth = getUser.value.dateOfBirth;
   }
 }
 // eslint-disable-next-line max-lines-per-function
 async function setEmail(event: Event, mode: string) {
-  isEmailEdit.value = !isEmailEdit.value;
-
   if (mode === 'submit') {
+    const isFormCorrect = await v$.value.$validate();
+
+    if (!isFormCorrect) return;
+    isEmailEdit.value = !isEmailEdit.value;
+
     const parentElem = event.currentTarget as HTMLElement;
 
     const input = parentElem.parentElement?.parentElement?.firstChild as HTMLInputElement;
@@ -275,7 +378,9 @@ async function setEmail(event: Event, mode: string) {
 
     try {
       const updateCustomer = async () => {
-        await store.dispatch('customer/updateCustomer', formData);
+        const res = await store.dispatch('customer/updateCustomer', formData);
+
+        store.commit('customer/setVersion', res.body.version);
       };
 
       toast.promise(
@@ -295,6 +400,7 @@ async function setEmail(event: Event, mode: string) {
       console.log(error);
     }
   } else if (mode === 'cancel') {
+    isEmailEdit.value = !isEmailEdit.value;
     data.email = getUser.value.email;
   }
 }
@@ -408,6 +514,16 @@ $darkBackgroundColor: #010101;
     &:focus {
       outline: none;
       border-color: $mainWhiteColor;
+    }
+  }
+  & .input-errors {
+    & .error-msg {
+      color: $errorColor;
+      text-align: left;
+      font-size: 13px;
+      @media (max-width: 1200px) {
+        font-size: calc(10px + 3 * ((100vw - 320px) / (1200 - 320)));
+      }
     }
   }
 }

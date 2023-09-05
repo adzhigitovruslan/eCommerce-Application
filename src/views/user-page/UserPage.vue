@@ -9,19 +9,21 @@
         <profile-settings @set-option="setProfileOption" />
       </base-card>
       <transition mode="out-in">
-        <base-card class="user__info" v-if="profileHeader === 'Account' && !isLoading">
-          <div>
+        <div class="user__info-wrapper" v-if="profileHeader === 'Account' && !isLoading">
+          <base-card class="user__info">
             <ProfileInfo />
-          </div>
-        </base-card>
+          </base-card>
+        </div>
         <div class="user__info-wrapper" v-else-if="profileHeader === 'Address' && !isLoading">
           <base-card class="user__info" v-for="address in getUser.address" :key="address.id">
             <AddressCard :address="address" :version="getVersion" />
           </base-card>
         </div>
-        <base-card class="user__info" v-else>
-          <base-spinner title="loading"></base-spinner>
-        </base-card>
+        <div class="user__info-wrapper" v-else>
+          <base-card class="user__info">
+            <base-spinner title="loading"></base-spinner>
+          </base-card>
+        </div>
       </transition>
     </div>
   </div>
