@@ -20,6 +20,7 @@ import {
   faCheck,
   faXmark,
   faHeart,
+  faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   faCheck,
@@ -37,6 +38,7 @@ library.add(
   faEyeSlash,
   faXmark,
   faHeart,
+  faXmark,
 );
 import { clickOutSide as vClickOutSide } from '@mahdikhashan/vue3-click-outside';
 import { faDiscord, faInstagram, faVk, faXTwitter } from '@fortawesome/free-brands-svg-icons';

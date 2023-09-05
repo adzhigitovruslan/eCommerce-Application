@@ -1,11 +1,11 @@
 <template>
-  <div class="carousel-wrapper">
+  <div class="modal-window-carousel">
     <Carousel
       v-bind="{
         itemsToShow: 1,
         wrapAround: true,
         transition: 500,
-        autoplay: 5000,
+        autoplay: 0,
         mouseDrag: true,
         touchDrag: true,
         pauseAutoplayOnHover: true,
@@ -16,7 +16,7 @@
     >
       <Slide v-for="slide in props.imgArr" :key="slide.id">
         <div class="carousel__item">
-          <img :src="slide.url" alt="logo" class="carousel__item__img" @click="openModalWindow(slide.id)" />
+          <img :src="slide.url" alt="logo" class="carousel__item__img" />
         </div>
       </Slide>
 
@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, inject } from 'vue';
+import { reactive } from 'vue';
 import { Carousel, Navigation, Slide } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 
@@ -45,34 +45,51 @@ const props = defineProps<{
 const breakpoints = reactive({
   // 700px and up
   700: {
-    itemsToShow: 2,
+    itemsToShow: 1,
     snapAlign: 'center',
   },
   // 1024 and up
   1024: {
-    itemsToShow: 2,
+    itemsToShow: 1,
     snapAlign: 'start',
   },
 });
-
-const openModalWindow = inject('openModalWindow') as (imgId: number) => void;
 </script>
 
 <style lang="scss" scoped>
-.carousel-wrapper {
-  max-width: 700px;
-  margin: 70px auto 70px;
+.modal-window-carousel {
+  position: fixed;
+  max-width: 900px;
+  max-height: 500px;
+  padding: 50px 40px;
+  z-index: 5;
+  background-color: #322d42;
+  border-radius: 15px;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
 }
 
 .carousel__item {
-  max-width: 297px;
-  height: 167px;
   border-radius: 15px;
 
   &__img {
-    height: 167px;
-    cursor: pointer;
+    width: 70%;
+    height: auto;
     border-radius: 15px;
+  }
+}
+
+@media (max-width: 1050px) {
+  .modal-window-carousel {
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 715px) {
+  .modal-window-carousel {
+    max-width: 500px;
   }
 }
 </style>
