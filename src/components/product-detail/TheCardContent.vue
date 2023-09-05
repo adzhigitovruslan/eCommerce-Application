@@ -16,8 +16,8 @@
         </p>
       </div>
       <div class="detail-view__content__card__buttons">
-        <button class="detail-view__content__card__buttons__buy">Buy</button>
-        <button class="detail-view__content__card__buttons__cart">Into cart</button>
+        <button class="detail-view__content__card__buttons__buy">Into cart</button>
+        <button class="detail-view__content__card__buttons__cart">Into favorite</button>
       </div>
       <div class="detail-view__content__card__short-info">
         <div class="detail-view__content__card__short-info__box" v-if="props.genre !== 'undefined'">
@@ -34,7 +34,6 @@
         </div>
       </div>
       <div class="detail-view__content__card__add-button">
-        <button class="detail-view__content__card__add-button__short-buy">Instant delivery</button>
         <div class="detail-view__content__card__add-button__confirmation">
           <img
             src="@/assets/images/confirmation.svg"
@@ -70,6 +69,7 @@ const props = defineProps<{
     z-index: 2;
 
     &__cover {
+      object-fit: cover;
       max-width: 350px;
       max-height: 478px;
       border-radius: 15px;
@@ -147,11 +147,23 @@ const props = defineProps<{
         &__buy {
           background-color: #77be1d;
           margin-right: 10px;
+
+          &:hover {
+            background-color: rgba(13, 223, 177, 0.5);
+            color: rgba(0, 0, 0, 0.9);
+            border-color: rgba(255, 255, 255, 0.1);
+          }
         }
 
         &__cart {
           background-color: inherit;
           border: 2px solid rgba(255, 255, 255, 0.1);
+
+          &:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: rgba(0, 0, 0, 0.9);
+            border-color: rgba(255, 255, 255, 0.1);
+          }
         }
       }
 
@@ -211,6 +223,30 @@ const props = defineProps<{
         }
       }
     }
+  }
+}
+
+@media (max-width: 980px) {
+  .detail-view__content {
+    flex-direction: column;
+    align-items: center;
+
+    &__cover {
+      margin-bottom: 30px;
+    }
+
+    &__card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .detail-view__content__card__title {
+    text-align: center;
+    line-height: 1.3;
   }
 }
 </style>
