@@ -456,8 +456,17 @@
               </div>
             </div>
           </div>
-          <VCheckbox v-model="checkGroup.isCheckboxTrue" v-if="activePhase !== 1" />
-          <VSetDefaultButtons :isBothAddressChecked="checkGroup.isCheckboxTrue" v-if="activePhase !== 1" />
+          <VCheckbox
+            v-model="checkGroup.isCheckboxTrue"
+            label="Set shipping address same as billing address"
+            v-if="activePhase !== 1"
+          />
+          <VSetDefaultButtons
+            :isBothAddressChecked="checkGroup.isCheckboxTrue"
+            shippingAddress="Set as default address"
+            billingAddress="Set as default address"
+            v-if="activePhase !== 1"
+          />
         </div>
       </transition>
       <base-auth-button v-if="!isLastPage" @click.prevent="goToStep(2, 'next')" mode="true">continue</base-auth-button>
@@ -534,6 +543,7 @@ const formData: RegisterData = reactive({
     firstName: '',
     lastName: '',
     dateOfBirth: '',
+    version: 1,
     addresses: [
       {
         country: '',

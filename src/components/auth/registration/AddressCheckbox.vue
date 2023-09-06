@@ -16,13 +16,14 @@
         </svg>
       </div>
     </label>
-    <label for="checkbox" class="checkbox-text">Set shipping address same as billing address</label>
+    <label for="checkbox" class="checkbox-text">{{ label }}</label>
   </div>
 </template>
 
 <script setup lang="ts">
 defineProps<{
   modelValue: boolean;
+  label: string;
 }>();
 
 const emit = defineEmits(['update:modelValue']);

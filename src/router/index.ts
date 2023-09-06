@@ -39,6 +39,11 @@ const routes: Array<RouteRecordRaw> = [
     ],
   },
   {
+    path: '/profile-settings',
+    name: 'userProfile',
+    component: () => import('@/views/user-page/UserPage.vue'),
+  },
+  {
     path: '/login',
     component: () => import('@/components/layout/TheAuthLayout.vue'),
     meta: { requiresAuth: true },

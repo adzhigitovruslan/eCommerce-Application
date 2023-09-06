@@ -6,9 +6,21 @@ const customerModule = {
   namespaced: true,
   state() {
     return {
-      isLoggedIn: localStorage.getItem('isLoggedIn') || false,
+      isLoggedIn: false,
       currentUserFirstName: '',
       currentUserId: '',
+      user: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        dateOfBirth: '',
+        address: [],
+      },
+      version: null,
+      defaultAddresses: {
+        billingId: '',
+        shippingId: '',
+      },
     };
   },
   getters,

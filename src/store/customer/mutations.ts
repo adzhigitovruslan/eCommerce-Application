@@ -1,5 +1,6 @@
 import { ServerResponse } from '@/types/interfaces/api';
-import { CustomerState } from '@/types/interfaces/states';
+import { CustomerState, IAddress } from '@/types/interfaces/states';
+import { RegisterData } from '@/types/auth/RegisterData';
 
 export default {
   SET_USER(state: CustomerState, body: ServerResponse) {
@@ -19,7 +20,41 @@ export default {
     state.isLoggedIn = false;
     localStorage.removeItem('isLoggedIn');
   },
-  setLoggedIn(state: CustomerState, payload: boolean) {
-    state.isLoggedIn = payload;
+  setLoggedIn(state: CustomerState, payload: { isLoggedInValue: boolean; hasId: string }) {
+    state.isLoggedIn = payload.isLoggedInValue;
+    state.currentUserId = payload.hasId;
+  },
+  getUser(state: CustomerState, payload: RegisterData) {
+    state.user.firstName = payload.body.firstName;
+    state.user.lastName = payload.body.lastName;
+    state.user.email = payload.body.email;
+    state.user.dateOfBirth = payload.body.dateOfBirth;
+    state.version = payload.body.version;
+
+    if (payload.body.defaultBillingAddressId) state.defaultAddresses.billingId = payload.body.defaultBillingAddressId;
+
+    if (payload.body.defaultShippingAddressId)
+      state.defaultAddresses.shippingId = payload.body.defaultShippingAddressId;
+    payload.body.addresses.forEach((obj, index) => {
+      const address = {
+        streetName: obj.streetName,
+        city: obj.city,
+        phone: obj.phone,
+        postalCode: obj.postalCode,
+        country: obj.country,
+        id: obj.id ? obj.id : '',
+      };
+
+      state.user.address.push(address);
+    });
+  },
+  setVersion(state: CustomerState, payload: number) {
+    state.version = payload;
+  },
+  deleteAddress(state: CustomerState, id: string) {
+    state.user.address = state.user.address.filter((obj) => obj.id !== id);
+  },
+  addNewAddress(state: CustomerState, payload: IAddress) {
+    state.user.address.unshift(payload);
   },
 };

@@ -2,7 +2,13 @@
   <div class="radio-wrapper">
     <div class="radio-button-wrapper">
       <label class="container">
-        <input id="radio1" type="radio" name="setDefault" checked />
+        <input
+          :class="{ addressInput: mode }"
+          data-type="billingAddress"
+          type="checkbox"
+          :name="addressId"
+          @change="setBillingAddress"
+        />
         <div class="checkmark">
           <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
             <title>Checkmark</title>
@@ -17,11 +23,18 @@
           </svg>
         </div>
       </label>
-      <label class="radio-text" for="radio1">Set as default address</label>
+      <label class="radio-text" for="radio1">{{ billingAddress }}</label>
     </div>
     <div class="radio-button-wrapper">
       <label class="container" :class="{ disabled: isBothAddressChecked }">
-        <input id="radio2" type="radio" name="setDefault" :disabled="isBothAddressChecked" />
+        <input
+          type="checkbox"
+          data-type="shippingAddress"
+          :class="{ addressInput: mode }"
+          :name="addressId"
+          :disabled="isBothAddressChecked"
+          @change="setShippingAddress"
+        />
         <div class="checkmark">
           <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
             <title>Checkmark</title>
@@ -36,15 +49,131 @@
           </svg>
         </div>
       </label>
-      <label class="radio-text" for="radio2" :class="{ disabled: isBothAddressChecked }">Set as default address</label>
+      <label class="radio-text" for="radio2" :class="{ disabled: isBothAddressChecked }">{{ shippingAddress }}</label>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  isBothAddressChecked: boolean;
+import { useStore } from 'vuex';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
+const store = useStore();
+const props = defineProps<{
+  isBothAddressChecked?: boolean;
+  shippingAddress?: string;
+  billingAddress?: string;
+  addressId?: string;
+  mode?: string;
+  version?: number;
 }>();
+
+// eslint-disable-next-line max-lines-per-function
+function setShippingAddress(event: Event) {
+  const inputElem = event.target as HTMLInputElement;
+  const spanShipping = inputElem
+    .closest('.address-card')
+    ?.querySelector('.address-card__span-block > span[data-span="spanShipping"]') as HTMLSpanElement;
+  const allSpans = [...document.querySelectorAll('span[data-span="spanShipping"]')] as HTMLSpanElement[];
+
+  allSpans.forEach((span) => {
+    span.style.display = 'none';
+  });
+
+  const allInputs = [...document.querySelectorAll("input[data-type='shippingAddress']")] as HTMLInputElement[];
+
+  try {
+    const updateCustomer = async () => {
+      const res = await store.dispatch('customer/updateCustomer', {
+        version: props.version,
+        actions: [
+          {
+            action: 'setDefaultShippingAddress',
+            addressId: props.addressId,
+          },
+        ],
+      });
+
+      store.commit('customer/setVersion', res.body.version);
+    };
+
+    toast.promise(
+      updateCustomer,
+      {
+        pending: 'Default shipping address is updating',
+        success: 'Default shipping address has updated 👌',
+        error: 'Something goes wrong 🤯',
+      },
+      {
+        theme: 'dark',
+        icon: '🎉',
+        transition: toast.TRANSITIONS.SLIDE,
+      },
+    );
+  } catch (error) {
+    console.log(error);
+  }
+
+  spanShipping.style.display = 'inline';
+
+  allInputs.forEach((input: HTMLInputElement) => {
+    input.checked = false;
+  });
+  inputElem.checked = true;
+}
+// eslint-disable-next-line max-lines-per-function
+function setBillingAddress(event: Event) {
+  const inputElem = event.target as HTMLInputElement;
+  const allSpans = [...document.querySelectorAll('span[data-span="spanBilling"]')] as HTMLSpanElement[];
+  const spanBilling = inputElem
+    .closest('.address-card')
+    ?.querySelector('.address-card__span-block > span[data-span="spanBilling"]') as HTMLSpanElement;
+
+  allSpans.forEach((span) => {
+    span.style.display = 'none';
+  });
+
+  try {
+    const updateCustomer = async () => {
+      const res = await store.dispatch('customer/updateCustomer', {
+        version: props.version,
+        actions: [
+          {
+            action: 'setDefaultBillingAddress',
+            addressId: props.addressId,
+          },
+        ],
+      });
+
+      store.commit('customer/setVersion', res.body.version);
+    };
+
+    toast.promise(
+      updateCustomer,
+      {
+        pending: 'Default billing address is updating',
+        success: 'Default billing address has updated 👌',
+        error: 'Something goes wrong 🤯',
+      },
+      {
+        theme: 'dark',
+        icon: '🎉',
+        transition: toast.TRANSITIONS.SLIDE,
+      },
+    );
+  } catch (error) {
+    console.log(error);
+  }
+  spanBilling.style.display = 'inline';
+
+  const allInputs = [...document.querySelectorAll("input[data-type='billingAddress']")] as HTMLInputElement[];
+
+  allInputs.forEach((input: HTMLInputElement) => {
+    input.checked = false;
+  });
+  inputElem.checked = true;
+}
 </script>
 <style lang="scss" scoped>
 .radio-button-wrapper {

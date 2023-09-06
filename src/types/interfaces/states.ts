@@ -5,6 +5,27 @@ export interface CustomerState {
   isLoggedIn: boolean;
   currentUserFirstName: string;
   currentUserId: string;
+  version: number;
+  defaultAddresses: {
+    billingId: string;
+    shippingId: string;
+  };
+  user: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    dateOfBirth: string;
+    address: IAddress[];
+  };
+}
+
+export interface IAddress {
+  streetName: string;
+  city: string;
+  phone: string;
+  postalCode: string;
+  country: string;
+  id: string;
 }
 
 export interface GlobalState {

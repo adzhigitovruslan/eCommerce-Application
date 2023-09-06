@@ -114,7 +114,7 @@ function hideSelect() {
   line-height: normal;
   font-size: 15px;
   width: 100%;
-  background: #010110;
+  // background: #010110;
   cursor: pointer;
   @media (max-width: 1200px) {
     padding-top: calc(5px + 5 * ((100vw - 320px) / (1200 - 320)));
