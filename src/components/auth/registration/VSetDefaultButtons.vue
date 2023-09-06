@@ -56,9 +56,11 @@
 
 <script setup lang="ts">
 import { useStore } from 'vuex';
+import { computed } from 'vue';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
+const getVersion = computed(() => store.getters['customer/getVersion']);
 const store = useStore();
 const props = defineProps<{
   isBothAddressChecked?: boolean;
@@ -66,7 +68,6 @@ const props = defineProps<{
   billingAddress?: string;
   addressId?: string;
   mode?: string;
-  version?: number;
 }>();
 
 // eslint-disable-next-line max-lines-per-function
@@ -86,7 +87,7 @@ function setShippingAddress(event: Event) {
   try {
     const updateCustomer = async () => {
       const res = await store.dispatch('customer/updateCustomer', {
-        version: props.version,
+        version: getVersion.value,
         actions: [
           {
             action: 'setDefaultShippingAddress',
@@ -137,7 +138,7 @@ function setBillingAddress(event: Event) {
   try {
     const updateCustomer = async () => {
       const res = await store.dispatch('customer/updateCustomer', {
-        version: props.version,
+        version: getVersion.value,
         actions: [
           {
             action: 'setDefaultBillingAddress',

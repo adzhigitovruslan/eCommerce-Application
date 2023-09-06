@@ -55,6 +55,6 @@ export default {
     state.user.address = state.user.address.filter((obj) => obj.id !== id);
   },
   addNewAddress(state: CustomerState, payload: IAddress) {
-    state.user.address.unshift(payload);
+    state.user.address.push(payload);
   },
 };
