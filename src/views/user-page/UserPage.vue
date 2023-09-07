@@ -52,7 +52,7 @@ import AddressCard from '@/components/user-page/AddressCard.vue';
 import BurgerMenu from '@/components/user-page/BurgerMenu.vue';
 import NewAddress from '@/components/user-page/NewAddress.vue';
 import PasswordCard from '@/components/user-page/PasswordCard.vue';
-import { ref, computed } from 'vue';
+import { ref, computed, onUpdated } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
@@ -68,6 +68,12 @@ const defaultAddresses = computed(() => {
 
 function setProfileOption(option: string) {
   profileHeader.value = option;
+
+  if (option === 'Address') {
+    console.log('update');
+
+    getCustomerData();
+  }
 }
 
 async function getCustomerData() {
