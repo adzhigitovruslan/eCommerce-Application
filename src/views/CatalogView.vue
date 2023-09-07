@@ -182,6 +182,10 @@ export default defineComponent({
 <style scoped lang="scss">
 @import '@/assets/styles/global.scss';
 
+body {
+  overflow-x: hidden;
+}
+
 .not-found {
   color: $white-color;
   font-family: 'Roboto', sans-serif;
