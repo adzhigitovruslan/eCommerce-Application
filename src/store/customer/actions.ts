@@ -55,6 +55,13 @@ const actions: ActionTree<CustomerState, GlobalState> = {
       .then(({ body }) => {
         context.commit('SIGN_UP', body);
 
+        const id = body.customer.id;
+
+        console.log(body, 'body');
+
+        localStorage.setItem('id', id);
+        context.commit('setLoggedIn', { isLoggedInValue: true, hasId: id });
+
         return body;
       })
       .catch((err) => {
