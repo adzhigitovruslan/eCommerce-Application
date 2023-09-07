@@ -35,7 +35,7 @@ export default {
 
     if (payload.body.defaultShippingAddressId)
       state.defaultAddresses.shippingId = payload.body.defaultShippingAddressId;
-    payload.body.addresses.forEach((obj, index) => {
+    payload.body.addresses.forEach((obj) => {
       const address = {
         streetName: obj.streetName,
         city: obj.city,
