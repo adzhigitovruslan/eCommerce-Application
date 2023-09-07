@@ -83,12 +83,14 @@
           class="search-input input"
           list="productSuggestions"
           @input="searchProducts"
+          @keyup.enter="handleSearch"
         />
         <font-awesome-icon :icon="['fas', 'search']" class="search-icon" @click="handleSearch"></font-awesome-icon>
         <datalist id="productSuggestions">
           <option v-for="(product, index) in productSuggestions" :value="product" :key="index">{{ product }}</option>
         </datalist>
       </div>
+
       <div>
         <router-link
           v-if="!isLoggedIn"
@@ -156,8 +158,10 @@ export default defineComponent({
       activeLink: '',
       showMenu: false,
       productSuggestions: [] as string[],
+      selectedProduct: '',
     };
   },
+
   methods: {
     setActiveLink(linkType: string) {
       this.activeLink = linkType;
@@ -192,16 +196,33 @@ export default defineComponent({
       });
 
       this.productSuggestions = filteredProducts.map((product: ProductItem) => product.name['en-US']);
-
-      if (this.$route.name === 'catalog') {
-        this.$store.commit('setProducts', filteredProducts);
-      }
     },
     handleSearch() {
-      if (this.$route.name === 'catalog') {
-        this.searchProducts();
+      if (this.searchTerm) {
+        const selectedProduct = this.findSelectedProduct();
 
-        this.searchTerm = '';
+        if (selectedProduct) {
+          this.$store.dispatch('setSelectedProduct', selectedProduct);
+        } else {
+          this.$store.dispatch('setSelectedProduct', null);
+        }
+      }
+      this.$store.dispatch('updateSearchTerm', this.searchTerm);
+    },
+    findSelectedProduct() {
+      const searchTerm = this.searchTerm.toLowerCase();
+      const products = this.$store.state.products.products || [];
+
+      const filteredProducts = products.filter((product: ProductItem) => {
+        const productName = product.name['en-US'].toLowerCase();
+
+        return productName.includes(searchTerm);
+      });
+
+      if (filteredProducts.length > 0) {
+        return filteredProducts[0];
+      } else {
+        return '';
       }
     },
   },
