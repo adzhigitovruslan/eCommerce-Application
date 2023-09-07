@@ -11,6 +11,12 @@ const getters: GetterTree<ProductsState, GlobalState> = {
       return price <= state.priceRange;
     });
   },
+  selectedProduct(state) {
+    return state.selectedProduct;
+  },
+
+  getSearchTerm: (state) => state.searchTerm,
+
   getPriceRange: (state) => state.priceRange,
   cartProducts(state) {
     return state.cart.map((cartItem) => {

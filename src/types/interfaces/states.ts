@@ -43,4 +43,6 @@ export interface ProductsState {
       selected: boolean;
     };
   };
+  selectedProduct: null;
+  searchTerm: '';
 }

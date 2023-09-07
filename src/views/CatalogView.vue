@@ -22,13 +22,26 @@
         </div>
         <div class="product-cards">
           <div class="product-card-container" v-if="loading">
-            <ProductCard
-              v-for="product in displayedGames || []"
-              :key="product.id"
-              :product="product"
-              imageClass="image-mode"
-              class="product-card"
-            />
+            <template v-if="searchTerm && selectedProduct && Object.keys(selectedProduct).length > 0">
+              <ProductCard
+                :key="selectedProduct.key"
+                :product="selectedProduct"
+                imageClass="image-mode"
+                class="product-card"
+              />
+            </template>
+
+            <template v-else-if="searchTerm && !selectedProduct"> <div class="not-found">Not Found</div> </template>
+
+            <template v-if="searchTerm.trim() === ''">
+              <ProductCard
+                v-for="product in displayedGames || []"
+                :key="product.key"
+                :product="product"
+                imageClass="image-mode"
+                class="product-card"
+              />
+            </template>
           </div>
           <base-spinner title="loading" v-else class="spinner-style"></base-spinner>
         </div>
@@ -50,6 +63,14 @@ export default defineComponent({
       isDropdownOpen: false,
       selectedOption: 'Sort by higher price',
     };
+  },
+  computed: {
+    selectedProduct() {
+      return this.$store.getters.selectedProduct;
+    },
+    searchTerm() {
+      return this.$store.getters.getSearchTerm;
+    },
   },
   components: {
     ProductCard,
@@ -160,6 +181,17 @@ export default defineComponent({
 
 <style scoped lang="scss">
 @import '@/assets/styles/global.scss';
+
+.not-found {
+  color: $white-color;
+  font-family: 'Roboto', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 47px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: 0;
+}
 
 .dropdown-list li {
   padding: 8px 16px;
