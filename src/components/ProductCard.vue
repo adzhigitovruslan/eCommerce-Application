@@ -6,10 +6,10 @@
     @mouseover="onMouseOver"
     @mouseleave="onMouseLeave"
   >
-  <div class="image-container">
-    <img :src="getCoverImageUrl(product.masterVariant.images)" :alt="product.name['en-US']" :class="imageClass" />
-  </div>
-    
+    <div class="image-container">
+      <img :src="getCoverImageUrl(product.masterVariant.images)" :alt="product.name['en-US']" :class="imageClass" />
+    </div>
+
     <div class="game-buttons" :class="{ 'show-buttons': showButtons }">
       <div class="game-add-to-cart" v-if="showButtons">
         <button @click="addToCart(product)" class="add-to-cart-button">
@@ -279,9 +279,9 @@ export default defineComponent({
 }
 
 .image-container {
-  width: 100%; 
-  max-width: 16.5rem; 
-  max-height: 25rem; 
+  width: 100%;
+  max-width: 16.5rem;
+  max-height: 25rem;
   overflow: hidden;
 }
 
@@ -304,7 +304,7 @@ export default defineComponent({
 }
 
 .top-four-image {
-width: 100%;
+  width: 100%;
   height: 28rem;
   border-radius: 15px;
   margin-bottom: 10px;
