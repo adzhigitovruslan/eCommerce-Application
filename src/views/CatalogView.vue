@@ -35,7 +35,7 @@
 
             <template v-if="searchTerm.trim() === ''">
               <ProductCard
-                v-for="product in displayedGames || []"
+                v-for="product in allProducts || []"
                 :key="product.key"
                 :product="product"
                 imageClass="image-mode"
@@ -44,17 +44,97 @@
             </template>
           </div>
           <base-spinner title="loading" v-else class="spinner-style"></base-spinner>
+          <div class="pagination-buttons_container">
+            <button @click="goToPage(currentPage - 1)" :disabled="currentPage === 1" class="previous_button">
+              Previous
+            </button>
+            <span class="current_page">{{ currentPage }}</span>
+            <button @click="goToPage(currentPage + 1)" :disabled="currentPage === totalPages" class="next_button">
+              Next
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, ref, watch } from 'vue';
-import { ProductItem } from '@/types/interfaces/productItem';
-import ProductCard from '@/components/ProductCard.vue';
+<script setup lang="ts">
+import { ref, onMounted, watch } from 'vue';
 import { useStore } from 'vuex';
+import { ProductItem } from '@/types/interfaces/productItem';
+
+const store = useStore();
+const loading = ref(false);
+const displayedGames = ref<ProductItem[]>([]);
+const allProducts = ref<ProductItem[]>([]);
+const currentPage = ref(1);
+const itemsPerPage = 9;
+let totalPages = 1;
+
+const fetchProducts = async () => {
+  const priceRange = store.state.products.priceRange;
+
+  await store.dispatch('fetchProducts', priceRange);
+  loading.value = true;
+  displayedGames.value = store.state.products.products || [];
+  allProducts.value = displayedGames.value;
+
+  totalPages = Math.ceil(displayedGames.value.length / itemsPerPage);
+
+  fetchDataForPage(currentPage.value);
+};
+
+const goToPage = (page: number) => {
+  if (page >= 1 && page <= totalPages) {
+    currentPage.value = page;
+    fetchDataForPage(page);
+  }
+};
+
+const fetchDataForPage = (page: number) => {
+  const start = (page - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+
+  allProducts.value = displayedGames.value.slice(start, end);
+};
+
+watch(
+  () => store.state.products.priceRange,
+  (newPriceRange) => {
+    store.dispatch('fetchProducts', newPriceRange);
+  },
+  { immediate: true },
+);
+
+watch(
+  () => store.state.products.products,
+  (newProducts) => {
+    displayedGames.value = newProducts || [];
+
+    totalPages = Math.ceil(newProducts.length / itemsPerPage);
+  },
+  { immediate: true },
+);
+
+watch(
+  () => store.state.products.selectedCategories,
+  (newSelectedCategories) => {
+    store.dispatch('fetchProducts', newSelectedCategories);
+  },
+  { deep: true, immediate: true },
+);
+
+onMounted(() => {
+  fetchProducts();
+});
+</script>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+import ProductCard from '@/components/ProductCard.vue';
+
 import FilterBar from '@/components/FilterBar.vue';
 
 export default defineComponent({
@@ -76,46 +156,7 @@ export default defineComponent({
     ProductCard,
     FilterBar,
   },
-  setup() {
-    const store = useStore();
-    const loading = ref(false);
-    const displayedGames = ref<ProductItem[]>([]);
 
-    const priceRange = store.state.products.priceRange;
-
-    onMounted(async () => {
-      await store.dispatch('fetchProducts', priceRange);
-      loading.value = true;
-      displayedGames.value = store.state.products.products || [];
-    });
-
-    watch(
-      () => store.state.products.priceRange,
-      (newPriceRange) => {
-        store.dispatch('fetchProducts', newPriceRange);
-      },
-      { immediate: true },
-    );
-    watch(
-      () => store.state.products.products,
-      (newProducts) => {
-        displayedGames.value = newProducts || [];
-      },
-      { immediate: true },
-    );
-    watch(
-      () => store.state.products.selectedCategories,
-      (newSelectedCategories) => {
-        store.dispatch('fetchProducts', newSelectedCategories);
-      },
-      { deep: true, immediate: true },
-    );
-
-    return {
-      loading,
-      displayedGames,
-    };
-  },
   methods: {
     toggleDropdown() {
       this.isDropdownOpen = !this.isDropdownOpen;
@@ -184,6 +225,35 @@ export default defineComponent({
 
 body {
   overflow-x: hidden;
+
+  .pagination-buttons_container {
+    margin-top: 80px;
+  }
+
+  .previous_button,
+  .next_button {
+    background-color: rgba(119, 190, 29, 1);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 0 5px;
+    width: 100px;
+  }
+
+  .previous_button:hover,
+  .next_button:hover {
+    background-color: #45a049;
+  }
+
+  .current_page {
+    margin: 0 10px;
+    font-size: 16px;
+    color: white;
+  }
 }
 
 .not-found {
