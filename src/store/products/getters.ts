@@ -11,8 +11,8 @@ const getters: GetterTree<ProductsState, GlobalState> = {
       return price <= state.priceRange;
     });
   },
-  selectedProduct(state) {
-    return state.selectedProduct;
+  selectedProducts(state) {
+    return state.selectedProducts;
   },
 
   getSearchTerm: (state) => state.searchTerm,

@@ -78,7 +78,7 @@ const showNavigation = computed(() => {
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/assets/styles/global.scss';
 
 body {

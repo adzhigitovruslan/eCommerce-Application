@@ -22,16 +22,19 @@
         </div>
         <div class="product-cards">
           <div class="product-card-container" v-if="loading">
-            <template v-if="searchTerm && selectedProduct && Object.keys(selectedProduct).length > 0">
+            <template v-if="searchTerm && selectedProducts && Object.keys(selectedProducts).length > 0">
               <ProductCard
-                :key="selectedProduct.key"
-                :product="selectedProduct"
+                v-for="product in selectedProducts"
+                :key="product.key"
+                :product="product"
                 imageClass="image-mode"
                 class="product-card"
               />
             </template>
 
-            <template v-else-if="searchTerm && !selectedProduct"> <div class="not-found">Not Found</div> </template>
+            <template v-else-if="searchTerm && Object.keys(selectedProducts).length === 0">
+              <div class="not-found">Not Found</div>
+            </template>
 
             <template v-if="searchTerm.trim() === ''">
               <ProductCard
@@ -44,12 +47,22 @@
             </template>
           </div>
           <base-spinner title="loading" v-else class="spinner-style"></base-spinner>
-          <div class="pagination-buttons_container">
-            <button @click="goToPage(currentPage - 1)" :disabled="currentPage === 1" class="previous_button">
+          <div class="pagination-buttons_container" v-if="shouldShowPagination">
+            <button
+              @click="goToPage(currentPage - 1)"
+              :disabled="currentPage === 1"
+              class="previous_button"
+              :class="{ disabled: currentPage === 1 }"
+            >
               Previous
             </button>
             <span class="current_page">{{ currentPage }}</span>
-            <button @click="goToPage(currentPage + 1)" :disabled="currentPage === totalPages" class="next_button">
+            <button
+              @click="goToPage(currentPage + 1)"
+              :disabled="currentPage === totalPages"
+              class="next_button"
+              :class="{ disabled: currentPage === totalPages }"
+            >
               Next
             </button>
           </div>
@@ -60,7 +73,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, computed } from 'vue';
 import { useStore } from 'vuex';
 import { ProductItem } from '@/types/interfaces/productItem';
 
@@ -99,10 +112,25 @@ const fetchDataForPage = (page: number) => {
   allProducts.value = displayedGames.value.slice(start, end);
 };
 
+const shouldShowPagination = computed(() => {
+  if (store.getters.getSearchTerm.trim() === '') {
+    return true;
+  }
+
+  if (store.getters.selectedProducts && store.getters.selectedProducts.length > 0) {
+    return true;
+  }
+
+  return false;
+});
+
 watch(
   () => store.state.products.priceRange,
   (newPriceRange) => {
     store.dispatch('fetchProducts', newPriceRange);
+
+    allProducts.value = displayedGames.value;
+    fetchDataForPage(currentPage.value);
   },
   { immediate: true },
 );
@@ -111,8 +139,9 @@ watch(
   () => store.state.products.products,
   (newProducts) => {
     displayedGames.value = newProducts || [];
-
-    totalPages = Math.ceil(newProducts.length / itemsPerPage);
+    totalPages = Math.ceil(displayedGames.value.length / itemsPerPage);
+    allProducts.value = displayedGames.value;
+    fetchDataForPage(currentPage.value);
   },
   { immediate: true },
 );
@@ -121,8 +150,34 @@ watch(
   () => store.state.products.selectedCategories,
   (newSelectedCategories) => {
     store.dispatch('fetchProducts', newSelectedCategories);
+
+    allProducts.value = displayedGames.value;
+    fetchDataForPage(currentPage.value);
   },
   { deep: true, immediate: true },
+);
+watch(
+  () => displayedGames.value,
+  (newDisplayedGames) => {
+    const startIndex = (currentPage.value - 1) * itemsPerPage;
+
+    if (startIndex >= newDisplayedGames.length) {
+      currentPage.value = Math.max(Math.ceil(newDisplayedGames.length / itemsPerPage), 1);
+    }
+    totalPages = Math.ceil(newDisplayedGames.length / itemsPerPage);
+  },
+  { immediate: true },
+);
+watch(
+  () => store.getters.selectedProducts,
+  () => {
+    currentPage.value = 1;
+
+    const foundProductCount = store.getters.selectedProducts?.length || 0;
+
+    totalPages = Math.ceil(foundProductCount / itemsPerPage);
+  },
+  { immediate: true },
 );
 
 onMounted(() => {
@@ -145,8 +200,8 @@ export default defineComponent({
     };
   },
   computed: {
-    selectedProduct() {
-      return this.$store.getters.selectedProduct;
+    selectedProducts() {
+      return this.$store.getters.selectedProducts;
     },
     searchTerm() {
       return this.$store.getters.getSearchTerm;
@@ -242,11 +297,15 @@ body {
     transition: background-color 0.3s ease;
     margin: 0 5px;
     width: 100px;
+
+    &:hover {
+      background-color: #45a049;
+    }
   }
 
-  .previous_button:hover,
-  .next_button:hover {
-    background-color: #45a049;
+  .disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
   }
 
   .current_page {
