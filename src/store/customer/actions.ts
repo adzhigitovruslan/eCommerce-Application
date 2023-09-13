@@ -81,6 +81,8 @@ const actions: ActionTree<CustomerState, GlobalState> = {
       .then((body) => {
         context.commit('getUser', body);
 
+        console.log(body);
+
         return body;
       })
       .catch((err) => {
