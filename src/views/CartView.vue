@@ -36,6 +36,7 @@
                 </div>
               </div>
             </div>
+            <font-awesome-icon icon="fa-solid fa-xmark" />
           </li>
           <li class="cart__item item-cart">
             <div class="item-cart__img">
@@ -57,8 +58,12 @@
                 </div>
               </div>
             </div>
+            <font-awesome-icon icon="fa-solid fa-xmark" />
           </li>
         </ul>
+        <div class="cart__remove-btn">
+          <button>Очистить корзину</button>
+        </div>
       </div>
       <div class="order">
         <div class="order__block">
@@ -157,6 +162,20 @@ export default {
     padding-top: calc(15px + (30 - 15) * ((100vw - 320px) / (1200 - 320)));
     padding-bottom: calc(15px + (30 - 15) * ((100vw - 320px) / (1200 - 320)));
   }
+  &__remove-btn {
+    display: flex;
+    & button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      background: rgba(119, 190, 29, 0.1);
+      color: #77be1d;
+      transition: 0.2s;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
   &__header {
     color: #fff;
     font-size: 48px;
@@ -187,6 +206,19 @@ export default {
   }
   &__item {
     width: 100%;
+    svg {
+      font-size: 25px;
+      color: #ffffff;
+      margin-left: auto;
+      transition: 0.2s;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.8;
+      }
+      @media (max-width: 1200px) {
+        font-size: calc(18px + (25 - 18) * ((100vw - 320px) / (1200 - 320)));
+      }
+    }
   }
   & .item-cart {
     display: flex;
