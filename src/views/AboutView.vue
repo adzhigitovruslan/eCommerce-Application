@@ -54,7 +54,7 @@
 import teamMembersData from '@/teamMembers.json';
 import { defineComponent } from 'vue';
 
-console.log(teamMembersData )
+console.log(teamMembersData);
 
 export default defineComponent({
   data() {
@@ -64,10 +64,12 @@ export default defineComponent({
   },
   methods: {
     getImagePath(photo: string): string {
-      console.log(photo, `@/assets/images/${photo}` )
+      console.log(photo, `@/assets/images/${photo}`);
+
       return require(`@/assets/images/${photo}`);
-    },}
-  });
+    },
+  },
+});
 </script>
 
 <style scoped lang="scss">
