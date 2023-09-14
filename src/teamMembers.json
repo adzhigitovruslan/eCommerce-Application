@@ -1,19 +1,19 @@
 [
     {
-      "name": "First Name Last Name",
+      "name": "Oleg Bukhryakov",
       "role": "Team Lead",
-      "bio": "Lorem Ipsum ...",
-      "contribution": "Lorem Ipsum ...",
-      "githubProfile": "GitHub-profile-link",
-      "photo": "valorant3.jpeg"
+      "bio": "Born in Tyumen, Russia, Oleg currently resides in the vibrant city of Bishkek, Kyrgyzstan. He recently started an internship as a frontend developer at the company LLC DataRum and devotes his time to coding and perfecting his skills.",
+      "contribution": "Oleg made a significant contribution to the project, despite facing severe time constraints. He created essential components for the web application, including a user login service, a detailed product page, and a functional shopping cart.",
+      "githubProfile": "https://github.com/Fileofish",
+      "photo": "Oleg.jpeg"
     },
     {
-      "name": "First Name Last Name",
+      "name": "Ruslan Adzhigitov",
       "role": "Frontend Developer",
-      "bio": "Lorem Ipsum ...",
-      "contribution": "Lorem Ipsum ...",
-      "githubProfile": "GitHub-profile-link",
-      "photo": "valorant3.jpeg"
+      "bio": "Ruslan is a dedicated frontend developer known for his passion for crafting visually stunning and user-friendly websites. He excels in transforming creative ideas into interactive digital realities. Currently, Ruslan is employed at Cartips, where he showcases his commitment to excellence in web development.",
+      "contribution": "Ruslan crafted login and registration forms with validation, designed user profile page, and made valuable contributions to enhancing the shopping cart feature, elevating the overall user experience.",
+      "githubProfile": "https://github.com/adzhigitovruslan",
+      "photo": "Ruslan.jpeg"
     },
     {
       "name": "Anna Ostanina",
@@ -24,11 +24,11 @@
       "photo": "Anna.jpg"
     },
     {
-      "name": "First Name Last Name",
+      "name": "Erlan Toktosunov",
       "role": "Mentor",
-      "bio": "Lorem Ipsum ...",
-      "contribution": "Lorem Ipsum ...",
-      "githubProfile": "GitHub-profile-link",
+      "bio": "...",
+      "contribution": "Erlan provided invaluable assistance in our project. He willingly shared his experience and knowledge, conducted error analysis, and guided us on how to rectify them. His valuable guidance enabled us to enhance our skills and improve the project, ensuring a higher-quality development process. The mentor served as a reliable support on our journey to success.",
+      "githubProfile": "https://github.com/3igrik",
       "photo": "valorant3.jpeg"
     }
   ]
