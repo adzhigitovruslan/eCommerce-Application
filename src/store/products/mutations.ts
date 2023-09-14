@@ -15,8 +15,8 @@ const mutations: MutationTree<ProductsState> = {
       state.selectedCategories[category].selected = selectedCategories[category].selected;
     }
   },
-  updateSelectedProduct(state, product) {
-    state.selectedProduct = product;
+  updateSelectedProducts(state, products) {
+    state.selectedProducts = products;
   },
   updateSearchTerm(state, searchTerm) {
     state.searchTerm = searchTerm;

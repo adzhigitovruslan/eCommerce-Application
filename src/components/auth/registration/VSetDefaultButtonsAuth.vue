@@ -50,7 +50,6 @@
 <script setup lang="ts">
 import { useStore } from 'vuex';
 import { computed } from 'vue';
-import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
 const getVersion = computed(() => store.getters['customer/getVersion']);

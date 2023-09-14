@@ -158,7 +158,7 @@ export default defineComponent({
       activeLink: '',
       showMenu: false,
       productSuggestions: [] as string[],
-      selectedProduct: '',
+      selectedProducts: [],
     };
   },
 
@@ -199,17 +199,16 @@ export default defineComponent({
     },
     handleSearch() {
       if (this.searchTerm) {
-        const selectedProduct = this.findSelectedProduct();
+        const selectedProducts = this.findSelectedProducts();
 
-        if (selectedProduct) {
-          this.$store.dispatch('setSelectedProduct', selectedProduct);
-        } else {
-          this.$store.dispatch('setSelectedProduct', null);
-        }
+        this.$store.dispatch('setSelectedProducts', selectedProducts);
+      } else {
+        this.$store.dispatch('setSelectedProducts', []);
       }
       this.$store.dispatch('updateSearchTerm', this.searchTerm);
     },
-    findSelectedProduct() {
+
+    findSelectedProducts() {
       const searchTerm = this.searchTerm.toLowerCase();
       const products = this.$store.state.products.products || [];
 
@@ -219,11 +218,7 @@ export default defineComponent({
         return productName.includes(searchTerm);
       });
 
-      if (filteredProducts.length > 0) {
-        return filteredProducts[0];
-      } else {
-        return '';
-      }
+      return filteredProducts;
     },
   },
   computed: {

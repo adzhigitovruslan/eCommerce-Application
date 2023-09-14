@@ -38,8 +38,8 @@ export default {
     }
     context.commit('decrementProductInventory', product);
   },
-  setSelectedProduct({ commit }: { commit: Commit }, product: ProductItem) {
-    commit('updateSelectedProduct', product);
+  setSelectedProducts({ commit }: { commit: Commit }, products: ProductItem[]) {
+    commit('updateSelectedProducts', products);
   },
   updateSearchTerm({ commit }: { commit: Commit }, searchTerm: string) {
     commit('updateSearchTerm', searchTerm);
