@@ -1,0 +1,34 @@
+[
+    {
+      "name": "First Name Last Name",
+      "role": "Team Lead",
+      "bio": "Lorem Ipsum ...",
+      "contribution": "Lorem Ipsum ...",
+      "githubProfile": "GitHub-profile-link",
+      "photo": "valorant3.jpeg"
+    },
+    {
+      "name": "First Name Last Name",
+      "role": "Frontend Developer",
+      "bio": "Lorem Ipsum ...",
+      "contribution": "Lorem Ipsum ...",
+      "githubProfile": "GitHub-profile-link",
+      "photo": "valorant3.jpeg"
+    },
+    {
+      "name": "Anna Ostanina",
+      "role": "Frontend Developer",
+      "bio": "Originally from Kazakhstan and currently residing in Austria, Anna embarked on her frontend development journey 1.5 years ago. She is committed to continuous self-improvement and staying up-to-date with the latest trends in the world of web development.",
+      "contribution": "Anna has made significant contributions to the team's work, including implementing routing functionality and developing the main and catalog pages. Additionally, Anna created the \"About Us\" page, where she shared the team's story.",
+      "githubProfile": "https://github.com/taorminak",
+      "photo": "Anna.jpg"
+    },
+    {
+      "name": "First Name Last Name",
+      "role": "Mentor",
+      "bio": "Lorem Ipsum ...",
+      "contribution": "Lorem Ipsum ...",
+      "githubProfile": "GitHub-profile-link",
+      "photo": "valorant3.jpeg"
+    }
+  ]
