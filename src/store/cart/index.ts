@@ -1,12 +1,14 @@
-import actions from '@/store/customer/actions';
-import mutations from '@/store/customer/mutations';
-import getters from '@/store/customer/getters';
+import actions from '@/store/cart/actions';
+import mutations from '@/store/cart/mutations';
+import getters from '@/store/cart/getters';
 
 const cartModule = {
   namespaced: true,
   state() {
     return {
       cart: [],
+      cartId: '',
+      version: 1,
     };
   },
   getters,

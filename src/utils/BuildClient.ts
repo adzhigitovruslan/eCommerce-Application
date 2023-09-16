@@ -29,8 +29,15 @@ const httpMiddlewareOptions: HttpMiddlewareOptions = {
 
 // Export the ClientBuilder
 export const ctpClient = new ClientBuilder()
-  .withProjectKey(projectKey)
-  .withHttpMiddleware(httpMiddlewareOptions)
-  .withLoggerMiddleware() // Include middleware for logging
   .withClientCredentialsFlow(authMiddlewareOptions)
+  .withHttpMiddleware(httpMiddlewareOptions)
+  // .withProjectKey(projectKey)
+  // .withLoggerMiddleware() // Include middleware for logging
+  .build();
+
+export const ctpAnonymousClient = new ClientBuilder()
+  .withAnonymousSessionFlow(authMiddlewareOptions)
+  .withHttpMiddleware(httpMiddlewareOptions)
+  // .withProjectKey(projectKey)
+  // .withLoggerMiddleware() // Include middleware for logging
   .build();

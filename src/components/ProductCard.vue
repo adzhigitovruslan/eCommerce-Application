@@ -1,15 +1,33 @@
 <template>
-  <router-link
-    class="promotion-card"
-    :key="product.id"
-    :to="`product:${product.slug['en-US']}`"
-    @mouseover="onMouseOver"
-    @mouseleave="onMouseLeave"
-  >
-    <div class="image-container">
-      <img :src="getCoverImageUrl(product.masterVariant.images)" :alt="product.name['en-US']" :class="imageClass" />
-    </div>
-
+  <div class="promotion-card-wrapper" @mouseover="onMouseOver" @mouseleave="onMouseLeave">
+    <router-link class="promotion-card" :key="product.id" :to="`product:${product.slug['en-US']}`">
+      <div class="image-container">
+        <img :src="getCoverImageUrl(product.masterVariant.images)" :alt="product.name['en-US']" :class="imageClass" />
+      </div>
+      <div class="game-info" :class="gameInfo">
+        <div class="game-price-container">
+          <div class="game-price" :class="gamePrice">
+            {{ getProductPrice(product) }}
+          </div>
+          <div v-if="hasDiscountedPrice(product)" class="game-price-original">
+            {{ getOriginalPrice(product) }}
+          </div>
+          <div v-if="getProductDiscount(product) > 0" class="game-discount" :class="gameDiscount">
+            {{ getProductDiscount(product) }}% off
+          </div>
+        </div>
+        <div class="game-name">{{ product.name['en-US'] }}</div>
+        <button @click="toggleDescription" class="read-description-button" v-if="$route.name === 'catalog'">
+          Read Description
+        </button>
+      </div>
+      <div :class="{ overlay: true, show: showDescription }">
+        <div class="description-overlay">
+          <button @click="toggleDescription" class="close-description-button">Close</button>
+          <div class="game-description">{{ product.description['en-US'] }}</div>
+        </div>
+      </div>
+    </router-link>
     <div class="game-buttons" :class="{ 'show-buttons': showButtons }">
       <div class="game-add-to-cart" v-if="showButtons">
         <button @click="addToCart(product)" class="add-to-cart-button">
@@ -22,30 +40,7 @@
         </button>
       </div>
     </div>
-    <div class="game-info" :class="gameInfo">
-      <div class="game-price-container">
-        <div class="game-price" :class="gamePrice">
-          {{ getProductPrice(product) }}
-        </div>
-        <div v-if="hasDiscountedPrice(product)" class="game-price-original">
-          {{ getOriginalPrice(product) }}
-        </div>
-        <div v-if="getProductDiscount(product) > 0" class="game-discount" :class="gameDiscount">
-          {{ getProductDiscount(product) }}% off
-        </div>
-      </div>
-      <div class="game-name">{{ product.name['en-US'] }}</div>
-      <button @click="toggleDescription" class="read-description-button" v-if="$route.name === 'catalog'">
-        Read Description
-      </button>
-    </div>
-    <div :class="{ overlay: true, show: showDescription }">
-      <div class="description-overlay">
-        <button @click="toggleDescription" class="close-description-button">Close</button>
-        <div class="game-description">{{ product.description['en-US'] }}</div>
-      </div>
-    </div>
-  </router-link>
+  </div>
 </template>
 
 <script lang="ts">
@@ -159,13 +154,15 @@ export default defineComponent({
 <style lang="scss">
 @import '@/assets/styles/global.scss';
 
+.promotion-card-wrapper {
+  position: relative;
+}
 .promotion-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   text-align: center;
-  position: relative;
   height: 100%;
   position: relative;
   transition: filter 0.3s ease;

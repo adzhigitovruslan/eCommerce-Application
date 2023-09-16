@@ -20,7 +20,9 @@ export interface CustomerState {
 }
 
 export interface CartState {
-  cart: [];
+  cart: CartItem[];
+  cartId: string;
+  version: number;
 }
 
 export interface IAddress {

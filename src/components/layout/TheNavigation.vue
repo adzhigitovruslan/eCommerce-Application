@@ -129,15 +129,18 @@
         </div>
 
         |
-        <router-link
-          :to="{ name: 'cart' }"
-          class="nav-link cart-link"
-          :class="{ active: activeLink === 'cart' }"
-          data-type="cart"
-          @click="setActiveLink('cart')"
-        >
-          <font-awesome-icon :icon="['fas', 'cart-shopping']"></font-awesome-icon>
-        </router-link>
+        <div class="cart-link-wrapper">
+          <router-link
+            :to="{ name: 'cart' }"
+            class="nav-link cart-link"
+            :class="{ active: activeLink === 'cart' }"
+            data-type="cart"
+            @click="setActiveLink('cart')"
+          >
+            <font-awesome-icon :icon="['fas', 'cart-shopping']"></font-awesome-icon>
+          </router-link>
+          <span class="cart-link-amount">{{ getCartQuantity }}</span>
+        </div>
       </div>
     </nav>
   </header>
@@ -147,6 +150,7 @@
 import { ProductItem } from '@/types/interfaces/productItem';
 import { defineComponent } from 'vue';
 import { toast } from 'vue3-toastify';
+import { CartItem } from '@/types/interfaces/cartItem';
 import 'vue3-toastify/dist/index.css';
 
 export default defineComponent({
@@ -224,6 +228,9 @@ export default defineComponent({
   computed: {
     isLoggedIn() {
       return this.$store.getters['customer/getIsLoggedIn'];
+    },
+    getCartQuantity() {
+      return this.$store.getters['cart/getCartQuantity'];
     },
   },
 });
@@ -336,22 +343,42 @@ nav .nav-link:hover {
   color: #a0a0a0;
 }
 
+.nav-link {
+  transition: 0.2s;
+}
+
 .cart-link {
+  position: relative;
   display: inline-block;
   vertical-align: middle;
   margin-right: 10px;
   color: $white-color;
 
-  &:hover {
-    color: #808080;
+  & img {
+    height: 25px;
   }
 
   &:active {
     color: #a0a0a0;
   }
 }
-.cart-link img {
-  height: 25px;
+.cart-link-amount {
+  position: absolute;
+  top: -2px;
+  right: 3px;
+  background: orange;
+  border-radius: 50%;
+  width: 13px;
+  height: 13px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+.cart-link-wrapper {
+  position: relative;
+  display: inline;
 }
 .logo-link {
   display: flex;

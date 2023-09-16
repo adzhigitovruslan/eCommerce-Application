@@ -21,9 +21,6 @@ const mutations: MutationTree<ProductsState> = {
   updateSearchTerm(state, searchTerm) {
     state.searchTerm = searchTerm;
   },
-  pushProductToCart(state, productId: number) {
-    state.cart.push({ id: productId, quantity: 1 });
-  },
   incrementItemQuantity(state, cartItem: CartItem) {
     cartItem.quantity++;
   },
