@@ -1,16 +1,14 @@
 <template>
   <div class="cart-container">
     <h1 class="cart__header">
-      Корзина <span class="cart__header-total">{{ getCartQuantity }}</span>
+      Cart <span class="cart__header-total">{{ getCartQuantity }}</span>
     </h1>
     <div class="cart-wrapper">
       <div class="cart">
         <div class="cart__board board">
-          <h3 class="board__header">Войдите или зарегистрируйтесь</h3>
-          <p class="board__text">
-            Вы сможете накапливать бонусные рубли и использовать их при оплате до 50% стоимости товаров.
-          </p>
-          <button class="board__in-button">Войти</button>
+          <h3 class="board__header">Login or register</h3>
+          <p class="board__text">You can receive a 15% discount using a promo code: HAPPY15.</p>
+          <button class="board__in-button">Login</button>
         </div>
         <ul class="cart__list">
           <li class="cart__item item-cart" v-for="product in cartProducts" :key="product.id">
@@ -18,15 +16,15 @@
           </li>
         </ul>
         <div class="cart__remove-btn">
-          <button>Очистить корзину</button>
+          <button>Clear cart</button>
         </div>
       </div>
       <div class="order">
         <div class="order__block">
-          <h3 class="order__header"><span>5 </span>товаров</h3>
-          <div class="order__price">4999 Р</div>
-          <input class="order__input" type="text" placeholder="Введите купон" />
-          <button class="order__button">Оформить заказ</button>
+          <h3 class="order__header"><span>5 </span>products</h3>
+          <div class="order__price">4999 $</div>
+          <input class="order__input" type="text" placeholder="Enter promo code" />
+          <button class="order__button">Place Order</button>
         </div>
       </div>
     </div>
