@@ -3,8 +3,8 @@
     <h1 class="cart__header">
       Корзина <span class="cart__header-total">{{ getCartQuantity }}</span>
     </h1>
-    <div class="cart-wrapper">
-      <div class="cart">
+    <div class="cart">
+      <div class="cart-wrapper">
         <div class="cart__board board">
           <h3 class="board__header">Войдите или зарегистрируйтесь</h3>
           <p class="board__text">
@@ -12,22 +12,32 @@
           </p>
           <button class="board__in-button">Войти</button>
         </div>
-        <ul class="cart__list">
+        <div class="order">
+          <div class="order__block">
+            <h3 class="order__header">
+              <span>{{ getCartQuantity }} </span> items
+            </h3>
+            <div class="order__price">{{ getTotalPrice / 100 }} USD</div>
+            <input class="order__input" type="text" placeholder="Введите купон" />
+            <button class="order__button">Оформить заказ</button>
+          </div>
+        </div>
+      </div>
+      <transition>
+        <ul class="cart__list" v-if="cartProducts.length">
           <li class="cart__item item-cart" v-for="product in cartProducts" :key="product.id">
             <CartProduct :product="product" />
           </li>
         </ul>
-        <div class="cart__remove-btn">
-          <button>Очистить корзину</button>
-        </div>
-      </div>
-      <div class="order">
-        <div class="order__block">
-          <h3 class="order__header"><span>5 </span>товаров</h3>
-          <div class="order__price">4999 Р</div>
-          <input class="order__input" type="text" placeholder="Введите купон" />
-          <button class="order__button">Оформить заказ</button>
-        </div>
+        <ul class="cart__list" v-else>
+          <div class="empty-cart">
+            <p class="empty-cart__text">There are no products in the cart.</p>
+          </div>
+        </ul>
+      </transition>
+
+      <div class="cart__remove-btn">
+        <button>Очистить корзину</button>
       </div>
     </div>
   </div>
@@ -49,14 +59,24 @@ export default defineComponent({
     cartProducts(): CartItem[] {
       return this.$store.getters['cart/cartProducts'];
     },
+    getTotalPrice() {
+      return this.$store.getters['cart/getTotalPrice'];
+    },
   },
 });
 </script>
 
 <style lang="scss" scoped>
+.empty-cart {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.26);
+  padding: 20px;
+  &__text {
+    color: #ffffff;
+  }
+}
 .order {
-  padding-bottom: 30px;
-  padding-top: 30px;
+  display: flex;
   &__button {
     padding: 10px 20px;
     background: rgba(119, 190, 29, 0.1);
@@ -82,15 +102,19 @@ export default defineComponent({
   &__header {
     color: #fff;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 25px;
     @media (max-width: 1200px) {
-      font-size: calc(18px + (20 - 18) * ((100vw - 320px) / (1200 - 320)));
+      font-size: calc(18px + (25 - 18) * ((100vw - 320px) / (1200 - 320)));
     }
   }
   &__price {
     color: #fff;
     font-weight: 600;
     font-size: 36px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     @media (max-width: 1200px) {
       font-size: calc(25px + (36 - 25) * ((100vw - 320px) / (1200 - 320)));
     }
@@ -101,7 +125,7 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 20px;
+    padding: 30px;
   }
 }
 .cart-container {
@@ -119,6 +143,8 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
   padding-bottom: 30px;
   padding-top: 30px;
   @media (max-width: 1200px) {
@@ -163,6 +189,7 @@ export default defineComponent({
     flex-direction: column;
     gap: 30px;
     width: 100%;
+    max-width: 70%;
     @media (max-width: 1200px) {
       gap: calc(15px + (30 - 15) * ((100vw - 320px) / (1200 - 320)));
     }
@@ -227,5 +254,16 @@ export default defineComponent({
       font-size: calc(16px + (20 - 16) * ((100vw - 320px) / (1200 - 320)));
     }
   }
+}
+
+.v-enter-from,
+.v-leave-to {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: 0.5s;
 }
 </style>

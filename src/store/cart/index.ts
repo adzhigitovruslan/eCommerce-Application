@@ -9,6 +9,8 @@ const cartModule = {
       cart: [],
       cartId: '',
       version: 1,
+      totalPrice: 0,
+      totalLineItemQuantity: 0,
     };
   },
   getters,

@@ -2,50 +2,98 @@
 <template>
   <div class="item-cart">
     <div class="item-cart__img">
-      <img src="@/assets/images/apex_legends.png" alt="" />
+      <img :src="coverImg" alt="" />
     </div>
     <div class="item-cart__info">
       <h3 class="item-cart__header">{{ product.name['en-US'] }}</h3>
       <div class="item-cart__price-count">
-        <span class="item-cart__new-price" v-if="discount">{{ newPrice }} P</span>
+        <span class="item-cart__new-price" v-if="discount">{{ newPrice ? newPrice / 100 : null }} USD</span>
         <span class="item-cart__discount" v-if="newPrice"
           >- {{ Math.floor(((oldPrice - newPrice) / oldPrice) * 100) }} %</span
         >
-        <span class="item-cart__old-price"
-          >{{ product.price.value.centAmount.toFixed(product.price.value.fractionDigits) }} Р</span
-        >
+        <span class="item-cart__old-price">{{ oldPrice / 100 }} USD</span>
       </div>
       <div class="item-cart__counter_item">
         <p>Total amount</p>
         <div class="item-cart__counter-wrapper">
-          <button>-</button>
-          <span class="item-cart__counter">0</span>
-          <button>+</button>
+          <button @click="changeLineItemQuantity('decrease')">-</button>
+          <span class="item-cart__counter">{{ quantity }}</span>
+          <button @click="changeLineItemQuantity('increase')">+</button>
         </div>
       </div>
     </div>
-    <font-awesome-icon icon="fa-solid fa-xmark" />
+    <font-awesome-icon icon="fa-solid fa-xmark" @click="removeLineItem" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { CartItem } from '@/types/interfaces/cartItem';
 import { ref } from 'vue';
+import { useStore } from 'vuex';
 
 const props = defineProps<{
   product: CartItem;
 }>();
+const store = useStore();
 
 const newPrice = ref(props.product.price.discounted?.value.centAmount);
 const oldPrice = ref(props.product.price.value.centAmount);
 const discount = ref();
+const coverImg = ref(props.product.variant.images.find((image) => image.label?.toLowerCase() === 'cover')?.url);
+let quantity = ref(props.product.quantity);
 
 if (newPrice.value) {
   discount.value = Math.floor(((oldPrice.value - newPrice.value) / oldPrice.value) * 100);
 }
+
+function removeLineItem() {
+  store.dispatch('cart/removeLineItem', {
+    version: store.state.cart.version,
+    actions: [
+      {
+        action: 'removeLineItem',
+        lineItemId: props.product.id,
+      },
+    ],
+  });
+}
+function changeLineItemQuantity(mode: string) {
+  if (mode === 'increase') {
+    quantity.value += 1;
+    store.dispatch('cart/changeLineItemQuantity', {
+      version: store.state.cart.version,
+      actions: [
+        {
+          action: 'changeLineItemQuantity',
+          lineItemId: props.product.id,
+          quantity: quantity.value,
+        },
+      ],
+    });
+  } else if (mode === 'decrease') {
+    quantity.value -= 1;
+    store.dispatch('cart/changeLineItemQuantity', {
+      version: store.state.cart.version,
+      actions: [
+        {
+          action: 'changeLineItemQuantity',
+          lineItemId: props.product.id,
+          quantity: quantity.value,
+        },
+      ],
+    });
+  }
+}
 </script>
 
 <style lang="scss" scoped>
+.fa-xmark {
+  cursor: pointer;
+  transition: 0.2s;
+  &:hover {
+    opacity: 0.8;
+  }
+}
 .item-cart {
   display: flex;
   gap: 30px;
@@ -71,6 +119,7 @@ if (newPrice.value) {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 70%;
   }
   &__header {
     color: #fff;

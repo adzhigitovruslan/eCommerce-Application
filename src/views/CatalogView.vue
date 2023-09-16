@@ -115,13 +115,11 @@ const fetchDataForPage = (page: number) => {
 };
 
 const addItemToCart = async (product: ProductItem) => {
-  console.log(product);
-
   try {
     if (!store.state.cart.cartId) {
       await store.dispatch('cart/createAnonymousCart');
     }
-    await store.dispatch('cart/updateCart', {
+    await store.dispatch('cart/addLineItem', {
       version: store.state.cart.version,
       actions: [
         {

@@ -23,6 +23,8 @@ export interface CartState {
   cart: CartItem[];
   cartId: string;
   version: number;
+  totalPrice: number;
+  totalLineItemQuantity: number;
 }
 
 export interface IAddress {

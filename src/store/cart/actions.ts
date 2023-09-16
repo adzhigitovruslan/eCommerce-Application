@@ -24,8 +24,6 @@ const actions: ActionTree<CartState, GlobalState> = {
 
     return doCustomer()
       .then(({ body }) => {
-        console.log(body, 'create');
-
         if (body.id) {
           localStorage.setItem('cartId', body.id);
         }
@@ -37,7 +35,7 @@ const actions: ActionTree<CartState, GlobalState> = {
         throw err;
       });
   },
-  async updateCart(context, body) {
+  async addLineItem(context, body) {
     return apiRoot
       .me()
       .carts()
@@ -50,6 +48,47 @@ const actions: ActionTree<CartState, GlobalState> = {
         console.log(body, 'update');
         context.state.version = body.version;
         context.commit('setCart', body.lineItems);
+        context.state.totalPrice = body.totalPrice.centAmount;
+
+        if (body.totalLineItemQuantity) context.state.totalLineItemQuantity = body.totalLineItemQuantity;
+
+        return body;
+      })
+      .catch((err) => {
+        throw err;
+      });
+  },
+  async removeLineItem(context, body) {
+    return apiRoot
+      .me()
+      .carts()
+      .withId({ ID: context.state.cartId })
+      .post({
+        body,
+      })
+      .execute()
+      .then(({ body }) => {
+        context.state.version = body.version;
+        context.commit('setCart', body.lineItems);
+
+        return body;
+      })
+      .catch((err) => {
+        throw err;
+      });
+  },
+  async changeLineItemQuantity(context, body) {
+    return apiRoot
+      .me()
+      .carts()
+      .withId({ ID: context.state.cartId })
+      .post({
+        body,
+      })
+      .execute()
+      .then(({ body }) => {
+        context.state.version = body.version;
+        console.log(body);
 
         return body;
       })

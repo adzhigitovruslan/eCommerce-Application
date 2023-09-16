@@ -16,4 +16,12 @@ export interface CartItem {
       };
     };
   };
+  variant: {
+    images: imagesItem[];
+  };
+}
+
+interface imagesItem {
+  label: string;
+  url: string;
 }
