@@ -1,7 +1,7 @@
 <template>
   <div class="cart-container">
     <h1 class="cart__header">
-      Корзина <span class="cart__header-total">{{ getCartQuantity }}</span>
+      Cart <span class="cart__header-total">{{ getCartQuantity }}</span>
     </h1>
     <div class="cart">
       <div class="cart-wrapper">
