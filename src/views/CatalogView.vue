@@ -29,6 +29,7 @@
                 :product="product"
                 imageClass="image-mode"
                 class="product-card"
+                @addToCartClicked="addItemToCart"
               />
             </template>
 
@@ -43,6 +44,7 @@
                 :product="product"
                 imageClass="image-mode"
                 class="product-card"
+                @addToCartClicked="addItemToCart"
               />
             </template>
           </div>
@@ -110,6 +112,29 @@ const fetchDataForPage = (page: number) => {
   const end = start + itemsPerPage;
 
   allProducts.value = displayedGames.value.slice(start, end);
+};
+
+const addItemToCart = async (product: ProductItem) => {
+  console.log(product);
+
+  try {
+    if (!store.state.cart.cartId) {
+      await store.dispatch('cart/createAnonymousCart');
+    }
+    await store.dispatch('cart/updateCart', {
+      version: store.state.cart.version,
+      actions: [
+        {
+          action: 'addLineItem',
+          productId: product.id,
+          variantId: product.masterVariant.id,
+          quantity: 1,
+        },
+      ],
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const shouldShowPagination = computed(() => {
