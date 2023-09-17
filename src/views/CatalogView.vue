@@ -78,6 +78,8 @@
 import { ref, onMounted, watch, computed } from 'vue';
 import { useStore } from 'vuex';
 import { ProductItem } from '@/types/interfaces/productItem';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const store = useStore();
 const loading = ref(false);
@@ -116,20 +118,37 @@ const fetchDataForPage = (page: number) => {
 
 const addItemToCart = async (product: ProductItem) => {
   try {
-    if (!store.state.cart.cartId) {
-      await store.dispatch('cart/createAnonymousCart');
-    }
-    await store.dispatch('cart/addLineItem', {
-      version: store.state.cart.version,
-      actions: [
-        {
-          action: 'addLineItem',
-          productId: product.id,
-          variantId: product.masterVariant.id,
-          quantity: 1,
-        },
-      ],
-    });
+    const updateCustomer = async () => {
+      if (!store.state.cart.cartId) {
+        await store.dispatch('cart/createAnonymousCart');
+      }
+
+      await store.dispatch('cart/addLineItem', {
+        version: store.state.cart.version,
+        actions: [
+          {
+            action: 'addLineItem',
+            productId: product.id,
+            variantId: product.masterVariant.id,
+            quantity: 1,
+          },
+        ],
+      });
+    };
+
+    toast.promise(
+      updateCustomer,
+      {
+        pending: 'Item is adding to the cart',
+        success: 'Item has added to the cart 👌',
+        error: 'Something goes wrong 🤯',
+      },
+      {
+        theme: 'dark',
+        icon: '🎉',
+        transition: toast.TRANSITIONS.SLIDE,
+      },
+    );
   } catch (err) {
     console.log(err);
   }

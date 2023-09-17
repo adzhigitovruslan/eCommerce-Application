@@ -57,8 +57,6 @@ const actions: ActionTree<CustomerState, GlobalState> = {
 
         const id = body.customer.id;
 
-        console.log(body, 'body');
-
         localStorage.setItem('id', id);
         context.commit('setLoggedIn', { isLoggedInValue: true, hasId: id });
 
@@ -80,8 +78,6 @@ const actions: ActionTree<CustomerState, GlobalState> = {
       .execute()
       .then((body) => {
         context.commit('getUser', body);
-
-        console.log(body);
 
         return body;
       })
@@ -119,8 +115,6 @@ const actions: ActionTree<CustomerState, GlobalState> = {
       .post({ body })
       .execute()
       .then((body) => {
-        console.log(body);
-
         return body;
       })
       .catch((err) => {

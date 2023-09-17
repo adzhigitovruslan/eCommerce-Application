@@ -45,7 +45,6 @@ const actions: ActionTree<CartState, GlobalState> = {
       })
       .execute()
       .then(({ body }) => {
-        console.log(body, 'update');
         context.state.version = body.version;
         context.commit('setCart', body.lineItems);
         context.state.totalPrice = body.totalPrice.centAmount;
@@ -88,7 +87,6 @@ const actions: ActionTree<CartState, GlobalState> = {
       .execute()
       .then(({ body }) => {
         context.state.version = body.version;
-        console.log(body);
 
         return body;
       })

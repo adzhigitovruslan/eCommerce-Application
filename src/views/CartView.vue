@@ -6,20 +6,18 @@
     <div class="cart">
       <div class="cart-wrapper">
         <div class="cart__board board">
-          <h3 class="board__header">Войдите или зарегистрируйтесь</h3>
-          <p class="board__text">
-            Вы сможете накапливать бонусные рубли и использовать их при оплате до 50% стоимости товаров.
-          </p>
-          <button class="board__in-button">Войти</button>
+          <h3 class="board__header">Login or register</h3>
+          <p class="board__text">You can receive a 15% discount using a promo code: HAPPY15.</p>
+          <button class="board__in-button">Login</button>
         </div>
         <div class="order">
           <div class="order__block">
             <h3 class="order__header">
               <span>{{ getCartQuantity }} </span> items
             </h3>
-            <div class="order__price">{{ getTotalPrice / 100 }} USD</div>
-            <input class="order__input" type="text" placeholder="Введите купон" />
-            <button class="order__button">Оформить заказ</button>
+            <div class="order__price">{{ getTotalPrice / 100 }} $</div>
+            <input class="order__input" type="text" placeholder="Enter promo code" />
+            <button class="order__button">Place Order</button>
           </div>
         </div>
       </div>
@@ -37,7 +35,7 @@
       </transition>
 
       <div class="cart__remove-btn">
-        <button>Очистить корзину</button>
+        <button>Clear cart</button>
       </div>
     </div>
   </div>

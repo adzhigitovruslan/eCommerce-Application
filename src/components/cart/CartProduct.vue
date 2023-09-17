@@ -30,6 +30,8 @@
 import { CartItem } from '@/types/interfaces/cartItem';
 import { ref } from 'vue';
 import { useStore } from 'vuex';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const props = defineProps<{
   product: CartItem;
@@ -57,31 +59,66 @@ function removeLineItem() {
     ],
   });
 }
+// eslint-disable-next-line max-lines-per-function
 function changeLineItemQuantity(mode: string) {
   if (mode === 'increase') {
     quantity.value += 1;
-    store.dispatch('cart/changeLineItemQuantity', {
-      version: store.state.cart.version,
-      actions: [
-        {
-          action: 'changeLineItemQuantity',
-          lineItemId: props.product.id,
-          quantity: quantity.value,
-        },
-      ],
-    });
+
+    const updateCustomer = async () => {
+      await store.dispatch('cart/changeLineItemQuantity', {
+        version: store.state.cart.version,
+        actions: [
+          {
+            action: 'changeLineItemQuantity',
+            lineItemId: props.product.id,
+            quantity: quantity.value,
+          },
+        ],
+      });
+    };
+
+    toast.promise(
+      updateCustomer,
+      {
+        pending: 'Wait..',
+        success: 'Quantity is increased 👌',
+        error: 'Something goes wrong 🤯',
+      },
+      {
+        theme: 'dark',
+        icon: '🎉',
+        transition: toast.TRANSITIONS.SLIDE,
+      },
+    );
   } else if (mode === 'decrease') {
     quantity.value -= 1;
-    store.dispatch('cart/changeLineItemQuantity', {
-      version: store.state.cart.version,
-      actions: [
-        {
-          action: 'changeLineItemQuantity',
-          lineItemId: props.product.id,
-          quantity: quantity.value,
-        },
-      ],
-    });
+
+    const updateCustomer = async () => {
+      await store.dispatch('cart/changeLineItemQuantity', {
+        version: store.state.cart.version,
+        actions: [
+          {
+            action: 'changeLineItemQuantity',
+            lineItemId: props.product.id,
+            quantity: quantity.value,
+          },
+        ],
+      });
+    };
+
+    toast.promise(
+      updateCustomer,
+      {
+        pending: 'Wait..',
+        success: 'Quantity is decreased 👌',
+        error: 'Something goes wrong 🤯',
+      },
+      {
+        theme: 'dark',
+        icon: '🎉',
+        transition: toast.TRANSITIONS.SLIDE,
+      },
+    );
   }
 }
 </script>

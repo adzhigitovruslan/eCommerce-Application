@@ -34,11 +34,6 @@
           <font-awesome-icon :icon="['fas', 'cart-shopping']" class="cart-icon"></font-awesome-icon>
         </button>
       </div>
-      <div class="game-add-to-fav" v-if="showButtons">
-        <button @click="addToFavourites(product)" class="add-to-fav-button">
-          <font-awesome-icon :icon="['fas', 'heart']" class="heart-icon" />
-        </button>
-      </div>
     </div>
   </div>
 </template>
@@ -130,9 +125,6 @@ export default defineComponent({
     },
     addToCart(product: ProductItem) {
       this.$emit('addToCartClicked', product);
-    },
-    addToFavourites(product: ProductItem) {
-      this.$emit('addToFavouritesClicked', product);
     },
     onMouseOver() {
       this.showButtons = true;
