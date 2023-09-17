@@ -65,7 +65,7 @@ function changeLineItemQuantity(mode: string) {
     quantity.value += 1;
 
     const updateCustomer = async () => {
-      await store.dispatch('cart/changeLineItemQuantity', {
+      const res = await store.dispatch('cart/changeLineItemQuantity', {
         version: store.state.cart.version,
         actions: [
           {
@@ -75,6 +75,8 @@ function changeLineItemQuantity(mode: string) {
           },
         ],
       });
+
+      store.state.cart.totalPrice = res.totalPrice.centAmount;
     };
 
     toast.promise(
@@ -94,7 +96,7 @@ function changeLineItemQuantity(mode: string) {
     quantity.value -= 1;
 
     const updateCustomer = async () => {
-      await store.dispatch('cart/changeLineItemQuantity', {
+      const res = await store.dispatch('cart/changeLineItemQuantity', {
         version: store.state.cart.version,
         actions: [
           {
@@ -104,6 +106,8 @@ function changeLineItemQuantity(mode: string) {
           },
         ],
       });
+
+      store.state.cart.totalPrice = res.totalPrice.centAmount;
     };
 
     toast.promise(
