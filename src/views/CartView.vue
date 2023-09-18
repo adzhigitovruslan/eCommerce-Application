@@ -29,7 +29,10 @@
         </ul>
         <ul class="cart__list" v-else>
           <div class="empty-cart">
-            <p class="empty-cart__text">There are no products in the cart.</p>
+            <p class="empty-cart__text">
+              There are no products in the cart. Back to
+              <router-link class="empty-cart__active" :to="{ name: 'catalog' }">catalog</router-link>
+            </p>
           </div>
         </ul>
       </transition>
@@ -71,6 +74,14 @@ export default defineComponent({
   padding: 20px;
   &__text {
     color: #ffffff;
+  }
+  &__active {
+    color: #ffffff;
+    text-decoration: underline;
+    transition: 0.2s;
+    &:hover {
+      opacity: 0.8;
+    }
   }
 }
 .order {
