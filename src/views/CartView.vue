@@ -124,6 +124,7 @@ export default defineComponent({
     flex-direction: column;
     gap: 20px;
     padding: 30px;
+    width: 100%;
   }
 }
 .cart-container {
@@ -145,6 +146,7 @@ export default defineComponent({
   margin: 0 auto;
   padding-bottom: 30px;
   padding-top: 30px;
+  width: 100%;
   @media (max-width: 1200px) {
     padding-top: calc(15px + (30 - 15) * ((100vw - 320px) / (1200 - 320)));
     padding-bottom: calc(15px + (30 - 15) * ((100vw - 320px) / (1200 - 320)));
@@ -187,7 +189,6 @@ export default defineComponent({
     flex-direction: column;
     gap: 30px;
     width: 100%;
-    max-width: 70%;
     @media (max-width: 1200px) {
       gap: calc(15px + (30 - 15) * ((100vw - 320px) / (1200 - 320)));
     }
@@ -214,6 +215,7 @@ export default defineComponent({
   flex-direction: column;
   align-items: flex-start;
   gap: 15px;
+  width: 100%;
   padding: 30px;
   border-radius: 15px;
   background: url('@/assets/images/board.png');

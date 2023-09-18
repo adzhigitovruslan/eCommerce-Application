@@ -131,6 +131,13 @@ function changeLineItemQuantity(mode: string) {
 .fa-xmark {
   cursor: pointer;
   transition: 0.2s;
+  font-size: 30px;
+  @media (max-width: 768px) {
+    font-size: 25px;
+  }
+  @media (max-width: 480px) {
+    font-size: 20px;
+  }
   &:hover {
     opacity: 0.8;
   }
@@ -138,6 +145,7 @@ function changeLineItemQuantity(mode: string) {
 .item-cart {
   display: flex;
   gap: 30px;
+  justify-content: space-between;
   @media (max-width: 1200px) {
     gap: calc(10px + (30 - 10) * ((100vw - 320px) / (1200 - 320)));
   }
@@ -223,7 +231,7 @@ function changeLineItemQuantity(mode: string) {
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 15px;
     @media (max-width: 1200px) {
