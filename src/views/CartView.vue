@@ -17,6 +17,11 @@
             <h3 class="order__header">
               <span>{{ getCartQuantity }} </span> items
             </h3>
+            <transition mode="out-in" name="promo">
+              <div class="order__price active" v-if="isPromoActive">
+                {{ getTotalOldPrice ? getTotalOldPrice / 100 : '' }} $
+              </div>
+            </transition>
             <div class="order__price">{{ getTotalPrice / 100 }} $</div>
             <input class="order__input" type="text" placeholder="Enter promo code" v-model="promocodeInput" />
             <button class="order__button" v-if="!isPromoActive" @click="addPromocode">Apply Promocode</button>
@@ -24,7 +29,7 @@
           </div>
         </div>
       </div>
-      <transition>
+      <transition mode="out-in">
         <ul class="cart__list" v-if="cartProducts.length">
           <li class="cart__item item-cart" v-for="product in cartProducts" :key="product.id">
             <CartProduct :product="product" />
@@ -60,6 +65,7 @@ export default defineComponent({
     return {
       isPromoActive: false,
       promocodeInput: '',
+      getTotalOldPrice: null,
     };
   },
   computed: {
@@ -74,9 +80,13 @@ export default defineComponent({
     },
   },
   methods: {
-    addPromocode() {
-      this.isPromoActive = !this.isPromoActive;
-      this.$store.dispatch('cart/addPromocode', {
+    async addPromocode() {
+      if (!this.promocodeInput || this.getCartQuantity === 0) {
+        return;
+      }
+      this.getTotalOldPrice = this.getTotalPrice;
+
+      await this.$store.dispatch('cart/addPromocode', {
         version: this.$store.state.cart.version,
         actions: [
           {
@@ -86,10 +96,12 @@ export default defineComponent({
         ],
         currency: 'USD',
       });
-    },
-    removePromocode() {
+
       this.isPromoActive = !this.isPromoActive;
-      this.$store.dispatch('cart/removePromocode', {
+    },
+    async removePromocode() {
+      this.isPromoActive = !this.isPromoActive;
+      await this.$store.dispatch('cart/removePromocode', {
         version: this.$store.state.cart.version,
         actions: [
           {
@@ -102,6 +114,7 @@ export default defineComponent({
         ],
         currency: 'USD',
       });
+      this.getTotalOldPrice = null;
     },
   },
 });
@@ -166,6 +179,14 @@ export default defineComponent({
     justify-content: center;
     @media (max-width: 1200px) {
       font-size: calc(25px + (36 - 25) * ((100vw - 320px) / (1200 - 320)));
+    }
+    &.active {
+      text-decoration: line-through;
+      opacity: 0.8;
+      font-size: 25px;
+      @media (max-width: 1200px) {
+        font-size: calc(16px + (25 - 16) * ((100vw - 320px) / (1200 - 320)));
+      }
     }
   }
   &__block {
@@ -316,5 +337,15 @@ export default defineComponent({
 .v-enter-active,
 .v-leave-active {
   transition: 0.5s;
+}
+.promo-enter-from,
+.promo-leave-to {
+  transform: translateX(-20px);
+  opacity: 0;
+}
+
+.promo-enter-active,
+.promo-leave-active {
+  transition: 0.2s;
 }
 </style>

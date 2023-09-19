@@ -70,6 +70,12 @@ const actions: ActionTree<CartState, GlobalState> = {
         context.state.version = body.version;
         context.commit('setCart', body.lineItems);
 
+        if (body.totalLineItemQuantity) {
+          context.state.totalLineItemQuantity = body.totalLineItemQuantity;
+        } else {
+          context.state.totalLineItemQuantity = 0;
+        }
+
         return body;
       })
       .catch((err) => {
