@@ -49,15 +49,33 @@ if (newPrice.value) {
 }
 
 function removeLineItem() {
-  store.dispatch('cart/removeLineItem', {
-    version: store.state.cart.version,
-    actions: [
-      {
-        action: 'removeLineItem',
-        lineItemId: props.product.id,
-      },
-    ],
-  });
+  const updateCustomer = async () => {
+    const res = await store.dispatch('cart/removeLineItem', {
+      version: store.state.cart.version,
+      actions: [
+        {
+          action: 'removeLineItem',
+          lineItemId: props.product.id,
+        },
+      ],
+    });
+
+    store.state.cart.totalPrice = res.totalPrice.centAmount;
+  };
+
+  toast.promise(
+    updateCustomer,
+    {
+      pending: 'Wait..',
+      success: 'Item is deleted 👌',
+      error: 'Something goes wrong 🤯',
+    },
+    {
+      theme: 'dark',
+      icon: '🎉',
+      transition: toast.TRANSITIONS.SLIDE,
+    },
+  );
 }
 // eslint-disable-next-line max-lines-per-function
 function changeLineItemQuantity(mode: string) {

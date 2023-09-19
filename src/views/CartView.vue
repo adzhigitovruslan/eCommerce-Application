@@ -8,20 +8,28 @@
         <div class="cart__board board">
           <h3 class="board__header">Login or register</h3>
           <p class="board__text">You can receive a 15% discount using a promo code: HAPPY15.</p>
-          <button class="board__in-button">Login</button>
+          <router-link :to="{ name: 'login' }">
+            <button class="board__in-button">Login</button>
+          </router-link>
         </div>
         <div class="order">
           <div class="order__block">
             <h3 class="order__header">
               <span>{{ getCartQuantity }} </span> items
             </h3>
+            <transition mode="out-in" name="promo">
+              <div class="order__price active" v-if="isPromoActive">
+                {{ getTotalOldPrice ? getTotalOldPrice / 100 : '' }} $
+              </div>
+            </transition>
             <div class="order__price">{{ getTotalPrice / 100 }} $</div>
-            <input class="order__input" type="text" placeholder="Enter promo code" />
-            <button class="order__button">Place Order</button>
+            <input class="order__input" type="text" placeholder="Enter promo code" v-model="promocodeInput" />
+            <button class="order__button" v-if="!isPromoActive" @click="addPromocode">Apply Promocode</button>
+            <button class="order__button" v-else @click="removePromocode">Remove Promocode</button>
           </div>
         </div>
       </div>
-      <transition>
+      <transition mode="out-in">
         <ul class="cart__list" v-if="cartProducts.length">
           <li class="cart__item item-cart" v-for="product in cartProducts" :key="product.id">
             <CartProduct :product="product" />
@@ -77,6 +85,13 @@ export default defineComponent({
   components: {
     CartProduct,
   },
+  data() {
+    return {
+      isPromoActive: false,
+      promocodeInput: '',
+      getTotalOldPrice: null,
+    };
+  },
   computed: {
     getCartQuantity() {
       return this.$store.getters['cart/getCartQuantity'];
@@ -86,6 +101,44 @@ export default defineComponent({
     },
     getTotalPrice() {
       return this.$store.getters['cart/getTotalPrice'];
+    },
+  },
+  methods: {
+    async addPromocode() {
+      if (!this.promocodeInput || this.getCartQuantity === 0) {
+        return;
+      }
+      this.getTotalOldPrice = this.getTotalPrice;
+
+      await this.$store.dispatch('cart/addPromocode', {
+        version: this.$store.state.cart.version,
+        actions: [
+          {
+            action: 'addDiscountCode',
+            code: this.promocodeInput,
+          },
+        ],
+        currency: 'USD',
+      });
+
+      this.isPromoActive = !this.isPromoActive;
+    },
+    async removePromocode() {
+      this.isPromoActive = !this.isPromoActive;
+      await this.$store.dispatch('cart/removePromocode', {
+        version: this.$store.state.cart.version,
+        actions: [
+          {
+            action: 'removeDiscountCode',
+            discountCode: {
+              typeId: 'discount-code',
+              id: this.$store.state.cart.promocodeId,
+            },
+          },
+        ],
+        currency: 'USD',
+      });
+      this.getTotalOldPrice = null;
     },
   },
 });
@@ -150,6 +203,14 @@ export default defineComponent({
     justify-content: center;
     @media (max-width: 1200px) {
       font-size: calc(25px + (36 - 25) * ((100vw - 320px) / (1200 - 320)));
+    }
+    &.active {
+      text-decoration: line-through;
+      opacity: 0.8;
+      font-size: 25px;
+      @media (max-width: 1200px) {
+        font-size: calc(16px + (25 - 16) * ((100vw - 320px) / (1200 - 320)));
+      }
     }
   }
   &__block {
@@ -300,5 +361,15 @@ export default defineComponent({
 .v-enter-active,
 .v-leave-active {
   transition: 0.5s;
+}
+.promo-enter-from,
+.promo-leave-to {
+  transform: translateX(-20px);
+  opacity: 0;
+}
+
+.promo-enter-active,
+.promo-leave-active {
+  transition: 0.2s;
 }
 </style>

@@ -70,8 +70,6 @@ function setProfileOption(option: string) {
   profileHeader.value = option;
 
   if (option === 'Address') {
-    console.log('update');
-
     getCustomerData();
   }
 }

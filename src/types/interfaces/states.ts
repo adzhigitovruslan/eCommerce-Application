@@ -25,6 +25,7 @@ export interface CartState {
   version: number;
   totalPrice: number;
   totalLineItemQuantity: number;
+  promocodeId: string;
 }
 
 export interface IAddress {
