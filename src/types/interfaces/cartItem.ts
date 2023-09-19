@@ -1,9 +1,10 @@
 export interface CartItem {
-  id: number;
+  id: string;
   quantity: number;
   name: {
     'en-US': string;
   };
+  productId: string;
   price: {
     value: {
       centAmount: number;

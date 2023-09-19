@@ -1,6 +1,6 @@
 import { ActionTree } from 'vuex';
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import { ctpClient, ctpAnonymousClient } from '@/utils/BuildClient';
+import { ctpAnonymousClient } from '@/utils/BuildClient';
 import { GlobalState, CartState } from '@/types/interfaces/states';
 
 const projectKey = process.env.VUE_APP_PRJ_KEY;
@@ -9,7 +9,7 @@ const apiRoot = createApiBuilderFromCtpClient(ctpAnonymousClient).withProjectKey
 });
 
 const actions: ActionTree<CartState, GlobalState> = {
-  async createAnonymousCart(context, payload) {
+  async createAnonymousCart(context) {
     const doCustomer = () => {
       return apiRoot
         .me()

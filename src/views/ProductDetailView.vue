@@ -2,6 +2,7 @@
   <section class="detail-view" ref="section">
     <div :class="`backgroundImg ${isLoading}`" ref="backgroundImg"></div>
     <TheCardContent
+      :id="currentProd.id"
       :coverImg="coverImg || ''"
       :name="name"
       :oldPrice="oldPrice"
@@ -10,6 +11,7 @@
       :genre="`${genre}`"
       :publisher="`${publisher}`"
       :ratings="+ratings"
+      :product="currentProd"
     />
     <TheCardCarousel :imgArr="imgArrFilter" />
     <TheCardDescription :description="description" :requirements="`${requirements}`" />

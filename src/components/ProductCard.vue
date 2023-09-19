@@ -30,8 +30,11 @@
     </router-link>
     <div class="game-buttons" :class="{ 'show-buttons': showButtons }">
       <div class="game-add-to-cart" v-if="showButtons">
-        <button @click="addToCart(product)" class="add-to-cart-button">
+        <button @click="addItemToCart(product)" class="add-to-cart-button" v-if="!isProductInCart">
           <font-awesome-icon :icon="['fas', 'cart-shopping']" class="cart-icon"></font-awesome-icon>
+        </button>
+        <button class="add-to-cart-button remove" v-else @click="removeLineItem">
+          <font-awesome-icon icon="fa-solid fa-xmark" class="cart-icon remove"></font-awesome-icon>
         </button>
       </div>
     </div>
@@ -41,6 +44,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { ProductItem } from '@/types/interfaces/productItem';
+import { useStore } from 'vuex';
+import { toast } from 'vue3-toastify';
+import { CartItem } from '@/types/interfaces/cartItem';
 
 interface Image {
   dimensions: {
@@ -66,9 +72,36 @@ export default defineComponent({
     return {
       showDescription: false,
       showButtons: false,
+      store: useStore(),
     };
   },
+  computed: {
+    isProductInCart() {
+      return this.$store.getters['cart/isProductInCart'](this.$props.product.id);
+    },
+  },
   methods: {
+    removeLineItem() {
+      const cartItem = this.$store.getters['cart/cartProducts'].find((prod: CartItem) => {
+        return prod.productId == this.$props.product.id;
+      });
+
+      this.$store.dispatch('cart/removeLineItem', {
+        version: this.$store.state.cart.version,
+        actions: [
+          {
+            action: 'removeLineItem',
+            lineItemId: cartItem.id,
+          },
+        ],
+      });
+    },
+    notify() {
+      toast('Add into cart', {
+        autoClose: 1200,
+        theme: 'dark',
+      });
+    },
     getCoverImageUrl(images: Image[]): string {
       const coverLabel = 'Cover';
       const coverImage = images.find((image) => image.label === coverLabel);
@@ -105,7 +138,6 @@ export default defineComponent({
 
       return formattedRegularPrice;
     },
-
     getProductDiscount(product: ProductItem) {
       const currentVariant = product.masterVariant;
       const hasDiscountedPrice = !!currentVariant.prices[0]?.discounted?.value?.centAmount;
@@ -123,8 +155,27 @@ export default defineComponent({
     toggleDescription() {
       this.showDescription = !this.showDescription;
     },
-    addToCart(product: ProductItem) {
-      this.$emit('addToCartClicked', product);
+    async addItemToCart(product: ProductItem) {
+      this.notify();
+
+      try {
+        if (!this.store.state.cart.cartId) {
+          await this.store.dispatch('cart/createAnonymousCart');
+        }
+        await this.store.dispatch('cart/addLineItem', {
+          version: this.store.state.cart.version,
+          actions: [
+            {
+              action: 'addLineItem',
+              productId: product.id,
+              variantId: product.masterVariant.id,
+              quantity: 1,
+            },
+          ],
+        });
+      } catch (err) {
+        console.log(err);
+      }
     },
     onMouseOver() {
       this.showButtons = true;
@@ -192,6 +243,10 @@ export default defineComponent({
   .heart-icon {
     height: 40px;
     margin: 30px;
+  }
+
+  .cart-icon.remove {
+    color: #be1d1d;
   }
 }
 

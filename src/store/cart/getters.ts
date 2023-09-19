@@ -9,6 +9,13 @@ const getters: GetterTree<CartState, GlobalState> = {
   cartProducts(state) {
     return state.cart;
   },
+  isProductInCart: (state) => (id: string) => {
+    return Boolean(
+      state.cart.find((product) => {
+        return product.productId == id;
+      }),
+    );
+  },
   getTotalPrice(state) {
     return state.totalPrice;
   },

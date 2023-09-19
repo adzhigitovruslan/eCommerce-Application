@@ -2,7 +2,6 @@
   <div class="catalog">
     <div class="catalog-container">
       <div class="catalog-filters"><FilterBar /></div>
-
       <div class="catalog-products">
         <div class="catalog-header">
           <h2>This is a catalog</h2>

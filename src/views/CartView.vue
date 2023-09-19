@@ -38,7 +38,7 @@
       </transition>
 
       <div class="cart__remove-btn">
-        <button>Clear cart</button>
+        <button @click="clearCart">Clear cart</button>
       </div>
     </div>
   </div>
@@ -48,8 +48,32 @@
 import { defineComponent } from 'vue';
 import CartProduct from '@/components/cart/CartProduct.vue';
 import { CartItem } from '@/types/interfaces/cartItem';
+import { useStore } from 'vuex';
 
 export default defineComponent({
+  data() {
+    return {
+      store: useStore(),
+    };
+  },
+  methods: {
+    async clearCart() {
+      const cartItems = this.$store.getters['cart/cartProducts'];
+
+      if (cartItems.length > 0) {
+        await this.$store.dispatch('cart/removeLineItem', {
+          version: this.$store.state.cart.version,
+          actions: [
+            {
+              action: 'removeLineItem',
+              lineItemId: cartItems[0].id,
+            },
+          ],
+        });
+        this.clearCart();
+      }
+    },
+  },
   components: {
     CartProduct,
   },

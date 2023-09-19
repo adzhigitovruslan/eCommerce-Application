@@ -18,7 +18,6 @@ const store = useStore();
 function isLoggedIn() {
   const isLoggedInString = localStorage.getItem('isLoggedIn');
   const hasId = localStorage.getItem('id');
-  const cartId = localStorage.getItem('cartId');
 
   if (isLoggedInString !== null && hasId !== null) {
     const isLoggedInValue: boolean = JSON.parse(isLoggedInString);

@@ -8,8 +8,9 @@
         <span class="game-info__old-price">$59.99</span>
       </div>
       <div class="game-info__buttons">
-        <button class="game-info__button-cart">Add to Cart</button>
-        <button class="game-info__button-favourites">Add to Favorites</button>
+        <button class="game-info__button-cart" @click="addItemToCart" v-if="!isProductInCart">Add to Cart</button>
+        <button class="game-info__button-cart remove" v-else @click="removeLineItem">Remove</button>
+        <!-- <button class="game-info__button-favourites">Add to Favorites</button> -->
       </div>
       <img src="../assets/images/minecraft_slide1.png" alt="Yellow Card" class="green-card-img" />
     </div>
@@ -21,13 +22,71 @@
         <span class="game-info__old-price">$59.99</span>
       </div>
       <div class="game-info__buttons">
-        <button class="game-info__button-cart">Add to Cart</button>
-        <button class="game-info__button-favourites">Add to Favorites</button>
+        <button class="game-info__button-cart" @click="addItemToCart" v-if="!isProductInCart">Add to Cart</button>
+        <button class="game-info__button-cart remove" v-else @click="removeLineItem">Remove</button>
+        <!-- <button class="game-info__button-favourites">Add to Favorites</button> -->
       </div>
       <img src="../assets/images/minecraft_slide2.png" alt="Red Card" class="red-card-img" />
     </div>
   </div>
 </template>
+
+<script lang="ts" setup>
+import { toast } from 'vue3-toastify';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+import mineCraftData from '@/data/minecraft.json';
+import { CartItem } from '@/types/interfaces/cartItem';
+
+const store = useStore();
+const addItemToCart = async () => {
+  try {
+    notify();
+
+    if (!store.state.cart.cartId) {
+      await store.dispatch('cart/createAnonymousCart');
+    }
+    await store.dispatch('cart/addLineItem', {
+      version: store.state.cart.version,
+      actions: [
+        {
+          action: 'addLineItem',
+          productId: mineCraftData.id,
+          variantId: mineCraftData.masterVariant.id,
+          quantity: 1,
+        },
+      ],
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+const notify = () => {
+  toast('Add into cart', {
+    autoClose: 1200,
+    theme: 'dark',
+  });
+};
+const isProductInCart = computed(() => {
+  return store.getters['cart/isProductInCart'](mineCraftData.id);
+});
+
+function removeLineItem() {
+  const cartItem = store.getters['cart/cartProducts'].find((prod: CartItem) => {
+    return prod.productId == mineCraftData.id;
+  });
+
+  store.dispatch('cart/removeLineItem', {
+    version: store.state.cart.version,
+    actions: [
+      {
+        action: 'removeLineItem',
+        lineItemId: cartItem.id,
+      },
+    ],
+  });
+}
+</script>
 
 <style lang="scss">
 @import '@/assets/styles/global.scss';
@@ -175,6 +234,16 @@ h2 {
     color: rgba(0, 0, 0, 0.9);
     border-color: rgba(255, 255, 255, 0.1);
   }
+}
+
+.game-info__button-cart.remove {
+  background-color: #be1d1d;
+  color: #fff;
+}
+
+.game-info__button-cart.remove:hover {
+  background-color: rgba(179, 35, 35, 0.4);
+  color: #fff;
 }
 
 @media (max-width: 780px) {

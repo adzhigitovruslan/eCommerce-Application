@@ -150,7 +150,6 @@
 import { ProductItem } from '@/types/interfaces/productItem';
 import { defineComponent } from 'vue';
 import { toast } from 'vue3-toastify';
-import { CartItem } from '@/types/interfaces/cartItem';
 import 'vue3-toastify/dist/index.css';
 
 export default defineComponent({

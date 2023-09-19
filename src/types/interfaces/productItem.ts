@@ -1,6 +1,6 @@
 export interface ProductItem {
   id: string;
-  key: number;
+  key: string;
   name: Record<string, string>;
   productType: {
     id: string;

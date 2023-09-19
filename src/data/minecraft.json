@@ -1,0 +1,104 @@
+{
+  "id": "fac2346f-4e3e-4fa2-abf8-39f454be23b0",
+  "version": 63,
+  "productType": { "typeId": "product-type", "id": "80040722-52b8-4a44-a613-005b0b124877" },
+  "name": { "en-US": "Minecraft" },
+  "description": {
+    "en-US": "Minecraft is a sandbox video game developed by Mojang Studios. Players explore a blocky, procedurally-generated 3D world with infinite terrain, discovering and extracting raw materials, crafting tools and items, and building structures or earthworks. Depending on the game mode, players can fight computer-controlled \"mobs\" and cooperate with or compete against other players in the same world. Game modes include a survival mode, where players must acquire resources to build the world and maintain health, and a creative mode, where players have unlimited resources. Players can modify the game to create new gameplay mechanics, items, and assets."
+  },
+  "categories": [
+    { "typeId": "category", "id": "59fa4bdf-195e-4c48-930b-df4ae9429534" },
+    { "typeId": "category", "id": "5402faca-17a1-4830-b92c-292c16d1568d" }
+  ],
+  "categoryOrderHints": {},
+  "slug": { "en-US": "minecraft" },
+  "metaTitle": { "en-US": " \"Minecraft - Explore, Build, Survive | Official Website\"", "ru": "" },
+  "variants": [],
+  "masterVariant": {
+    "attributes": [
+      { "name": "Title", "value": "Minecraft" },
+      { "name": "Genre", "value": "Sandbox" },
+      { "name": "Developer", "value": "Mojang Studios" },
+      { "name": "Publisher", "value": "Mojang Studios" },
+      { "name": "Release_Year", "value": 2011 },
+      {
+        "name": "System_Requirements",
+        "value": "Operating system: Windows 10,\nProcessor\": Intel Core i3,\nMemory: 4 GB RAM,\nGraphics card: Integrated GPU,\nDisk space: 1 GB"
+      },
+      { "name": "Activation_Type", "value": "Key, steam account" },
+      {
+        "name": "Storyline",
+        "value": {
+          "en-US": "Minecraft lacks a traditional main plot, offering players an open sandbox world where they shape their own narratives. Players can explore diverse biomes, gather resources, and construct intricate structures in both Survival and Creative modes. The absence of a predefined story allows players to set their own goals, whether it's surviving against hostile creatures, embarking on epic adventures, or building sprawling landscapes. Minecraft's open-ended nature, multiplayer capabilities, and vibrant modding community ensure that players can create and share unique narratives and experiences within the game's blocky universe. This creative freedom has played a significant role in the game's widespread appeal and longevity."
+        }
+      },
+      {
+        "name": "Gameplay",
+        "value": {
+          "en-US": "\nMinecraft offers a dynamic game experience with its core mechanics centered around exploration, crafting, building, survival, and creativity. Players navigate a procedurally generated world made up of blocks, gathering resources like wood, stone, and minerals to craft tools and structures. Survival mode introduces health, hunger, and hostile mobs, adding a challenging dimension. Creative mode allows players to build without limitations and offers access to all resources. The game's flexible rules empower players to create their own objectives, whether it's constructing intricate structures, embarking on quests, or engaging in multiplayer adventures."
+        }
+      },
+      { "name": "Ratings", "value": 90 },
+      { "name": "Single-player", "value": true },
+      {
+        "name": "Price",
+        "value": { "type": "centPrecision", "currencyCode": "USD", "centAmount": 2299, "fractionDigits": 2 }
+      },
+      { "name": "Languages", "value": "English" },
+      { "name": "Multiplayer", "value": true }
+    ],
+    "assets": [],
+    "images": [
+      {
+        "url": "https://c10054311427eabbd78d-b9204fbca671faa720aa0febea5d6228.ssl.cf5.rackcdn.com/minecraft_6-tNq-KeTl.jpeg",
+        "label": "Cover",
+        "dimensions": { "w": 1200, "h": 675 }
+      },
+      {
+        "url": "https://c10054311427eabbd78d-b9204fbca671faa720aa0febea5d6228.ssl.cf5.rackcdn.com/minecraft-logo-Vrd0wxoS.png",
+        "label": "Logo",
+        "dimensions": { "w": 1481, "h": 540 }
+      },
+      {
+        "url": "https://c10054311427eabbd78d-b9204fbca671faa720aa0febea5d6228.ssl.cf5.rackcdn.com/minecraft-4-CadYRsYu.jpeg",
+        "dimensions": { "w": 900, "h": 506 }
+      },
+      {
+        "url": "https://c10054311427eabbd78d-b9204fbca671faa720aa0febea5d6228.ssl.cf5.rackcdn.com/minecraft_7-s767aiTe.jpeg",
+        "dimensions": { "w": 1920, "h": 1080 }
+      },
+      {
+        "url": "https://c10054311427eabbd78d-b9204fbca671faa720aa0febea5d6228.ssl.cf5.rackcdn.com/mn2175124-1-VGlJG-.png",
+        "dimensions": { "w": 1280, "h": 720 }
+      },
+      {
+        "url": "https://c10054311427eabbd78d-b9204fbca671faa720aa0febea5d6228.ssl.cf5.rackcdn.com/mc12er-rbkR8woW.jpg",
+        "dimensions": { "w": 1920, "h": 1080 }
+      }
+    ],
+    "prices": [
+      {
+        "id": "691a4043-aff8-4e7e-85a2-0a09120fc8d0",
+        "value": { "type": "centPrecision", "currencyCode": "USD", "centAmount": 2299, "fractionDigits": 2 },
+        "key": "MINECRAFT-JAVA-BASE-en_US",
+        "validFrom": "2023-08-24T22:00:00.000Z",
+        "validUntil": "2024-08-24T22:00:00.000Z",
+        "discounted": {
+          "value": { "type": "centPrecision", "currencyCode": "USD", "centAmount": 2069, "fractionDigits": 2 },
+          "discount": { "typeId": "product-discount", "id": "0ed89916-b872-4531-9541-aac2f010b49d" }
+        }
+      }
+    ],
+    "key": "MINECRAFT-JAVA-BASE",
+    "sku": "MINECRAFT-BASE",
+    "id": 1
+  },
+  "searchKeywords": { "en-US": [{ "text": "minecraft" }, { "text": "Minecraft" }, { "text": "sandbox" }] },
+  "hasStagedChanges": false,
+  "published": true,
+  "key": "101",
+  "taxCategory": { "typeId": "tax-category", "id": "9ecb3290-9532-4d3c-b19d-f37c263b12fa" },
+  "priceMode": "Embedded",
+  "createdAt": "2023-08-24T09:30:05.105Z",
+  "lastModifiedAt": "2023-09-17T13:41:13.623Z"
+}

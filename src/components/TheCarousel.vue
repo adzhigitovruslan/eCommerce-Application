@@ -31,8 +31,9 @@
         <span class="game-info__old-price">$59.99</span>
       </div>
       <div class="game-info__buttons">
-        <button class="game-info__button-cart">Add to Cart</button>
-        <button class="game-info__button-favourites">Add to Favorites</button>
+        <button class="game-info__button-cart" @click="addItemToCart" v-if="!isProductInCart">Add to Cart</button>
+        <button class="game-info__button-cart remove" v-else @click="removeLineItem">Remove</button>
+        <!-- <button class="game-info__button-favourites">Add to Favorites</button> -->
       </div>
     </div>
   </div>
@@ -42,6 +43,10 @@
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Navigation, Pagination } from 'vue3-carousel';
 import { ref, onMounted, computed, onBeforeUnmount } from 'vue';
+import { useStore } from 'vuex';
+import mineCraftData from '@/data/minecraft.json';
+import { toast } from 'vue3-toastify';
+import { CartItem } from '@/types/interfaces/cartItem';
 
 const slides = [
   { id: 1, imageUrl: require('../assets/images/minecraft/minecraft_6.jpeg') },
@@ -62,6 +67,38 @@ const handleResize = () => {
     showGameInfo.value = false;
   }
 };
+const store = useStore();
+const addItemToCart = async () => {
+  notify();
+
+  try {
+    if (!store.state.cart.cartId) {
+      await store.dispatch('cart/createAnonymousCart');
+    }
+    await store.dispatch('cart/addLineItem', {
+      version: store.state.cart.version,
+      actions: [
+        {
+          action: 'addLineItem',
+          productId: mineCraftData.id,
+          variantId: mineCraftData.masterVariant.id,
+          quantity: 1,
+        },
+      ],
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+const isProductInCart = computed(() => {
+  return store.getters['cart/isProductInCart'](mineCraftData.id);
+});
+const notify = () => {
+  toast('Add into cart', {
+    autoClose: 1200,
+    theme: 'dark',
+  });
+};
 
 onMounted(() => {
   currentSlide.value = Math.floor(slides.length / 2);
@@ -76,6 +113,22 @@ onBeforeUnmount(() => {
 const showNavigation = computed(() => {
   return window.innerWidth > 768;
 });
+
+function removeLineItem() {
+  const cartItem = store.getters['cart/cartProducts'].find((prod: CartItem) => {
+    return prod.productId == mineCraftData.id;
+  });
+
+  store.dispatch('cart/removeLineItem', {
+    version: store.state.cart.version,
+    actions: [
+      {
+        action: 'removeLineItem',
+        lineItemId: cartItem.id,
+      },
+    ],
+  });
+}
 </script>
 
 <style lang="scss">

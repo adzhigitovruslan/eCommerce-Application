@@ -48,13 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import { useStore } from 'vuex';
-import { computed } from 'vue';
-import 'vue3-toastify/dist/index.css';
-
-const getVersion = computed(() => store.getters['customer/getVersion']);
-const store = useStore();
-const props = defineProps<{
+defineProps<{
   isBothAddressChecked?: boolean;
   shippingAddress?: string;
   billingAddress?: string;

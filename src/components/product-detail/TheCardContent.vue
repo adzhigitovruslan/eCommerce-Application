@@ -16,8 +16,14 @@
         </p>
       </div>
       <div class="detail-view__content__card__buttons">
-        <button class="detail-view__content__card__buttons__buy">Into cart</button>
-        <button class="detail-view__content__card__buttons__cart">Into favorite</button>
+        <button
+          class="detail-view__content__card__buttons__buy"
+          @click="addItemToCart(props.product)"
+          v-if="!isProductInCart"
+        >
+          Into cart
+        </button>
+        <button class="detail-view__content__card__buttons__buy remove" v-else @click="removeLineItem">Remove</button>
       </div>
       <div class="detail-view__content__card__short-info">
         <div class="detail-view__content__card__short-info__box" v-if="props.genre !== 'undefined'">
@@ -48,7 +54,15 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+import { ProductItem } from '@/types/interfaces/productItem';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+import { CartItem } from '@/types/interfaces/cartItem';
+
 const props = defineProps<{
+  id: string;
   coverImg: string;
   name: string;
   oldPrice: number;
@@ -57,7 +71,56 @@ const props = defineProps<{
   genre: string;
   publisher: string;
   ratings: number;
+  product: ProductItem;
 }>();
+const store = useStore();
+const addItemToCart = async (product: ProductItem) => {
+  try {
+    notify();
+
+    if (!store.state.cart.cartId) {
+      await store.dispatch('cart/createAnonymousCart');
+    }
+    await store.dispatch('cart/addLineItem', {
+      version: store.state.cart.version,
+      actions: [
+        {
+          action: 'addLineItem',
+          productId: product.id,
+          variantId: product.masterVariant.id,
+          quantity: 1,
+        },
+      ],
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+const notify = () => {
+  toast('Add into cart', {
+    autoClose: 1200,
+    theme: 'dark',
+  });
+};
+const isProductInCart = computed(() => {
+  return store.getters['cart/isProductInCart'](props.id);
+});
+
+function removeLineItem() {
+  const cartItem = store.getters['cart/cartProducts'].find((prod: CartItem) => {
+    return prod.productId == props.id;
+  });
+
+  store.dispatch('cart/removeLineItem', {
+    version: store.state.cart.version,
+    actions: [
+      {
+        action: 'removeLineItem',
+        lineItemId: cartItem.id,
+      },
+    ],
+  });
+}
 </script>
 
 <style lang="scss" scoped>
@@ -153,6 +216,10 @@ const props = defineProps<{
             color: rgba(0, 0, 0, 0.9);
             border-color: rgba(255, 255, 255, 0.1);
           }
+        }
+
+        &__buy.remove {
+          background-color: #be1d1d;
         }
 
         &__cart {
