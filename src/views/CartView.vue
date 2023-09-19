@@ -8,7 +8,9 @@
         <div class="cart__board board">
           <h3 class="board__header">Login or register</h3>
           <p class="board__text">You can receive a 15% discount using a promo code: HAPPY15.</p>
-          <button class="board__in-button">Login</button>
+          <router-link :to="{ name: 'login' }">
+            <button class="board__in-button">Login</button>
+          </router-link>
         </div>
         <div class="order">
           <div class="order__block">
@@ -16,8 +18,9 @@
               <span>{{ getCartQuantity }} </span> items
             </h3>
             <div class="order__price">{{ getTotalPrice / 100 }} $</div>
-            <input class="order__input" type="text" placeholder="Enter promo code" />
-            <button class="order__button">Place Order</button>
+            <input class="order__input" type="text" placeholder="Enter promo code" v-model="promocodeInput" />
+            <button class="order__button" v-if="!isPromoActive" @click="addPromocode">Apply Promocode</button>
+            <button class="order__button" v-else @click="removePromocode">Remove Promocode</button>
           </div>
         </div>
       </div>
@@ -53,6 +56,12 @@ export default defineComponent({
   components: {
     CartProduct,
   },
+  data() {
+    return {
+      isPromoActive: false,
+      promocodeInput: '',
+    };
+  },
   computed: {
     getCartQuantity() {
       return this.$store.getters['cart/getCartQuantity'];
@@ -62,6 +71,37 @@ export default defineComponent({
     },
     getTotalPrice() {
       return this.$store.getters['cart/getTotalPrice'];
+    },
+  },
+  methods: {
+    addPromocode() {
+      this.isPromoActive = !this.isPromoActive;
+      this.$store.dispatch('cart/addPromocode', {
+        version: this.$store.state.cart.version,
+        actions: [
+          {
+            action: 'addDiscountCode',
+            code: this.promocodeInput,
+          },
+        ],
+        currency: 'USD',
+      });
+    },
+    removePromocode() {
+      this.isPromoActive = !this.isPromoActive;
+      this.$store.dispatch('cart/removePromocode', {
+        version: this.$store.state.cart.version,
+        actions: [
+          {
+            action: 'removeDiscountCode',
+            discountCode: {
+              typeId: 'discount-code',
+              id: this.$store.state.cart.promocodeId,
+            },
+          },
+        ],
+        currency: 'USD',
+      });
     },
   },
 });

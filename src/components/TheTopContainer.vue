@@ -44,8 +44,6 @@ export default defineComponent({
     },
     async addToCart(product: ProductItem) {
       try {
-        console.log(product);
-
         const updateCustomer = async () => {
           if (!this.$store.state.cart.cartId) {
             await this.$store.dispatch('cart/createAnonymousCart');

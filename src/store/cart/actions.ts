@@ -94,6 +94,45 @@ const actions: ActionTree<CartState, GlobalState> = {
         throw err;
       });
   },
+  async addPromocode(context, body) {
+    return apiRoot
+      .me()
+      .carts()
+      .withId({ ID: context.state.cartId })
+      .post({
+        body,
+      })
+      .execute()
+      .then(({ body }) => {
+        context.state.version = body.version;
+        context.state.promocodeId = body.discountCodes[0].discountCode.id;
+        context.state.totalPrice = body.totalPrice.centAmount;
+
+        return body;
+      })
+      .catch((err) => {
+        throw err;
+      });
+  },
+  async removePromocode(context, body) {
+    return apiRoot
+      .me()
+      .carts()
+      .withId({ ID: context.state.cartId })
+      .post({
+        body,
+      })
+      .execute()
+      .then(({ body }) => {
+        context.state.version = body.version;
+        context.state.totalPrice = body.totalPrice.centAmount;
+
+        return body;
+      })
+      .catch((err) => {
+        throw err;
+      });
+  },
 };
 
 export default actions;

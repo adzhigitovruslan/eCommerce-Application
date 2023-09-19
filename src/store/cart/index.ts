@@ -11,6 +11,7 @@ const cartModule = {
       version: 1,
       totalPrice: 0,
       totalLineItemQuantity: 0,
+      promocodeId: '',
     };
   },
   getters,
