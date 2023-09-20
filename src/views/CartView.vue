@@ -61,8 +61,24 @@ import { useStore } from 'vuex';
 export default defineComponent({
   data() {
     return {
-      store: useStore(),
+      isPromoActive: false,
+      promocodeInput: '',
+      getTotalOldPrice: null,
     };
+  },
+  components: {
+    CartProduct,
+  },
+  computed: {
+    getCartQuantity() {
+      return this.$store.getters['cart/getCartQuantity'];
+    },
+    cartProducts(): CartItem[] {
+      return this.$store.getters['cart/cartProducts'];
+    },
+    getTotalPrice() {
+      return this.$store.getters['cart/getTotalPrice'];
+    },
   },
   methods: {
     async clearCart() {
@@ -81,29 +97,6 @@ export default defineComponent({
         this.clearCart();
       }
     },
-  },
-  components: {
-    CartProduct,
-  },
-  data() {
-    return {
-      isPromoActive: false,
-      promocodeInput: '',
-      getTotalOldPrice: null,
-    };
-  },
-  computed: {
-    getCartQuantity() {
-      return this.$store.getters['cart/getCartQuantity'];
-    },
-    cartProducts(): CartItem[] {
-      return this.$store.getters['cart/cartProducts'];
-    },
-    getTotalPrice() {
-      return this.$store.getters['cart/getTotalPrice'];
-    },
-  },
-  methods: {
     async addPromocode() {
       if (!this.promocodeInput || this.getCartQuantity === 0) {
         return;
